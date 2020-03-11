@@ -1,0 +1,42 @@
+@font-face {
+	font-family:"Ionicons";
+	src: url(ionicons-subset.ttf) format("truetype");
+	unicode-range: U+F35F,U+F394,U+F404,U+F4A5;
+	font-weight:normal;
+	font-style:normal
+}
+
+.ion,
+.ionicons,
+.ion-android-menu:before,
+.ion-android-arrow-dropdown:before,
+.ion-ios-search:before,
+.ion-ios-close-empty:before{
+    display: inline-block;
+    font-family: "Ionicons";
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    text-rendering: auto;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale
+}
+
+.ion-android-menu:before {
+    content: "\f394"
+}
+
+.ion-android-arrow-dropdown:before {
+    content: "\f35f"
+}
+
+.ion-ios-search:before {
+    content: "\f4a5"
+}
+
+.ion-ios-close-empty:before {
+    content: "\f404"
+}

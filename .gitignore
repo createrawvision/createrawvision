@@ -1,0 +1,10 @@
+/*
+!.gitignore
+!/.scripts/
+!/public_html/
+/public_html/*
+!/public_html/wp-content/
+/public_html/wp-content/*
+!/public_html/wp-content/themes/
+!/public_html/wp-content/deploy.php
+/public_html/wp-content/themes/twenty*

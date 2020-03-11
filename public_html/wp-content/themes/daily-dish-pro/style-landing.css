@@ -1,0 +1,277 @@
+/* Site Layout */
+
+.daily-dish-landing .site-container,
+.daily-dish-landing .site-inner,
+.daily-dish-landing .content {
+    overflow: hidden;
+    max-width: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+section {
+    padding: 8rem 5rem;
+}
+
+section .inner {
+    max-width: 720px;
+    margin: auto;
+}
+
+body>div {
+    font-size: 2rem;
+}
+
+section.odd-section {
+    background-color: rgba(225, 204, 159, 0.75);
+    background-image: linear-gradient(#fff4, #fff4), url('https://createrawvision.de/wp-content/uploads/2019/09/Background.jpg');
+    background-size: 1000px;
+}
+
+section.even-section {
+    background-color: white;
+}
+
+.quote-section:nth-of-type(odd) {
+    background: url(https://createrawvision.de/wp-content/uploads/2019/09/angie-pose.jpg) 60% 70% / cover no-repeat;
+}
+
+.quote-section:nth-of-type(even) {
+    background: url(https://createrawvision.de/wp-content/uploads/2019/09/teneriffa-sonnenaufgang.jpg) center / cover no-repeat;
+}
+
+.quote-section .inner {
+    max-width: 570px;
+    margin: 1em auto;
+    background: rgba(148, 0, 108, 0.8);
+    color: white;
+    padding: 1.5em 2em;
+    border-radius: 0.5em;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2.2rem;
+}
+
+.daily-dish-landing a,
+.daily-dish-landing a:hover {
+    text-decoration: none;
+}
+
+.daily-dish-landing button {
+    display: block;
+    font-weight: bold;
+    font-size: 1.2em;
+    border-radius: 1.5rem;
+    width: fit-content;
+    padding: 2.5rem 4rem;
+    box-shadow: inset -0.5rem -0.5rem 0.5rem #00000000, 0.5rem 0.5rem 1rem black;
+    margin: 1rem auto;
+    transition: box-shadow .3s;
+}
+
+.daily-dish-landing button:hover,
+.daily-dish-landing button:focus {
+    box-shadow: inset -0.5rem -0.5rem 0.5rem #00000044,
+        0.5rem 0.5rem 0.5rem black;
+}
+
+.daily-dish-landing button:active {
+    box-shadow: inset 0.3rem 0.3rem 0.5rem #00000044,
+        0.5rem 0.5rem 0.5rem black;
+}
+
+.quote-section button {
+    background: white;
+    color: black;
+}
+
+.button-container {
+	margin-top: 6rem;
+    color: darkred;
+}
+
+.quote-section h2 {
+    color: white;
+    text-transform: uppercase;
+    margin-top: 2rem;
+}
+
+.quote-section.last-section .inner {
+    max-width: 720px;
+}
+
+.quote-section.last-section .book-cover {
+    margin-top: 1rem;
+    margin-bottom: 5rem;
+}
+
+.quote-section.last-section button {
+    margin-bottom: 4rem;
+}
+
+.quote-section.last-section p {
+    margin-bottom: .7em;
+}
+
+.quote-section.last-section s {
+    font-weight: normal;
+}
+
+.quote-section.last-section p:nth-last-of-type(2) {
+    font-weight: normal;
+}
+
+.quote-section.last-section p:last-of-type {
+    font-size: 1.2em;
+    margin-bottom: 0;
+}
+
+.price-offer {
+	font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+	border: 3px solid; 
+	padding: .3em .5em; 
+	width: 95%; 
+	margin-left: auto; 
+	margin-right: auto;
+}
+
+.portrait {
+    float: left;
+    shape-outside: circle(50%);
+    margin: 0 2em 1em 0;
+    width: 150px;
+}
+
+.portrait-angi {
+    width: 200px;
+}
+
+.signature {
+    width: 150px;
+    margin-top: -2rem;
+}
+
+.book-cover {
+    display: block;
+    margin: 2rem auto;
+    max-height: 380px;
+}
+
+.testimonial .personal-info {
+    text-transform: uppercase;
+    color: black;
+    font-size: 2rem;
+}
+
+.testimonial .personal-info .name {
+    font-weight: bold;
+    font-size: 1.4em;
+}
+
+ol>li {
+    margin-bottom: 1rem;
+}
+
+ul>li {
+    margin-bottom: .3rem;
+}
+
+ul.check-list>li {
+    list-style-type: none;
+    margin-bottom: 1rem;
+}
+
+ul.check-list>li::before {
+    content: '\2714';
+    display: inline-block;
+    margin-left: -2.3rem;
+    width: 2.3rem;
+}
+
+h1 {
+    font-size: 4.5rem;
+    margin-bottom: 1em;
+}
+
+h1 b {
+    display: inline-block;
+    margin-bottom: .5rem;
+}
+
+h2 {
+    font-weight: bold;
+}
+
+.entry-content h2,
+.entry-content h3 {
+    margin-top: 2rem;
+}
+
+.chapter-numbering {
+    display: block;
+    font-size: 0.8em;
+    color: rgba(148, 0, 108, 0.7);
+    margin-bottom: 0.2em;
+}
+
+section.header {
+    position: relative;
+    font-size: 1.2em;
+    padding-bottom: 320px;
+    background-color: rgba(225, 204, 159, 0.75);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.25) 60%,
+            rgba(255, 255, 255, 0.2554) 62%,
+            rgba(255, 255, 255, 0.2956) 66%,
+            rgba(255, 255, 255, 0.412) 72%,
+            rgba(255, 255, 255, 0.838) 88%,
+            rgba(255, 255, 255, 0.9544) 94%,
+            rgba(255, 255, 255, 0.9946) 98%,
+            rgba(255, 255, 255, 1) 100%),
+        url('https://createrawvision.de/wp-content/uploads/2019/09/Background.jpg');
+}
+
+section.header+section {
+    padding-top: 100px;
+}
+
+section.header img {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-top: 25px;
+}
+
+section.header b {
+    color: rgb(148, 0, 108);
+}
+
+@media only screen and (max-width: 768px) {
+    .daily-dish-landing .site-container {
+        width: 100%;
+    }
+
+    section {
+        padding: 5rem 3rem;
+    }
+
+    .quote-section .inner {
+        padding: 1em 1.5em;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .portrait {
+        display: block;
+        float: none;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .testimonial .personal-info {
+        margin-top: 1rem;
+        text-align: center;
+    }
+}
