@@ -28,7 +28,8 @@ $path = '/home/customer/www/createrawvision.de/public_html';
 $old_url = 'https://createrawvision.de';
 $new_url = 'http://crv.test';
 
-$folders = ['mu-plugins', 'plugins', 'uploads'];
+// folders inside wp-content (without trailing slash!)
+$folders = ['mu-plugins', 'plugins', 'uploads/2020'];
 
 $plugins_to_deactivate = array(
     'sg-cachepress',
@@ -145,7 +146,7 @@ function  wp_content_in_remote_path($host, $user, $port, $path)
 
 function rsync($host, $user, $port, $path, $folder)
 {
-    $command = "rsync -avh --progress --size-only -e 'ssh -p $port' $user@$host:$path/wp-content/$folder ./wp-content/";
+    $command = "rsync -avh --progress --size-only -e 'ssh -p $port' $user@$host:$path/wp-content/$folder/ ./wp-content/$folder";
     system($command, $return_var);
     return $return_var == 0;
 }
