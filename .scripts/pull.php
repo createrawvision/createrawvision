@@ -42,7 +42,7 @@ $plugins_to_deactivate = array(
  */
 if (!defined('WP_CLI')) {
     echo 'WP_CLI not defined';
-    exit;
+    exit(1);
 }
 
 $skip_db = in_array('skip-db', $args);
@@ -60,19 +60,19 @@ if ($skip_db) {
     echo 'Testing SSH connection', PHP_EOL;
     if (!valid_ssh($host, $user, $port, $path)) {
         echo 'SHH connection failed', PHP_EOL;
-        exit;
+        exit(1);
     }
 
     echo 'Pulling DB', PHP_EOL;
     if (!pull_db($host, $user, $port, $path)) {
         echo 'Pulling DB failed', PHP_EOL;
-        exit;
+        exit(1);
     }
 
     echo 'Replacing URLs', PHP_EOL;
     if (!replace_url($old_url, $new_url)) {
         echo 'Replacing URLs failed', PHP_EOL;
-        exit;
+        exit(1);
     }
 
     echo 'Deactivating plugins', PHP_EOL;
@@ -81,7 +81,7 @@ if ($skip_db) {
     echo 'Deactivating jetpack modules', PHP_EOL;
     if (!remove_option('jetpack_active_modules', ['photon', 'tiled-gallery'])) {
         echo 'Deactivating jetpack modules failed', PHP_EOL;
-        exit;
+        exit(1);
     }
 }
 
@@ -97,25 +97,25 @@ if ($skip_files) {
     echo 'Checking directories for wp-content', PHP_EOL;
     if (!wp_content_in_local_path()) {
         echo 'The local path does not have wp-content as a directory', PHP_EOL;
-        exit;
+        exit(1);
     }
     if (!wp_content_in_remote_path($host, $user, $port, $path)) {
         echo 'The remote path does not have wp-content as a directory', PHP_EOL;
-        exit;
+        exit(1);
     }
 
     foreach ($folders as $folder) {
         echo "Pulling $folder", PHP_EOL;
         if (!rsync($host, $user, $port, $path, $folder)) {
             echo 'Pulling uploads failed', PHP_EOL;
-            exit;
+            exit(1);
         }
     }
 
     echo 'Pulling files from GitHub', PHP_EOL;
     if (!git_pull()) {
         echo 'Pulling from GitHub failed', PHP_EOL;
-        exit;
+        exit(1);
     }
 }
 
