@@ -634,3 +634,26 @@ function jw_get_first_image_url()
 	$first_image_url = $matches[1];
 	return $first_image_url;
 }
+
+
+
+
+/**
+ * Log the INSERT, UPDATE, DELETE database queries to the /wp-content/sql.log file.
+ */
+add_filter('query', function ($query) {
+	if (
+		FALSE !== stripos($query, 'UPDATE ')
+		|| FALSE !== stripos($query, 'INSERT ')
+		|| FALSE !== stripos($query, 'DELETE ')
+	) {
+		$file =  WP_CONTENT_DIR . '/sql.log'; // Edit this filepath to your needs.  
+		if (file_exists($file) && is_writeable($file))
+			file_put_contents(
+				$file,
+				date('c') . ' - ' . $query . PHP_EOL,
+				FILE_APPEND | LOCK_EX
+			);
+	}
+	return $query;
+}, PHP_INT_MAX);
