@@ -642,12 +642,29 @@ function jw_get_first_image_url()
  * Log the INSERT, UPDATE, DELETE database queries to the /wp-content/sql.log file.
  */
 add_filter('query', function ($query) {
-	if (
-		FALSE !== stripos($query, 'UPDATE ')
-		|| FALSE !== stripos($query, 'INSERT ')
-		|| FALSE !== stripos($query, 'DELETE ')
-	) {
-		$file =  WP_CONTENT_DIR . '/sql.log'; // Edit this filepath to your needs.  
+	$match_these = [
+		'UPDATE ',
+		'INSERT ',
+		'DELETE '
+	];
+	$filter_these = [
+		"_transient",
+		"a2kA1_wf",
+		"_edit_lock",
+		"classic-editor-remember",
+		"pum-has-cached-",
+		"a2kA1_redirection_404"
+	];
+
+	$matched = array_reduce($match_these, function ($found, $str) use (&$query) {
+		return $found || FALSE !== stripos($query, $str);
+	}, FALSE);
+	$filtered = array_reduce($filter_these, function ($found, $str) use (&$query) {
+		return $found || FALSE !== stripos($query, $str);
+	}, FALSE);
+
+	if ($matched && !$filtered) {
+		$file =  WP_CONTENT_DIR . '/sql.log';
 		if (file_exists($file) && is_writeable($file))
 			file_put_contents(
 				$file,
