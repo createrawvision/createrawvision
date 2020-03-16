@@ -538,7 +538,7 @@ add_action( 'wp_head', 'display_adsense' );
 /*
 * Adds REST Endpoint /crv/subscribe for subscribing to Mailchimp with Digistore Coupon
 */
-include get_stylesheet_directory() . '/lib/subscribe_with_coupon/subscribe_with_coupon.php';
+include_once get_stylesheet_directory() . '/lib/subscribe_with_coupon.php';
 
 function add_subscribe_with_coupon()
 {
