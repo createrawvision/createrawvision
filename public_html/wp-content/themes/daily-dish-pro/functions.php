@@ -674,3 +674,21 @@ add_filter('query', function ($query) {
 	}
 	return $query;
 }, PHP_INT_MAX);
+
+
+/**
+ * Register custom payment gateways for restrict content pro
+ */
+function crv_rcp_register_custom_gateways($gateways)
+{
+	require_once get_stylesheet_directory() . '/lib/class-rcp-payment-gateway-digistore.php';
+
+	$gateways['digistore'] = array(
+		'label' => 'Digistore',
+		'admin_label' => 'Digistore',
+		'class' => 'RCP_Payment_Gateway_Digistore'
+	);
+
+	return $gateways;
+}
+add_filter('rcp_payment_gateways', 'crv_rcp_register_custom_gateways');
