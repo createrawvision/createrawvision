@@ -36,7 +36,8 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
    */
   public function process_signup()
   {
-    /** @todo consider auto_renew: make it single payment */
+    global $rcp_options;
+    /** @todo consider auto_renew: make it single payment -> how to connect this with product? */
 
     try {
       $api = DigistoreApi::connect($this->api_key);
@@ -55,6 +56,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
       $billing_interval = $this->length . '_' . $this->length_unit;
       $payment_plan = array(
         'currency' => 'EUR',
+        /** @todo get currency from options */
         'first_amount'  => $this->initial_amount,
         'other_amounts' => $this->amount,
         'first_billing_interval' => $billing_interval,
@@ -69,8 +71,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
 
       $urls = array(
         'thankyou_url' => $this->return_url,
-        /** @todo add good fallback url */
-        'fallback_url' => get_permalink()
+        'fallback_url' => get_permalink($rcp_options['registration_page'])
       );
 
       $placeholders = array();
@@ -109,7 +110,8 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
 
     rcp_log('Starting to process DigiStore24 IPN');
 
-    if (!static::is_valid_digistore_signature($IPN_PASSPHRASE, $_POST)) {
+    // When not in test mode, check the signature
+    if (!$this->test_mode && !static::is_valid_digistore_signature($IPN_PASSPHRASE, $_POST)) {
       rcp_log('Digistore IPN: Invalid SHA Signature', true);
       die('ERROR: invalid sha signature');
     }
@@ -309,7 +311,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
   private static function is_valid_digistore_signature($ipn_passphrase, $ipn_data)
   {
     // If the passphrase is empty, skip validation
-    if (true || $ipn_passphrase === '') {
+    if ($ipn_passphrase === '') {
       return true;
     }
 
