@@ -1,0 +1,34 @@
+actor: ApiTester
+modules:
+  enabled:
+    - \Helper\Api
+    - WPDb
+    - WPBrowser
+    - WPCLI
+    - Asserts
+    - REST
+  config:
+    REST:
+      url: "/"
+      depends: WPBrowser
+    WPDb:
+      dsn: "mysql:host=%TEST_SITE_DB_HOST%;dbname=%TEST_SITE_DB_NAME%"
+      user: "%TEST_SITE_DB_USER%"
+      password: "%TEST_SITE_DB_PASSWORD%"
+      dump: "tests/_data/dump.sql"
+      populate: true
+      cleanup: true
+      waitlock: 10
+      url: "%TEST_SITE_WP_URL%"
+      urlReplacement: true
+      tablePrefix: "%TEST_SITE_TABLE_PREFIX%"
+    WPBrowser:
+      url: "%TEST_SITE_WP_URL%"
+      adminUsername: "%TEST_SITE_ADMIN_USERNAME%"
+      adminPassword: "%TEST_SITE_ADMIN_PASSWORD%"
+      adminPath: "%TEST_SITE_WP_ADMIN_PATH%"
+      headers:
+        X_TEST_REQUEST: 1
+        X_WPBROWSER_REQUEST: 1
+    WPCLI:
+      path: "%WP_ROOT_FOLDER%"
