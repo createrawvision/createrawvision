@@ -169,6 +169,7 @@ class DigiStoreIpnCest
             'order_id' => $this->gateway_subscription_id,
             'transaction_id' => rand_str(),
             'transaction_date' => date("Y-m-d H:i:s"),
+            'next_payment_at' => date("Y-m-d H:i:s", strtotime('+1 month')),
             'parent_transaction_id' => '',
             'transaction_amount' => '10.00',
             'pay_sequence_no' => '1',
@@ -235,10 +236,6 @@ class DigiStoreIpnCest
             'event' => 'on_rebill_resumed'
         ));
     }
-
-    /**
-     * EXPECTED EVENTS
-     */
 
     /**
      * Initial payment for pending membership should activate the membership
@@ -360,10 +357,23 @@ class DigiStoreIpnCest
         ));
     }
 
-
     /**
-     * UNEXPECTED EVENTS
+     * one day after the `next_payment_at` ipn-parameter is the new expiration date
+     * set the next_payment_at to 100 days later and check that expiration is in 101 days midnight
      */
+    public function test_ipn_determines_expiration(ApiTester $I)
+    {
+        $this->create_active_membership($I);
+
+        $this->receive_ipn($I, array(
+            'next_payment_at' => date('Y-m-d', strtotime('+100 days'))
+        ));
+
+        $I->seeInDatabase('a2kA1_rcp_memberships', array(
+            'id' => $this->membership_id,
+            'expiration_date' => date('Y-m-d', strtotime('+101 days')) . ' 00:00:00'
+        ));
+    }
 
     /**
      * an empty ipn call should have a 200 status code, with "no membership found" response

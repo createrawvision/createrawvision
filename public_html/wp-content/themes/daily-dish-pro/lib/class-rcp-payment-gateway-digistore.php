@@ -216,9 +216,13 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
             $payment_id = $pending_payment_id;
           } else {
             $payment_id = $rcp_payments->insert($payment_data);
-            // calculates expiration date from today, when recurring payment
+
             $is_recurring = $pay_sequence_no == 1;
-            $this->membership->renew($is_recurring);
+            if ($is_recurring) {
+              $this->renew_recurring_membership($posted);
+            } else {
+              $this->membership->renew(false);
+            }
           }
         }
         // renewal payment
@@ -226,7 +230,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
           $payment_data['transaction_type'] = 'renewal';
           $payment_id = $rcp_payments->insert($payment_data);
 
-          $this->membership->renew(true);
+          $this->renew_recurring_membership($posted);
 
           do_action('rcp_webhook_recurring_payment_processed', $member, $payment_id, $this);
         }
@@ -306,6 +310,30 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
     endswitch;
 
     die('OK');
+  }
+
+
+  /** 
+   * Renews a recurring membership and sets expiration date to one day later than the posted 'next_payment_at' date
+   */
+  private function renew_recurring_membership($posted)
+  {
+    if (isset($posted['next_payment_at'])) {
+      $this->membership->renew(true, 'active', static::add_one_day($posted['next_payment_at']));
+    } else {
+      $this->membership->renew(true);
+    }
+  }
+
+  /**
+   * Adds one day to the next_payment_at date
+   * 
+   * @param string next_payment_at parameter, i.e. '2020-04-09'
+   * @return string expiration date in MySQL datetime format
+   */
+  private static function add_one_day($next_payment_at)
+  {
+    return date('Y-m-d H:i:s', strtotime('+1 day', strtotime($next_payment_at)));
   }
 
 
