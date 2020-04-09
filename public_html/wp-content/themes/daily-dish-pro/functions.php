@@ -726,3 +726,28 @@ function crv_cancel_digistore_subscription($success, $gateway, $gateway_subscrip
 	return $gateway_digistore->stop_rebilling($gateway_subscription_id);
 }
 add_filter('rcp_membership_payment_profile_cancelled', 'crv_cancel_digistore_subscription', 10, 3);
+
+
+/**
+ * Redirect invoices to digistore by checking payment meta to include invoice url
+ */
+function crv_trigger_digistore_invoice_download()
+{
+	if (!isset($_GET['rcp-action']) || 'download_invoice' != $_GET['rcp-action']) {
+		return;
+	}
+
+	global $rcp_payments_db;
+
+	$payment_id = absint($_GET['payment_id']);
+
+	$digistore_invoice_url = $rcp_payments_db->get_meta($payment_id, 'digistore_invoice_url', true);
+
+	if (empty($digistore_invoice_url)) {
+		return;
+	}
+
+	wp_redirect($digistore_invoice_url);
+	exit;
+}
+add_action('init', 'crv_trigger_digistore_invoice_download', 9);

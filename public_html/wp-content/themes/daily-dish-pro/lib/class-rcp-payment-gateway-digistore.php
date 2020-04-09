@@ -231,6 +231,10 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
           do_action('rcp_webhook_recurring_payment_processed', $member, $payment_id, $this);
         }
 
+        if (isset($posted['invoice_url'])) {
+          $rcp_payments->add_meta($payment_id, 'digistore_invoice_url', $posted['invoice_url']);
+        }
+
         do_action('rcp_gateway_payment_processed', $member, $payment_id, $this);
 
         break;
