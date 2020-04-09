@@ -122,10 +122,13 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
     // sent by `process_signup()`: array [user_id, membership_id]
     $custom     = !empty($posted['custom']) ? explode('|', $posted['custom']) : false;
 
-    // get membership object by order id 
-    // An order_id can have multiple items, which all get their own ipn call (but share the order_id).
-    // Each order item has its own transaction. 
-    // And payment_id changes for each transaction, so order_id is the only unique ipn id for a membership.
+    /**
+     * Get membership object by order id 
+     * 
+     * An order_id can have multiple items, which all get their own ipn call (but share the order_id).
+     * Each order item has its own transaction. 
+     * And payment_id changes for each transaction, so order_id is the only unique ipn id for a membership.
+     */
     if (!empty($posted['order_id'])) {
       $membership = rcp_get_membership_by('gateway_subscription_id', $posted['order_id']);
     }
@@ -170,7 +173,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
     // setup the payment info in an array for storage
     $payment_data = array(
       'subscription'     => $membership_level->name,
-      'payment_type'     => $posted['pay_method'],
+      'payment_type'     => $posted['pay_method'] ?? '(not provided)',
       'subscription_key' => $membership->get_subscription_key(),
       'user_id'          => $user_id,
       'customer_id'      => $membership->get_customer()->get_id(),
@@ -201,24 +204,32 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
 
         $pay_sequence_no = $posted['pay_sequence_no'];
 
-        // single payment or initial payment for subscription
+        if (isset($posted['billing_type']) && $posted['billing_type'] == 'installment') {
+          rcp_log('Installments not supported.');
+          break;
+        }
+
+        // single or initial payment
         if ($pay_sequence_no == 0 || $pay_sequence_no == 1) {
           $this->membership->set_gateway_subscription_id($posted['order_id']);
 
           if (!empty($pending_payment_id)) {
-            // This activates the membership
+            // This activates the membership automatically
             $rcp_payments->update($pending_payment_id, $payment_data);
             $payment_id = $pending_payment_id;
           } else {
             $payment_id = $rcp_payments->insert($payment_data);
+            // calculates expiration date from today, when recurring payment
+            $is_recurring = $pay_sequence_no == 1;
+            $this->membership->renew($is_recurring);
           }
         }
         // renewal payment
         else {
-          $this->membership->renew(true);
-
           $payment_data['transaction_type'] = 'renewal';
           $payment_id = $rcp_payments->insert($payment_data);
+
+          $this->membership->renew(true);
 
           do_action('rcp_webhook_recurring_payment_processed', $member, $payment_id, $this);
         }
@@ -233,12 +244,9 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
 
         $this->webhook_event_id = $posted['transaction_id'];
 
-        /** 
-         * @todo add note to membership
-         * Set membership as expired?
-         */
-
         do_action('rcp_recurring_payment_failed', $member, $this);
+
+        $membership->expire();
 
         break;
 
@@ -252,13 +260,14 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
         if (empty($posted['parent_transaction_id'])) {
           rcp_log('Could not find payment to cancel.');
           break;
-        } else {
-          // get original payment by transaction id
-          $cancelled_payment = $rcp_payments->get_payment_by('transaction_id', $posted['parent_transaction_id']);
         }
 
-        /** @todo test if this cancels the membership */
+        // get original payment by transaction id
+        $cancelled_payment = $rcp_payments->get_payment_by('transaction_id', $posted['parent_transaction_id']);
+
         $rcp_payments->update($cancelled_payment->id, array('status' => 'refunded'));
+
+        $membership->expire();
 
         break;
 
