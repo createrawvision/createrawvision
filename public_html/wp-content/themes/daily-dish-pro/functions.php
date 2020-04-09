@@ -692,3 +692,37 @@ function crv_rcp_register_custom_gateways($gateways)
 	return $gateways;
 }
 add_filter('rcp_payment_gateways', 'crv_rcp_register_custom_gateways');
+
+
+/**
+ * Allow DigiStore subscriptions to be cancelled
+ */
+function crv_allow_digistore_cancellation($can_cancel, $membership_id, $membership)
+{
+	if (
+		$membership->is_recurring()
+		&& 'active' == $membership->get_status()
+		&& $membership->is_paid()
+		&& !$membership->is_expired()
+		&& 'digistore' == $membership->get_gateway()
+	) {
+		return true;
+	}
+
+	return $can_cancel;
+}
+add_filter('rcp_membership_can_cancel', 'crv_allow_digistore_cancellation', 10, 3);
+
+function crv_cancel_digistore_subscription($success, $gateway, $gateway_subscription_id)
+{
+	if ($gateway != 'digistore') {
+		return $success;
+	}
+
+	$gateways = new RCP_Payment_Gateways;
+	$gateway_digistore  = $gateways->get_gateway('digistore');
+	$gateway_digistore  = new $gateway_digistore['class']();
+
+	return $gateway_digistore->stop_rebilling($gateway_subscription_id);
+}
+add_filter('rcp_membership_payment_profile_cancelled', 'crv_cancel_digistore_subscription', 10, 3);

@@ -87,10 +87,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
 
       do_action('rcp_registration_failed', $this);
 
-      $error = '<p>' . __('An unidentified error occurred.', 'rcp') . '</p>';
-      $error .= '<p>' . $error->getMessage() . '</p>';
-
-      wp_die($error, __('Error', 'rcp'), array('response' => '401'));
+      $this->handle_digistore_api_exception($error);
     }
 
     exit;
@@ -283,7 +280,6 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
 
         // only mark the membership as cancelled, react at missed payment only
         if ($this->membership->is_active()) {
-          /** @todo verify that access is only restricted when payment period is over */
           $this->membership->cancel();
         }
 
@@ -306,6 +302,35 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
     endswitch;
 
     die('OK');
+  }
+
+
+  /**
+   * Stops rebilling by calling the DigiStore API
+   * 
+   * @param   string        $gateway_subscription_id - DigiStore order_id
+   * @return  true|WP_Error true on success, WP_Error on cancellation error
+   */
+  public function stop_rebilling($gateway_subscription_id)
+  {
+    try {
+      $api = DigistoreApi::connect($this->api_key);
+
+      $api->stopRebilling($gateway_subscription_id);
+
+      $api->disconnect();
+    } catch (DigistoreApiException $error) {
+      return new WP_Error('digistore_api_error', $error->getMessage());
+    }
+    return true;
+  }
+
+  private function handle_digistore_api_exception($error)
+  {
+    $error = '<p>' . __('An unidentified error occurred.', 'rcp') . '</p>';
+    $error .= '<p>' . $error->getMessage() . '</p>';
+
+    wp_die($error, __('Error', 'rcp'), array('response' => '401'));
   }
 
 
