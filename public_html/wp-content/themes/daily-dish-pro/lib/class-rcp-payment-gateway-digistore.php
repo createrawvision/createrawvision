@@ -37,13 +37,12 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
   public function process_signup()
   {
     global $rcp_options;
-    /** @todo consider auto_renew: make it single payment -> how to connect this with product? */
+    global $rcp_levels_db;
 
     try {
-      $api = DigistoreApi::connect($this->api_key);
+      $product_id = $rcp_levels_db->get_meta($this->subscription_id, 'digistore_product_id', true);
 
-      /** @todo how to get the product id from membership level? */
-      $product_id = 301319;
+      $api = DigistoreApi::connect($this->api_key);
 
       $user = get_user_by('id', $this->user_id);
 
@@ -53,15 +52,18 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
         'last_name'     => $user->last_name ?? '',
       );
 
-      $billing_interval = $this->length . '_' . $this->length_unit;
       $payment_plan = array(
-        'currency' => 'EUR',
-        /** @todo get currency from options */
+        'currency' => $this->currency,
         'first_amount'  => $this->initial_amount,
-        'other_amounts' => $this->amount,
-        'first_billing_interval' => $billing_interval,
-        'other_billing_intervals' => $billing_interval,
       );
+
+      if ($this->auto_renew) {
+        $billing_interval = $this->length . '_' . $this->length_unit;
+
+        $payment_plan['other_amounts']            = $this->amount;
+        $payment_plan['first_billing_interval']   = $billing_interval;
+        $payment_plan['other_billing_intervals']  = $billing_interval;
+      }
 
       $tracking = array(
         'custom'    => $this->user_id . '|' . absint($this->membership->get_id())
@@ -87,10 +89,10 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
 
       do_action('rcp_registration_failed', $this);
 
-      $error = '<p>' . __('An unidentified error occurred.', 'rcp') . '</p>';
-      $error .= '<p>' . $error->getMessage() . '</p>';
+      $errormsg = '<p>' . __('An unidentified error occurred.', 'rcp') . '</p>';
+      $errormsg .= '<p>' . $error->getMessage() . '</p>';
 
-      wp_die($error, __('Error', 'rcp'), array('response' => '401'));
+      wp_die($errormsg, __('Error', 'rcp'), array('response' => '401'));
     }
 
     exit;
@@ -122,10 +124,13 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
     // sent by `process_signup()`: array [user_id, membership_id]
     $custom     = !empty($posted['custom']) ? explode('|', $posted['custom']) : false;
 
-    // get membership object by order id 
-    // An order_id can have multiple items, which all get their own ipn call (but share the order_id).
-    // Each order item has its own transaction. 
-    // And payment_id changes for each transaction, so order_id is the only unique ipn id for a membership.
+    /**
+     * Get membership object by order id 
+     * 
+     * An order_id can have multiple items, which all get their own ipn call (but share the order_id).
+     * Each order item has its own transaction. 
+     * And payment_id changes for each transaction, so order_id is the only unique ipn id for a membership.
+     */
     if (!empty($posted['order_id'])) {
       $membership = rcp_get_membership_by('gateway_subscription_id', $posted['order_id']);
     }
@@ -170,7 +175,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
     // setup the payment info in an array for storage
     $payment_data = array(
       'subscription'     => $membership_level->name,
-      'payment_type'     => $posted['pay_method'],
+      'payment_type'     => $posted['pay_method'] ?? '(not provided)',
       'subscription_key' => $membership->get_subscription_key(),
       'user_id'          => $user_id,
       'customer_id'      => $membership->get_customer()->get_id(),
@@ -201,26 +206,42 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
 
         $pay_sequence_no = $posted['pay_sequence_no'];
 
-        // single payment or initial payment for subscription
+        if (isset($posted['billing_type']) && $posted['billing_type'] == 'installment') {
+          rcp_log('Installments not supported.');
+          break;
+        }
+
+        // single or initial payment
         if ($pay_sequence_no == 0 || $pay_sequence_no == 1) {
           $this->membership->set_gateway_subscription_id($posted['order_id']);
 
           if (!empty($pending_payment_id)) {
-            // This activates the membership
+            // This activates the membership automatically
             $rcp_payments->update($pending_payment_id, $payment_data);
             $payment_id = $pending_payment_id;
           } else {
             $payment_id = $rcp_payments->insert($payment_data);
+
+            $is_recurring = $pay_sequence_no == 1;
+            if ($is_recurring) {
+              $this->renew_recurring_membership($posted);
+            } else {
+              $this->membership->renew(false);
+            }
           }
         }
         // renewal payment
         else {
-          $this->membership->renew(true);
-
           $payment_data['transaction_type'] = 'renewal';
           $payment_id = $rcp_payments->insert($payment_data);
 
+          $this->renew_recurring_membership($posted);
+
           do_action('rcp_webhook_recurring_payment_processed', $member, $payment_id, $this);
+        }
+
+        if (isset($posted['invoice_url'])) {
+          $rcp_payments->add_meta($payment_id, 'digistore_invoice_url', $posted['invoice_url']);
         }
 
         do_action('rcp_gateway_payment_processed', $member, $payment_id, $this);
@@ -233,12 +254,9 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
 
         $this->webhook_event_id = $posted['transaction_id'];
 
-        /** 
-         * @todo add note to membership
-         * Set membership as expired?
-         */
-
         do_action('rcp_recurring_payment_failed', $member, $this);
+
+        $membership->expire();
 
         break;
 
@@ -252,13 +270,14 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
         if (empty($posted['parent_transaction_id'])) {
           rcp_log('Could not find payment to cancel.');
           break;
-        } else {
-          // get original payment by transaction id
-          $cancelled_payment = $rcp_payments->get_payment_by('transaction_id', $posted['parent_transaction_id']);
         }
 
-        /** @todo test if this cancels the membership */
+        // get original payment by transaction id
+        $cancelled_payment = $rcp_payments->get_payment_by('transaction_id', $posted['parent_transaction_id']);
+
         $rcp_payments->update($cancelled_payment->id, array('status' => 'refunded'));
+
+        $membership->expire();
 
         break;
 
@@ -274,7 +293,6 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
 
         // only mark the membership as cancelled, react at missed payment only
         if ($this->membership->is_active()) {
-          /** @todo verify that access is only restricted when payment period is over */
           $this->membership->cancel();
         }
 
@@ -299,6 +317,50 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
     die('OK');
   }
 
+
+  /** 
+   * Renews a recurring membership and sets expiration date to one day later than the posted 'next_payment_at' date
+   */
+  private function renew_recurring_membership($posted)
+  {
+    if (isset($posted['next_payment_at'])) {
+      $this->membership->renew(true, 'active', static::add_one_day($posted['next_payment_at']));
+    } else {
+      $this->membership->renew(true);
+    }
+  }
+
+  /**
+   * Adds one day to the next_payment_at date
+   * 
+   * @param string next_payment_at parameter, i.e. '2020-04-09'
+   * @return string expiration date in MySQL datetime format
+   */
+  private static function add_one_day($next_payment_at)
+  {
+    return date('Y-m-d H:i:s', strtotime('+1 day', strtotime($next_payment_at)));
+  }
+
+
+  /**
+   * Stops rebilling by calling the DigiStore API
+   * 
+   * @param   string        $gateway_subscription_id - DigiStore order_id
+   * @return  true|WP_Error true on success, WP_Error on cancellation error
+   */
+  public function stop_rebilling($gateway_subscription_id)
+  {
+    try {
+      $api = DigistoreApi::connect($this->api_key);
+
+      $api->stopRebilling($gateway_subscription_id);
+
+      $api->disconnect();
+    } catch (DigistoreApiException $error) {
+      return new WP_Error('digistore_api_error', $error->getMessage());
+    }
+    return true;
+  }
 
   /**
    * Check if signature sent by digistore is valid. 
