@@ -37,13 +37,12 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
   public function process_signup()
   {
     global $rcp_options;
-    /** @todo consider auto_renew: make it single payment -> how to connect this with product? */
+    global $rcp_levels_db;
 
     try {
-      $api = DigistoreApi::connect($this->api_key);
+      $product_id = $rcp_levels_db->get_meta($this->subscription_id, 'digistore_product_id', true);
 
-      /** @todo how to get the product id from membership level? */
-      $product_id = 301319;
+      $api = DigistoreApi::connect($this->api_key);
 
       $user = get_user_by('id', $this->user_id);
 
@@ -53,15 +52,18 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
         'last_name'     => $user->last_name ?? '',
       );
 
-      $billing_interval = $this->length . '_' . $this->length_unit;
       $payment_plan = array(
-        'currency' => 'EUR',
-        /** @todo get currency from options */
+        'currency' => $this->currency,
         'first_amount'  => $this->initial_amount,
-        'other_amounts' => $this->amount,
-        'first_billing_interval' => $billing_interval,
-        'other_billing_intervals' => $billing_interval,
       );
+
+      if ($this->auto_renew) {
+        $billing_interval = $this->length . '_' . $this->length_unit;
+
+        $payment_plan['other_amounts']            = $this->amount;
+        $payment_plan['first_billing_interval']   = $billing_interval;
+        $payment_plan['other_billing_intervals']  = $billing_interval;
+      }
 
       $tracking = array(
         'custom'    => $this->user_id . '|' . absint($this->membership->get_id())
@@ -87,7 +89,10 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
 
       do_action('rcp_registration_failed', $this);
 
-      $this->handle_digistore_api_exception($error);
+      $errormsg = '<p>' . __('An unidentified error occurred.', 'rcp') . '</p>';
+      $errormsg .= '<p>' . $error->getMessage() . '</p>';
+
+      wp_die($errormsg, __('Error', 'rcp'), array('response' => '401'));
     }
 
     exit;
@@ -356,15 +361,6 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
     }
     return true;
   }
-
-  private function handle_digistore_api_exception($error)
-  {
-    $error = '<p>' . __('An unidentified error occurred.', 'rcp') . '</p>';
-    $error .= '<p>' . $error->getMessage() . '</p>';
-
-    wp_die($error, __('Error', 'rcp'), array('response' => '401'));
-  }
-
 
   /**
    * Check if signature sent by digistore is valid. 
