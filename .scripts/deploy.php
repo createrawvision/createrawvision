@@ -30,19 +30,19 @@ $path_to_script = $path . '/wp-content/deploy.php';
  */
 if (!defined('WP_CLI')) {
   echo 'WP_CLI not defined';
-  exit;
+  exit(1);
 }
 
 echo 'Testing SSH connection', PHP_EOL;
 if (!valid_ssh($host, $user, $port, $path)) {
   echo 'SHH connection failed', PHP_EOL;
-  exit;
+  exit(1);
 }
 
 echo 'Checking if WP CLI is on the server', PHP_EOL;
 if (!is_remote_wp_cli($host, $user, $port, $path)) {
   echo 'WP CLI not on server', PHP_EOL;
-  exit;
+  exit(1);
 }
 
 
@@ -70,7 +70,7 @@ echo 'Launching remote command via ssh', PHP_EOL;
 echo $deploy_command;
 if (!execute_remote($deploy_command, $host, $user, $port, $path)) {
   echo 'Remote command failed', PHP_EOL;
-  exit;
+  exit(1);
 }
 
 

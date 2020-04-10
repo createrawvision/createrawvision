@@ -1,0 +1,15 @@
+{
+    "name": "createrawvision/member",
+    "description": "Mitgliederbereich für CreateRawVision",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Josef Wittmann",
+            "email": "josefwittmann42@gmail.com"
+        }
+    ],
+    "require": {},
+    "require-dev": {
+        "lucatume/wp-browser": "^2.2"
+    }
+}

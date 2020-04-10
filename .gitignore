@@ -1,10 +1,18 @@
-/*
-!.gitignore
-!/.scripts/
-!/public_html/
+/.vscode
+/log
+/provision
+/vendor
+/wp-cli.yml
+
+# Only include themes and deploy script
 /public_html/*
 !/public_html/wp-content/
 /public_html/wp-content/*
 !/public_html/wp-content/themes/
 !/public_html/wp-content/deploy.php
 /public_html/wp-content/themes/twenty*
+
+# Only include neccessary test data (no config)
+/*.sql
+/tests/_*/
+.env.testing
