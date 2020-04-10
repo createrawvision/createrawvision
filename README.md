@@ -39,3 +39,10 @@ In order to keep the repo small in size, I'm ignoring most of WordPress - everyt
 So the production has to come with **WordPress and all Plugins installed**.  
 The root WP folder has to be **`public_html`**.  
 **WP-CLI** has to be installed for scripts to run.
+
+## Setup
+
+1. Set up a local development environment with WordPress installed.
+2. Clone this repo.
+3. For testing, run `composer init`.
+4. Now you're good to go.
