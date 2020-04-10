@@ -895,6 +895,14 @@ td {
   max-width: 1280px;
 }
 
+.home .site-container,
+.archive .site-container,
+.search .site-container {
+  max-width: none;
+  margin: auto;
+  box-shadow: none;
+}
+
 .daily-dish-landing .site-container {
   overflow: hidden;
 }
@@ -1121,10 +1129,10 @@ td {
 }
 
 .entry-title {
-  font-size: 26px;
-  font-size: 2.6rem;
+  font-size: 22px;
+  font-size: 2.2rem;
   font-weight: 500;
-  letter-spacing: -0.5px;
+  letter-spacing: -0.3px;
   margin-bottom: 5px;
   text-transform: none;
 }
@@ -2062,7 +2070,9 @@ span.ERComment {
   margin-bottom: 40px;
 }
 
-.archive .entry {
+.home .entry,
+.archive .entry,
+.search .entry {
   border-bottom: 1px dotted #ddd;
 }
 
@@ -2178,10 +2188,6 @@ p.entry-meta a:hover {
 
 .after-entry li {
   margin-bottom: 6px;
-}
-
-.home .entry {
-  margin-bottom: 10px;
 }
 
 /* Pagination
@@ -2810,18 +2816,25 @@ li.comment {
   }
 }
 
-@media only screen and (min-width: 700px) {
+/**
+ * Archives Grid Layout (special for membership)
+ */
+@media only screen and (min-width: 500px) {
   .home #genesis-content,
   .archive #genesis-content,
   .search #genesis-content {
     display: grid;
-    align-items: end;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
     column-gap: 40px;
   }
 
-  .archive.category-member #genesis-content {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  .home #genesis-content,
+  .archive #genesis-content {
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  }
+
+  .archive.category-member #genesis-content,
+  .search #genesis-content {
+    grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
   }
 
   .home #genesis-content .archive-description,
@@ -2833,4 +2846,29 @@ li.comment {
     grid-column: 1 / -1;
     width: 100%;
   }
+}
+
+.home #genesis-content .entry-content img,
+.archive #genesis-content .entry-content img,
+.search #genesis-content .entry-content img {
+  box-shadow: 5px 5px 10px 1px #000000a8;
+}
+
+.home #genesis-content .entry,
+.archive #genesis-content .entry,
+.search #genesis-content .entry {
+  display: flex;
+  flex-direction: column;
+}
+
+.home #genesis-content .entry-content,
+.archive #genesis-content .entry-content,
+.search #genesis-content .entry-content {
+  order: -1;
+}
+
+.home #genesis-content .entry-footer,
+.archive #genesis-content .entry-footer,
+.search #genesis-content .entry-footer {
+  margin: 0;
 }
