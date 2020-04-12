@@ -46,3 +46,23 @@ The root WP folder has to be **`public_html`**.
 2. Clone this repo.
 3. For testing, run `composer init`.
 4. Now you're good to go.
+
+## Project Organization
+
+We use an agile approach to organizing our project.
+
+The complete **backlog** consists of all issues:
+
+- **User Story** = issue  
+  _"As a \<user> I want to \<do a action> so I can \<achieve a goal>."_
+- **Priority** = labels `prio-1`, `prio-2`, `prio-3`
+- **Feature Estimation** = labels `cost-1`, `cost-2`, `cost-3`
+- **Epic** = milestone
+
+A **sprint** is organized with a GitHub project: The sprint backlog gets put into the column "To do" and then the sprint starts.
+
+Every morning we have our **daily stand-up meeting**, where we tell...
+
+1. what we did yesterday,
+2. what we're going to do today and
+3. what blocks us from doing this.
