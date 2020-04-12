@@ -55,8 +55,8 @@ The complete **backlog** consists of all issues:
 
 - **User Story** = issue  
   _"As a \<user> I want to \<do a action> so I can \<achieve a goal>."_
-- **Priority** = labels `prio-1`, `prio-2`, `prio-3`
-- **Feature Estimation** = labels `cost-1`, `cost-2`, `cost-3`
+- **Priority** = labels `prio-low`, `prio-medium`, `prio-high`
+- **Feature Estimation** = labels `cost-low`, `cost-medium`, `cost-high`
 - **Epic** = milestone
 
 A **sprint** is organized with a GitHub project: The sprint backlog gets put into the column "To do" and then the sprint starts.
