@@ -921,3 +921,21 @@ add_filter('removable_query_args', function ($args) {
 	$args[] = 'parent_category_selected';
 	return $args;
 });
+
+/**
+ * FAQs 
+ */
+
+// Register custom post type
+include_once get_stylesheet_directory() . '/lib/faqs/faq-cpt.php';
+
+// Register custom taxonomy (categories)
+include_once get_stylesheet_directory() . '/lib/faqs/faq-category.php';
+
+// Add custom query var to search FAQs
+function jw_query_vars_faq_search($vars)
+{
+	$vars[] = 'faq_search';
+	return $vars;
+}
+add_filter('query_vars', 'jw_query_vars_faq_search');
