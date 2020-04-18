@@ -390,21 +390,6 @@ remove_action('genesis_footer', 'genesis_do_footer');
 
 
 /**
- * Genesis Grid, No Content
- * @see https://www.billerickson.net/code/only-title-and-image-in-grid-loop/
- */
-function be_grid_no_content()
-{
-
-	// This filter returns true when inside the grid
-	if (apply_filters('is_genesis_grid_loop', false)) {
-		remove_action('genesis_entry_content', 'genesis_do_post_content');
-	}
-}
-add_action('genesis_entry_content', 'be_grid_no_content', 9);
-
-
-/**
  * Jetpack "related posts" thumbnail size
  */
 function crv_relatedposts_thumbnail_size($size)
