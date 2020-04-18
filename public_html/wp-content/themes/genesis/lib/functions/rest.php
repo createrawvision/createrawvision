@@ -17,17 +17,26 @@ add_action( 'rest_api_init', __NAMESPACE__ . '\\layouts' );
 /**
  * Add `layouts` endpoint to the REST API.
  *
- * Example: `curl https://example.com/wp-json/genesis/v1/layouts/all`
+ * Example: `curl https://example.com/wp-json/genesis/v1/layouts/site`
+ * Example: `curl https://example.com/wp-json/genesis/v1/layouts/singular,page,24`
  *
+ * @since 3.3.0 Accept multiple comma-separated layout types.
+ *              Types are checked from right to left, returning the first type
+ *              with registered layouts and falling back to 'site' if no passed
+ *              types have registered layouts.
  * @since 3.1.0
  */
 function layouts() {
 	\register_rest_route(
 		'genesis/v1',
-		'/layouts/(\w+)',
+		'/layouts/(?P<type>[a-z0-9,_-]+)',
 		[
 			'methods'  => 'GET',
-			'callback' => function( $type ) {
+			'callback' => function( $params ) {
+				$type = $params['type'];
+				if ( strpos( $type, ',' ) !== false ) {
+					$type = explode( ',', $type );
+				}
 				return \genesis_get_layouts( $type );
 			},
 		]

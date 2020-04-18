@@ -6,6 +6,38 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 Up until release 2.7.0, this project did _not_ follow semantic versioning. It followed the WordPress policy where updates of x and y in an x.y.z version number means a major release, and updates to z means a patch release.
 
+## [3.3.1] - 2020-03-25
+
+Includes fixes for the Genesis language pack update feature.
+
+### Fixed
+* Internationalization: Deactivate Genesis Translations plugin on upgrade to Genesis 3.3.1. Ensures official Genesis translation language packs load correctly.
+* Internationalization: Enable language pack updates work on WordPress multisite as long as the main site is using a Genesis theme. Previously, Genesis language pack update prompts would only appear if the main site used a Genesis theme and did not use the en_US locale.
+* Internationalization: Fix a fatal error that could occur on sites with custom Genesis translation files that contain an unreadable PO-Revision-Date header.
+
+## [3.3.0] - 2020-02-26
+
+### Added
+* Internationalization: Non US English sites can now download the latest Genesis parent theme translations without using a plugin. 
+    1. Check your language is listed and has translations at https://translate.studiopress.com/global/projects/genesis-framework/genesis/.
+    2. Disable the Genesis Translations plugin if using.
+    3. Check for language pack updates at Dashboard → Updates. If you do not see language pack updates, switch your site language to US English at Settings → General, save changes, then switch back to your own language and check for language updates again.
+
+### Fixed
+* Accessibility: Author box titles on author archives now use h2 instead of h4 to prevent heading levels from jumping.
+* Accessibility: Prevent “Reader Interactions” screenreader text appearing below content if there are no comments, comment form, or trackbacks on display.
+* Accessibility: Move `role="navigation"` from the list element to the wrapper element on pagination navigation.
+* AMP: Fix CSS string format used in the AMP menu styles.
+* Block Editor: Show singular, post-type, and ID-specific layouts in the Genesis sidebar layout selector.
+
+### Changed
+* REST: Accept multiple comma-separated layout types for the /layouts/ Genesis REST endpoint.
+* Standards: switch all instances of `date()` to `gmdate()` to adhere to new WordPress standards recommendations.
+* Tooling: simplified the creation of the Genesis zip file during the release process.
+
+### Removed
+* Internationalization: Old translations download script tooling was removed in favor of the new automated language pack download feature.
+
 ## [3.2.1] - 2019-11-14
 
 ### Fixed
@@ -1337,6 +1369,8 @@ _Requires WordPress 3.1.0._
 
 First public release.
 
+[3.3.1]: https://github.com/studiopress/genesis/compare/3.3.0...3.3.1
+[3.3.0]: https://github.com/studiopress/genesis/compare/3.2.1...3.3.0
 [3.2.1]: https://github.com/studiopress/genesis/compare/3.2.0...3.2.1
 [3.2.0]: https://github.com/studiopress/genesis/compare/3.1.3...3.2.0
 [3.1.3]: https://github.com/studiopress/genesis/compare/3.1.2...3.1.3

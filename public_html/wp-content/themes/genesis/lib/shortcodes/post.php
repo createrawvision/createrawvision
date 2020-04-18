@@ -41,7 +41,7 @@ function genesis_post_date_shortcode( $atts ) {
 	$atts = shortcode_atts( $defaults, $atts, 'post_date' );
 
 	if ( 'relative' === $atts['format'] ) {
-		$display  = genesis_human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ), $atts['relative_depth'] );
+		$display  = genesis_human_time_diff( get_the_time( 'U' ), current_time( 'timestamp' ), $atts['relative_depth'] ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested -- safe to compare WP to WP timestamps, see https://make.wordpress.org/core/2019/09/23/date-time-improvements-wp-5-3/#comment-37319.
 		$display .= ' ' . __( 'ago', 'genesis' );
 	} else {
 		$display = get_the_time( $atts['format'] );
@@ -117,7 +117,7 @@ function genesis_post_modified_date_shortcode( $atts ) {
 	$atts = shortcode_atts( $defaults, $atts, 'post_modified_date' );
 
 	if ( 'relative' === $atts['format'] ) {
-		$display  = genesis_human_time_diff( get_the_modified_time( 'U' ), current_time( 'timestamp' ), $atts['relative_depth'] );
+		$display  = genesis_human_time_diff( get_the_modified_time( 'U' ), current_time( 'timestamp' ), $atts['relative_depth'] ); // phpcs:ignore WordPress.DateTime.CurrentTimeTimestamp.Requested -- safe to compare WP to WP timestamps, see https://make.wordpress.org/core/2019/09/23/date-time-improvements-wp-5-3/#comment-37319.
 		$display .= ' ' . __( 'ago', 'genesis' );
 	} else {
 		$display = get_the_modified_time( $atts['format'] );
