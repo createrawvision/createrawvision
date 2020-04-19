@@ -11,8 +11,12 @@
   margin-bottom: 1rem;
 }
 
+.faq__item--hidden {
+  display: none;
+}
+
 .faq__title {
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
   padding: 1rem;
   margin: 0;
   cursor: pointer;
@@ -35,6 +39,7 @@
 
 .faq__title--open::after {
   content: "–";
+  line-height: 2.2rem;
 }
 
 .faq__title:hover {
@@ -43,7 +48,7 @@
 
 .faq__body {
   display: none;
-  border: 1px solid #ddd;
+  border: 2px solid #ddd;
   border-top: 0;
   padding: 1rem;
 }

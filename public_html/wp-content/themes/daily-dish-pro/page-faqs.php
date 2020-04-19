@@ -5,12 +5,12 @@ remove_action('genesis_loop', 'genesis_do_loop');
 // Replace it with a custom one.
 add_action('genesis_loop', 'crv_faqs_loop');
 
-// Custom loop listing all FAQs under each category
 function crv_faqs_loop()
 {
   jw_enqueue_faq_scripts_styles();
   jw_display_faq_search();
   jw_display_faqs();
+  jw_display_contact_form_link();
 }
 
 /**
@@ -27,11 +27,17 @@ function jw_enqueue_faq_scripts_styles()
  */
 function jw_display_faq_search()
 { ?>
-  <form class="search-form" method="get" action="<?php echo esc_url(the_permalink()); ?>" role="search">
-    <label class="search-form-label screen-reader-text" for="faq-searchform"><?php esc_html_e(__('Search FAQs')); ?></label>
-    <input class="search-form-input" type="search" name="faq_search" id="faq-searchform" placeholder="<?php esc_attr_e(__('Search FAQs')); ?>">
+  <form class="search-form" method="get" action="<?php the_permalink(); ?>" role="search">
+    <label class="search-form-label screen-reader-text" for="faq-searchform"><?php esc_html_e(__('Häufig gestellte Fragen durchsuchen')); ?></label>
+    <input class="search-form-input" type="search" name="faq_search" id="faq-searchform" placeholder="<?php esc_attr_e(__('Häufig gestellte Fragen durchsuchen')); ?>">
   </form>
-  <?php }
+  <?php
+  if (!empty(get_query_var('faq_search'))) {
+  ?> <a href="<?php the_permalink(); ?>">Suche zurücksetzen</a>
+  <?php } ?>
+  <hr>
+  <?php
+}
 
 /**
  * Display FAQs grouped by category
@@ -82,7 +88,7 @@ function jw_display_faqs()
         <?php
         endwhile; ?>
       </ul>
-<?php wp_reset_postdata();
+  <?php wp_reset_postdata();
     else :
     // hide category, when there are no FAQs matching
     endif;
@@ -90,11 +96,19 @@ function jw_display_faqs()
 
   // Message, when no FAQs displayed
   if ($faq_count === 0) {
-    echo '<p>' . __('No matching FAQs found.') . '</p>';
+    echo '<p>' . __('Keine Antworten gefunden.') . '</p>';
   }
 }
 
-// Display contact form
+/**
+ * Display contact form
+ */
+function jw_display_contact_form_link()
+{ ?>
+  <hr>
+  <h2>Keine Antworten gefunden?</h2>
+  <p>Stell uns deine Frage einfach durch unser <a href="<?php the_permalink(get_page_by_path('kontaktformular')); ?>">Kontaktformular</a>.</p>
+<?php }
 
 // Run the Genesis loop
 genesis();

@@ -20,9 +20,27 @@ const filterFaqs = value => {
   });
 }
 
-const matches = (text, searchInput) => {
-  return text.includes(searchInput);
+const matches = (text, search) => {
+  // Ignore words with less than 3 charaters
+  const searchWords = search.split(' ').filter(word => word.length > 3);
+
+  // When no search, don't filter
+  if(searchWords.length === 0) return true;
+
+  // Return when at least half of words match
+  const searchHits = searchWords.filter(searchWord => text.includes(searchWord)).length;
+  const matchRatio = searchHits / searchWords.length;
+  return matchRatio >= 0.5;
 }
 
 const searchInput = document.querySelector('#faq-searchform');
-searchInput.addEventListener("input", event => filterFaqs(event.target.value));
+const searchForm = searchInput.parentElement;
+
+// filter faqs once, when input is prefilled
+filterFaqs(searchInput.value); 
+
+// ... and filter on each input
+searchInput.addEventListener("input", () => filterFaqs(searchInput.value));
+
+// prevent search submission when JS is active
+searchForm.addEventListener("submit", event => event.preventDefault());
