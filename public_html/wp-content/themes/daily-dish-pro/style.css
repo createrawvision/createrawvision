@@ -2834,7 +2834,7 @@ li.comment {
 
   .archive.category-member #genesis-content,
   .search #genesis-content {
-    grid-template-columns: repeat(auto-fill, minmax(275px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 
   .home #genesis-content .archive-description,
