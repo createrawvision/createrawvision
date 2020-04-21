@@ -789,7 +789,7 @@ function crv_digistore_product_id_form_field($product_id = '')
 			<input id="crv-digistore-product-id" type="text" name="digistore_product_id" value="<?php echo $product_id; ?>" />
 		</td>
 	</tr>
-<?php
+	<?php
 }
 
 function crv_digistore_product_id_form_field_edit($level)
@@ -886,4 +886,47 @@ add_action('init', function () {
 		));
 
 	endif;
+});
+
+
+/**
+ * Disable selection of categories with child categories
+ */
+add_action('added_term_relationship', function ($object_id, $tt_id, $taxonomy) {
+	if ('category' != $taxonomy) {
+		return;
+	}
+	$term = get_term_by('term_taxonomy_id', $tt_id, 'category');
+	$child_term_ids = get_categories(array(
+		'parent' => $term->term_id,
+		'fields' => 'ids'
+	));
+	$is_childless = count($child_term_ids) == 0;
+
+	if ($is_childless) {
+		return;
+	}
+
+	// Show an error message on the redirect
+	add_filter('redirect_post_location', function ($location) {
+		return add_query_arg('parent_category_selected', 1, $location);
+	});
+	// ... and remove the category from the post
+	wp_remove_object_terms($object_id, $term->term_id, 'category');
+}, 10, 3);
+
+/**
+ * Show error message when parent category got selected
+ */
+add_action('admin_notices', function () {
+	if (isset($_GET['parent_category_selected'])) {
+	?>
+		<div class="notice notice-warning is-dismissible">
+			<p>Du kannst dem Beitrag keine Kategorie zuordnen, die eine Unterkategorie enthält. Diese wurde automatisch wieder entfernt.</p>
+		</div>
+<?php }
+});
+add_filter('removable_query_args', function ($args) {
+	$args[] = 'parent_category_selected';
+	return $args;
 });
