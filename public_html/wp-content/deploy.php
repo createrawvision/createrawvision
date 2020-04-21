@@ -5,6 +5,10 @@ if (!defined('WP_CLI') || !WP_CLI) {
   exit(1);
 }
 
+// Avoid the output buffer
+ob_end_flush();
+ob_implicit_flush();
+
 // Check the version to deploy all needed changes
 $version_option_name = 'crv_version';
 $version = get_option($version_option_name);
@@ -75,7 +79,7 @@ if (version_compare($version, $new_version, '<')) {
   echo "Removed parent categories from following posts: " . implode(',', $post_ids_to_edit), PHP_EOL;
 
   update_option($version_option_name, $new_version);
-  echo "Successfully deployed version " . $new_version;
+  echo "Successfully deployed version " . $new_version, PHP_EOL;
 }
 
 /*
@@ -94,5 +98,8 @@ if (version_compare($version, $new_version, '<')) {
   update_option($version_option_name, $new_version);
 }
 */
+
+echo "Purging SiteGround Caches", PHP_EOL;
+WP_CLI::runcommand('sg purge');
 
 echo 'Deployment complete', PHP_EOL;
