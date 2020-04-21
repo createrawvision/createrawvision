@@ -819,3 +819,71 @@ function crv_add_digistore_product_id($level_id, $args)
 }
 add_action('rcp_add_subscription', 'crv_add_digistore_product_id', 10, 2);
 add_action('rcp_edit_subscription_level', 'crv_add_digistore_product_id', 10, 2);
+
+
+/**
+ * Don't show child posts in category archives
+ */
+add_action('parse_tax_query', function ($query) {
+	if (!is_admin() && $query->is_main_query() && $query->is_category()) {
+		$query->tax_query->queries[0]['include_children'] = false;
+	}
+});
+
+/**
+ * Add Category Featured Image with ACF
+ */
+add_action('init', function () {
+
+	if (function_exists('acf_add_local_field_group')) :
+
+		acf_add_local_field_group(array(
+			'key' => 'group_1',
+			'title' => 'Vorschaubild',
+			'fields' => array(
+				array(
+					'key' => 'field_1',
+					'label' => 'Vorschaubild',
+					'name' => 'featured_image',
+					'type' => 'image',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array(
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'return_format' => 'array',
+					'preview_size' => 'thumbnail-portrait',
+					'library' => 'all',
+					'min_width' => '',
+					'min_height' => '',
+					'min_size' => '',
+					'max_width' => '',
+					'max_height' => '',
+					'max_size' => '',
+					'mime_types' => '',
+				),
+			),
+			'location' => array(
+				array(
+					array(
+						'param' => 'taxonomy',
+						'operator' => '==',
+						'value' => 'category',
+					),
+				),
+			),
+			'menu_order' => 0,
+			'position' => 'normal',
+			'style' => 'default',
+			'label_placement' => 'top',
+			'instruction_placement' => 'label',
+			'hide_on_screen' => '',
+			'active' => true,
+			'description' => '',
+		));
+
+	endif;
+});
