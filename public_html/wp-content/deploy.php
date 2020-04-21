@@ -34,33 +34,20 @@ if (version_compare($version, $new_version, '<')) {
   update_option($version_option_name, $new_version);
 }
 
-$new_version = '0.0.2';
-if (version_compare($version, $new_version, '<')) {
-  echo "Deploying version $new_version", PHP_EOL;
-
-  // Optional: Add License Key (deactivate it in RCP Website first) -> option 'rcp_license_status'
-
-  // Get the final 'rcp_settings' option (with payment gateway!)
-
-  // Insert mebership level
-
-  // Restrict site content (a2kA1_termmeta -> meta_key = rcp_restricted_meta)
-
-  update_option($version_option_name, $new_version);
-}
-
 $new_version = '0.1.0';
 if (version_compare($version, $new_version, '<')) {
   echo "Deploying version $new_version", PHP_EOL;
 
-  // Install ACF Plugin, if not installed already
+  echo "Installing and activating Advanced Custom Fields, if not already installed", PHP_EOL;
+
   if (WP_CLI::runcommand("plugin is-installed advanced-custom-fields", ['return' => 'return_code', 'exit_error' => false]) != 0) {
     WP_CLI::runcommand("plugin install advanced-custom-fields --activate");
   } elseif (WP_CLI::runcommand("plugin is-active advanced-custom-fields", ['return' => 'return_code', 'exit_error' => false]) != 0) {
     WP_CLI::runcommand("plugin activate advanced-custom-fields");
   }
 
-  // Remove categories from posts, when category has child categories
+  echo "Removing categories from posts, when category has child categories", PHP_EOL;
+
   $childless_category_ids = get_categories([
     'childless' => true,
     'hide_empty' => false,
@@ -85,8 +72,27 @@ if (version_compare($version, $new_version, '<')) {
   foreach ($post_ids_to_edit as $post_id) {
     wp_remove_object_terms($post_id, $parent_category_ids, 'category');
   }
+  echo "Removed parent categories from following posts: " . implode(',', $post_ids_to_edit), PHP_EOL;
+
+  update_option($version_option_name, $new_version);
+  echo "Successfully deployed version " . $new_version;
+}
+
+/*
+$new_version = '';
+if (version_compare($version, $new_version, '<')) {
+  echo "Deploying version $new_version", PHP_EOL;
+
+  // Optional: Add License Key (deactivate it in RCP Website first) -> option 'rcp_license_status'
+
+  // Get the final 'rcp_settings' option (with payment gateway!)
+
+  // Insert mebership level
+
+  // Restrict site content (a2kA1_termmeta -> meta_key = rcp_restricted_meta)
 
   update_option($version_option_name, $new_version);
 }
+*/
 
 echo 'Deployment complete', PHP_EOL;
