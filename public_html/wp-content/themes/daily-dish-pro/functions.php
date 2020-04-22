@@ -699,7 +699,6 @@ function crv_filter_title_tail($title)
 {
 	$not_word = '(\W|&.*?;)';
 	$match_words = implode('|', ['probiotisch', 'roh', 'vegan', 'glutenfrei', 'selbstgemacht', 'und']);
-	// return preg_replace('/(' . $not_word . '+(' . $match_words . '){2,5}' . $not_word . '*$/i', '', $title);
 	return preg_replace("/(${not_word}+(${match_words})){2,}${not_word}*\$/i", '', $title);
 }
 add_filter('genesis_post_title_text', 'crv_filter_title_tail_for_member_archives');
