@@ -184,20 +184,62 @@ if (version_compare($version, $new_version, '<')) {
     }
   }
 
+
   /**
    * Setup for support/faq page
-   * 
-   * @todo create page with slug 'faqs'
-   * 
-   * @todo import all faqs with custom category
    */
+  WP_CLI::log("Creating FAQs page, if not already existing");
+  $faqs_title = 'Häufig gestellte Fragen';
+  $faqs_name = 'faqs';
+  if (!get_posts([
+    'name' => $faqs_name,
+    'post_type' => 'page',
+    'post_status' => 'publish',
+    'numberposts' => 1
+  ])) {
+    wp_insert_post([
+      'post_title' => $faqs_title,
+      'post_name' => $faqs_name,
+      'post_type' => 'page',
+      'post_status' => 'publish'
+    ]);
+  }
 
+  WP_CLI::log("Creating all FAQs");
 
-  /**
-   * Setup for member dashboard
-   * 
-   * @todo create page with slug 'dashboard'
-   */
+  // Create FAQs from JSON file
+  $faqs_json = file_get_contents(ABSPATH . '../deployment_data/faqs.json');
+  $category_objs = json_decode($faqs_json);
+  foreach ($category_objs as $category_obj) {
+    $category = $category_obj->category;
+
+    // Create the category term
+    ['term_id' => $term_id] = wp_insert_term(
+      $category->name,
+      'faq_category',
+      ['slug' => $category->slug]
+    );
+
+    // Create all faqs
+    $faqs = $category_obj->faqs;
+    foreach ($faqs as $faq) {
+      wp_insert_post([
+        'post_title' => $faq->title,
+        'post_content' => $faq->content,
+        'post_status' => 'publish',
+        'post_type' => 'faq',
+        'tax_input' => ['faq_category' => [$term_id]]
+      ]);
+    }
+  }
+
+  // Create Category to collect uncategorized FAQs
+  wp_insert_term(
+    'Sonstige Fragen',
+    'faq_category',
+    ['slug' => 'other-faqs']
+  );
+
 
   update_option($version_option_name, $new_version);
   WP_CLI::success("Deployed version " . $new_version);
