@@ -80,13 +80,12 @@ add_filter('term_updated_messages', 'faq_category_updated_messages');
  */
 function jw_set_default_faq_term($post_id, $post)
 {
-	$default_term = 'other';
-	if ('faq' == $post->post_type && 'publish' === $post->post_status) {
-
+	$default_term = 'other-faqs';
+	if ('publish' === $post->post_status) {
 		$terms = wp_get_post_terms($post_id, 'faq_category');
 		if (empty($terms)) {
 			wp_set_object_terms($post_id, $default_term, 'faq_category');
 		}
 	}
 }
-add_action('save_post', 'jw_set_default_faq_term', 100, 2);
+add_action('save_post_faq', 'jw_set_default_faq_term', 100, 2);

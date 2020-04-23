@@ -30,7 +30,7 @@ const matches = (text, search) => {
   // Return when at least half of words match
   const searchHits = searchWords.filter(searchWord => text.includes(searchWord)).length;
   const matchRatio = searchHits / searchWords.length;
-  return matchRatio >= 0.5;
+  return matchRatio >= 0.6;
 }
 
 const searchInput = document.querySelector('#faq-searchform');
