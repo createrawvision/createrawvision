@@ -3,7 +3,7 @@
 /**
  * Makes changes to the database by comparing 'crv_version' option.
  * 
- * Execute with WP-CLI!
+ * Execute with WP-CLI (and add `--user=Josef` to have enough capabilites)!
  */
 
 if (!defined('WP_CLI') || !WP_CLI) {

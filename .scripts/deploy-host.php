@@ -23,6 +23,7 @@ $user = 'u1138-epznjctshp29';
 $port = 18765;
 $root_path = '/home/customer/www/staging3.createrawvision.de/';
 $path_to_script = $root_path . '.scripts/deploy.php';
+$admin = 'Josef';
 
 
 /*
@@ -61,7 +62,7 @@ $deploy_command .= "echo 'Pulling from GitHub';";
 $deploy_command .= "git pull;";
 
 $deploy_command .= "echo 'Running deployment script';";
-$deploy_command .= "if [ -f '$path_to_script' ]; then wp eval-file '$path_to_script'; else echo 'Script not found'; fi;";
+$deploy_command .= "if [ -f '$path_to_script' ]; then wp eval-file '$path_to_script' --user=$admin; else echo 'Script not found'; fi;";
 
 $deploy_command .= "echo 'Deactivating maintenance mode';";
 $deploy_command .= "wp maintenance-mode deactivate;";
