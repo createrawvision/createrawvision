@@ -34,9 +34,10 @@ See file for more details.
 
 ### `.scripts/deploy.php`
 
-`wp eval-file .scripts/deploy.php`
+`wp eval-file .scripts/deploy.php --user=Josef`
 
-Deployment script, which makes all database changes. Tracks the current version by the `crv_version` option.
+Deployment script, which makes all database changes. Tracks the current version by the `crv_version` option.  
+Don't forget to set an admin user, to pass all `current_user_can` checks.
 
 ## Production Server Requirement
 
