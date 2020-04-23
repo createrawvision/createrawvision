@@ -23,11 +23,6 @@ import { Spinner } from '@wordpress/components';
 import { speak } from '@wordpress/a11y';
 import apiFetch from '@wordpress/api-fetch';
 
-/**
- * External dependencies.
- */
-import { get } from 'lodash';
-
 class BreadcrumbsToggleInfo extends Component {
 	constructor( props ) {
 		super( props );
@@ -265,12 +260,9 @@ class BreadcrumbsToggleInfo extends Component {
 export const GenesisBreadcrumbsToggleInfo = compose( [
 	withSelect( () => {
 		const postType = select( 'core/editor' ).getCurrentPostType();
-		const postTypeInfo = select( 'core' ).getPostType( postType );
-		const label = get( postTypeInfo, 'name', __( 'Entries', 'genesis' ) );
-
 		return {
 			currentPostType: postType,
-			currentPostTypeLabel: label,
+			currentPostTypeLabel: select( 'core' ).getPostType( postType ).name || __( 'Entries', 'genesis' ),
 			currentPostID: select( 'core/editor' ).getCurrentPostId(),
 		};
 	} ),
