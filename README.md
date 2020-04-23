@@ -11,7 +11,6 @@ WordPress Blog about raw food and related things.
 |-- public_html         Stripped down WordPress
     |-- wp-content
         |-- themes
-        |-- deploy.php  For deploying database changes. Only with WP-CLI!
 |-- tests               WPBrowser/Codeception test without generated data
 ```
 
