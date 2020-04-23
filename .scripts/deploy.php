@@ -214,11 +214,16 @@ if (version_compare($version, $new_version, '<')) {
     $category = $category_obj->category;
 
     // Create the category term
-    ['term_id' => $term_id] = wp_insert_term(
+    $term = wp_insert_term(
       $category->name,
       'faq_category',
       ['slug' => $category->slug]
     );
+    if (is_wp_error($term)) {
+      WP_CLI::warning($term->get_error_message());
+      continue;
+    }
+    ['term_id' => $term_id] = $term;
 
     // Create all faqs
     $faqs = $category_obj->faqs;

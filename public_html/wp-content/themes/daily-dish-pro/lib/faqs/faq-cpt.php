@@ -39,7 +39,7 @@ function faq_init()
 		'hierarchical'          => false,
 		'supports'              => array('title', 'editor'),
 		'menu_position'         => null,
-		'menu_icon'             => 'dashicons-admin-post',
+		'menu_icon'             => 'dashicons-format-status',
 		'show_in_rest'          => true,
 		'rest_base'             => 'faq',
 		'rest_controller_class' => 'WP_REST_Posts_Controller',

@@ -21,6 +21,7 @@
   padding: 1rem 4rem 1rem 1rem;
   margin: 0;
   cursor: pointer;
+  transition: background-color 0.3s;
 }
 
 .faq__item:last-child {
