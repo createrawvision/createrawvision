@@ -13,7 +13,7 @@
  * - Git remote and valid SSH key for it
  * 
  * Usage (from within WP-root):
- * wp eval-file ../.scripts/pull.php [skip-db, skip-files]
+ * wp eval-file .scripts/pull.php [skip-db, skip-files]
  */
 
 

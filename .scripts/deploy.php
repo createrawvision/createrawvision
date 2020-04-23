@@ -1,100 +1,156 @@
 <?php
 
 /**
- * This script deploys the changes from GitHub to the given server.
- * NOTE: Only the database gets backed up! Backup your files manually, if you want to.
+ * Makes changes to the database by comparing 'crv_version' option.
  * 
- * Requirements:
- * - Valid SSH Key for the server
- * - WP-CLI installed on the server
- * - WP-CLI installed locally (made required, so the script can only be run through WP-CLI)
- * - SSH path has to be the WordPress root directory
- * - Git remote and valid SSH key for it on the server
+ * Execute with WP-CLI!
+ */
+
+if (!defined('WP_CLI') || !WP_CLI) {
+  echo "WP_CLI not defined", PHP_EOL;
+  exit(1);
+}
+
+/**
+ * Run a WP_CLI command.
  * 
- * Usage:
- * wp eval-file ../.scripts/deploy.php
+ * Run `wp cli has_command` before executing the command.   
+ * Only exits, if the command couldn't be executed and `exit_error` is set to exit.
  */
-
-/*
- * SETTINGS
- */
-$host = 'createrawvision.de';
-$user = 'u1138-epznjctshp29';
-$port = 18765;
-$path = '/home/customer/www/staging3.createrawvision.de/public_html';
-$path_to_script = $path . '/wp-content/deploy.php';
-
-
-/*
- * CHECKS
- */
-if (!defined('WP_CLI')) {
-  echo 'WP_CLI not defined';
-  exit(1);
-}
-
-echo 'Testing SSH connection', PHP_EOL;
-if (!valid_ssh($host, $user, $port, $path)) {
-  echo 'SHH connection failed', PHP_EOL;
-  exit(1);
-}
-
-echo 'Checking if WP CLI is on the server', PHP_EOL;
-if (!is_remote_wp_cli($host, $user, $port, $path)) {
-  echo 'WP CLI not on server', PHP_EOL;
-  exit(1);
-}
-
-
-/*
- * COMMAND
- */
-echo 'Building remote command', PHP_EOL;
-
-$deploy_command = "echo 'Activating maintenance mode';";
-$deploy_command .= "wp maintenance-mode activate;";
-
-$deploy_command .= "echo 'Creating Database Backup';";
-$deploy_command .= "wp db export;";
-
-$deploy_command .= "echo 'Pulling from GitHub';";
-$deploy_command .= "git pull;";
-
-$deploy_command .= "echo 'Running deployment script';";
-$deploy_command .= "if [ -f '$path_to_script' ]; then wp eval-file '$path_to_script'; else echo 'Script not found'; fi;";
-
-$deploy_command .= "echo 'Deactivating maintenance mode';";
-$deploy_command .= "wp maintenance-mode deactivate;";
-
-echo 'Launching remote command via ssh', PHP_EOL;
-echo $deploy_command;
-if (!execute_remote($deploy_command, $host, $user, $port, $path)) {
-  echo 'Remote command failed', PHP_EOL;
-  exit(1);
-}
-
-
-/*
- * FUNCTIONS
- */
-
-function valid_ssh($host, $user, $port, $path)
+function run_wp_cli_command($command, $exit_error = false)
 {
-  $command = "ssh -q -p $port $user@$host \"cd $path; exit;\"";
-  system($command, $return_var);
-  return $return_var == 0;
+  if ($exit_error == 'exit_error') {
+    $exit_error = true;
+  }
+  if (!is_bool($exit_error)) {
+    throw new InvalidArgumentException("exit_error has to be one of true, false or 'exit_error': was $exit_error");
+  }
+
+  $options = array(
+    'launch'      => false,
+    'exit_error'  => $exit_error,
+    'return'      => 'return_code'
+  );
+
+  if (wp_cli_has_command($command)) {
+    return WP_CLI::runcommand($command, $options);
+  } else {
+    $message = "Couldn't find command \"${command}\"";
+    if ($exit_error) {
+      WP_CLI::error($message);
+    } else {
+      WP_CLI::warning($message);
+      return 1;
+    }
+  }
 }
 
-function is_remote_wp_cli($host, $user, $port, $path)
+/**
+ * Checks if WP-CLI knows the command.
+ * 
+ * Escapes quotes by running `addslahes` on the input.
+ */
+function wp_cli_has_command($command)
 {
-  $command = "ssh -q -p $port $user@$host \"cd $path; wp cli version;\"";
-  system($command, $return_var);
-  return $return_var == 0;
+  $command = addslashes($command);
+  $return_code = WP_CLI::runcommand("cli has-command \"${command}\"", array(
+    'return'      => 'return_code',
+    'exit_error'  => false
+  ));
+  return $return_code == 0;
 }
 
-function execute_remote($command, $host, $user, $port, $path)
-{
-  $command = "ssh -p $port $user@$host \"cd $path; $command\"";
-  system($command, $return_var);
-  return $return_var == 0;
+// Avoid the output buffer
+ob_end_flush();
+ob_implicit_flush();
+
+// Check the version to deploy all needed changes
+$version_option_name = 'crv_version';
+$version = get_option($version_option_name);
+
+if (!$version) {
+  $version = '0.0.0';
+  add_option($version_option_name, $version);
 }
+
+$new_version = '0.1.0';
+if (version_compare($version, $new_version, '<')) {
+  WP_CLI::log("Deploying version $new_version");
+
+  /**
+   * Setup for category featured images
+   */
+  WP_CLI::log("Installing and activating Advanced Custom Fields");
+  run_wp_cli_command("plugin install advanced-custom-fields --activate --force", 'exit_error');
+
+  WP_CLI::log("Removing categories from posts, when category has child categories");
+
+  $childless_category_ids = get_categories([
+    'childless' => true,
+    'hide_empty' => false,
+    'fields' => 'ids'
+  ]);
+  $all_category_ids = get_categories([
+    'hide_empty' => false,
+    'fields' => 'ids'
+  ]);
+  $parent_category_ids = array_values(array_diff(
+    $all_category_ids,
+    $childless_category_ids
+  ));
+
+  $post_ids_to_edit = get_posts([
+    'category__in' => $parent_category_ids,
+    'fields' => 'ids',
+    'posts_per_page' => -1,
+    'post_status' => 'any'
+  ]);
+
+  foreach ($post_ids_to_edit as $post_id) {
+    wp_remove_object_terms($post_id, $parent_category_ids, 'category');
+  }
+  WP_CLI::log("Removed parent categories from following posts: " . implode(',', $post_ids_to_edit));
+
+
+  /**
+   * Restrict Content Pro setup
+   * 
+   * @todo Get the final 'rcp_settings' option (with payment gateway!)
+   * 
+   * @todo Insert mebership level
+   * 
+   * @todo Restrict site content (a2kA1_termmeta -> meta_key = rcp_restricted_meta)
+   */
+  WP_CLI::log("Installing and activating Restrict Content Pro");
+  $rcp_path = ABSPATH . '../deployment_data/restrict-content-pro.zip';
+  run_wp_cli_command("plugin install '$rcp_path' --activate --force", 'exit_error');
+
+  WP_CLI::warning("RCP license key wasn't set. Add the license key manually.");
+
+
+  /**
+   * Setup for support/faq page
+   * 
+   * @todo create page with slug 'faqs'
+   * 
+   * @todo import all faqs with custom category
+   */
+
+
+  /**
+   * Setup for member dashboard
+   * 
+   * @todo create page with slug 'dashboard'
+   */
+
+  update_option($version_option_name, $new_version);
+  WP_CLI::success("Deployed version " . $new_version);
+}
+
+WP_CLI::log("Flushing all caches");
+run_wp_cli_command('sg purge');
+run_wp_cli_command("autoptimize clear");
+run_wp_cli_command("cache flush");
+run_wp_cli_command("rewrite flush");
+
+WP_CLI::success('Deployment complete');
