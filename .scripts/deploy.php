@@ -115,18 +115,74 @@ if (version_compare($version, $new_version, '<')) {
   /**
    * Restrict Content Pro setup
    * 
-   * @todo Get the final 'rcp_settings' option (with payment gateway!)
-   * 
-   * @todo Insert mebership level
-   * 
    * @todo Restrict site content (a2kA1_termmeta -> meta_key = rcp_restricted_meta)
    */
   WP_CLI::log("Installing and activating Restrict Content Pro");
   $rcp_path = ABSPATH . '../deployment_data/restrict-content-pro.zip';
   run_wp_cli_command("plugin install '$rcp_path' --activate --force", 'exit_error');
 
+  WP_CLI::log("Setting RCP Settings");
+  $rcp_settings = array(
+    'auto_renew' => '1',
+    'currency' => 'EUR',
+    'currency_position' => 'before',
+    'gateways' => array('digistore' => '1'),
+    'email_template' => 'default',
+    'email_header_text' => 'Hallo',
+    'email_header_img' => '',
+    'from_name' => 'CreateRawVision',
+    'from_email' => 'info@createrawvision.de',
+    'admin_notice_emails' => 'info@createrawvision.de'
+  );
+  $current_rcp_settings = get_option('rcp_settings');
+  $new_rcp_settings = wp_parse_args($rcp_settings, $current_rcp_settings);
+  update_option('rcp_settings', $new_rcp_settings);
+
   WP_CLI::warning("RCP license key wasn't set. Add the license key manually.");
 
+  WP_CLI::log("Creating membership levels");
+  $rcp_levels = new RCP_Levels();
+  $levels_args = array(
+    array(
+      'name' => 'CreateRawVision Member (monatlich)',
+      'description' => 'Erhalte noch heute Zugriff zu über 400 großartigen Rezepte, hilfreichen Tipps &amp; Tricks und einer wertschätzenden Gemeinschaft.',
+      'duration' => '1',
+      'duration_unit' => 'month',
+      'trial_duration' => '0',
+      'trial_duration_unit' => 'day',
+      'price' => '10',
+      'fee' => '0',
+      'maximum_renewals' => '0',
+      'after_final_payment' => '',
+      'list_order' => '0',
+      'level' => '0',
+      'status' => 'active',
+      'role' => 'subscriber',
+    ),
+    array(
+      'name' => 'CreateRawVision Member (jährlich)',
+      'description' => 'Erhalte noch heute Zugriff zu über 400 großartigen Rezepte, hilfreichen Tipps &amp; Tricks und einer wertschätzenden Gemeinschaft.',
+      'duration' => '1',
+      'duration_unit' => 'year',
+      'trial_duration' => '0',
+      'trial_duration_unit' => 'day',
+      'price' => '80',
+      'fee' => '0',
+      'maximum_renewals' => '0',
+      'after_final_payment' => '',
+      'list_order' => '0',
+      'level' => '0',
+      'status' => 'active',
+      'role' => 'subscriber',
+    )
+  );
+  foreach ($levels_args as $level_args) {
+    if ($rcp_levels->get_level_by('name', $level_args['name'])) {
+      WP_CLI::warning("Membership Level '${level_args['name']}' already exists. Not changing it.");
+    } else {
+      $rcp_levels->insert($level_args);
+    }
+  }
 
   /**
    * Setup for support/faq page
