@@ -52,7 +52,9 @@ function jw_display_faqs()
   $faq_count = 0;
 
   $terms = get_terms(array(
-    'taxonomy' => 'faq_category'
+    'taxonomy' => 'faq_category',
+    'orderby'  => 'ID',
+    'order'    => 'ASC'
   ));
 
   // Loop all categories
@@ -63,6 +65,8 @@ function jw_display_faqs()
       'post_status'     => 'publish',
       'posts_per_page'  => -1,
       's'               => get_query_var('faq_search'),
+      'orderby'         => 'ID',
+      'order'           => 'ASC',
       'tax_query'       => array(
         array(
           'taxonomy'  => 'faq_category',
