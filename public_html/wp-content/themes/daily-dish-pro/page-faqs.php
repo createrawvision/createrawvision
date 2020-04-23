@@ -27,6 +27,7 @@ function jw_enqueue_faq_scripts_styles()
  */
 function jw_display_faq_search()
 { ?>
+  <h2>Wie lautet deine Frage?</h2>
   <form class="search-form" method="get" action="<?php the_permalink(); ?>" role="search">
     <label class="search-form-label screen-reader-text" for="faq-searchform"><?php esc_html_e(__('Häufig gestellte Fragen durchsuchen')); ?></label>
     <input class="search-form-input" type="search" name="faq_search" id="faq-searchform" placeholder="<?php esc_attr_e(__('Häufig gestellte Fragen durchsuchen')); ?>">
