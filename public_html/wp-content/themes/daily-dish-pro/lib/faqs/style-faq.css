@@ -16,8 +16,9 @@
 }
 
 .faq__title {
+  position: relative;
   border: 2px solid #ddd;
-  padding: 1rem;
+  padding: 1rem 4rem 1rem 1rem;
   margin: 0;
   cursor: pointer;
 }
@@ -27,14 +28,19 @@
 }
 
 .faq__title::after {
-  float: right;
-  margin-left: 1rem;
-  color: #666;
+  position: absolute;
+  content: "+";
+  color: #888;
   font-family: serif;
-  font-weight: normal;
+  font-weight: bold;
   font-size: 120%;
   line-height: 100%;
-  content: "+";
+  margin: auto;
+  margin-left: 1rem;
+  height: 3rem;
+  right: 1rem;
+  top: 0;
+  bottom: 0;
 }
 
 .faq__title--open::after {
