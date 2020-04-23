@@ -227,10 +227,10 @@ function genesis_constants() {
 	// Define Theme Info Constants.
 	// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
 	define( 'PARENT_THEME_NAME', 'Genesis' );
-	define( 'PARENT_THEME_VERSION', '3.2.1' );
-	define( 'PARENT_THEME_BRANCH', '3.2' );
-	define( 'PARENT_DB_VERSION', '3200' );
-	define( 'PARENT_THEME_RELEASE_DATE', date_i18n( 'F j, Y', strtotime( '14 November 2019' ) ) );
+	define( 'PARENT_THEME_VERSION', '3.3.2' );
+	define( 'PARENT_THEME_BRANCH', '3.3' );
+	define( 'PARENT_DB_VERSION', '3301' );
+	define( 'PARENT_THEME_RELEASE_DATE', date_i18n( 'F j, Y', strtotime( '22 April 2020' ) ) );
 
 	// Define Parent and Child Directory Location and URL Constants.
 	define( 'PARENT_DIR', get_template_directory() );

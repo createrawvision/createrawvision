@@ -110,7 +110,7 @@ class Genesis_Script_Loader {
 			wp_enqueue_script(
 				'genesis-breadcrumbs-toggle',
 				GENESIS_JS_URL . '/build/breadcrumbs-toggle.js',
-				[ 'wp-a11y', 'wp-api-fetch', 'wp-components', 'wp-compose', 'wp-data', 'wp-element', 'wp-i18n', 'wp-plugins', 'wp-polyfill' ],
+				[ 'lodash', 'wp-a11y', 'wp-api-fetch', 'wp-components', 'wp-compose', 'wp-data', 'wp-element', 'wp-i18n', 'wp-plugins', 'wp-polyfill' ],
 				PARENT_THEME_VERSION,
 				true
 			);
@@ -132,7 +132,7 @@ class Genesis_Script_Loader {
 			wp_enqueue_script(
 				'genesis-image-toggle',
 				GENESIS_JS_URL . '/build/image-toggle.js',
-				[ 'wp-a11y', 'wp-api-fetch', 'wp-components', 'wp-compose', 'wp-data', 'wp-element', 'wp-i18n', 'wp-plugins', 'wp-polyfill' ],
+				[ 'lodash', 'wp-a11y', 'wp-api-fetch', 'wp-components', 'wp-compose', 'wp-data', 'wp-element', 'wp-i18n', 'wp-plugins', 'wp-polyfill' ],
 				PARENT_THEME_VERSION,
 				true
 			);

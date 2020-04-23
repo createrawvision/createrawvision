@@ -23,6 +23,11 @@ import { Spinner } from '@wordpress/components';
 import { speak } from '@wordpress/a11y';
 import apiFetch from '@wordpress/api-fetch';
 
+/**
+ * External dependencies.
+ */
+import { get } from 'lodash';
+
 class ImageToggleInfo extends Component {
 	constructor( props ) {
 		super( props );
@@ -162,9 +167,12 @@ class ImageToggleInfo extends Component {
 export const GenesisImageToggleInfo = compose( [
 	withSelect( () => {
 		const postType = select( 'core/editor' ).getCurrentPostType();
+		const postTypeInfo = select( 'core' ).getPostType( postType );
+		const label = get( postTypeInfo, 'name', __( 'Entries', 'genesis' ) );
+
 		return {
 			currentPostType: postType,
-			currentPostTypeLabel: select( 'core' ).getPostType( postType ).name || __( 'Entries', 'genesis' ),
+			currentPostTypeLabel: label,
 		};
 	} ),
 ] )( ImageToggleInfo );
