@@ -754,9 +754,7 @@ function genesis_get_author_box_by_user( $user_id, $context = '' ) {
 
 	$heading_element = 'h1';
 
-	if ( 'archive' === $context ) {
-		$heading_element = 'h2';
-	} elseif ( 'single' === $context && ! genesis_get_seo_option( 'semantic_headings' ) ) {
+	if ( 'single' === $context && ! genesis_get_seo_option( 'semantic_headings' ) ) {
 		$heading_element = 'h4';
 	} elseif ( genesis_a11y( 'headings' ) || get_the_author_meta( 'headline', $user_id ) ) {
 		$heading_element = 'h4';
@@ -958,21 +956,20 @@ function genesis_numeric_posts_nav() {
 		$links[] = $paged + 1;
 	}
 
-	$atts = [
-		'role'       => 'navigation',
-		'aria-label' => esc_attr__( 'Pagination', 'genesis' ),
-	];
 	genesis_markup(
 		[
 			'open'    => '<div %s>',
 			'context' => 'archive-pagination',
-			'atts'    => genesis_a11y() ? $atts : '',
 		]
 	);
 
 	$before_number = genesis_a11y() ? '<span class="screen-reader-text">' . __( 'Go to page', 'genesis' ) . '</span>' : '';
 
-	echo '<ul>';
+	if ( genesis_a11y() ) {
+		printf( '<ul role="navigation" aria-label="%s">', esc_attr__( 'Pagination', 'genesis' ) );
+	} else {
+		echo '<ul>';
+	}
 
 	// Previous Post Link.
 	if ( get_previous_posts_link() ) {

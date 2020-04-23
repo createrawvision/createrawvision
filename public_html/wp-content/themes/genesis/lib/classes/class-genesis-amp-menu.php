@@ -230,7 +230,7 @@ class Genesis_AMP_Menu {
 
 				.genesis-responsive-menu.toggled-on .sub-menu-toggle.toggled-on + .sub-menu {
 					display: block;
-					width: 100%%;
+					width: 100%;
 					-webkit-transform: scaleY(1);
 					-moz-transform: scaleY(1);
 					-ms-transform: scaleY(1);

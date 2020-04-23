@@ -662,7 +662,7 @@ class Genesis_Breadcrumb {
 			$wp_locale->get_month( $month ),
 			$this->args['sep']
 		);
-		$crumb .= $this->args['labels']['date'] . $day . gmdate( 'S', mktime( 0, 0, 0, 1, $day ) );
+		$crumb .= $this->args['labels']['date'] . $day . date( 'S', mktime( 0, 0, 0, 1, $day ) );
 
 		/**
 		 * Filter the day archive breadcrumb.

@@ -26,10 +26,10 @@ class Upgrade_DB_3101 implements Upgrade_DB_Interface {
 	 */
 	public function upgrade() {
 		$search      = [
-			'© ' . gmdate( 'Y' ),
-			'&copy; ' . gmdate( 'Y' ),
-			'&#169; ' . gmdate( 'Y' ),
-			'&#x000A9; ' . gmdate( 'Y' ),
+			'© ' . date( 'Y' ),
+			'&copy; ' . date( 'Y' ),
+			'&#169; ' . date( 'Y' ),
+			'&#x000A9; ' . date( 'Y' ),
 		];
 		$replace     = '[footer_copyright]';
 		$footer_text = genesis_get_option( 'footer_text', null, false );

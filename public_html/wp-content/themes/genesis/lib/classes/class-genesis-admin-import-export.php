@@ -235,7 +235,7 @@ class Genesis_Admin_Import_Export extends Genesis_Admin_Basic {
 		header( 'Cache-Control: public, must-revalidate' );
 		header( 'Pragma: hack' );
 		header( 'Content-Type: text/plain' );
-		header( 'Content-Disposition: attachment; filename="' . $prefix . '-' . gmdate( 'Ymd-His' ) . '.json"' );
+		header( 'Content-Disposition: attachment; filename="' . $prefix . '-' . date( 'Ymd-His' ) . '.json"' );
 		header( 'Content-Length: ' . mb_strlen( $output ) );
 		echo $output; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		exit;

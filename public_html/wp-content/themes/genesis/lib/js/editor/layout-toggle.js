@@ -34,9 +34,7 @@ class genesisLayoutToggleComponent extends Component {
 	}
 
 	componentDidMount() {
-		// Show Genesis layouts of type [postType-ID], [postType], 'singular', then 'site' in that order.
-		const layoutsEndpoint = `/genesis/v1/layouts/singular,${this.props.currentPostType},${this.props.currentPostID}`;
-		apiFetch( { path: layoutsEndpoint } ).then( ( collection ) => {
+		apiFetch( { path: '/genesis/v1/layouts/site' } ).then( ( collection ) => {
 			const stack = [ { label: __( 'Default Layout', 'genesis' ), value: '' } ];
 
 			for ( const slug of Object.keys( collection ) ) {
@@ -81,8 +79,6 @@ const render = compose( [
 	withSelect( () => {
 		return {
 			layout: select( 'core/editor' ).getEditedPostAttribute( 'meta' )._genesis_layout,
-			currentPostID: select( 'core/editor' ).getCurrentPostId(),
-			currentPostType: select( 'core/editor' ).getCurrentPostType(),
 		};
 	} ),
 	withDispatch( ( dispatch ) => ( {

@@ -44,11 +44,11 @@ function genesis_footer_copyright_shortcode( $atts ) {
 
 	$output = $atts['before'] . $atts['copyright'] . '&nbsp;';
 
-	if ( '' !== $atts['first'] && gmdate( 'Y' ) !== $atts['first'] ) {
+	if ( '' !== $atts['first'] && date( 'Y' ) !== $atts['first'] ) {
 		$output .= $atts['first'] . '&#x02013;';
 	}
 
-	$output .= gmdate( 'Y' ) . $atts['after'];
+	$output .= date( 'Y' ) . $atts['after'];
 
 	return apply_filters( 'genesis_footer_copyright_shortcode', $output, $atts );
 

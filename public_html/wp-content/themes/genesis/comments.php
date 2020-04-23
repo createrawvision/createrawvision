@@ -16,8 +16,8 @@ if ( post_password_required() ) {
 	return;
 }
 
-// Prevent the jump from post heading h1 to comment heading h3 that could occur if post content contains no h2.
-if ( genesis_a11y( 'headings' ) && genesis_comments_trackbacks_showing() ) {
+// Output semantically correct header if accessibility is supported.
+if ( genesis_a11y( 'headings' ) ) {
 	printf( '<h2 class="screen-reader-text">%s</h2>', esc_html__( 'Reader Interactions', 'genesis' ) );
 }
 
