@@ -679,12 +679,22 @@ function crv_filter_title_tail_for_member_archives($title)
 /**
  * Cut the tail of the string, when it is only one of $match_words repeated at least 2 times
  * Non-word characters and HTML encoded entities are allowed between them
+ * 
+ * **Examples**  
+ * ```
+ * Rezept vegan                              --->  Rezept vegan  
+ * Mega-cooles Rezept - roh & vegan          --->  Mega-cooles Rezept  
+ * Mega-cooles Rezept &#45; roh &amp; vegan  --->  Mega-cooles Rezept  
+ * Mega-cooles roh-veganes Rezept            --->  Mega-cooles roh-veganes Rezept  
+ * "Rezept" - roh & vegan                    --->  "Rezept"  
+ * Rezept (cool) roh-vegan                   --->  Rezept (cool)
+ * ```
  */
 function crv_filter_title_tail($title)
 {
 	$not_word = '(\W|&[^;]*;)'; // HTML encoded entity or not word 
 	$match_words = implode('|', ['probiotisch', 'roh', 'vegan', 'glutenfrei', 'selbstgemacht', 'und']);
-	return preg_replace("/(${not_word}+(${match_words})){2,}${not_word}*\$/i", '', $title);
+	return preg_replace("/\s(${not_word}*(${match_words})){2,}${not_word}*\$/i", '', $title);
 }
 add_filter('genesis_post_title_text', 'crv_filter_title_tail_for_member_archives');
 
