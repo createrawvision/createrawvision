@@ -109,7 +109,31 @@ if (version_compare($version, $new_version, '<')) {
   foreach ($post_ids_to_edit as $post_id) {
     wp_remove_object_terms($post_id, $parent_category_ids, 'category');
   }
-  WP_CLI::log("Removed parent categories from following posts: " . implode(',', $post_ids_to_edit));
+  WP_CLI::log("Removed parent categories from following posts: " . implode(',', $post_ids_to_edit) ?: '(none)');
+
+  WP_CLI::log('Setting category featured image from JSON data');
+  $category_images_json = file_get_contents(ABSPATH . '../deployment_data/category-images.json');
+  $category_images = json_decode($category_images_json, $assoc = TRUE);
+  foreach ($category_images as ['term_name' => $term_name, 'image_title' => $image_title]) {
+
+    // Get the image_id by title, skip if not found
+    $images = get_posts(['post_type' => 'attachment', 'title' => $image_title, 'post_status' => null, 'numberposts' => 1]);
+    if (!$images) {
+      WP_CLI::warning("Couldn't find image with title ${image_title}. Skipping...");
+      continue;
+    }
+    $image_id = $images[0]->ID;
+
+    // get term_id by name, skip if not found
+    $term = get_term_by('name', $term_name, 'category');
+    if (!$term) {
+      WP_CLI::warning("Couldn't find term with name ${term_name}. Skipping...");
+      continue;
+    }
+    $term_id = $term->term_id;
+
+    acf_save_post('term_' . $term_id, ['field_1' => $image_id]);
+  }
 
 
   /**
