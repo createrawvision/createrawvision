@@ -109,7 +109,7 @@ if (version_compare($version, $new_version, '<')) {
   foreach ($post_ids_to_edit as $post_id) {
     wp_remove_object_terms($post_id, $parent_category_ids, 'category');
   }
-  WP_CLI::log("Removed parent categories from following posts: " . implode(',', $post_ids_to_edit) ?: '(none)');
+  WP_CLI::log("Removed parent categories from following posts: " . (implode(',', $post_ids_to_edit) ?: '(none)'));
 
   WP_CLI::log('Setting category featured image from JSON data');
   $category_images_json = file_get_contents(ABSPATH . '../deployment_data/category-images.json');
