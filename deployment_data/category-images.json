@@ -1,194 +1,242 @@
 [
   {
     "term_name": "Asiatische Küche",
+    "term_id": 4331,
     "image_title": "Sushi"
   },
   {
     "term_name": "Aufstriche",
+    "term_id": 4323,
     "image_title": "Cemen - Walnuss-Tomaten Aufstrich10"
   },
   {
     "term_name": "Brot &amp; Brötchen",
+    "term_id": 4271,
     "image_title": "Maisbrot7"
   },
   {
     "term_name": "Cräcker &amp; Chips",
+    "term_id": 4275,
     "image_title": "Wirsingchips French Style"
   },
   {
     "term_name": "Dein Weg Zur Rohkost Leicht Gemacht",
+    "term_id": 5792,
     "image_title": ""
   },
   {
     "term_name": "Dressings, Dips &amp; Soßen",
+    "term_id": 4301,
     "image_title": "Hanfproteindressing3"
   },
   {
     "term_name": "Einfache Rezepte",
+    "term_id": 4325,
     "image_title": "Blaukrautsalat"
   },
   {
     "term_name": "Ersatz für Milchprodukte",
+    "term_id": 4299,
     "image_title": "Griechischer Feta"
   },
   {
     "term_name": "Fermentiertes",
+    "term_id": 4295,
     "image_title": "Griechischer Joghurt"
   },
   {
     "term_name": "Fettarme Rezepte",
+    "term_id": 4335,
     "image_title": "Maulbeerenporridge"
   },
   {
-    "term_name": "Fingerfood &amp; Snacks",
+    "term_name": "Fingerfood, Snacks &amp; Beilagen",
+    "term_id": 4317,
     "image_title": "Kürbis-Paprika Empanandas mit Mangosalsa"
   },
   {
     "term_name": "Frühstück",
+    "term_id": 4281,
     "image_title": "Pistazienpudding mit Himbeerpüree10"
   },
   {
     "term_name": "Getränke",
+    "term_id": 4279,
     "image_title": "Mandel-Mesquite-Milchneu"
   },
   {
     "term_name": "Getrocknete Früchte &amp; Gemüse",
+    "term_id": 4303,
     "image_title": "Apfelchips"
   },
   {
     "term_name": "Hauptgerichte",
+    "term_id": 4309,
     "image_title": "Paprikagulasch mit Vleischbällchen5"
   },
   {
-    "term_name": "How Tos",
-    "image_title": ""
-  },
-  {
     "term_name": "Italienische Küche",
+    "term_id": 4307,
     "image_title": "Paprikapasta7"
   },
   {
     "term_name": "Käse",
+    "term_id": 4319,
     "image_title": "Macadamia Pfeffer Brie"
   },
   {
     "term_name": "Kekse &amp; Gebäck",
+    "term_id": 4289,
     "image_title": "Taccoschalen mit Salsa und mariniertem Gemüse9"
   },
   {
     "term_name": "Kuchen &amp; Torten",
+    "term_id": 4283,
     "image_title": "Butterstreuselkuchen"
   },
   {
     "term_name": "Mexikanische Küche",
+    "term_id": 4273,
     "image_title": "Taccoschalen mit Salsa und mariniertem Gemüse9"
   },
   {
     "term_name": "Müsli",
+    "term_id": 4305,
     "image_title": "Herbstmüsli 2"
   },
   {
     "term_name": "Nudeln &amp; Reis",
+    "term_id": 4311,
     "image_title": "Schwarzer Rettich Spaghetti"
   },
   {
-    "term_name": "Nussbutter",
+    "term_name": "Nuss-und Saatenmuse",
+    "term_id": 4313,
     "image_title": "Hanfbutter"
   },
   {
     "term_name": "Orientalische Küche",
+    "term_id": 4333,
     "image_title": "Shakshuka mit Rohkostei12"
   },
   {
     "term_name": "Pudding &amp; Desserts",
+    "term_id": 4315,
     "image_title": "Toffeecreme"
   },
   {
+    "term_name": "Rohkost - Weitere Tipps",
+    "term_id": 5287,
+    "image_title": ""
+  },
+  {
     "term_name": "Salate",
+    "term_id": 4291,
     "image_title": "Rote Bete Power Salat"
   },
   {
     "term_name": "Salattoppings &amp; Croutons",
+    "term_id": 4293,
     "image_title": "Avocadosalsa"
   },
   {
     "term_name": "Schokolade &amp; Süßigkeiten",
+    "term_id": 4285,
     "image_title": "Weißer Nougat"
   },
   {
     "term_name": "Suppen",
+    "term_id": 4321,
     "image_title": "Thai-Kokossuppe"
   },
   {
     "term_name": "Wildkräuter Rezepte",
+    "term_id": 5758,
     "image_title": "Wildkräuteromelett1"
   },
   {
     "term_name": "Würzmittel &amp; Würzsoßen",
+    "term_id": 4287,
     "image_title": "Ketchup9"
   },
   {
     "term_name": "Ausstattung",
+    "term_id": 5796,
     "image_title": "ionut-vlad-idXQEOxhmvU-unsplash"
   },
   {
     "term_name": "Einführung in die Grundlagen",
+    "term_id": 5794,
     "image_title": "vegetable-dishes-923181"
   },
   {
     "term_name": "Grundrezepte",
+    "term_id": 5800,
     "image_title": "monika-grabkowska-w-R_sfcakP0-unsplash"
   },
   {
     "term_name": "Lektion 1 - Ersatz für Milchprodukte",
+    "term_id": 5802,
     "image_title": "rebecca-orlov-orlov-design-co-rfI4MmZXZOk-unsplash"
   },
   {
     "term_name": "Lektion 2 - Frühstück",
+    "term_id": 5804,
     "image_title": "rezel-apacionado-nLz2z-JvCe4-unsplash"
   },
   {
     "term_name": "Lektion 3 - Suppen",
+    "term_id": 5806,
     "image_title": "monika-grabkowska-vCyWfv3YjM0-unsplash"
   },
   {
     "term_name": "Lektion 4 - Hauptgerichte &amp; Salate",
+    "term_id": 5808,
     "image_title": "bruna-branco-t8hTmte4O_g-unsplash"
   },
   {
     "term_name": "Lektion 5 - Beilagen &amp; Snacks",
+    "term_id": 5810,
     "image_title": "christine-siracusa-vzX2rgUbQXM-unsplash"
   },
   {
     "term_name": "Lektion 6 - Dips",
+    "term_id": 5814,
     "image_title": "Tartarsauce6"
   },
   {
     "term_name": "Lektion 7 - Süßes &amp; Desserts",
+    "term_id": 5812,
     "image_title": "brenda-godinez-AAHdL8gp5b8-unsplash"
   },
   {
     "term_name": "Tipps &amp; Tricks Rund um die Rohkost",
+    "term_id": 5818,
     "image_title": "s-well-EBIBk49hXxI-unsplash"
   },
   {
     "term_name": "Wie umgehe ich mit veganer Rohkost Mangelerscheinungen?",
+    "term_id": 5816,
     "image_title": "josefin-s0fuB1h3yPw-unsplash(1)"
   },
   {
     "term_name": "Zubereitungsmethoden in der Rohkostküche",
+    "term_id": 5798,
     "image_title": "monika-grabkowska-4-mGIfpH2Gc-unsplash"
   },
   {
     "term_name": "Küchengeräte - Tipps &amp; Tricks",
+    "term_id": 5851,
     "image_title": "cooked-food-in-stainless-steel-plate-2641886"
   },
   {
     "term_name": "Tipps für Gesundheit und Ernährung",
+    "term_id": 5855,
     "image_title": "josefin-s0fuB1h3yPw-unsplash"
   },
   {
     "term_name": "Tricks für Bessere Rezepte",
+    "term_id": 5853,
     "image_title": "assorted-cooking-spices-2802527"
   }
 ]

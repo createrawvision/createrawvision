@@ -114,7 +114,7 @@ if (version_compare($version, $new_version, '<')) {
   WP_CLI::log('Setting category featured image from JSON data');
   $category_images_json = file_get_contents(ABSPATH . '../deployment_data/category-images.json');
   $category_images = json_decode($category_images_json, $assoc = TRUE);
-  foreach ($category_images as ['term_name' => $term_name, 'image_title' => $image_title]) {
+  foreach ($category_images as ['term_name' => $term_name, 'term_id' => $term_id, 'image_title' => $image_title]) {
 
     // Get the image_id by title, skip if not found
     $images = get_posts(['post_type' => 'attachment', 'title' => $image_title, 'post_status' => null, 'numberposts' => 1]);
@@ -124,10 +124,14 @@ if (version_compare($version, $new_version, '<')) {
     }
     $image_id = $images[0]->ID;
 
-    // get term_id by name, skip if not found
+    // get term_id by name, then by id, skip if not found
     $term = get_term_by('name', $term_name, 'category');
     if (!$term) {
-      WP_CLI::warning("Couldn't find term with name ${term_name}. Skipping...");
+      WP_CLI::warning("Couldn't find term with name ${term_name}. Trying id...");
+      $term = get_term_by('id', $term_id, 'category');
+    }
+    if (!$term) {
+      WP_CLI::warning("Couldn't find term with id ${term_id}. Skipping...");
       continue;
     }
     $term_id = $term->term_id;
