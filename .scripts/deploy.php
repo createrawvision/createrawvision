@@ -124,14 +124,14 @@ if (version_compare($version, $new_version, '<')) {
     }
     $image_id = $images[0]->ID;
 
-    // get term_id by name, then by id, skip if not found
-    $term = get_term_by('name', $term_name, 'category');
-    if (!$term) {
-      WP_CLI::warning("Couldn't find term with name ${term_name}. Trying id...");
-      $term = get_term_by('id', $term_id, 'category');
-    }
+    // get term_id by id, then by name, skip if not found
+    $term = get_term_by('id', $term_id, 'category');
     if (!$term) {
       WP_CLI::warning("Couldn't find term with id ${term_id}. Skipping...");
+      $term = get_term_by('name', $term_name, 'category');
+    }
+    if (!$term) {
+      WP_CLI::warning("Couldn't find term with name ${term_name}. Trying id...");
       continue;
     }
     $term_id = $term->term_id;
