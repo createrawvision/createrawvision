@@ -136,7 +136,11 @@ if (version_compare($version, $new_version, '<')) {
     }
     $term_id = $term->term_id;
 
-    acf_save_post('term_' . $term_id, ['field_1' => $image_id]);
+    $success = acf_save_post('term_' . $term_id, ['field_1' => $image_id]);
+
+    if (!$success) {
+      WP_CLI::warning("Couldn't add image $image_title to term $term->name. Skipping...");
+    }
   }
 
 
