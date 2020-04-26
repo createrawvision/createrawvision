@@ -855,7 +855,7 @@ add_action('init', function () {
 						'class' => '',
 						'id' => '',
 					),
-					'return_format' => 'array',
+					'return_format' => 'id',
 					'preview_size' => 'thumbnail-portrait',
 					'library' => 'all',
 					'min_width' => '',

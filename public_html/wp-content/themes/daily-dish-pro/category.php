@@ -20,7 +20,7 @@ add_action('genesis_loop_else', function () {
       remove_action('genesis_loop_else', 'genesis_do_noposts');
 
       foreach ($child_categories as $category) :
-        $image = get_field('featured_image', $category);
+        $image_id = get_field('featured_image', $category);
         $link = esc_url(get_category_link($category->term_id));
 ?>
         <article class="entry">
@@ -31,10 +31,15 @@ add_action('genesis_loop_else', function () {
               </a>
             </h2>
           </header>
-          <?php if (!empty($image)) : ?>
+          <?php if ($image_id) : ?>
             <div class="entry-content">
               <a class="entry-image-link" href="<?php echo $link; ?>">
-                <img class="alignleft" src="<?php echo $image['url']; ?>" alt="<?php echo $image['alt']; ?>">
+                <?php echo wp_get_attachment_image(
+                  $image_id,
+                  'thumbnail-portrait',
+                  FALSE,
+                  ['class' => 'alignleft']
+                ); ?>
               </a>
             </div>
           <?php endif; ?>
