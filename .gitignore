@@ -2,7 +2,6 @@
 /log
 /provision
 /vendor
-/wp-cli.yml
 
 # Only include themes and deploy script
 /public_html/*
