@@ -46,6 +46,72 @@ So the production has to come with **WordPress and all Plugins installed**.
 The root WP folder has to be **`public_html`**.  
 **WP-CLI** has to be installed for scripts to run (`echo 'path: public_html' > wp-cli.yml` to allow execution from project root folder).
 
+### Plugins
+
+- ad-inserter  
+  For inserting banner ads on top and within the content.
+- antispam-bee  
+  For filtering spam comments.
+- autoptimize  
+  Minifying everything. Works better than SiteGround Plugin for now, but eventually removing it.
+- classic-editor  
+  Opt out of block editor.
+- code-snippets  
+  Custom PHP snippets. Gets removed.
+- contact-form-7  
+  Contact forms. Gets replaced.
+- cookie-notice  
+  Cookie notice popup. Gets removed.
+- genesis-enews-extended  
+  Subscription form.
+- google-analytics-for-wordpress  
+  User tracking.
+- jetpack  
+  Currently used for lazy-loading images, image CDN, automatic social media sharing, comment subscriptions and similar post suggestions
+- jquery-pin-it-button-for-images  
+  Pinterest Pin Buttons. Gets replaced.
+- luckywp-table-of-contents  
+  Table of contents.
+- polylang  
+  Multilingual Plugin. Deactivated for now.
+- popup-maker  
+  Show newsletter popup.
+- redirection  
+  Redirects for changing urls.
+- relevanssi  
+  Better search.
+- sg-cachepress  
+  SiteGround Optimizer plugin. Maybe use all features in the future.
+- shared-counts  
+  Fast sharing plugin
+- shortcodes-ultimate  
+  Some styling shortcodes. Gets replaced.
+- slide-anything  
+  Sliders.
+- tablepress  
+  Better tables for WP.
+- tablepress-responsive-tables  
+  Make tables responsive.
+- tinymce-advanced  
+  Classic Paragraph for Block editor.
+- user-role-editor  
+  Custom user roles with custom capabilites.
+- widget-logic  
+  Show widgets only on certain pages. Gets removed.
+- widget-shortcode  
+  Use widgets as a shortcode. Gets removed.
+- wordfence  
+  Making wordpress more secure. Gets removed.
+- wp-gdpr-compliance  
+  Making WordPress GDPR compliant. Gets removed.
+- wp-recipe-maker  
+  Managing recipes in a beatiful way.
+- wp-recipe-maker-premium
+- wp-user-avatar  
+  Use custom user avatars.
+- wordpress-seo  
+  YoastSEO. Improved everything SEO.
+
 ## Setup
 
 1. Set up a local development environment with WordPress installed.
