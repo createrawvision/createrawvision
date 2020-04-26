@@ -1,7 +1,7 @@
 <?php
 
 /**
- * For empty category archives show all sub-categories
+ * For empty category archives show all sub-categories (also empty ones)
  */
 add_action('genesis_loop_else', function () {
   if (!is_admin() && is_main_query() && is_category()) {
@@ -10,7 +10,8 @@ add_action('genesis_loop_else', function () {
 
     $child_categories = get_categories(array(
       'orderby' => 'name',
-      'parent' => $parent_category->term_id
+      'parent' => $parent_category->term_id,
+      'hide_empty' => false
     ));
 
     if (count($child_categories) > 0) :
