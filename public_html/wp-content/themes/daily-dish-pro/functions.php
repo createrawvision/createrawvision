@@ -15,7 +15,7 @@
 include_once get_template_directory() . '/lib/init.php';
 
 // Setup Theme.
-include_once get_stylesheet_directory() . '/lib/theme-defaults.php';
+include_once CHILD_DIR . '/lib/theme-defaults.php';
 
 add_action('after_setup_theme', 'daily_dish_localization_setup');
 /**
@@ -25,26 +25,26 @@ add_action('after_setup_theme', 'daily_dish_localization_setup');
  */
 function daily_dish_localization_setup()
 {
-	load_child_theme_textdomain('daily-dish-pro', get_stylesheet_directory() . '/languages');
+	load_child_theme_textdomain('daily-dish-pro', CHILD_DIR . '/languages');
 }
 
 // Include helper functions for the Daily Dish Pro theme.
-require_once get_stylesheet_directory() . '/lib/helper-functions.php';
+require_once CHILD_DIR . '/lib/helper-functions.php';
 
 // Add Color select to WordPress Theme Customizer.
-require_once get_stylesheet_directory() . '/lib/customize.php';
+require_once CHILD_DIR . '/lib/customize.php';
 
 // Include Customizer CSS.
-// include_once get_stylesheet_directory() . '/lib/output.php';
+// include_once CHILD_DIR . '/lib/output.php';
 
 // Include WooCommerce support.
-include_once get_stylesheet_directory() . '/lib/woocommerce/woocommerce-setup.php';
+include_once CHILD_DIR . '/lib/woocommerce/woocommerce-setup.php';
 
 // Include the WooCommerce styles and related Customizer CSS.
-include_once get_stylesheet_directory() . '/lib/woocommerce/woocommerce-output.php';
+include_once CHILD_DIR . '/lib/woocommerce/woocommerce-output.php';
 
 // Include the Genesis Connect WooCommerce notice.
-include_once get_stylesheet_directory() . '/lib/woocommerce/woocommerce-notice.php';
+include_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 
 // Child theme (do not remove).
 define('CHILD_THEME_NAME', __('Daily Dish Pro', 'daily-dish-pro'));
@@ -66,10 +66,10 @@ function daily_dish_enqueue_scripts_styles()
 		wp_enqueue_style('daily-dish-landing-style', '/wp-content/themes/daily-dish-pro/style-landing.css');
 	}
 
-	wp_enqueue_script('daily-dish-global-script', get_stylesheet_directory_uri() . '/js/global.js', array('jquery'), '1.0.0', true);
+	wp_enqueue_script('daily-dish-global-script', CHILD_URL . '/js/global.js', array('jquery'), '1.0.0', true);
 
 	$suffix = (defined('SCRIPT_DEBUG') && SCRIPT_DEBUG) ? '' : '.min';
-	wp_enqueue_script('daily-dish-responsive-menu', get_stylesheet_directory_uri() . "/js/responsive-menus{$suffix}.js", array('jquery'), CHILD_THEME_VERSION, true);
+	wp_enqueue_script('daily-dish-responsive-menu', CHILD_URL . "/js/responsive-menus{$suffix}.js", array('jquery'), CHILD_THEME_VERSION, true);
 	wp_localize_script(
 		'daily-dish-responsive-menu',
 		'genesis_responsive_menu',
@@ -116,7 +116,7 @@ add_theme_support('genesis-responsive-viewport');
 add_theme_support('custom-background', array(
 	'default-attachment' => 'fixed',
 	'default-color'      => 'f5f5f5',
-	'default-image'      => get_stylesheet_directory_uri() . '/images/bg.png',
+	'default-image'      => CHILD_URL . '/images/bg.png',
 	'default-repeat'     => 'repeat',
 	'default-position-x' => 'left',
 ));
@@ -474,73 +474,12 @@ function remove_p_on_pages()
 }
 add_action('wp_head', 'remove_p_on_pages');
 
-
 /*
-* DISABLED
-* Add a banner for "Dein Weg Zur Rohkost Leicht Gemacht"
-*/
-function load_book_banner()
-{
-	wp_enqueue_style('book-banner-style', get_stylesheet_directory_uri() . '/lib/banner/style-banner.css');
-	readfile(get_stylesheet_directory() . '/lib/banner/dein-weg-zur-rohkost-banner.min.html');
-}
-function show_book_banner_for_home()
-{
-	if (is_home()) {
-		load_book_banner();
-	}
-}
-function show_book_banner_for_posts()
-{
-	if (is_single()) {
-		load_book_banner();
-	}
-}
-
-// add_action('genesis_before_content_sidebar_wrap', 'show_book_banner_for_home');
-// add_action('genesis_entry_content', 'show_book_banner_for_posts', 8);
-
-
-/*
- * DISABLED
- * Add AdSense only to posts 
-function display_adsense()
-{
-	if (is_single() && ! is_single('gesunder-kaffee-ersatz-dr-switzers-karob-kaffee-tonikum-roh-vegan')) {
-		echo '<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<script>
-	(adsbygoogle = window.adsbygoogle || []).push({
-		google_ad_client: "ca-pub-8171451394460301",
-		enable_page_level_ads: true
-	});
-</script>';
-	}
-}
-add_action( 'wp_head', 'display_adsense' );
- */
-
-
-/*
-* Adds REST Endpoint /crv/subscribe for subscribing to Mailchimp with Digistore Coupon
-*/
-include_once get_stylesheet_directory() . '/lib/subscribe_with_coupon.php';
-
-function add_subscribe_with_coupon()
-{
-	register_rest_route('crv', '/subscribe', array(
-		'methods' => 'POST',
-		'callback' => 'subscribe_with_coupon'
-	));
-}
-
-add_action('rest_api_init', 'add_subscribe_with_coupon');
-
-
-/*
- * Block the last words form breaking into new line by adding &nbsp;
+ * Block the last words in titles form breaking into a new line by adding `&nbsp;`
+ * 
  * $length is the maximum number of non-breaking characters at the end
  */
-function jw_preventAkwardPostTitleLineBreak($title, $length = 17)
+function jw_prevent_akward_post_title_line_break($title, $length = 17)
 {
 	if (!is_single() || strlen($title) <= $length)
 		return $title;
@@ -552,12 +491,12 @@ function jw_preventAkwardPostTitleLineBreak($title, $length = 17)
 	return substr($title, 0, $pos) . str_replace(' ', '&nbsp;', substr($title, $pos));
 }
 
-add_filter('genesis_post_title_text', 'jw_preventAkwardPostTitleLineBreak');
+add_filter('genesis_post_title_text', 'jw_prevent_akward_post_title_line_break');
 
 
 /*
-* Make portrait thumbnails when original image was portrait
-*/
+ * Make portrait thumbnails when original image was portrait
+ */
 add_image_size('thumbnail-portrait', 400, 600, true);
 add_action('genesis_pre_get_option_image_size', 'jw_portait_thumbnail', 11);
 
@@ -583,8 +522,8 @@ function jw_is_thumbnail_portrait()
 }
 
 /*
-* Don't show excerpts and entry meta on archives, home or search
-*/
+ * Don't show excerpts and entry meta on archives, home or search
+ */
 function jw_remove_excerpts_and_entry_meta()
 {
 	if ((is_home() || is_archive() || is_search()) && is_main_query()) {
@@ -592,7 +531,6 @@ function jw_remove_excerpts_and_entry_meta()
 		remove_action('genesis_entry_header', 'genesis_post_info', 12);
 	}
 }
-
 add_action('genesis_before_content', 'jw_remove_excerpts_and_entry_meta', 1);
 
 /**
@@ -662,7 +600,7 @@ add_action('pre_get_posts', 'crv_show_all_posts_for_member_categories');
 
 /**
  * Filter 'Roh & Vegan', 'Glutenfrei, Roh & Vegan' and similar stuff 
- * from the post title on membership category pages
+ * from the post title on membership category archive pages
  */
 function crv_filter_title_tail_for_member_archives($title)
 {
@@ -698,249 +636,19 @@ function crv_filter_title_tail($title)
 }
 add_filter('genesis_post_title_text', 'crv_filter_title_tail_for_member_archives');
 
-
 /**
- * Register custom payment gateways for restrict content pro
+ * List child categories for category archives
  */
-function crv_rcp_register_custom_gateways($gateways)
-{
-	require_once get_stylesheet_directory() . '/lib/class-rcp-payment-gateway-digistore.php';
-
-	$gateways['digistore'] = array(
-		'label' => 'Digistore',
-		'admin_label' => 'Digistore',
-		'class' => 'RCP_Payment_Gateway_Digistore'
-	);
-
-	return $gateways;
-}
-add_filter('rcp_payment_gateways', 'crv_rcp_register_custom_gateways');
-
-
-/**
- * Allow DigiStore subscriptions to be cancelled
- */
-function crv_allow_digistore_cancellation($can_cancel, $membership_id, $membership)
-{
-	if (
-		$membership->is_recurring()
-		&& 'active' == $membership->get_status()
-		&& $membership->is_paid()
-		&& !$membership->is_expired()
-		&& 'digistore' == $membership->get_gateway()
-	) {
-		return true;
-	}
-
-	return $can_cancel;
-}
-add_filter('rcp_membership_can_cancel', 'crv_allow_digistore_cancellation', 10, 3);
-
-function crv_cancel_digistore_subscription($success, $gateway, $gateway_subscription_id)
-{
-	if ($gateway != 'digistore') {
-		return $success;
-	}
-
-	$gateways = new RCP_Payment_Gateways;
-	$gateway_digistore  = $gateways->get_gateway('digistore');
-	$gateway_digistore  = new $gateway_digistore['class']();
-
-	return $gateway_digistore->stop_rebilling($gateway_subscription_id);
-}
-add_filter('rcp_membership_payment_profile_cancelled', 'crv_cancel_digistore_subscription', 10, 3);
-
-
-/**
- * Redirect invoices to digistore by checking payment meta to include invoice url
- */
-function crv_trigger_digistore_invoice_download()
-{
-	if (!isset($_GET['rcp-action']) || 'download_invoice' != $_GET['rcp-action']) {
-		return;
-	}
-
-	global $rcp_payments_db;
-
-	$payment_id = absint($_GET['payment_id']);
-
-	$digistore_invoice_url = $rcp_payments_db->get_meta($payment_id, 'digistore_invoice_url', true);
-
-	if (empty($digistore_invoice_url)) {
-		return;
-	}
-
-	wp_redirect($digistore_invoice_url);
-	exit;
-}
-add_action('init', 'crv_trigger_digistore_invoice_download', 9);
-
-
-/**
- * Add the DigiStore Product ID to the subscription level form
- */
-function crv_digistore_product_id_form_field($product_id = '')
-{
-?>
-	<tr class="form-field">
-		<th scope="row" valign="top">
-			<label for="crv-digistore-product-id"><?php _e('DigiStore Product-ID'); ?></label>
-		</th>
-		<td>
-			<input id="crv-digistore-product-id" type="text" name="digistore_product_id" value="<?php echo $product_id; ?>" />
-		</td>
-	</tr>
-	<?php
-}
-
-function crv_digistore_product_id_form_field_edit($level)
-{
-	global $rcp_levels_db;
-	$product_id = $rcp_levels_db->get_meta($level->id, 'digistore_product_id', true);
-
-	crv_digistore_product_id_form_field($product_id);
-}
-
-add_action('rcp_add_subscription_form', 'crv_digistore_product_id_form_field');
-add_action('rcp_edit_subscription_form', 'crv_digistore_product_id_form_field_edit');
-
-
-/**
- * Add the DigiStore Product ID as subscription level meta
- */
-function crv_add_digistore_product_id($level_id, $args)
-{
-	if (empty($args['digistore_product_id'])) {
-		return;
-	}
-
-	global $rcp_levels_db;
-
-	$rcp_levels_db->update_meta($level_id, 'digistore_product_id', trim($args['digistore_product_id']));
-}
-add_action('rcp_add_subscription', 'crv_add_digistore_product_id', 10, 2);
-add_action('rcp_edit_subscription_level', 'crv_add_digistore_product_id', 10, 2);
-
-
-/**
- * Don't show child posts in category archives
- */
-add_action('parse_tax_query', function ($query) {
-	if (!is_admin() && $query->is_main_query() && $query->is_category()) {
-		$query->tax_query->queries[0]['include_children'] = false;
-	}
-});
-
-/**
- * Add Category Featured Image with ACF
- */
-add_action('init', function () {
-
-	if (function_exists('acf_add_local_field_group')) :
-
-		acf_add_local_field_group(array(
-			'key' => 'group_1',
-			'title' => 'Vorschaubild',
-			'fields' => array(
-				array(
-					'key' => 'field_1',
-					'label' => 'Vorschaubild',
-					'name' => 'featured_image',
-					'type' => 'image',
-					'instructions' => '',
-					'required' => 0,
-					'conditional_logic' => 0,
-					'wrapper' => array(
-						'width' => '',
-						'class' => '',
-						'id' => '',
-					),
-					'return_format' => 'id',
-					'preview_size' => 'thumbnail-portrait',
-					'library' => 'all',
-					'min_width' => '',
-					'min_height' => '',
-					'min_size' => '',
-					'max_width' => '',
-					'max_height' => '',
-					'max_size' => '',
-					'mime_types' => '',
-				),
-			),
-			'location' => array(
-				array(
-					array(
-						'param' => 'taxonomy',
-						'operator' => '==',
-						'value' => 'category',
-					),
-				),
-			),
-			'menu_order' => 0,
-			'position' => 'normal',
-			'style' => 'default',
-			'label_placement' => 'top',
-			'instruction_placement' => 'label',
-			'hide_on_screen' => '',
-			'active' => true,
-			'description' => '',
-		));
-
-	endif;
-});
-
-
-/**
- * Disable selection of categories with child categories
- */
-add_action('added_term_relationship', function ($object_id, $tt_id, $taxonomy) {
-	if ('category' != $taxonomy) {
-		return;
-	}
-	$term = get_term_by('term_taxonomy_id', $tt_id, 'category');
-	$child_term_ids = get_categories(array(
-		'parent' => $term->term_id,
-		'fields' => 'ids'
-	));
-	$is_childless = count($child_term_ids) == 0;
-
-	if ($is_childless) {
-		return;
-	}
-
-	// Show an error message on the redirect
-	add_filter('redirect_post_location', function ($location) {
-		return add_query_arg('parent_category_selected', 1, $location);
-	});
-	// ... and remove the category from the post
-	wp_remove_object_terms($object_id, $term->term_id, 'category');
-}, 10, 3);
-
-/**
- * Show error message when parent category got selected
- */
-add_action('admin_notices', function () {
-	if (isset($_GET['parent_category_selected'])) {
-	?>
-		<div class="notice notice-warning is-dismissible">
-			<p>Du kannst dem Beitrag keine Kategorie zuordnen, die eine Unterkategorie enthält. Diese wurde automatisch wieder entfernt.</p>
-		</div>
-<?php }
-});
-add_filter('removable_query_args', function ($args) {
-	$args[] = 'parent_category_selected';
-	return $args;
-});
+include_once CHILD_DIR . '/lib/child-category-archives.php';
 
 /**
  * FAQs 
  */
-
 // Register custom post type
-include_once get_stylesheet_directory() . '/lib/faqs/faq-cpt.php';
+include_once CHILD_DIR . '/lib/faqs/faq-cpt.php';
 
 // Register custom taxonomy (categories)
-include_once get_stylesheet_directory() . '/lib/faqs/faq-category.php';
+include_once CHILD_DIR . '/lib/faqs/faq-category.php';
 
 // Add custom query var to search FAQs
 function jw_query_vars_faq_search($vars)
