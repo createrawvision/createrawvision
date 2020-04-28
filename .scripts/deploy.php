@@ -274,6 +274,84 @@ if (version_compare($version, $new_version, '<')) {
   );
 
 
+  /**
+   * Create new nav menus
+   */
+  // Delete existing menus
+  run_wp_cli_command('menu delete "Main Menu 2020"');
+  run_wp_cli_command('menu delete "Main Menu Member 2020"');
+  run_wp_cli_command('menu delete "Secondary Menu 2020"');
+
+  // Create new menus
+  $main_menu_id = run_wp_cli_command('menu create "Main Menu 2020" --porcelain', ['return' => 'stdout']);
+  $main_menu_member_id = run_wp_cli_command('menu create "Main Menu Member 2020" --porcelain', ['return' => 'stdout']);
+  $secondary_menu_id = run_wp_cli_command('menu create "Secondary Menu 2020" --porcelain', ['return' => 'stdout']);
+
+  // Create main menu items
+  $entry_menu_item_id = run_wp_cli_command("menu item add-custom $main_menu_id 'Neu hier?' '' --porcelain", ['return' => 'stdout']);
+  run_wp_cli_command("menu item add-custom $main_menu_id 'Über uns' '' --parent-id=$entry_menu_item_id");
+  run_wp_cli_command("menu item add-custom $main_menu_id 'Unsere Vision' '' --parent-id=$entry_menu_item_id");
+  run_wp_cli_command("menu item add-custom $main_menu_id 'Häufige Fragen' '' --parent-id=$entry_menu_item_id");
+  run_wp_cli_command("menu item add-custom $main_menu_id 'Beste Beiträge' '' --parent-id=$entry_menu_item_id");
+
+  run_wp_cli_command("menu item add-custom $main_menu_id 'Rohkost Rezepte' ''");
+  run_wp_cli_command("menu item add-custom $main_menu_id 'How Tos' ''");
+
+  $blog_menu_item_id = run_wp_cli_command("menu item add-custom $main_menu_id 'Blog' '' --porcelain", ['return' => 'stdout']);
+  run_wp_cli_command("menu item add-custom $main_menu_id 'Bewusstsein & Achtsamkeit' '' --parent-id=$blog_menu_item_id");
+  run_wp_cli_command("menu item add-custom $main_menu_id 'Gesund Leben' '' --parent-id=$blog_menu_item_id");
+
+  run_wp_cli_command("menu item add-custom $main_menu_id 'Bücher' ''");
+  run_wp_cli_command("menu item add-custom $main_menu_id 'Empfehlungen' ''");
+
+  // Create main menu member items
+  $entry_menu_item_id = run_wp_cli_command("menu item add-custom $main_menu_member_id 'Neu hier?' '' --porcelain", ['return' => 'stdout']);
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Über uns' '' --parent-id=$entry_menu_item_id");
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Unsere Vision' '' --parent-id=$entry_menu_item_id");
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Häufige Fragen' '' --parent-id=$entry_menu_item_id");
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Beste Beiträge' '' --parent-id=$entry_menu_item_id");
+
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Rohkost Rezepte' ''");
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'How Tos' ''");
+
+  $blog_menu_item_id = run_wp_cli_command("menu item add-custom $main_menu_member_id 'Blog' '' --porcelain", ['return' => 'stdout']);
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Bewusstsein & Achtsamkeit' '' --parent-id=$blog_menu_item_id");
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Gesund Leben' '' --parent-id=$blog_menu_item_id");
+
+  $community_menu_item_id = run_wp_cli_command("menu item add-custom $main_menu_member_id 'Community' '' --porcelain", ['return' => 'stdout']);
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Forum' '' --parent-id=$community_menu_item_id");
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Q&A' '' --parent-id=$community_menu_item_id");
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Veranstaltungen' '' --parent-id=$community_menu_item_id");
+
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Empfehlungen' ''");
+
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Account' ''");
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Dashboard' ''");
+
+  // Create secondary menu items
+  run_wp_cli_command("menu item add-custom $secondary_menu_id 'Kontakt & Coaching' '' --porcelain");
+
+  $work_with_me_menu_item_id = run_wp_cli_command("menu item add-custom $secondary_menu_id 'Arbeite mit mir' '' --porcelain", ['return' => 'stdout']);
+  run_wp_cli_command("menu item add-custom $secondary_menu_id 'Coaching' '' --parent-id=$work_with_me_menu_item_id");
+  run_wp_cli_command("menu item add-custom $secondary_menu_id 'Workshops' '' --parent-id=$work_with_me_menu_item_id");
+  run_wp_cli_command("menu item add-custom $secondary_menu_id 'Kooperationen' '' --parent-id=$work_with_me_menu_item_id");
+  run_wp_cli_command("menu item add-custom $secondary_menu_id 'Speakerin' '' --parent-id=$work_with_me_menu_item_id");
+  run_wp_cli_command("menu item add-custom $secondary_menu_id 'Rezeptentwicklung' '' --parent-id=$work_with_me_menu_item_id");
+
+  $social_media_menu_item_id = run_wp_cli_command("menu item add-custom $secondary_menu_id 'Social Media' '' --porcelain", ['return' => 'stdout']);
+  run_wp_cli_command("menu item add-custom $secondary_menu_id 'Pinterest' '' --parent-id=$social_media_menu_item_id");
+  run_wp_cli_command("menu item add-custom $secondary_menu_id 'YouTube' '' --parent-id=$social_media_menu_item_id");
+  run_wp_cli_command("menu item add-custom $secondary_menu_id 'Facebook' '' --parent-id=$social_media_menu_item_id");
+  run_wp_cli_command("menu item add-custom $secondary_menu_id 'Twitter' '' --parent-id=$social_media_menu_item_id");
+  run_wp_cli_command("menu item add-custom $secondary_menu_id 'Instagram' '' --parent-id=$social_media_menu_item_id");
+
+  // Assign locations
+  run_wp_cli_command('menu location remove hauptmenu primary');
+  run_wp_cli_command("menu location assign $main_menu_id primary");
+  run_wp_cli_command("menu location assign $secondary_menu_id secondary");
+
+
+  // Update verion in database
   update_option($version_option_name, $new_version);
   WP_CLI::success("Deployed version " . $new_version);
 }

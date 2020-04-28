@@ -94,8 +94,8 @@ function daily_dish_get_responsive_menu_settings()
 		'subMenuIconClass' => 'ionicon-before ion-android-arrow-dropdown',
 		'menuClasses'      => array(
 			'combine'      => array(
-				'.nav-secondary',
 				'.nav-primary',
+				'.nav-secondary',
 			),
 		),
 	);
@@ -657,3 +657,22 @@ function jw_query_vars_faq_search($vars)
 	return $vars;
 }
 add_filter('query_vars', 'jw_query_vars_faq_search');
+
+/**
+ * Show different main menu for members
+ */
+add_filter('wp_nav_menu_args', function ($args) {
+	// If it's not the primary menu, bail
+	if (!isset($args['theme_location']) || $args['theme_location'] != 'primary') {
+		return $args;
+	}
+
+	// Show different menus for RCP logged in users
+	if (rcp_user_has_active_membership()) {
+		$args['menu'] = 'Main Menu Member 2020';
+	} else {
+		$args['menu'] = 'Main Menu 2020';
+	}
+
+	return $args;
+});

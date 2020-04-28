@@ -2872,3 +2872,21 @@ li.comment {
 .search #genesis-content .entry-footer {
   margin: 0;
 }
+
+.menu-item-has-children {
+  position: relative;
+}
+
+.menu-item-has-children::after {
+  content: "\f35f";
+  font-family: Ionicons;
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  left: 0;
+  text-align: center;
+}
+
+.nav-secondary {
+  background-color: #bbb;
+}
