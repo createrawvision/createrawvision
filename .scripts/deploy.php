@@ -15,32 +15,27 @@ if (!defined('WP_CLI') || !WP_CLI) {
  * Run a WP_CLI command.
  * 
  * Run `wp cli has_command` before executing the command.   
- * Only exits, if the command couldn't be executed and `exit_error` is set to exit.
+ * Only exits, if the command couldn't be executed and `exit_error` is set to exit.  
+ * `$options['return']` can be `'return_code'`, `'stdout'`, `'stderr'` or `'all'`
  */
-function run_wp_cli_command($command, $exit_error = false)
+function run_wp_cli_command($command, $options = [])
 {
-  if ($exit_error == 'exit_error') {
-    $exit_error = true;
-  }
-  if (!is_bool($exit_error)) {
-    throw new InvalidArgumentException("exit_error has to be one of true, false or 'exit_error': was $exit_error");
-  }
+  $default_options = [
+    'launch' => false,
+    'exit_error' => false,
+    'return' => 'return_code'
+  ];
 
-  $options = array(
-    'launch'      => false,
-    'exit_error'  => $exit_error,
-    'return'      => 'return_code'
-  );
+  $options = array_merge($default_options, $options);
 
   if (wp_cli_has_command($command)) {
     return WP_CLI::runcommand($command, $options);
   } else {
     $message = "Couldn't find command \"${command}\"";
-    if ($exit_error) {
+    if ($options['exit_error']) {
       WP_CLI::error($message);
     } else {
       WP_CLI::warning($message);
-      return 1;
     }
   }
 }
@@ -54,6 +49,7 @@ function wp_cli_has_command($command)
 {
   $command = addslashes($command);
   $return_code = WP_CLI::runcommand("cli has-command \"${command}\"", array(
+    'launch' => false,
     'return'      => 'return_code',
     'exit_error'  => false
   ));
@@ -81,7 +77,7 @@ if (version_compare($version, $new_version, '<')) {
    * Setup for category featured images
    */
   WP_CLI::log("Installing and activating Advanced Custom Fields");
-  run_wp_cli_command("plugin install advanced-custom-fields --activate --force", 'exit_error');
+  run_wp_cli_command("plugin install advanced-custom-fields --activate --force", ['exit_error' => true]);
 
   WP_CLI::log("Removing categories from posts, when category has child categories");
 
@@ -151,7 +147,7 @@ if (version_compare($version, $new_version, '<')) {
    */
   WP_CLI::log("Installing and activating Restrict Content Pro");
   $rcp_path = ABSPATH . '../deployment_data/restrict-content-pro.zip';
-  run_wp_cli_command("plugin install '$rcp_path' --activate --force", 'exit_error');
+  run_wp_cli_command("plugin install '$rcp_path' --activate --force", ['exit_error' => true]);
 
   WP_CLI::log("Setting RCP Settings");
   $rcp_settings = array(
