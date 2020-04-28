@@ -1882,6 +1882,14 @@ span.ERComment {
   border-top-width: 1px;
 }
 
+.nav-primary .menu-item a {
+  padding: 24px 20px;
+}
+
+.nav-primary .menu-item::after {
+  bottom: 0.5rem;
+}
+
 /* Header Search
 --------------------------------------------- */
 
@@ -1941,6 +1949,10 @@ span.ERComment {
 
 .toggle-header-search {
   background: transparent;
+}
+
+.toggle-header-search .search-text {
+  display: none;
 }
 
 .js .toggle-header-search.close:focus {
@@ -2747,7 +2759,12 @@ li.comment {
   }
 
   .genesis-responsive-menu .toggle-header-search {
-    display: none;
+    text-align: left;
+  }
+
+  .genesis-responsive-menu .toggle-header-search .search-text {
+    display: inline;
+    margin-left: 1.2rem;
   }
 
   .genesis-responsive-menu .genesis-nav-menu .sub-menu::after,
