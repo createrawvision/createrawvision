@@ -676,3 +676,16 @@ add_filter('wp_nav_menu_args', function ($args) {
 
 	return $args;
 });
+
+
+/**
+ * Adds `nav-icon` class to nav items containing an svg element
+ */
+add_filter('nav_menu_css_class', function ($classes, $item, $args, $depth) {
+	if (FALSE === strpos($item->title, '<svg')) {
+		return $classes;
+	}
+
+	$classes[] = 'nav-icon';
+	return $classes;
+}, 10, 4);
