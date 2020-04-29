@@ -354,6 +354,21 @@ if (version_compare($version, $new_version, '<')) {
   run_wp_cli_command("menu location assign $secondary_menu_id secondary");
 
 
+  /**
+   * Activate breadcrumbs
+   */
+  genesis_update_settings([
+    'breadcrumb_single' => 1,
+    'breadcrumb_page' => 0,
+    'breadcrumb_404' => 0,
+    'breadcrumb_attachment' => 0,
+    'breadcrumb_home' => 0,
+    'breadcrumb_front_page' => 0,
+    'breadcrumb_posts_page' => 0,
+    'breadcrumb_archive' => 1
+  ]);
+
+
   // Update verion in database
   update_option($version_option_name, $new_version);
   WP_CLI::success("Deployed version " . $new_version);

@@ -689,3 +689,11 @@ add_filter('nav_menu_css_class', function ($classes, $item, $args, $depth) {
 	$classes[] = 'nav-icon';
 	return $classes;
 }, 10, 4);
+
+
+/**
+ * Disable breadcrumbs for search, since genesis doesn't distinguish between archive and search
+ */
+add_filter('genesis_do_breadcrumbs', function ($is_breadcrumb_hidden) {
+	return $is_breadcrumb_hidden || is_search();
+});
