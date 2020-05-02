@@ -11,6 +11,11 @@ if (!defined('WP_CLI') || !WP_CLI) {
   exit(1);
 }
 
+if (!current_user_can('manage_options')) {
+  echo "Insufficient capabilites. Make sure to run the script with admin capabilites (e.g. --user=<admin>).", PHP_EOL;
+  exit(1);
+}
+
 /**
  * Run a WP_CLI command.
  * 
