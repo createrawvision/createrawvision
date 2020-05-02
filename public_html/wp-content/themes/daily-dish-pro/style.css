@@ -2872,3 +2872,13 @@ li.comment {
 .search #genesis-content .entry-footer {
   margin: 0;
 }
+
+.restriciton-message {
+  border: thick dashed #ccc;
+  text-align: center;
+  padding: 2rem 3rem;
+}
+
+.restriciton-message > a {
+  white-space: nowrap;
+}
