@@ -27,7 +27,8 @@ add_filter('the_content', function ($content) {
   if (get_field('custom_teaser')) {
     $excerpt = wpautop(get_field('teaser_text'));
   } else {
-    $excerpt = wpautop(wp_trim_words(get_the_content()));
+    $content_without_shortcodes = preg_replace('/<!--WPRM Recipe.*?<!--End WPRM Recipe-->/s', '', strip_shortcodes(get_the_content()));
+    $excerpt = wpautop(wp_trim_words($content_without_shortcodes));
   }
 
   $teaser_image = wp_get_attachment_image(get_field('teaser_image')['id'], 'full', false, ['class' => 'aligncenter']);
