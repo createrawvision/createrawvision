@@ -1041,9 +1041,9 @@ td {
   font-size: 1.6rem;
   font-weight: 400;
   line-height: 1.2;
-  margin-bottom: 60px;
+  margin-bottom: 24px;
   margin-top: -10px;
-  text-align: center;
+  text-align: left;
 }
 
 .breadcrumb a {
@@ -1756,11 +1756,10 @@ span.ERComment {
   color: #000;
   display: block;
   font-family: "Raleway", sans-serif;
-  font-size: 12px;
-  font-size: 1.2rem;
+  font-size: 14px;
+  font-size: 1.4rem;
   font-weight: 400;
-  letter-spacing: 0.5px;
-  padding: 24px 20px 20px;
+  padding: 16px 20px;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -1844,6 +1843,13 @@ span.ERComment {
   opacity: 1;
 }
 
+.genesis-nav-menu svg {
+  fill: currentColor;
+  height: 2.4rem;
+  width: 2.4rem;
+  margin: -1rem -1rem -0.6rem;
+}
+
 /* Primary Navigation
 --------------------------------------------- */
 
@@ -1874,6 +1880,14 @@ span.ERComment {
 
 .nav-primary .genesis-nav-menu .sub-menu .sub-menu:first-of-type a {
   border-top-width: 1px;
+}
+
+.nav-primary .menu-item a {
+  padding: 24px 20px;
+}
+
+.nav-primary .menu-item::after {
+  bottom: 0.5rem;
 }
 
 /* Header Search
@@ -1937,6 +1951,10 @@ span.ERComment {
   background: transparent;
 }
 
+.toggle-header-search .search-text {
+  display: none;
+}
+
 .js .toggle-header-search.close:focus {
   outline: 0;
 }
@@ -1985,7 +2003,12 @@ span.ERComment {
 --------------------------------------------- */
 
 .nav-secondary {
-  background-color: #94006c;
+  background-color: #bbb;
+}
+
+.nav-secondary .menu {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .nav-secondary,
@@ -2657,6 +2680,8 @@ li.comment {
   .sub-menu-toggle {
     background: transparent;
     float: right;
+    font-size: 20px;
+    font-size: 2rem;
     padding: 10px;
     position: absolute;
     right: 0;
@@ -2691,6 +2716,11 @@ li.comment {
     float: none;
     position: relative;
     text-align: left;
+  }
+
+  .genesis-responsive-menu .genesis-nav-menu .menu-item.nav-icon {
+    display: inline-block;
+    width: auto;
   }
 
   .genesis-responsive-menu .genesis-nav-menu .menu-item:focus,
@@ -2729,7 +2759,12 @@ li.comment {
   }
 
   .genesis-responsive-menu .toggle-header-search {
-    display: none;
+    text-align: left;
+  }
+
+  .genesis-responsive-menu .toggle-header-search .search-text {
+    display: inline;
+    margin-left: 1.2rem;
   }
 
   .genesis-responsive-menu .genesis-nav-menu .sub-menu::after,
@@ -2837,6 +2872,8 @@ li.comment {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 
+  .archive #genesis-content .breadcrumb,
+  .search #genesis-content .breadcrumb,
   .home #genesis-content .archive-description,
   .archive #genesis-content .archive-description,
   .search #genesis-content .archive-description,
@@ -2871,6 +2908,22 @@ li.comment {
 .archive #genesis-content .entry-footer,
 .search #genesis-content .entry-footer {
   margin: 0;
+}
+
+@media only screen and (min-width: 769px) {
+  .menu-item-has-children {
+    position: relative;
+  }
+
+  .menu-item-has-children::after {
+    content: "\f35f";
+    font-family: Ionicons;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    text-align: center;
+  }
 }
 
 .restriciton-message {

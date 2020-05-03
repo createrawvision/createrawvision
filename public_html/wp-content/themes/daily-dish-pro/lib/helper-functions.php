@@ -75,7 +75,7 @@ function daily_dish_customizer_get_default_search_setting() {
  * @since 1.0.0
  */
 function daily_dish_get_header_search_toggle() {
-	return sprintf( '<a href="#header-search-wrap" aria-controls="header-search-wrap" aria-expanded="false" role="button" class="toggle-header-search"><span class="screen-reader-text">%s</span><span class="ionicons ion-ios-search"></span></a>', __( 'Show Search', 'daily-dish-pro' ) );
+	return sprintf( '<a href="#header-search-wrap" aria-controls="header-search-wrap" aria-expanded="false" role="button" class="toggle-header-search"><span class="screen-reader-text">%s</span><span class="ionicons ion-ios-search"></span><span class="search-text">Website durchsuchen</span></a>', __( 'Show Search', 'daily-dish-pro' ) );
 }
 
 /**
