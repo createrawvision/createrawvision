@@ -279,6 +279,39 @@ if (version_compare($version, $new_version, '<')) {
   );
 
 
+
+  /**
+   * Set the first image of a post as teaser image
+   */
+
+  WP_CLI::log('Setting teaser image for all member posts');
+
+  $teaser_image_field = array_keys(array_filter(acf_get_local_fields(), function ($value, $key) {
+    return $value['name'] == 'teaser_image';
+  }, ARRAY_FILTER_USE_BOTH))[0];
+
+  if (is_null($teaser_image_field)) {
+    WP_CLI::error('Couldnt find teaser_image field. Aborting deployment.');
+  }
+
+  $member_posts = get_posts([
+    'numberposts' => -1,
+    'category_name' => 'member',
+    'post_status' => 'any'
+  ]);
+
+  foreach ($member_posts as $post) {
+    preg_match('/<img.+?class=[\'"].*?wp-image-(\d*).*?[\'"].*?>/i', $post->post_content, $matches);
+    if (count($matches) == 0) {
+      WP_CLI::warning("Couldn't find first image in post $post->post_title");
+      continue;
+    }
+    $first_image_id = $matches[1];
+    $success = acf_save_post($post->ID, [$teaser_image_field => $first_image_id]);
+  }
+
+
+
   update_option($version_option_name, $new_version);
   WP_CLI::success("Deployed version " . $new_version);
 }
