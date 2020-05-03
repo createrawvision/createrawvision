@@ -657,3 +657,8 @@ function jw_query_vars_faq_search($vars)
 	return $vars;
 }
 add_filter('query_vars', 'jw_query_vars_faq_search');
+
+/**
+ * Restrict content in the member category to members
+ */
+include_once CHILD_DIR . '/lib/member-restriction.php';
