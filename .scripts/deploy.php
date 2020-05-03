@@ -11,6 +11,11 @@ if (!defined('WP_CLI') || !WP_CLI) {
   exit(1);
 }
 
+if (!current_user_can('manage_options')) {
+  echo "Insufficient capabilites. Make sure to run the script with admin capabilites (e.g. --user=<admin>).", PHP_EOL;
+  exit(1);
+}
+
 /**
  * Run a WP_CLI command.
  * 
@@ -274,6 +279,7 @@ if (version_compare($version, $new_version, '<')) {
   );
 
 
+
   /**
    * Create new nav menus
    */
@@ -367,6 +373,39 @@ if (version_compare($version, $new_version, '<')) {
     'breadcrumb_posts_page' => 0,
     'breadcrumb_archive' => 1
   ]);
+
+
+  
+  /**
+   * Set the first image of a post as teaser image
+   */
+
+  WP_CLI::log('Setting teaser image for all member posts');
+
+  $teaser_image_field = array_keys(array_filter(acf_get_local_fields(), function ($value, $key) {
+    return $value['name'] == 'teaser_image';
+  }, ARRAY_FILTER_USE_BOTH))[0];
+
+  if (is_null($teaser_image_field)) {
+    WP_CLI::error('Couldnt find teaser_image field. Aborting deployment.');
+  }
+
+  $member_posts = get_posts([
+    'numberposts' => -1,
+    'category_name' => 'member',
+    'post_status' => 'any'
+  ]);
+
+  foreach ($member_posts as $post) {
+    preg_match('/<img.+?class=[\'"].*?wp-image-(\d*).*?[\'"].*?>/i', $post->post_content, $matches);
+    if (count($matches) == 0) {
+      WP_CLI::warning("Couldn't find first image in post $post->post_title");
+      continue;
+    }
+    $first_image_id = $matches[1];
+    $success = acf_save_post($post->ID, [$teaser_image_field => $first_image_id]);
+  }
+
 
 
   // Update verion in database

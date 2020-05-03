@@ -697,3 +697,9 @@ add_filter('nav_menu_css_class', function ($classes, $item, $args, $depth) {
 add_filter('genesis_do_breadcrumbs', function ($is_breadcrumb_hidden) {
 	return $is_breadcrumb_hidden || is_search();
 });
+
+
+/**
+ * Restrict content in the member category to members
+ */
+include_once CHILD_DIR . '/lib/member-restriction.php';

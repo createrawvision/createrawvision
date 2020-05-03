@@ -2925,3 +2925,13 @@ li.comment {
     text-align: center;
   }
 }
+
+.restriciton-message {
+  border: thick dashed #ccc;
+  text-align: center;
+  padding: 2rem 3rem;
+}
+
+.restriciton-message > a {
+  white-space: nowrap;
+}
