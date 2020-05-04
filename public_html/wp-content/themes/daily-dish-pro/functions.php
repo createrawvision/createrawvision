@@ -703,3 +703,18 @@ add_filter('genesis_do_breadcrumbs', function ($is_breadcrumb_hidden) {
  * Restrict content in the member category to members
  */
 include_once CHILD_DIR . '/lib/member-restriction.php';
+
+
+/**
+ * Show notice, when url is **not** 'https://createrawvision.de'
+ */
+add_action('admin_notices', function () {
+	if (get_bloginfo('url') === 'https://createrawvision.de') {
+		return;
+	}
+?>
+	<div class="notice notice-warning" style="background: linear-gradient(177deg ,hsla(60, 100%, 90%, 1) 40%, hsla(60, 100%, 70%, 1));">
+		<p style="font-size: 1.5em;">Du befindest dich auf der Test-Website. Die meisten Änderungen werden <strong>nicht gespeichert</strong>.</p>
+	</div>
+<?php
+});
