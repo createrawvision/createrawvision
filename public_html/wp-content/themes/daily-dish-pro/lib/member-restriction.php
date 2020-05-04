@@ -6,24 +6,37 @@
  */
 
 /**
- * Restrict the whole member category to members
+ * Restrict content for non-members and hide recipe metadata
  */
-add_filter('the_content', function ($content) {
+add_action('wp', function () {
   global $post;
 
   // Show all content to members or admins
   if (rcp_user_has_active_membership() || current_user_can('manage_options')) {
-    return $content;
+    return;
   }
 
+  // Restricted content = in category 'member'
   $member_category_id = get_category_by_slug('member')->term_id;
   $member_categories_count = count(wp_get_post_categories($post->ID, ['child_of' => $member_category_id]));
   $is_member_content = $member_categories_count > 0;
 
-  if (!$is_member_content) {
-    return $content;
-  }
+  // Restrict member content and metadata
+  if ($is_member_content) {
+    // Show excerpt and restriction message
+    add_filter('the_content', 'crv_restricted_content', 100);
 
+    // Remove recipe metadata 
+    remove_filter('wpseo_schema_graph_pieces', array('WPRM_Metadata', 'wpseo_schema_graph_pieces'), 1, 2);
+  }
+});
+
+/**
+ * Show teaser image, excerpt, restriction message and post thumbnail.  
+ * The excerpt gets automatically generated, if not set in editor.
+ */
+function crv_restricted_content()
+{
   if (get_field('custom_teaser')) {
     $excerpt = wpautop(get_field('teaser_text'));
   } else {
@@ -36,7 +49,7 @@ add_filter('the_content', function ($content) {
   $restrict_message = '<p class="restriciton-message">Dieser Beitrag ist nur für Mitglieder verfügbar. Um den Beitrag zu lesen, <a href="#">melde dich hier an</a> oder <a href="#">werde Mitglied</a>.</p>';
 
   return $teaser_image . $excerpt . $restrict_message . $post_thumbnail;
-}, 100);
+}
 
 /**
  * Register ACF for content restriction
