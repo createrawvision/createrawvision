@@ -104,8 +104,6 @@ if (version_compare($version, $new_version, '<')) {
 
   /**
    * Restrict Content Pro setup
-   * 
-   * @todo Restrict site content (a2kA1_termmeta -> meta_key = rcp_restricted_meta)
    */
   WP_CLI::log("Installing and activating Restrict Content Pro");
   $rcp_path = ABSPATH . '../deployment_data/restrict-content-pro.zip';
@@ -332,20 +330,21 @@ if (version_compare($version, $new_version, '<')) {
   ]);
 
 
-  
+
   /**
    * Set the first image of a post as teaser image
    */
 
   WP_CLI::log('Setting teaser image for all member posts');
 
-  $teaser_image_field = array_keys(array_filter(acf_get_local_fields(), function ($value, $key) {
-    return $value['name'] == 'teaser_image';
-  }, ARRAY_FILTER_USE_BOTH))[0];
+  $teaser_json = file_get_contents(ABSPATH . '../deployment_data/teaser-data.json');
+  $teaser_data = $teaser_json ? json_decode($teaser_json, $assoc = TRUE) : [];
 
-  if (is_null($teaser_image_field)) {
-    WP_CLI::error('Couldnt find teaser_image field. Aborting deployment.');
-  }
+  $field_keys = [
+    'custom_teaser' => acf_get_local_field('custom_teaser')['key'],
+    'teaser_text' => acf_get_local_field('teaser_text')['key'],
+    'teaser_image' => acf_get_local_field('teaser_image')['key']
+  ];
 
   $member_posts = get_posts([
     'numberposts' => -1,
@@ -354,13 +353,22 @@ if (version_compare($version, $new_version, '<')) {
   ]);
 
   foreach ($member_posts as $post) {
-    preg_match('/<img.+?class=[\'"].*?wp-image-(\d*).*?[\'"].*?>/i', $post->post_content, $matches);
-    if (count($matches) == 0) {
-      WP_CLI::warning("Couldn't find first image in post $post->post_title");
-      continue;
+    $data = [
+      $field_keys['custom_teaser'] => $teaser_data[$post->ID]['custom_teaser'] ?? NULL,
+      $field_keys['teaser_text'] => $teaser_data[$post->ID]['teaser_text'] ?? NULL
+    ];
+    if (isset($teaser_data[$post->ID]['teaser_image_id'])) {
+      $data[$field_keys['teaser_image']] = $teaser_data[$post->ID]['teaser_image_id'];
+    } else {
+      preg_match('/<img.+?class=[\'"].*?wp-image-(\d*).*?[\'"].*?>/i', $post->post_content, $matches);
+      if (count($matches) == 0) {
+        WP_CLI::warning("Couldn't find first image in post $post->post_title");
+      } else {
+        $first_image_id = $matches[1];
+        $data[$field_keys['teaser_image']] = $first_image_id;
+      }
     }
-    $first_image_id = $matches[1];
-    $success = acf_save_post($post->ID, [$teaser_image_field => $first_image_id]);
+    $success = acf_save_post($post->ID, $data);
   }
 
 
