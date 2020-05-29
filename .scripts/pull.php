@@ -49,6 +49,10 @@ $skip_db = in_array('skip-db', $args);
 $skip_files = in_array('skip-files', $args);
 
 
+// Avoid the output buffer
+ob_end_flush();
+ob_implicit_flush();
+
 /*
  * PULLING DATABASE
  */

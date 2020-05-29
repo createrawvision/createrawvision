@@ -25,12 +25,11 @@ Configuration for scripts is found in the files itself.
 Syncs all files and database from the configured host via SSH. Then pulls files from GitHub.  
 See file for more details.
 
-### `.scripts/deploy-host.php`
+### `.scripts/export.php`
 
-`wp eval-file .scripts/deploy-host.php`
+`wp eval-file .scripts/export.php`
 
-Deploys changes from GitHub to host via SSH by running `.scripts/deploy.php`.  
-See file for more details.
+Exports changes from the current environment and writes them to a file to be used in deployment. Overwrites data.
 
 ### `.scripts/deploy.php`
 
