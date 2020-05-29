@@ -9,20 +9,13 @@
  * Restrict content for non-members and hide recipe metadata
  */
 add_action('wp', function () {
-  global $post;
-
   // Show all content to members or admins
   if (rcp_user_has_active_membership() || current_user_can('manage_options')) {
     return;
   }
 
-  // Restricted content = in category 'member'
-  $member_category_id = get_category_by_slug('member')->term_id;
-  $member_categories_count = count(wp_get_post_categories($post->ID, ['child_of' => $member_category_id]));
-  $is_member_content = $member_categories_count > 0;
-
   // Restrict member content and metadata
-  if ($is_member_content) {
+  if (crv_is_member_content()) {
     // Show excerpt and restriction message
     add_filter('the_content', 'crv_restricted_content', 100);
 
@@ -30,6 +23,21 @@ add_action('wp', function () {
     remove_filter('wpseo_schema_graph_pieces', array('WPRM_Metadata', 'wpseo_schema_graph_pieces'), 1, 2);
   }
 });
+
+/**
+ * All posts in category 'member' are member-content
+ */
+function crv_is_member_content()
+{
+  global $post;
+
+  if (!is_single())
+    return FALSE;
+
+  $member_category_id = get_category_by_slug('member')->term_id;
+  $is_member_post = 0 < count(get_posts(['category' => $member_category_id, 'include' => $post->ID, 'fields' => 'ids']));
+  return $is_member_post;
+}
 
 /**
  * Show teaser image, excerpt, restriction message and post thumbnail.  
