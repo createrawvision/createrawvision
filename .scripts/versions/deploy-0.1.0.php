@@ -378,3 +378,46 @@ function deploy_teaser()
     }
   }
 }
+
+
+/**
+ * Creates the landing page for membership
+ */
+function deploy_landing_page()
+{
+  wp_insert_post([
+    'post_content' => '',
+    'post_title' => 'Member Landing Page',
+    'post_name' => 'member-landing',
+    'post_status' => 'publish',
+    'post_type' => 'page',
+    'page_template' => 'landing'
+  ]);
+}
+
+
+/**
+ * Creates empty pages for template files to use
+ * 
+ * Pages:
+ * * dashboard
+ * * login
+ */
+function deploy_pages_for_templates()
+{
+  wp_insert_post([
+    'post_content' => '',
+    'post_title' => 'Member Dashboard',
+    'post_name' => 'dashboard',
+    'post_status' => 'publish',
+    'post_type' => 'page'
+  ]);
+
+  wp_insert_post([
+    'post_content' => '[login_form]',
+    'post_title' => 'Login',
+    'post_name' => 'login',
+    'post_status' => 'publish',
+    'post_type' => 'page'
+  ]);
+}

@@ -718,3 +718,34 @@ add_action('admin_notices', function () {
 	</div>
 <?php
 });
+
+
+/**
+ * Like `wp_loginout` returns link to login/logout depending on user being logged in.
+ * 
+ * Redirects to dashboard on login. Stays on the same page on logout.
+ */
+function crv_loginout()
+{
+	if (!is_user_logged_in()) {
+		return '<a href="/login">' . __('Log in') . '</a>';
+	} else {
+		return '<a href="' . esc_url(wp_logout_url($_SERVER['REQUEST_URI'])) . '">' . __('Log out') . '</a>';
+	}
+}
+
+/**
+ * Append Dashboard and Login In/Out link to menu with a redirect to this page
+ */
+function crv_loginout_menu_link($menu, $args)
+{
+	if ('secondary' !== $args->theme_location)
+		return $menu;
+
+	$menu .= is_user_logged_in() ? '<li class="menu-item"><a href="/dashboard">Zum Dashboard</a></li>' : '';
+	$menu .= '<li class="menu-item">' . crv_loginout() . '</li>';
+	return $menu;
+}
+
+add_filter('genesis_nav_items', 'crv_loginout_menu_link', 10, 2);
+add_filter('wp_nav_menu_items', 'crv_loginout_menu_link', 10, 2);
