@@ -1,19 +1,22 @@
 <?php
 
-add_action('the_content', 'crv_show_dashboard');
+namespace crv\dashboard;
 
-function crv_show_dashboard()
+add_action('the_content', __NAMESPACE__ . '\show_dashboard');
+
+function show_dashboard()
 {
   ob_start();
-  crv_dashboard_show_recipes();
-  crv_dashboard_show_support();
-  crv_dashboard_show_community();
-  crv_dashboard_show_courses();
-  crv_dashboard_show_further();
+  show_recipes();
+  show_support();
+  show_community();
+  show_courses();
+  show_further();
+  show_admin();
   return ob_get_clean();
 }
 
-function crv_dashboard_show_recipes()
+function show_recipes()
 { ?>
   <h2>Rezepte</h2>
   <ul>
@@ -25,7 +28,7 @@ function crv_dashboard_show_recipes()
   </ul>
 <?php }
 
-function crv_dashboard_show_support()
+function show_support()
 { ?>
   <h2>Support</h2>
   <ul>
@@ -35,20 +38,46 @@ function crv_dashboard_show_support()
   </ul>
 <?php }
 
-function crv_dashboard_show_community()
+function show_community()
 { ?>
   <h2>Community (demnächst verfügbar)</h2>
 <?php }
 
-function crv_dashboard_show_courses()
-{ ?>
+function show_courses()
+{
+  $course_category_id = get_category_by_slug('kurse')->term_id;
+  $courses = get_categories(['parent' => $course_category_id])
+?>
   <h2>Kurse</h2>
+  <ul>
+    <?php
+    foreach ($courses as $course) {
+      echo '<li><a href="' . get_category_link($course) . '">' . $course->name . '</a></li>';
+    } ?>
+  </ul>
+<?php
+}
 
-<?php }
-
-function crv_dashboard_show_further()
+function show_further()
 { ?>
   <h2>Weiteres</h2>
+  <ul>
+    <li>Blog</li>
+    <li>Q&As</li>
+    <li>Kommende Veranstaltungen</li>
+    <li>Unsere Vision</li>
+  </ul>
 <?php }
+
+function show_admin()
+{
+  global $rcp_options; ?>
+  <h2>Einstellungen</h2>
+  <ul>
+    <li><a href="<?php echo get_permalink($rcp_options['edit_profile']); ?>">Profil bearbeiten</a></li>
+    <li><a href="<?php echo get_permalink($rcp_options['account_page']); ?>">Mitgliedschaft verwalten</a></li>
+  </ul>
+<?php }
+
 
 genesis();
