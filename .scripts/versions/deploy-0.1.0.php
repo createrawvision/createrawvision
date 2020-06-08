@@ -108,7 +108,14 @@ function deploy_restrict_content_pro()
     'email_header_img' => '',
     'from_name' => 'CreateRawVision',
     'from_email' => 'info@createrawvision.de',
-    'admin_notice_emails' => 'info@createrawvision.de'
+    'admin_notice_emails' => 'info@createrawvision.de',
+    'disable_toolbar' => '1',
+    'enable_terms' => '1',
+    'terms_label' => 'AGBs zustimmen',
+    'terms_link' => get_bloginfo('url') . '/agbs',
+    'enable_privacy_policy' => '1',
+    'privacy_policy_label' => 'Datenschutzerklärung zustimmen',
+    'privacy_policy_link' => get_privacy_policy_url()
   );
   $current_rcp_settings = get_option('rcp_settings');
   $new_rcp_settings = wp_parse_args($rcp_settings, $current_rcp_settings);
