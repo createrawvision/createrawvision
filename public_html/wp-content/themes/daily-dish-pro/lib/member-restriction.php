@@ -60,6 +60,20 @@ function crv_restricted_content()
 }
 
 /**
+ * When saving a post (status: publish), automatically select the first image as teaser image, when no teaser image is selected already
+ */
+add_action('acf/save_post', function ($post_id) {
+  // Bail if already set or post is not published
+  if (get_field('teaser_image', $post_id) || get_post_status($post_id) !== 'publish')
+    return;
+
+  $teaser_image_field = acf_get_local_field('teaser_image')['key'];
+  $first_image_id = jw_get_first_image_id(get_post($post_id)->post_content);
+  if ($teaser_image_field && $first_image_id)
+    acf_save_post($post_id, [$teaser_image_field => $first_image_id]);
+});
+
+/**
  * Register ACF for content restriction
  */
 if (function_exists('acf_add_local_field_group')) :

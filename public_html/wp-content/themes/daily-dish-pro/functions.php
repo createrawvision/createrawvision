@@ -540,24 +540,30 @@ add_filter('wpseo_opengraph_image', 'jw_avoid_portrait_og_image');
 
 function jw_avoid_portrait_og_image($image_url)
 {
+	global $post;
 	if (!jw_is_thumbnail_portrait()) {
 		return $image_url;
 	}
-	$first_image_url = jw_get_first_image_url();
+	$first_image_url = jw_get_first_image_url($post->post_content);
 	if (empty($first_image_url)) {
 		return $image_url;
 	}
 	return $first_image_url;
 }
 
-function jw_get_first_image_url()
+function jw_get_first_image_url($post_content)
 {
-	global $post;
-	preg_match('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches);
+	preg_match('/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post_content, $matches);
 	$first_image_url = $matches[1];
 	return $first_image_url;
 }
 
+function jw_get_first_image_id($post_content)
+{
+	preg_match('/<img.+?class=[\'"].*?wp-image-(\d*).*?[\'"].*?>/i', $post_content, $matches);
+	$first_image_id = $matches[1];
+	return $first_image_id;
+}
 
 /**
  * Make all children of member category have body class `category-member`
