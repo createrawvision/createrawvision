@@ -194,11 +194,12 @@ function deploy_faqs()
     ]);
   }
 
-  WP_CLI::log("Creating all FAQs");
-
   // Create FAQs from JSON file
   $faqs_json = file_get_contents(ABSPATH . '../deployment_data/faqs.json');
   $category_objs = json_decode($faqs_json);
+
+  $category_progressbar = \WP_CLI\Utils\make_progress_bar('Creating all FAQ categories', count($category_objs));
+
   foreach ($category_objs as $category_obj) {
     $category = $category_obj->category;
 
@@ -216,6 +217,9 @@ function deploy_faqs()
 
     // Create all faqs
     $faqs = $category_obj->faqs;
+
+    $items_progressbar = \WP_CLI\Utils\make_progress_bar("Creating all FAQs in category {$category_obj->name}", count($faqs));
+
     foreach ($faqs as $faq) {
       wp_insert_post([
         'post_title' => $faq->title,
@@ -224,8 +228,14 @@ function deploy_faqs()
         'post_type' => 'faq',
         'tax_input' => ['faq_category' => [$term_id]]
       ]);
+
+      $items_progressbar->tick();
     }
+
+    $items_progressbar->finish();
+    $category_progressbar->tick();
   }
+  $category_progressbar->finish();
 
   // Create Category to collect uncategorized FAQs
   wp_insert_term(
@@ -255,6 +265,8 @@ function deploy_nav_menus()
   $secondary_menu_id = run_wp_cli_command('menu create "Secondary Menu 2020" --porcelain', ['return' => 'stdout']);
 
   // Create main menu items
+  WP_CLI::log("Creating main menu");
+
   $entry_menu_item_id = run_wp_cli_command("menu item add-custom $main_menu_id 'Neu hier?' '' --porcelain", ['return' => 'stdout']);
   run_wp_cli_command("menu item add-custom $main_menu_id 'Über uns' '' --parent-id=$entry_menu_item_id");
   run_wp_cli_command("menu item add-custom $main_menu_id 'Unsere Vision' '' --parent-id=$entry_menu_item_id");
@@ -272,6 +284,8 @@ function deploy_nav_menus()
   run_wp_cli_command("menu item add-custom $main_menu_id 'Empfehlungen' ''");
 
   // Create main menu member items
+  WP_CLI::log("Creating main member menu");
+
   $entry_menu_item_id = run_wp_cli_command("menu item add-custom $main_menu_member_id 'Neu hier?' '' --porcelain", ['return' => 'stdout']);
   run_wp_cli_command("menu item add-custom $main_menu_member_id 'Über uns' '' --parent-id=$entry_menu_item_id");
   run_wp_cli_command("menu item add-custom $main_menu_member_id 'Unsere Vision' '' --parent-id=$entry_menu_item_id");
@@ -296,6 +310,8 @@ function deploy_nav_menus()
   run_wp_cli_command("menu item add-custom $main_menu_member_id 'Dashboard' ''");
 
   // Create secondary menu items
+  WP_CLI::log("Creating secondary menu");
+
   run_wp_cli_command("menu item add-custom $secondary_menu_id 'Kontakt & Coaching' '' --porcelain");
 
   $work_with_me_menu_item_id = run_wp_cli_command("menu item add-custom $secondary_menu_id 'Arbeite mit mir' '' --porcelain", ['return' => 'stdout']);
@@ -364,6 +380,8 @@ function deploy_teaser()
     'post_status' => 'any'
   ]);
 
+  $progressbar = \WP_CLI\Utils\make_progress_bar("Creating teasers for all member posts", count($member_posts));
+
   foreach ($member_posts as $post) {
     $data = [
       $field_keys['custom_teaser'] => $teaser_data[$post->ID]['custom_teaser'] ?? NULL,
@@ -385,7 +403,10 @@ function deploy_teaser()
     if (!$success) {
       WP_CLI::warning("Couldn't add teaser data for post '$post->post_title' ($post->ID). Skipping...");
     }
+
+    $progressbar->tick();
   }
+  $progressbar->finish();
 }
 
 
@@ -394,6 +415,8 @@ function deploy_teaser()
  */
 function deploy_landing_page()
 {
+  WP_CLI::log('Creating landing page');
+
   wp_insert_post([
     'post_content' => '',
     'post_title' => 'Member Landing Page',
@@ -414,6 +437,8 @@ function deploy_landing_page()
  */
 function deploy_pages_for_templates()
 {
+  WP_CLI::log('Creating dashboard page');
+
   wp_insert_post([
     'post_content' => '',
     'post_title' => 'Member Dashboard',
@@ -421,6 +446,8 @@ function deploy_pages_for_templates()
     'post_status' => 'publish',
     'post_type' => 'page'
   ]);
+
+  WP_CLI::log('Creating login page');
 
   wp_insert_post([
     'post_content' => '[login_form]',
@@ -437,15 +464,19 @@ function deploy_pages_for_templates()
  */
 function deploy_featured_image()
 {
-  WP_CLI::log('Setting featured images from json data');
-
   $featured_image_json = file_get_contents(ABSPATH . '../deployment_data/featured-images.json');
   $featured_image_data = $featured_image_json ? json_decode($featured_image_json, $assoc = TRUE) : [];
+
+  $progressbar = \WP_CLI\Utils\make_progress_bar('Setting featured images from json data', count($featured_image_data));
 
   foreach ($featured_image_data as $post_id => $thumbnail_id) {
     $success = set_post_thumbnail($post_id, $thumbnail_id);
 
     if (!$success)
       WP_CLI::warning("Couldn't set thumbnail for post $post_id");
+
+    $progressbar->tick();
   }
+
+  $progressbar->finish();
 }

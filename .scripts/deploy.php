@@ -16,6 +16,8 @@ if (!current_user_can('manage_options')) {
   exit(1);
 }
 
+require_once __DIR__ . '/wp-cli-utils.php';
+
 // Avoid the output buffer
 ob_end_flush();
 ob_implicit_flush();
@@ -29,10 +31,10 @@ if (!$current_version) {
   add_option($version_option_name, $current_version);
 }
 
-$all_versions = [
+$all_versions = array_unique([
   '0.1.0'
-];
-usort(array_unique($all_versions), 'version_compare');
+]);
+usort($all_versions, 'version_compare');
 
 foreach ($all_versions as $new_version) {
   if (version_compare($current_version, $new_version, '<')) {
