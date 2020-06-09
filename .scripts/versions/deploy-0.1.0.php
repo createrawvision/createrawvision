@@ -11,6 +11,7 @@ deploy_teaser();
 deploy_landing_page();
 deploy_pages_for_templates();
 deploy_featured_image();
+deploy_publish_posts();
 
 
 /* ###################
@@ -478,5 +479,36 @@ function deploy_featured_image()
     $progressbar->tick();
   }
 
+  $progressbar->finish();
+}
+
+
+/**
+ * Publishes all private posts from category member
+ * 
+ * @todo get post ids from file
+ */
+function deploy_publish_posts()
+{
+  $private_member_post_ids = get_posts([
+    'numberposts' => -1,
+    'category' => get_category_by_slug('member')->term_id,
+    'post_status' => 'private',
+    'fields' => 'ids'
+  ]);
+
+  $progressbar = \WP_CLI\Utils\make_progress_bar('Publishing private posts', count($private_member_post_ids));
+
+  foreach ($private_member_post_ids as $post_id) {
+    $success = 0 !== wp_update_post([
+      'ID' => $post_id,
+      'post_status' => 'publish'
+    ]);
+
+    if (!$success) {
+      WP_CLI::warning("Failed to update post {$post_id}");
+    }
+    $progressbar->tick();
+  }
   $progressbar->finish();
 }
