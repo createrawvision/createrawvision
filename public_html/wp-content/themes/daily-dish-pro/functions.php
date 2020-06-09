@@ -196,7 +196,7 @@ function daily_dish_add_search_icon()
  * Modify Header Menu items.
  *
  * @param string $items Menu items.
- * @param array  $args Menu arguments.
+ * @param object $args Menu arguments.
  * @since 2.0.0
  *
  * @return string The modified menu.
