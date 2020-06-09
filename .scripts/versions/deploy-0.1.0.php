@@ -8,6 +8,9 @@ deploy_faqs();
 deploy_nav_menus();
 deploy_breadcrumbs();
 deploy_teaser();
+deploy_landing_page();
+deploy_pages_for_templates();
+deploy_featured_image();
 
 
 /* ###################
@@ -337,7 +340,6 @@ function deploy_breadcrumbs()
   ]);
 }
 
-
 /**
  * Set the teaser data from ...
  * 1. /deployment_data/teaser-data.json
@@ -427,4 +429,23 @@ function deploy_pages_for_templates()
     'post_status' => 'publish',
     'post_type' => 'page'
   ]);
+}
+
+
+/**
+ * Sets the featured images from `deployment_data/featured-images.json`
+ */
+function deploy_featured_image()
+{
+  WP_CLI::log('Setting featured images from json data');
+
+  $featured_image_json = file_get_contents(ABSPATH . '../deployment_data/featured-images.json');
+  $featured_image_data = $featured_image_json ? json_decode($featured_image_json, $assoc = TRUE) : [];
+
+  foreach ($featured_image_data as $post_id => $thumbnail_id) {
+    $success = set_post_thumbnail($post_id, $thumbnail_id);
+
+    if (!$success)
+      WP_CLI::warning("Couldn't set thumbnail for post $post_id");
+  }
 }
