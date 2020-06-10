@@ -11,7 +11,7 @@ deploy_teaser();
 deploy_landing_page();
 deploy_pages_for_templates();
 deploy_featured_image();
-deploy_publish_posts();
+deploy_private_posts();
 
 
 /* ###################
@@ -484,17 +484,19 @@ function deploy_featured_image()
 
 
 /**
- * Publishes all private posts from category member
- * 
- * @todo get post ids from file
+ * Publishes all private posts from category member excluding the posts in `deployment_data/private-posts.json`
  */
-function deploy_publish_posts()
+function deploy_private_posts()
 {
+  $excluded_posts_json = file_get_contents(ABSPATH . '../deployment_data/private-posts.json');
+  $excluded_posts = $excluded_posts_json ? json_decode($excluded_posts_json, $assoc = TRUE) : [];
+
   $private_member_post_ids = get_posts([
     'numberposts' => -1,
     'category' => get_category_by_slug('member')->term_id,
     'post_status' => 'private',
-    'fields' => 'ids'
+    'fields' => 'ids',
+    'exclude' => $excluded_posts
   ]);
 
   $progressbar = \WP_CLI\Utils\make_progress_bar('Publishing private posts', count($private_member_post_ids));
