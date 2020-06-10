@@ -490,13 +490,16 @@ function deploy_private_posts()
 {
   $excluded_posts_json = file_get_contents(ABSPATH . '../deployment_data/private-posts.json');
   $excluded_posts = $excluded_posts_json ? json_decode($excluded_posts_json, $assoc = TRUE) : [];
+  $excluded_post_ids = array_map(function ($post) {
+    return $post['id'];
+  }, $excluded_posts);
 
   $private_member_post_ids = get_posts([
     'numberposts' => -1,
     'category' => get_category_by_slug('member')->term_id,
     'post_status' => 'private',
     'fields' => 'ids',
-    'exclude' => $excluded_posts
+    'exclude' => $excluded_post_ids
   ]);
 
   $progressbar = \WP_CLI\Utils\make_progress_bar('Publishing private posts', count($private_member_post_ids));
