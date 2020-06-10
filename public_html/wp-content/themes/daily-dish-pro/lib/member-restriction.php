@@ -14,8 +14,9 @@ add_action('wp', function () {
     return;
   }
 
+  global $post;
   // Restrict member content and metadata
-  if (crv_is_member_content()) {
+  if ($post && is_single() && crv_is_member_post($post->ID)) {
     // Show excerpt and restriction message
     add_filter('the_content', 'crv_restricted_content', 100);
 
@@ -27,20 +28,16 @@ add_action('wp', function () {
 /**
  * All posts in category 'member' are member-content
  */
-function crv_is_member_content()
+function crv_is_member_post($post_id)
 {
-  global $post;
-
-  if (!is_single())
-    return FALSE;
-
   /** @todo maybe create a dedicated category for free stuff */
 
   $member_category_id = get_category_by_slug('member')->term_id;
   $free_category_id   = get_category_by_slug('vegane-rezepte')->term_id;
 
-  $is_post_in_member_category = crv_is_post_in_category($member_category_id, $post->ID);
-  $is_post_in_free_category   = crv_is_post_in_category($free_category_id, $post->ID);
+  /** @todo replace with tax query */
+  $is_post_in_member_category = crv_is_post_in_category($member_category_id, $post_id);
+  $is_post_in_free_category   = crv_is_post_in_category($free_category_id, $post_id);
 
   return $is_post_in_member_category && !$is_post_in_free_category;
 }
