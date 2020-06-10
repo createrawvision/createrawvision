@@ -457,6 +457,16 @@ function deploy_pages_for_templates()
     'post_status' => 'publish',
     'post_type' => 'page'
   ]);
+
+  WP_CLI::log('Creating search page');
+
+  wp_insert_post([
+    'post_content' => '',
+    'post_title' => 'Erweiterte Rezept-Suche',
+    'post_name' => 'suche',
+    'post_status' => 'publish',
+    'post_type' => 'page'
+  ]);
 }
 
 

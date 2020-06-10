@@ -755,3 +755,9 @@ function crv_loginout_menu_link($menu, $args)
 
 add_filter('genesis_nav_items', 'crv_loginout_menu_link', 10, 2);
 add_filter('wp_nav_menu_items', 'crv_loginout_menu_link', 10, 2);
+
+
+/**
+ * Adds an advanced recipe filter 
+ */
+require_once CHILD_DIR . '/lib/recipe-filter.php';
