@@ -275,7 +275,7 @@ function deploy_nav_menus()
   run_wp_cli_command("menu item add-custom $main_menu_id 'Beste Beiträge' '' --parent-id=$entry_menu_item_id");
 
   run_wp_cli_command("menu item add-custom $main_menu_id 'Rohkost Rezepte' ''");
-  run_wp_cli_command("menu item add-custom $main_menu_id 'How Tos' ''");
+  run_wp_cli_command("menu item add-custom $main_menu_id 'Rohkost Tipps' ''");
 
   $blog_menu_item_id = run_wp_cli_command("menu item add-custom $main_menu_id 'Blog' '' --porcelain", ['return' => 'stdout']);
   run_wp_cli_command("menu item add-custom $main_menu_id 'Bewusstsein & Achtsamkeit' '' --parent-id=$blog_menu_item_id");
@@ -294,7 +294,7 @@ function deploy_nav_menus()
   run_wp_cli_command("menu item add-custom $main_menu_member_id 'Beste Beiträge' '' --parent-id=$entry_menu_item_id");
 
   run_wp_cli_command("menu item add-custom $main_menu_member_id 'Rohkost Rezepte' ''");
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'How Tos' ''");
+  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Rohkost Tipps' ''");
 
   $blog_menu_item_id = run_wp_cli_command("menu item add-custom $main_menu_member_id 'Blog' '' --porcelain", ['return' => 'stdout']);
   run_wp_cli_command("menu item add-custom $main_menu_member_id 'Bewusstsein & Achtsamkeit' '' --parent-id=$blog_menu_item_id");

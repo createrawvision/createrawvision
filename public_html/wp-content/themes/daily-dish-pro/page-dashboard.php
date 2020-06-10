@@ -45,10 +45,10 @@ function show_community()
 
 function show_courses()
 {
-  $course_category_id = get_category_by_slug('kurse')->term_id;
+  $course_category_id = get_category_by_slug('tutorials')->term_id;
   $courses = get_categories(['parent' => $course_category_id])
 ?>
-  <h2>Kurse</h2>
+  <h2>Tutorials</h2>
   <ul>
     <?php
     foreach ($courses as $course) {
