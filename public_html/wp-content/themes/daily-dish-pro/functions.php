@@ -583,28 +583,6 @@ function crv_body_class_member_category($classes)
 add_filter('body_class', 'crv_body_class_member_category');
 
 /**
- * Show more posts for member categories (which are descendants of the 'member' category)
- */
-function crv_show_all_posts_for_member_categories($query)
-{
-	if (!is_admin() && $query->is_main_query() && $query->is_category) {
-		$current_category = $query->query_vars['category_name'];
-		$current_category_id = get_category_by_slug($current_category)->term_id;
-		$member_category_id = get_category_by_slug('member')->term_id;
-
-		if ('member' == $current_category) {
-			$query->set('posts_per_page', 20);
-		} elseif (cat_is_ancestor_of($member_category_id, $current_category_id)) {
-			$query->set('posts_per_page', -1);
-			$query->set('order', 'ASC');
-			$query->set('orderby', 'title');
-		}
-	}
-}
-add_action('pre_get_posts', 'crv_show_all_posts_for_member_categories');
-
-
-/**
  * Filter 'Roh & Vegan', 'Glutenfrei, Roh & Vegan' and similar stuff 
  * from the post title on membership category archive pages
  */
