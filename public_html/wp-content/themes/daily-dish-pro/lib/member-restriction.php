@@ -34,9 +34,27 @@ function crv_is_member_content()
   if (!is_single())
     return FALSE;
 
+  /** @todo maybe create a dedicated category for free stuff */
+
   $member_category_id = get_category_by_slug('member')->term_id;
-  $is_member_post = 0 < count(get_posts(['category' => $member_category_id, 'include' => $post->ID, 'fields' => 'ids']));
-  return $is_member_post;
+  $free_category_id   = get_category_by_slug('vegane-rezepte')->term_id;
+
+  $is_post_in_member_category = crv_is_post_in_category($member_category_id, $post->ID);
+  $is_post_in_free_category   = crv_is_post_in_category($free_category_id, $post->ID);
+
+  return $is_post_in_member_category && !$is_post_in_free_category;
+}
+
+/**
+ * Checks if a posts is in the given category (or one of its descendants)
+ */
+function crv_is_post_in_category($category_id, $post_id)
+{
+  return 0 < count(get_posts([
+    'category' => $category_id,
+    'include' => $post_id,
+    'fields' => 'ids'
+  ]));
 }
 
 /**
