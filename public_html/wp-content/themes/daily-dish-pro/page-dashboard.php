@@ -10,7 +10,7 @@ function show_dashboard()
   show_recipes();
   show_support();
   show_community();
-  show_courses();
+  show_tutorials();
   show_further();
   show_admin();
   return ob_get_clean();
@@ -20,10 +20,13 @@ function show_recipes()
 { ?>
   <h2>Rezepte</h2>
   <ul>
-    <li>Rezepte nach Kategorien</li>
-    <li>Rezepte suchen</li>
+    <li><a href="<?php echo esc_url(get_term_link('rezepte', 'category')); ?>">Rezepte nach Kategorien</a></li>
+    <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('suche'))); ?>">Rezepte suchen</a></li>
+    <!-- @todo -->
     <li>Neue Rezepte</li>
+    <!-- @todo -->
     <li>Deine Lieblingsrezepte</li>
+    <!-- @todo -->
     <li>Beliebte Rezepte</li>
   </ul>
 <?php }
@@ -32,18 +35,20 @@ function show_support()
 { ?>
   <h2>Support</h2>
   <ul>
-    <li><a href="/faqs">Häufige Fragen</a></li>
-    <li><a href="/kontaktformular">Kontakt</a></li>
-    <li>Suche <?php get_search_form(); ?></li>
+    <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('faqs'))); ?>">Häufige Fragen</a></li>
+    <li><a href="<?php echo esc_url(get_permalink(get_page_by_path('kontaktformular'))); ?>">Kontakt</a></li>
+    <!-- @todo -->
+    <li><?php get_search_form(); ?></li>
   </ul>
 <?php }
 
 function show_community()
 { ?>
+  <!-- @todo -->
   <h2>Community (demnächst verfügbar)</h2>
 <?php }
 
-function show_courses()
+function show_tutorials()
 {
   $course_category_id = get_category_by_slug('tutorials')->term_id;
   $courses = get_categories(['parent' => $course_category_id])
@@ -62,9 +67,13 @@ function show_further()
 { ?>
   <h2>Weiteres</h2>
   <ul>
+    <!-- @todo -->
     <li>Blog</li>
+    <!-- @todo -->
     <li>Q&As</li>
+    <!-- @todo -->
     <li>Kommende Veranstaltungen</li>
+    <!-- @todo -->
     <li>Unsere Vision</li>
   </ul>
 <?php }
@@ -74,8 +83,8 @@ function show_admin()
   global $rcp_options; ?>
   <h2>Einstellungen</h2>
   <ul>
-    <li><a href="<?php echo get_permalink($rcp_options['edit_profile']); ?>">Profil bearbeiten</a></li>
-    <li><a href="<?php echo get_permalink($rcp_options['account_page']); ?>">Mitgliedschaft verwalten</a></li>
+    <li><a href="<?php the_permalink($rcp_options['edit_profile']); ?>">Profil bearbeiten</a></li>
+    <li><a href="<?php the_permalink($rcp_options['account_page']); ?>">Mitgliedschaft verwalten</a></li>
   </ul>
 <?php }
 
