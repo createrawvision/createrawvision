@@ -269,14 +269,15 @@ function deploy_nav_menus()
 
   foreach ([$main_menu_id, $main_menu_member_id] as $menu_id) :
 
-    /** @todo create post called "Neu hier?" */
-    $entry_menu_item_id = run_wp_cli_command("menu item add-custom $menu_id 'Neu hier?' '' --porcelain", ['return' => 'stdout']);
+    $entry_menu_item_id = run_wp_cli_command("menu item add-post $menu_id 19838 --porcelain", ['return' => 'stdout']); // Neu hier?
     run_wp_cli_command("menu item add-post $menu_id 19602 --parent-id=$entry_menu_item_id"); // Über Uns
     run_wp_cli_command("menu item add-post $menu_id 19655 --parent-id=$entry_menu_item_id"); // Unsere Vision
     $faqs_id = get_page_by_path('faqs')->ID;
     run_wp_cli_command("menu item add-post $menu_id $faqs_id --parent-id=$entry_menu_item_id"); // Häufig gestellte Fragen
-    /** @todo create "Beste Beiträge" */
-    // run_wp_cli_command("menu item add-post $menu_id ??? --title=Beste&nbsp;Beiträge --parent-id=$entry_menu_item_id");
+    run_wp_cli_command("menu item add-post $menu_id 19841 --title=Beste&nbsp;Beiträge --parent-id=$entry_menu_item_id"); // Unsere Besten Beiträge
+
+    if ($menu_id === $main_menu_member_id)
+      run_wp_cli_command("menu item add-term $menu_id category 4269 --title=Mitgliederbereich"); // Category 'member'
 
     run_wp_cli_command("menu item add-term $menu_id category 5869 --title=Rohkost&nbsp;Rezepte");
     run_wp_cli_command("menu item add-term $menu_id category 5287 --title=Rohkost&nbsp;Tipps");
@@ -288,9 +289,12 @@ function deploy_nav_menus()
 
     /** @todo add community (forum, q&a, events) or books item */
 
+    if ($menu_id === $main_menu_id)
+      run_wp_cli_command("menu item add-post $menu_id 1888 --title=Rohkost&nbsp;Buch"); // "Dein Weg Zur Rohkost Leicht Gemacht" Buch
+
     $advice_menu_item_id = run_wp_cli_command("menu item add-custom $menu_id 'Empfehlungen' '' --porcelain", ['return' => 'stdout']);
     run_wp_cli_command("menu item add-post $menu_id 18900 --title=Rohkost&nbsp;Ausstattung --parent-id=$advice_menu_item_id");
-    run_wp_cli_command("menu item add-post $menu_id 17011 --title=Hochleistungsmixer --parent-id=$advice_menu_item_id");
+    run_wp_cli_command("menu item add-post $menu_id 19759 --title=Hochleistungsmixer --parent-id=$advice_menu_item_id");
     run_wp_cli_command("menu item add-post $menu_id 16743 --title=Dörrgeräte --parent-id=$advice_menu_item_id");
     run_wp_cli_command("menu item add-post $menu_id 16944 --title=Entsafter --parent-id=$advice_menu_item_id");
     run_wp_cli_command("menu item add-post $menu_id 16883 --title=Küchenmaschinen --parent-id=$advice_menu_item_id");
