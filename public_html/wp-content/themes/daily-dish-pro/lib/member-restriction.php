@@ -16,7 +16,7 @@ add_action('wp', function () {
 
   global $post;
   // Restrict member content and metadata
-  if ($post && is_single() && crv_is_member_post($post->ID)) {
+  if ($post && is_single() && crv_is_restricted_post($post->ID)) {
     // Show excerpt and restriction message
     add_filter('the_content', 'crv_restricted_content', 100);
 
@@ -27,31 +27,40 @@ add_action('wp', function () {
 
 /**
  * All posts in category 'member' are member-content
+ * 
+ * @todo make generic with array of posts
  */
-function crv_is_member_post($post_id)
+function crv_is_restricted_post($post_id)
 {
-  /** @todo maybe create a dedicated category for free stuff */
-
-  $member_category_id = get_category_by_slug('member')->term_id;
-  $free_category_id   = get_category_by_slug('vegane-rezepte')->term_id;
-
-  /** @todo replace with tax query */
-  $is_post_in_member_category = crv_is_post_in_category($member_category_id, $post_id);
-  $is_post_in_free_category   = crv_is_post_in_category($free_category_id, $post_id);
-
-  return $is_post_in_member_category && !$is_post_in_free_category;
+  return empty(crv_strip_restricted_posts([$post_id]));
 }
 
 /**
- * Checks if a posts is in the given category (or one of its descendants)
+ * Only returns post ids of not-restricted posts
+ * 
+ * Not-restricted post: Not in category 'member' or in category 'free'
  */
-function crv_is_post_in_category($category_id, $post_id)
+function crv_strip_restricted_posts($post_ids)
 {
-  return 0 < count(get_posts([
-    'category' => $category_id,
-    'include' => $post_id,
-    'fields' => 'ids'
-  ]));
+  return get_posts([
+    'nopaging' => TRUE,
+    'include' => $post_ids,
+    'fields' => 'ids',
+    'tax_query' => [
+      'relation' => 'OR',
+      [
+        'taxonomy' => 'category',
+        'field' => 'slug',
+        'terms' => 'member',
+        'operator' => 'NOT IN'
+      ],
+      [
+        'taxonomy' => 'category',
+        'field' => 'slug',
+        'terms' => 'free'
+      ]
+    ]
+  ]);
 }
 
 /**

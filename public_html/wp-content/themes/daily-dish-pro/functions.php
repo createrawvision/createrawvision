@@ -738,4 +738,4 @@ add_filter('wp_nav_menu_items', 'crv_loginout_menu_link', 10, 2);
 /**
  * Adds an advanced recipe filter 
  */
-require_once CHILD_DIR . '/lib/recipe-filter.php';
+include_once CHILD_DIR . '/lib/recipe-filter.php';

@@ -48,8 +48,8 @@ function crv_show_taxonomy_dropdown($taxonomy_name, $message)
   ]);
 }
 
-add_action('wp_ajax_crv_post_filter', 'crv_filter_function');
-add_action('wp_ajax_nopriv_crv_post_filter', 'crv_filter_function');
+add_action('wp_ajax_crv_post_filter', 'crv_filter_recipes');
+add_action('wp_ajax_nopriv_crv_post_filter', 'crv_filter_recipes');
 
 /**
  * Filters recipes by posted values
@@ -58,8 +58,9 @@ add_action('wp_ajax_nopriv_crv_post_filter', 'crv_filter_function');
  * - taxnonmyfilter_{taxomomy}
  * - free: when true, only show free content
  */
-function crv_filter_function()
+function crv_filter_recipes()
 {
+  // WP_Query args for getting recipes
   $args = [
     'post_type' => 'wprm_recipe',
     'orderby' => 'date',
@@ -69,6 +70,7 @@ function crv_filter_function()
     'nopaging' => TRUE
   ];
 
+  // Build tax query for all non-empty keys 'taxonomyfilter_{taxonomy}' in $_POST
   $taxonomyfilter_keys = array_filter(array_keys($_POST), function ($key) {
     return $_POST[$key] && FALSE !== strpos($key, 'taxonomyfilter_');
   });
@@ -84,31 +86,17 @@ function crv_filter_function()
 
   $recipe_ids = get_posts($args);
 
+  // Get containing posts
   $post_ids = array_map(function ($recipe_id) {
     return WPRM_Recipe_Manager::get_recipe($recipe_id)->parent_post_id();
   }, $recipe_ids);
 
+  // Remove all restricted posts from list
   if (isset($_POST['free']) && $_POST['free']) {
-    $post_ids = get_posts([
-      'nopaging' => TRUE,
-      'include' => $post_ids,
-      'tax_query' => [
-        'relation' => 'OR',
-        [
-          'taxonomy' => 'category',
-          'field' => 'slug',
-          'terms' => 'member',
-          'operator' => 'NOT IN'
-        ],
-        [
-          'taxonomy' => 'category',
-          'field' => 'slug',
-          'terms' => 'vegane-rezepte'
-        ]
-      ]
-    ]);
+    $post_ids = crv_strip_restricted_posts($post_ids);
   }
 
+  // Return formatted results
   array_map(function ($post_id) {
     $link = get_permalink($post_id);
     $title = get_the_title($post_id);
@@ -121,13 +109,15 @@ function crv_filter_function()
           </a>
         </h2>
       </header>
-      <?php if (has_post_thumbnail($post_id)) : ?>
-        <div class="entry-content">
+      <div class="entry-content">
+        <?php if (has_post_thumbnail($post_id)) : ?>
           <a class="entry-image-link" href="<?php echo $link; ?>">
             <?php echo get_the_post_thumbnail($post_id); ?>
           </a>
-        </div>
-      <?php endif; ?>
+        <?php else : ?>
+          <p>Kein Vorschaubild vorhanden...</p>
+        <?php endif; ?>
+      </div>
     </article>
 <?php
   }, $post_ids);
