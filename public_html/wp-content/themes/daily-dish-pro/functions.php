@@ -739,3 +739,9 @@ add_filter('wp_nav_menu_items', 'crv_loginout_menu_link', 10, 2);
  * Adds an advanced recipe filter 
  */
 include_once CHILD_DIR . '/lib/recipe-filter.php';
+
+
+/**
+ * Connects Restrict Content Pro with MailChimp
+ */
+include_once CHILD_DIR . '/lib/rcp-mailchimp.php';
