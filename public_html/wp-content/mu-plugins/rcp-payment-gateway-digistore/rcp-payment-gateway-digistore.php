@@ -130,3 +130,28 @@ function crv_add_digistore_product_id($level_id, $args)
 }
 add_action('rcp_add_subscription', 'crv_add_digistore_product_id', 10, 2);
 add_action('rcp_edit_subscription_level', 'crv_add_digistore_product_id', 10, 2);
+
+
+/**
+ * Add DigiStore Settings
+ */
+function crv_rcp_digistore_settings($rcp_options)
+{ ?>
+  <table class="form-table">
+    <tr valign="top">
+      <th colspan=2>
+        <h3><?php _e('DigiStore Settings', 'rcp'); ?></h3>
+      </th>
+    </tr>
+    <tr>
+      <th>
+        <label for="rcp_settings[digistore_api_key]"><?php _e('DigiStore API Key', 'rcp'); ?></label>
+      </th>
+      <td>
+        <input type="text" class="regular-text" style="width: 300px;" name="rcp_settings[digistore_api_key]" id="rcp_settings[digistore_api_key]" value="<?php echo isset($rcp_options['digistore_api_key']) ? esc_attr($rcp_options['digistore_api_key']) : ''; ?>" />
+        <p class="description"><?php _e('Enter your DigiStore API key.', 'rcp'); ?></p>
+      </td>
+    </tr>
+  </table>
+<?php }
+add_action('rcp_payments_settings', 'crv_rcp_digistore_settings');
