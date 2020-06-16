@@ -6,13 +6,17 @@ add_action('the_content', __NAMESPACE__ . '\show_dashboard');
 
 function show_dashboard()
 {
-  ob_start();
+  ob_start(); ?>
+  <h2><a href="<?php echo get_category_link(4269); ?>">Mitgliederbereich-Übersicht</a></h2>
+  <?php
   show_recipes();
-  show_support();
+  show_tutorials(); ?>
+  <h2><a href="<?php echo get_category_link(5792); ?>">Dein Weg Zur Rohkost Leicht Gemacht - Kurs</a></h2>
+<?php
   show_community();
-  show_tutorials();
   show_further();
   show_admin();
+  show_support();
   return ob_get_clean();
 }
 
