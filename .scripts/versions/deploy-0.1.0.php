@@ -294,10 +294,10 @@ function deploy_nav_menus()
     run_wp_cli_command("menu item add-term $menu_id category 5869 --title=Rohkost&nbsp;Rezepte");
     run_wp_cli_command("menu item add-term $menu_id category 5287 --title=Rohkost&nbsp;Tipps");
 
-    /** @todo Create categories (restructure blog) */
+    /** @todo Link Blog main page? Create it? */
     $blog_menu_item_id = run_wp_cli_command("menu item add-custom $menu_id 'Blog' '' --porcelain", ['return' => 'stdout']);
-    run_wp_cli_command("menu item add-custom $menu_id 'Bewusstsein & Achtsamkeit' '' --parent-id=$blog_menu_item_id");
-    run_wp_cli_command("menu item add-custom $menu_id 'Gesund Leben' '' --parent-id=$blog_menu_item_id");
+    run_wp_cli_command("menu item add-term $menu_id category 5935 --parent-id=$blog_menu_item_id"); // Bewusstsein & Achtsamkeit
+    run_wp_cli_command("menu item add-term $menu_id category 5937 --parent-id=$blog_menu_item_id"); // Gesund Leben
 
     /** @todo add community (forum, q&a, events) or books item */
 

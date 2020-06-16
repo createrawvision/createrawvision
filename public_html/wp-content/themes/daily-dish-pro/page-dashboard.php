@@ -15,6 +15,7 @@ function show_dashboard()
   <h2><a href="<?php echo get_category_link(5792); ?>">Dein Weg Zur Rohkost Leicht Gemacht - Kurs</a></h2>
 <?php
   show_community();
+  show_blog();
   show_further();
   show_admin();
   show_support();
@@ -56,7 +57,7 @@ function show_community()
 function show_tutorials()
 {
   $course_category_id = get_category_by_slug('tutorials')->term_id;
-  $courses = get_categories(['parent' => $course_category_id])
+  $courses = get_categories(['parent' => $course_category_id]);
 ?>
   <h2>Tutorials</h2>
   <ul>
@@ -68,12 +69,25 @@ function show_tutorials()
 <?php
 }
 
+/** @todo add main blog page  */
+function show_blog()
+{
+  $blog_category_id = get_category_by_slug('blog')->term_id;
+  $categories = get_categories(['parent' => $blog_category_id]);
+?>
+  <h2>Blog</h2>
+  <ul>
+    <?php
+    foreach ($categories as $category) {
+      echo '<li><a href="' . get_category_link($category) . '">' . $category->name . '</a></li>';
+    } ?>
+  </ul>
+<?php }
+
 function show_further()
 { ?>
   <h2>Weiteres</h2>
   <ul>
-    <!-- @todo -->
-    <li>Blog</li>
     <!-- @todo -->
     <li>Q&As</li>
     <!-- @todo -->
