@@ -1744,6 +1744,7 @@ span.ERComment {
 .genesis-nav-menu .toggle-header-search {
   display: inline-block;
   text-align: center;
+  cursor: default;
 }
 
 .genesis-nav-menu .menu-item:focus,
