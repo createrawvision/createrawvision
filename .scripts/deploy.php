@@ -56,3 +56,5 @@ run_wp_cli_command("cache flush");
 run_wp_cli_command("rewrite flush");
 
 WP_CLI::success('Deployment complete');
+/** @todo maybe use `WP_CLI\Utils\launch_editor_for_input`  */
+WP_CLI::warning('Remember to set your API keys!');

@@ -6,7 +6,8 @@ add_action('the_content', __NAMESPACE__ . '\show_dashboard');
 
 function show_dashboard()
 {
-  ob_start(); ?>
+  ob_start();
+  echo rcp_restricted_message_pending_verification(''); ?>
   <h2><a href="<?php echo get_category_link(4269); ?>">Mitgliederbereich-Übersicht</a></h2>
   <?php
   show_recipes();

@@ -12,20 +12,16 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
   protected $api_key;
 
   /**
-   * @var string
-   */
-  protected $api_url;
-
-  /**
    * Declare feature support and set up any environment variables like API key(s), endpoint URL, etc.
    */
   public function init()
   {
+    global $rcp_options;
+
     $this->supports[] = 'one-time';
     $this->supports[] = 'recurring';
 
-    $this->api_key = '326384-pWAKdN73nQAKU36jpvjEEkmGpwDkSpYhVkaF38FE';
-    $this->api_url = "https://www.digistore24.com/api/call/{$this->api_key}/json/";
+    $this->api_key = $rcp_options['digistore_api_key'];
 
     require_once __DIR__ . '/ds24_api.php';
   }
@@ -87,6 +83,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
       $api->disconnect();
     } catch (DigistoreApiException $error) {
 
+      $this->error_message = $error->getMessage();
       do_action('rcp_registration_failed', $this);
 
       $errormsg = '<p>' . __('An unidentified error occurred.', 'rcp') . '</p>';

@@ -108,11 +108,23 @@ function deploy_restrict_content_pro()
     'currency_position' => 'before',
     'gateways' => array('digistore' => '1'),
     'email_template' => 'default',
-    'email_header_text' => 'Hallo',
-    'email_header_img' => '',
     'from_name' => 'CreateRawVision',
     'from_email' => 'info@createrawvision.de',
     'admin_notice_emails' => 'info@createrawvision.de',
+    'email_verification' => 'all',
+    'verification_subject' => 'Bitte bestätige deine E-Mail Adresse',
+    'verification_email' => 'Hallo %displayname%,
+
+Bitte klicke hier, um deine E-Mail Adresse zu bestätigen:
+
+%verificationlink%',
+    'disable_active_email' => '1',
+    'disable_free_email' => '1',
+    'disable_trial_email' => '1',
+    'disable_cancelled_email' => '1',
+    'disable_expired_email' => '1',
+    'disable_payment_received_email' => '1',
+    'disable_renewal_payment_failed_email' => '1',
     'disable_toolbar' => '1',
     'enable_terms' => '1',
     'terms_label' => 'AGBs zustimmen',
@@ -445,7 +457,7 @@ function deploy_pages_for_templates()
   WP_CLI::log('Creating login page');
 
   wp_insert_post([
-    'post_content' => '[login_form]',
+    'post_content' => '[login_form redirect="/dashboard"]',
     'post_title' => 'Login',
     'post_name' => 'login',
     'post_status' => 'publish',
