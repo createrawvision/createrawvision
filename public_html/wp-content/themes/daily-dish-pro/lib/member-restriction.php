@@ -80,7 +80,7 @@ function crv_restricted_content()
   $post_thumbnail = get_the_post_thumbnail(null, 'post-thumbnail', ['class' => 'aligncenter']);
   $restrict_message = '<p class="restriciton-message">Dieser Beitrag ist nur für Mitglieder verfügbar. Um den Beitrag zu lesen, <a href="#">melde dich hier an</a> oder <a href="#">werde Mitglied</a>.</p>';
 
-  return $teaser_image . $excerpt . $restrict_message . $post_thumbnail;
+  return $teaser_image . $excerpt . rcp_restricted_message_pending_verification($restrict_message) . $post_thumbnail;
 }
 
 /**

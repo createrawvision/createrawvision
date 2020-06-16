@@ -7,6 +7,7 @@ add_action('the_content', __NAMESPACE__ . '\show_dashboard');
 function show_dashboard()
 {
   ob_start();
+  echo rcp_restricted_message_pending_verification('');
   show_recipes();
   show_support();
   show_community();
