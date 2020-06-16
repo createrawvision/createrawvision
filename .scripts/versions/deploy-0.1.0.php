@@ -277,50 +277,44 @@ function deploy_nav_menus()
   $main_menu_member_id = run_wp_cli_command('menu create "Main Menu Member 2020" --porcelain', ['return' => 'stdout']);
   $secondary_menu_id = run_wp_cli_command('menu create "Secondary Menu 2020" --porcelain', ['return' => 'stdout']);
 
-  // Create main menu items
-  WP_CLI::log("Creating main menu");
+  WP_CLI::log("Creating main menus");
 
-  $entry_menu_item_id = run_wp_cli_command("menu item add-custom $main_menu_id 'Neu hier?' '' --porcelain", ['return' => 'stdout']);
-  run_wp_cli_command("menu item add-custom $main_menu_id 'Über uns' '' --parent-id=$entry_menu_item_id");
-  run_wp_cli_command("menu item add-custom $main_menu_id 'Unsere Vision' '' --parent-id=$entry_menu_item_id");
-  run_wp_cli_command("menu item add-custom $main_menu_id 'Häufige Fragen' '' --parent-id=$entry_menu_item_id");
-  run_wp_cli_command("menu item add-custom $main_menu_id 'Beste Beiträge' '' --parent-id=$entry_menu_item_id");
+  foreach ([$main_menu_id, $main_menu_member_id] as $menu_id) :
 
-  run_wp_cli_command("menu item add-custom $main_menu_id 'Rohkost Rezepte' ''");
-  run_wp_cli_command("menu item add-custom $main_menu_id 'Rohkost Tipps' ''");
+    $entry_menu_item_id = run_wp_cli_command("menu item add-post $menu_id 19838 --porcelain", ['return' => 'stdout']); // Neu hier?
+    run_wp_cli_command("menu item add-post $menu_id 19602 --parent-id=$entry_menu_item_id"); // Über Uns
+    run_wp_cli_command("menu item add-post $menu_id 19655 --parent-id=$entry_menu_item_id"); // Unsere Vision
+    $faqs_id = get_page_by_path('faqs')->ID;
+    run_wp_cli_command("menu item add-post $menu_id $faqs_id --parent-id=$entry_menu_item_id"); // Häufig gestellte Fragen
+    run_wp_cli_command("menu item add-post $menu_id 19841 --title=Beste&nbsp;Beiträge --parent-id=$entry_menu_item_id"); // Unsere Besten Beiträge
 
-  $blog_menu_item_id = run_wp_cli_command("menu item add-custom $main_menu_id 'Blog' '' --porcelain", ['return' => 'stdout']);
-  run_wp_cli_command("menu item add-custom $main_menu_id 'Bewusstsein & Achtsamkeit' '' --parent-id=$blog_menu_item_id");
-  run_wp_cli_command("menu item add-custom $main_menu_id 'Gesund Leben' '' --parent-id=$blog_menu_item_id");
+    if ($menu_id === $main_menu_member_id)
+      run_wp_cli_command("menu item add-term $menu_id category 4269 --title=Mitgliederbereich"); // Category 'member'
 
-  run_wp_cli_command("menu item add-custom $main_menu_id 'Bücher' ''");
-  run_wp_cli_command("menu item add-custom $main_menu_id 'Empfehlungen' ''");
+    run_wp_cli_command("menu item add-term $menu_id category 5869 --title=Rohkost&nbsp;Rezepte");
+    run_wp_cli_command("menu item add-term $menu_id category 5287 --title=Rohkost&nbsp;Tipps");
 
-  // Create main menu member items
-  WP_CLI::log("Creating main member menu");
+    /** @todo Create categories (restructure blog) */
+    $blog_menu_item_id = run_wp_cli_command("menu item add-custom $menu_id 'Blog' '' --porcelain", ['return' => 'stdout']);
+    run_wp_cli_command("menu item add-custom $menu_id 'Bewusstsein & Achtsamkeit' '' --parent-id=$blog_menu_item_id");
+    run_wp_cli_command("menu item add-custom $menu_id 'Gesund Leben' '' --parent-id=$blog_menu_item_id");
 
-  $entry_menu_item_id = run_wp_cli_command("menu item add-custom $main_menu_member_id 'Neu hier?' '' --porcelain", ['return' => 'stdout']);
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Über uns' '' --parent-id=$entry_menu_item_id");
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Unsere Vision' '' --parent-id=$entry_menu_item_id");
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Häufige Fragen' '' --parent-id=$entry_menu_item_id");
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Beste Beiträge' '' --parent-id=$entry_menu_item_id");
+    /** @todo add community (forum, q&a, events) or books item */
 
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Rohkost Rezepte' ''");
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Rohkost Tipps' ''");
+    if ($menu_id === $main_menu_id)
+      run_wp_cli_command("menu item add-post $menu_id 1888 --title=Rohkost&nbsp;Buch"); // "Dein Weg Zur Rohkost Leicht Gemacht" Buch
 
-  $blog_menu_item_id = run_wp_cli_command("menu item add-custom $main_menu_member_id 'Blog' '' --porcelain", ['return' => 'stdout']);
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Bewusstsein & Achtsamkeit' '' --parent-id=$blog_menu_item_id");
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Gesund Leben' '' --parent-id=$blog_menu_item_id");
+    $advice_menu_item_id = run_wp_cli_command("menu item add-custom $menu_id 'Empfehlungen' '' --porcelain", ['return' => 'stdout']);
+    run_wp_cli_command("menu item add-post $menu_id 18900 --title=Rohkost&nbsp;Ausstattung --parent-id=$advice_menu_item_id");
+    run_wp_cli_command("menu item add-post $menu_id 19759 --title=Hochleistungsmixer --parent-id=$advice_menu_item_id");
+    run_wp_cli_command("menu item add-post $menu_id 16743 --title=Dörrgeräte --parent-id=$advice_menu_item_id");
+    run_wp_cli_command("menu item add-post $menu_id 16944 --title=Entsafter --parent-id=$advice_menu_item_id");
+    run_wp_cli_command("menu item add-post $menu_id 16883 --title=Küchenmaschinen --parent-id=$advice_menu_item_id");
+    run_wp_cli_command("menu item add-post $menu_id 16977 --title=Spiralschneider --parent-id=$advice_menu_item_id");
+    run_wp_cli_command("menu item add-post $menu_id 16961 --title=Mandoline/Raspel/Hobel --parent-id=$advice_menu_item_id");
+    run_wp_cli_command("menu item add-post $menu_id 19262 --title=Waffelschneider --parent-id=$advice_menu_item_id");
 
-  $community_menu_item_id = run_wp_cli_command("menu item add-custom $main_menu_member_id 'Community' '' --porcelain", ['return' => 'stdout']);
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Forum' '' --parent-id=$community_menu_item_id");
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Q&A' '' --parent-id=$community_menu_item_id");
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Veranstaltungen' '' --parent-id=$community_menu_item_id");
-
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Empfehlungen' ''");
-
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Account' ''");
-  run_wp_cli_command("menu item add-custom $main_menu_member_id 'Dashboard' ''");
+  endforeach;
 
   // Create secondary menu items
   WP_CLI::log("Creating secondary menu");
