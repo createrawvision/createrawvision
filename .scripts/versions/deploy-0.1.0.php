@@ -302,7 +302,7 @@ function deploy_nav_menus()
     /** @todo add community (forum, q&a, events) or books item */
 
     if ($menu_id === $main_menu_id)
-      run_wp_cli_command("menu item add-post $menu_id 1888 --title=Rohkost&nbsp;Buch"); // "Dein Weg Zur Rohkost Leicht Gemacht" Buch
+      run_wp_cli_command("menu item add-post $menu_id 1888 --title=E-Book"); // "Dein Weg Zur Rohkost Leicht Gemacht" Buch
 
     $advice_menu_item_id = run_wp_cli_command("menu item add-custom $menu_id 'Empfehlungen' '' --porcelain", ['return' => 'stdout']);
     run_wp_cli_command("menu item add-post $menu_id 18900 --title=Rohkost&nbsp;Ausstattung --parent-id=$advice_menu_item_id");
