@@ -152,6 +152,15 @@ function crv_rcp_digistore_settings($rcp_options)
         <p class="description"><?php _e('Enter your DigiStore API key.', 'rcp'); ?></p>
       </td>
     </tr>
+    <tr>
+      <th>
+        <label for="rcp_settings[digistore_ipn_passphrase]"><?php _e('DigiStore IPN Passphrase', 'rcp'); ?></label>
+      </th>
+      <td>
+        <input type="text" class="regular-text" style="width: 300px;" name="rcp_settings[digistore_ipn_passphrase]" id="rcp_settings[digistore_ipn_passphrase]" value="<?php echo isset($rcp_options['digistore_ipn_passphrase']) ? esc_attr($rcp_options['digistore_ipn_passphrase']) : ''; ?>" />
+        <p class="description"><?php _e('Enter your DigiStore IPN Passphrase.', 'rcp'); ?></p>
+      </td>
+    </tr>
   </table>
 <?php }
 add_action('rcp_payments_settings', 'crv_rcp_digistore_settings');

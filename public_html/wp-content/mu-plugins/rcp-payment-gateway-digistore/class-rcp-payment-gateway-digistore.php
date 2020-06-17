@@ -12,6 +12,11 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
   protected $api_key;
 
   /**
+   * @var string
+   */
+  protected $ipn_passphrase;
+
+  /**
    * Declare feature support and set up any environment variables like API key(s), endpoint URL, etc.
    */
   public function init()
@@ -22,6 +27,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
     $this->supports[] = 'recurring';
 
     $this->api_key = $rcp_options['digistore_api_key'];
+    $this->ipn_passphrase = $rcp_options['digistore_ipn_passphrase'];
 
     require_once __DIR__ . '/ds24_api.php';
   }
@@ -101,8 +107,6 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
    */
   public function process_webhooks()
   {
-    $IPN_PASSPHRASE = 'NfTQyD1zeg7UZtiMK1siplEkGlj6yFZh';
-
     if (!isset($_GET['listener']) || strtolower($_GET['listener']) !== 'digistore') {
       return;
     }
@@ -110,7 +114,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
     rcp_log('Starting to process DigiStore24 IPN');
 
     // When not in test mode, check the signature
-    if (!$this->test_mode && !static::is_valid_digistore_signature($IPN_PASSPHRASE, $_POST)) {
+    if (!$this->test_mode && !static::is_valid_digistore_signature($this->ipn_passphrase, $_POST)) {
       rcp_log('Digistore IPN: Invalid SHA Signature', true);
       die('ERROR: invalid sha signature');
     }
@@ -361,7 +365,6 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
 
   /**
    * Check if signature sent by digistore is valid. 
-   * If the passphrase is empty, validation is skipped.
    * 
    * @param string $ipn_passphrase The passphrase set in digistore backoffice
    * @param array $ipn_data Information recieved from digistore ipn
@@ -369,11 +372,6 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway
    */
   private static function is_valid_digistore_signature($ipn_passphrase, $ipn_data)
   {
-    // If the passphrase is empty, skip validation
-    if ($ipn_passphrase === '') {
-      return true;
-    }
-
     $received_sha_sign = $ipn_data['sha_sign'];
 
     $sha_sign = static::create_digistore_ipn_signature($ipn_passphrase, $ipn_data);
