@@ -766,3 +766,26 @@ include_once CHILD_DIR . '/lib/recipe-filter.php';
  * Connects Restrict Content Pro with MailChimp
  */
 include_once CHILD_DIR . '/lib/rcp-mailchimp.php';
+
+
+/**
+ * Add heart bookmark button to single post and page header
+ */
+add_action('genesis_entry_header', function() {
+	if( is_admin() || ! is_main_query() || ! in_the_loop() || ! ( is_single() || is_page() ) )
+		return;
+
+	global $post, $wpb;
+
+	?><div id="popup-view-<?php echo $post->ID?>" class="bookmarpopup" style="display:none;text-align:center;"><?php
+		echo  $wpb->bookmarkpopup($post->ID);
+	?> </div> <?php	
+
+	echo '<a href="#TB_inline?width=300&height=250&inlineId=popup-view-'.$post->ID.' " id='.$post->ID.' style="display: block; margin: 0 1rem 1rem;" class="wppopup thickbox ';
+	if ($wpb->bookmarked($post->ID)) {
+		echo 'addedbookmark"><i class="fa fa-heart"';
+	} else {
+		echo 'unbookmark"><i class="fa fa-heart-o"';
+	}
+	echo ' style="font-size: 2em;"></i></a>';
+}, 14);
