@@ -164,7 +164,7 @@ jQuery(document).ready(function() {
 			dataType: 'JSON',
 			type: 'POST',
 			success:function(data){
-				location.reload();
+				// location.reload();
 			}
 		});
 		return false;
@@ -348,6 +348,7 @@ jQuery(document).ready(function() {
 
 	/* trigger submit new collection */
 	jQuery(document).on('click', '.wpb-bm-dialog a[data-action="submit_collection"]', function(e){
+		e.preventDefault();
 		jQuery(this).parents('form').trigger('submit');
 	});
 	
@@ -472,7 +473,7 @@ jQuery(document).ready(function() {
 			success:function(data){
 				wpb_bm_addbookmark( elem, parent.data('add_to_collection') );
 				wpb_bm_dialog( elem.parent(), parent.data('dialog_unbookmarked') );
-				location.reload();
+				// location.reload();
 			}
 		});
 		return false;
@@ -495,7 +496,7 @@ jQuery(document).ready(function() {
 			dataType: 'JSON',
 			type: 'POST',
 			success:function(data){
-				location.reload();
+				// location.reload();
 			}
 		});
 		return false;
@@ -530,7 +531,7 @@ jQuery(document).ready(function() {
     							wpb_bm_update_active_collection( jQuery(this).parents('.wpb-bm'), data.collection_id );
     							wpb_bm_donebookmark_category( elem , remove_bookmark_category );
 							wpb_bm_dialog( elem.parent(), dialog_bookmarked );
-							location.reload();
+							// location.reload();
 						}
 					});
 				}
@@ -547,7 +548,7 @@ jQuery(document).ready(function() {
     					wpb_bm_update_active_collection( jQuery(this).parents('.wpb-bm'), data.collection_id );
     					wpb_bm_donebookmark_category( elem , remove_bookmark_category );
 					wpb_bm_dialog( elem.parent(), dialog_bookmarked );
-					location.reload();
+					// location.reload();
 			}
 		});
 		}
@@ -581,7 +582,7 @@ jQuery(document).ready(function() {
 						success:function(data){
     							wpb_bm_addbookmark_category( elem , bookmark_category );
 							wpb_bm_dialog( elem.parent(), dialog_unbookmarked );
-							location.reload();
+							// location.reload();
 						}
 					});
 				}
@@ -598,7 +599,7 @@ jQuery(document).ready(function() {
 				success:function(data){
     					wpb_bm_addbookmark_category( elem , bookmark_category );
 					wpb_bm_dialog( elem.parent(), dialog_unbookmarked );
-					location.reload();
+					// location.reload();
 				}
 			});
 		}
@@ -620,7 +621,7 @@ function wpb_bookmark_icon(post_id,elm){
 		data: str,
 		type: 'POST',
 		success:function(data){
-			location.reload();
+			// location.reload();
 		}
 	});
 }
