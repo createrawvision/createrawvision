@@ -780,28 +780,49 @@ require_once CHILD_DIR . '/lib/rcp-mailchimp.php';
 /**
  * Add heart bookmark button to single post and page header
  */
+function crv_show_bookmark_heart() {
+	global $post, $wpb;
+
+	add_thickbox();
+
+	// hard excluded by post type
+	if ( wpb_get_option( 'include_post_types' ) ) {
+		if ( is_array( wpb_get_option( 'include_post_types' ) ) && ! in_array( get_post_type(), wpb_get_option( 'include_post_types' ) ) ) {
+			return;
+		}
+	}
+
+	// soft excluded by post id
+	if ( wpb_get_option( 'exclude_ids' ) ) {
+		$array = explode( ',', wpb_get_option( 'exclude_ids' ) );
+		if ( in_array( $post->ID, $array ) ) {
+			return;
+		}
+	}
+
+	?>
+<div id="popup-view-<?php echo $post->ID; ?>" class="bookmarpopup" style="display:none;text-align:center;">
+	<?php echo $wpb->bookmarkpopup( $post->ID ); ?>
+</div> 
+	<?php
+
+	echo '<a href="#TB_inline?width=300&height=250&inlineId=popup-view-' . $post->ID . ' " id=' . $post->ID . ' style="display: block; margin: 0 1rem 1rem;" class="wppopup thickbox ';
+	if ( $wpb->bookmarked( $post->ID ) ) {
+		echo 'addedbookmark"><i class="fa fa-heart"';
+	} else {
+		echo 'unbookmark"><i class="fa fa-heart-o"';
+	}
+	echo ' style="font-size: 2em;"></i></a>';
+}
+
 add_action(
 	'genesis_entry_header',
 	function() {
 		if ( is_admin() || ! is_main_query() || ! in_the_loop() || ! ( is_single() || is_page() ) ) {
 			return;
 		}
-
-		global $post, $wpb;
-
-		?>
-	<div id="popup-view-<?php echo $post->ID; ?>" class="bookmarpopup" style="display:none;text-align:center;">
-		<?php echo $wpb->bookmarkpopup( $post->ID ); ?>
-	</div> 
-		<?php
-
-		echo '<a href="#TB_inline?width=300&height=250&inlineId=popup-view-' . $post->ID . ' " id=' . $post->ID . ' style="display: block; margin: 0 1rem 1rem;" class="wppopup thickbox ';
-		if ( $wpb->bookmarked( $post->ID ) ) {
-			echo 'addedbookmark"><i class="fa fa-heart"';
-		} else {
-			echo 'unbookmark"><i class="fa fa-heart-o"';
-		}
-		echo ' style="font-size: 2em;"></i></a>';
+		crv_show_bookmark_heart();
 	},
 	14
 );
+
