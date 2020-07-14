@@ -1,1 +1,303 @@
-/*CSS for new layout for collections*/.wpb-button.button a {    box-shadow: none;}.wpb-button.button {    background: buttonface none repeat scroll 0 0;    font-size: small;    border-radius: 4px;}.wpb-button.button.active {    background: black none repeat scroll 0 0;}.wpb-button.button.active a {    color: white;}.wpb-item { 	width: 25%;	border: 1px solid #eee;}.wpb-thumb img {    width: 100%;}.wpb-item .wpb-thumb {	margin-bottom:5px;	}.wpb-item .wpb-title {	margin:0px;	text-align: center;}.wpb-item .wpb-action-remove {	margin:0px;	}.wpb-action-remove {    text-align: center;}.wpb-action-remove > i {	cursor : pointer;}.wpb-single.wpb-item {    margin-top: 10%;    float:left;}.wpb-loader.loading {	position: absolute;	top: 10%;	left: 46%;	width: 40px;	height: 40px;	text-align: center;	background: url(../img/loading.gif) no-repeat center !important;	border-radius: 5px;	-moz-border-radius: 5px;	-webkit-border-radius: 5px;	z-index: 7100;	opacity: 0.8;}/*******************************************************/.wpb-clear {clear: both}div.wpb-coll * {padding:0; margin:0;text-decoration: none;outline:none;border:0;letter-spacing: 0px}.wpb-coll {	width: 100%;	background: #fff;	border: 1px solid #eee;	line-height: 1 !important;	-moz-box-sizing: border-box;	-webkit-box-sizing: border-box;	-ms-box-sizing: border-box;	box-sizing: border-box;	font-size: 13px;	border-radius: 8px;}.wpb-coll-listpublic {	float: left;	width: 22%;	background: #fff !important;	border-radius: 8px 0 0 0;}.wpb-coll-listpublic a {	display: block !important;	width: 100% !important;	padding: 12px 20px !important;	font-size: 12px !important;	line-height: 18px !important;	-moz-box-sizing: border-box;	-webkit-box-sizing: border-box;	-ms-box-sizing: border-box;	box-sizing: border-box;	border-bottom: 1px solid #f5f5f5;	color: #888;	position: relative;}.wpb-coll-listpublic a:hover {	color: #333;}.wpb-coll-listpublic a.active {	color: #333! important;}.wpb-coll-listpublic a i {	position: absolute;	top: 6px;	font-size: 30px !important;	color: #555 !important;	right: 10px;	opacity: 0.7;}.wpb-coll-listpublic a span {	position: absolute;	right: 10px;	top: 12px;	font-size: 12px !important;	color: #bbb !important;}.wpb-coll-list {	float: left;	width: 22%;	background: #fff !important;	border-radius: 8px 0 0 0;}.wpb-coll-body {	float: left;	width: 78%;	background: #fbfbfb;	border-left: 1px solid #eee !important;	padding: 0 !important;	color: #666 !important;	-moz-box-sizing: border-box;	-webkit-box-sizing: border-box;	-ms-box-sizing: border-box;	box-sizing: border-box;	-webkit-box-sizing: border-box;	border-radius: 0 8px 0 0;}.wpb-coll-body-inner {padding: 20px !important;}.wpb-coll-body.loading {	background: #fbfbfb url(../img/loading.gif) no-repeat center !important;}.wpb-coll-list a {	display: block !important;	width: 100% !important;	padding: 12px 20px !important;	font-size: 12px !important;	line-height: 18px !important;	-moz-box-sizing: border-box;	-webkit-box-sizing: border-box;	-ms-box-sizing: border-box;	box-sizing: border-box;	border-bottom: 1px solid #f5f5f5;	color: #888;	position: relative;}.wpb-coll-list a:hover {	color: #333;}.wpb-coll-list a.active {	color: #333! important;}.wpb-coll-list a i {	position: absolute;	top: 6px;	font-size: 30px !important;	color: #555 !important;	right: 10px;	opacity: 0.7;}.wpb-coll-list a span {	position: absolute;	right: 10px;	top: 12px;	font-size: 12px !important;	color: #bbb !important;}.wpb-coll-hide {display: none !important}/* Removing a coll */.wpb-coll-count {	font-size: 20px !important;	line-height: 30px !important;	color: #555 !important;	position: relative;}.wpb-coll-count a.wpb-bm-btn.bookmarked {	position: absolute;	top: 0;	right: 0;	width: 200px !important;}.wpb-coll-remove {	display: none;	font-size: 13px !important;	color: #888 !important;}/* bookmark item */.wpb-coll-item {	border: 1px solid #ddd !important;	box-shadow: 0 1px 2px #eee;	border-radius: 5px;	background: #fff !important;	padding: 15px !important;	margin: 15px 0 0 0 !important;	position: relative;	float: left;	-moz-box-sizing: border-box;	-webkit-box-sizing: border-box;	-ms-box-sizing: border-box;	box-sizing: border-box;	width: 100%;}.wpb-coll-abs {	position: absolute;	right: 0;	bottom: 0;	width: 80px !important;	border-radius: 5px 0 0 0 !important;	border-right: 0 !important;	border-bottom: 0 !important;}.wpb-coll-item .uci-title {margin: 3px 0 0 0 !important}.wpb-coll-item .uci-title a {	font-size: 14px !important;	line-height: 20px !important;}.wpb-coll-item .uci-title a:hover {text-decoration: underline !important}.wpb-coll-item .uci-url {	margin: 3px 0 0 0 !important;	font-size: 13px !important;	color: #bbb !important;}.wpb-coll-item .uci-url a{color: #bbb !important;text-decoration: none!important}.uci-thumb {float: left;}.uci-thumb a:hover {opacity: 0.8}.uci-thumb img {	display: block;	overflow: hidden;	border-radius: 999px;	width:61px;}.uci-content {	margin-left: 70px !important;}
+/*CSS for new layout for collections*/
+
+.wpb-button.button a {
+  box-shadow: none;
+}
+.wpb-button.button {
+  background: buttonface none repeat scroll 0 0;
+  font-size: small;
+  border-radius: 4px;
+}
+
+.wpb-button.button.active {
+  background: black none repeat scroll 0 0;
+}
+.wpb-button.button.active a {
+  color: white;
+}
+
+.wpb-item {
+  width: 25%;
+  border: 1px solid #eee;
+}
+
+.wpb-thumb img {
+  width: 100%;
+}
+.wpb-item .wpb-thumb {
+  margin-bottom: 5px;
+}
+.wpb-item .wpb-title {
+  margin: 0px;
+  text-align: center;
+}
+.wpb-item .wpb-action-remove {
+  margin: 0px;
+}
+.wpb-action-remove {
+  text-align: center;
+}
+.wpb-action-remove > i {
+  cursor: pointer;
+}
+.wpb-single.wpb-item {
+  margin-top: 10%;
+  float: left;
+}
+
+.wpb-loader.loading {
+  position: absolute;
+  top: 10%;
+  left: 46%;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  background: url(../img/loading.gif) no-repeat center !important;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  z-index: 7100;
+  opacity: 0.8;
+}
+
+/*******************************************************/
+
+.wpb-clear {
+  clear: both;
+}
+
+div.wpb-coll * {
+  padding: 0;
+  margin: 0;
+  text-decoration: none;
+  outline: none;
+  border: 0;
+  letter-spacing: 0px;
+}
+
+.wpb-coll {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #eee;
+  line-height: 1 !important;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  font-size: 13px;
+  border-radius: 8px;
+}
+.wpb-coll-listpublic {
+  float: left;
+  width: 22%;
+  background: #fff !important;
+  border-radius: 8px 0 0 0;
+}
+.wpb-coll-listpublic a {
+  display: block !important;
+  width: 100% !important;
+  padding: 12px 20px !important;
+  font-size: 12px !important;
+  line-height: 18px !important;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  border-bottom: 1px solid #f5f5f5;
+  color: #888;
+  position: relative;
+}
+.wpb-coll-listpublic a:hover {
+  color: #333;
+}
+
+.wpb-coll-listpublic a.active {
+  color: #333 !important;
+}
+
+.wpb-coll-listpublic a i {
+  position: absolute;
+  top: 6px;
+  font-size: 30px !important;
+  color: #555 !important;
+  right: 10px;
+  opacity: 0.7;
+}
+
+.wpb-coll-listpublic a span {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  font-size: 12px !important;
+  color: #bbb !important;
+}
+
+.wpb-coll-list {
+  float: left;
+  width: 22%;
+  background: #fff !important;
+  border-radius: 8px 0 0 0;
+}
+
+.wpb-coll-body {
+  float: left;
+  width: 78%;
+  background: #fbfbfb;
+  border-left: 1px solid #eee !important;
+  padding: 0 !important;
+  color: #666 !important;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-radius: 0 8px 0 0;
+}
+.wpb-coll-body-inner {
+  padding: 20px !important;
+}
+.wpb-coll-body.loading {
+  background: #fbfbfb url(../img/loading.gif) no-repeat center !important;
+}
+
+.wpb-coll-list a {
+  display: block !important;
+  width: 100% !important;
+  padding: 12px 20px !important;
+  font-size: 12px !important;
+  line-height: 18px !important;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  border-bottom: 1px solid #f5f5f5;
+  color: #888;
+  position: relative;
+}
+.wpb-coll-list a:hover {
+  color: #333;
+}
+
+.wpb-coll-list a.active {
+  color: #333 !important;
+}
+
+.wpb-coll-list a i {
+  position: absolute;
+  top: 6px;
+  font-size: 30px !important;
+  color: #555 !important;
+  right: 10px;
+  opacity: 0.7;
+}
+
+.wpb-coll-list a span {
+  position: absolute;
+  right: 10px;
+  top: 12px;
+  font-size: 12px !important;
+  color: #bbb !important;
+}
+
+.wpb-coll-hide {
+  display: none !important;
+}
+
+/* Removing a coll */
+.wpb-coll-count {
+  font-size: 20px !important;
+  line-height: 30px !important;
+  color: #555 !important;
+  position: relative;
+}
+
+.wpb-coll-count a.wpb-bm-btn.bookmarked {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 200px !important;
+}
+
+.wpb-coll-remove {
+  display: none;
+  font-size: 13px !important;
+  color: #888 !important;
+}
+
+/* bookmark item */
+.wpb-coll-item {
+  border: 1px solid #ddd !important;
+  box-shadow: 0 1px 2px #eee;
+  border-radius: 5px;
+  background: #fff !important;
+  padding: 15px !important;
+  margin: 15px 0 0 0 !important;
+  position: relative;
+  float: left;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.wpb-coll-abs {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 80px !important;
+  border-radius: 5px 0 0 0 !important;
+  border-right: 0 !important;
+  border-bottom: 0 !important;
+}
+
+.wpb-coll-item .uci-title {
+  margin: 3px 0 0 0 !important;
+}
+.wpb-coll-item .uci-title a {
+  font-size: 14px !important;
+  line-height: 20px !important;
+}
+.wpb-coll-item .uci-title a:hover {
+  text-decoration: underline !important;
+}
+.wpb-coll-item .uci-url {
+  margin: 3px 0 0 0 !important;
+  font-size: 13px !important;
+  color: #bbb !important;
+}
+.wpb-coll-item .uci-url a {
+  color: #bbb !important;
+  text-decoration: none !important;
+}
+
+.uci-thumb {
+  float: left;
+}
+.uci-thumb a:hover {
+  opacity: 0.8;
+}
+.uci-thumb img {
+  display: block;
+  overflow: hidden;
+  border-radius: 999px;
+  width: 61px;
+}
+
+.uci-content {
+  margin-left: 70px !important;
+}
+
+@media only screen and (max-width: 959px) {
+  .wpb-coll-listpublic,
+  .wpb-coll-list,
+  .wpb-coll-body {
+    float: none;
+    width: 100%;
+  }
+
+  .wpb-coll-body {
+    border-left: none;
+    border-top: 1px solid #eee !important;
+  }
+}
