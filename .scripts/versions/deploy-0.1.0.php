@@ -13,6 +13,7 @@ deploy_pages_for_templates();
 deploy_featured_image();
 deploy_private_posts();
 deploy_bookmark_plugin();
+deploy_support_plugin();
 
 
 /*
@@ -628,4 +629,16 @@ function deploy_bookmark_plugin() {
 	update_option( 'wpb', $option );
 
 	WP_CLI::success( 'wp-bookmarks done' );
+}
+
+
+/**
+ * Install and activate SupportCandy and tweak some settings
+ */
+function deploy_support_plugin() {
+	WP_CLI::log( 'Installing and setting up supportcandy' );
+
+	run_wp_cli_command( 'plugin install supportcandy --activate --force', array( 'exit_error' => true ) );
+
+	WP_CLI::success( 'supportcandy done' );
 }
