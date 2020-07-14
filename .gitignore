@@ -12,7 +12,7 @@
 
 !/public_html/wp-content/plugins/
 /public_html/wp-content/plugins/*
-!/public_html/wp-content/plugins/user-bookmarks/
+!/public_html/wp-content/plugins/wp-bookmarks/
 
 !/public_html/wp-content/deploy.php
 

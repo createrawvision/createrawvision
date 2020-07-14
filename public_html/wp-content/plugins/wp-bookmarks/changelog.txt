@@ -1,0 +1,105 @@
+Version 3.4(04 Aug 2017)
+============================
+	- Enhancement : Bookmark count column is now made sortable
+
+Version 3.3(21 June 2017)
+============================
+	- New Feature : Collections can be displayed in Grid Layout ( Use the shortcode as follows - [collections layout="grid"] )
+
+Version 3.2(03 Apr 2017)
+============================
+	- Enhancement : The bookmark count is updated with AJAX after bookmarking the post
+	- Enhancement : Administrator can now limit the number of collections to be created by users
+	- Enhancement : Administrator can now limit the number of posts to be bookmarked in one collection
+
+Version 3.1(13 Feb 2017)
+============================
+	- Fixed Bug : Bookmark count not displayed correctly
+	- Fixed Bug : More than one collections showing as selected at a time.
+
+Version 3.0(24 June 2016)
+============================
+	- New feature : Added configurable setting for displaying Heart Icon for bookmarking the content to Default Collection
+	- New feature : Added option for Administrator to create multiple collections
+
+Version 2.9(12 Feb 2016)
+============================
+	- New feature : Added configurable setting for displaying bookmark widget in popup
+
+Version 2.8(29 Dec 2015)
+============================
+	- New feature : Added configurable option in backend to display the Social buttons on the collection
+
+Version 2.7(15 Dec 2015)
+============================
+	- New feature : User can now share their private bookmarks on social media
+
+Version 2.6(26 Nov 2015)
+============================
+	- New feature : Added configurable setting to enable/disable creating new collection.
+
+Version 2.5(9 Nov 2015)
+============================
+	- New feature : Now Bookmark Count is displayed on Posts and Pages in backend
+
+Version 2.4(27 Oct 2015)
+============================
+	- New feature : Added widget( Top 5 bookmarks ) to show top five bookmarked post
+
+Version 2.3(13 Oct 2015)
+============================
+	  - New feature : Now single post can be bookmarked into multiple collections , added setting in admin panel to enable/disable this feature
+
+Version 2.2(22 Sep 2015)
+============================
+   	  - New feature :Admin can now decide whether heart icon should be displayed on bookmark widget or not.
+
+Version 2.1(7 Sep 2015)
+============================
+        - New Feature : Added automatic updates
+
+Version 2.0(26 Aug 2015)
+============================
+        - Updated: Replaced Timthumb with alternative script
+
+Version 1.9(14 July 2015)
+============================
+
+        - Fixed Bug:publiccollection shortcode not working.
+	- Fixed Bug:Collection count displaying 0 while it has 1.
+
+Version 1.8(30 Mar 2015)
+============================
+
+	- Enhanced security
+   	- Admin can now decide whether category bookmarking should be enabled or disabled
+
+Version 1.7(13 Mar 2015)
+============================
+
+	- Added feature to display the avatar of users who has bookmarked the post
+
+Version 1.6(5 Mar 2015)
+============================
+
+	-  Fixed : Bookmarks incorrectly added twice in newly created collection, even when nothing is added in it
+
+Version 1.5 (27 Feb 2015)
+============================
+
+	- Added feature to display the number of times the post has been bookmarked.
+
+Version 1.4 (31 Jan 2015)
+============================
+
+        - Added feature to mark new collection public or private. Use [publiccollections] to display public bookmarks.
+
+Version 1.3 (6 Dec 2014)
+============================
+
+	- Added feature to bookmark category too
+
+Version 1.0 (6 Jan 2014)
+============================
+
+	- Initial Version of the Bookmarks Plugin
