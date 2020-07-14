@@ -826,3 +826,22 @@ add_action(
 	14
 );
 
+
+
+/**
+ * Support tickets for members get high priority by default
+ */
+add_filter(
+	'wpsc_create_ticket_priority',
+	function( $ticket_priority ) {
+		if ( rcp_user_has_active_membership() ) {
+			$high_priority_term = get_term_by( 'name', __( 'High', 'supportcandy' ), 'wpsc_priorities' );
+
+			if ( $high_priority_term ) {
+				return $high_priority_term->term_id;
+			}
+		}
+
+		return $ticket_priority;
+	}
+);
