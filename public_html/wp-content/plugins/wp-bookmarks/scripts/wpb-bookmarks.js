@@ -6,7 +6,7 @@ function wpb_bm_dialog(elem, html, position){
 	
 		elem.append('<div class="wpb-bm-dialog bm-'+position+'"></div><div class="wpb-bm-dialog-icon bm-'+position+'"><i class="wpb-icon-caret-up"></i></div>');
 		elem.find('.wpb-bm-dialog').width( elem.parents('.wpb-bm').width() - 42 );
-		custom_html = '<form action="" method="post"><input type="text" name="wpb_bm_new" id="wpb_bm_new" value="" class="wpb-bm-input" placeholder="' + elem.parents('.wpb-bm').data('new_collection_placeholder') + '" /><br> <input type="radio" class="wpb_bm_radio" name="public" value="private" checked=checked/>Private <br> <input type="radio" name="public" value="public" class="wpb_bm_radio" />Public <div class="wpb-bm-btn-contain bm-block"><a href="#" class="wpb-bm-btn" data-action="submit_collection">' + elem.parents('.wpb-bm').data('add_new_collection') + '</a></div></form>';
+		custom_html = '<form action="" method="post"><input type="text" name="wpb_bm_new" id="wpb_bm_new" value="" class="wpb-bm-input" placeholder="' + elem.parents('.wpb-bm').data('new_collection_placeholder') + '" /><input type="hidden" class="wpb_bm_radio" name="public" value="private" checked=checked/><div class="wpb-bm-btn-contain bm-block"><a href="#" class="wpb-bm-btn" data-action="submit_collection">' + elem.parents('.wpb-bm').data('add_new_collection') + '</a></div></form>';
 	
 	} else {
 	
