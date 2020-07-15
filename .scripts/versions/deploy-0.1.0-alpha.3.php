@@ -13,12 +13,25 @@ return function () {
  * Activates wp-bookmark plugin and sets options
  */
 function deploy_bookmark_plugin() {
-	 WP_CLI::log( 'Activating and setting up wp-bookmarks' );
+	WP_CLI::log( 'Activating and setting up wp-bookmarks' );
 
-	// Actiavte plugin.
 	run_wp_cli_command( 'plugin activate wp-bookmarks', array( 'exit_error' => true ) );
 
-	// Set plugin options.
+	WP_CLI::log( 'Creating bookmarks page.' );
+	$bookmarks_page_id = wp_insert_post(
+		array(
+			'post_content' => '[collections]',
+			'post_title'   => 'Meine Lesezeichen',
+			'post_name'    => 'lesezeichen',
+			'post_status'  => 'publish',
+			'post_type'    => 'page',
+		)
+	);
+	if ( is_wp_error( $bookmarks_page_id ) ) {
+		WP_CLI::warning( 'Failed to create bookmarks page: ', $bookmarks_page_id->get_error_message() );
+	}
+
+	WP_CLI::log( 'Tweaking plugin settings' );
 	$new_option = array(
 		'wp_bookmark_popup_type'         => '1',
 		'wpb_show_sharebutton'           => '0',
