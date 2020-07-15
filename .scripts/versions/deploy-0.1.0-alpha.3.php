@@ -191,7 +191,7 @@ function deploy_support_plugin() {
 		'wpsc_custom_ticket_count'        => '100',
 	);
 
-	$default_ticket_priority = get_term_by( 'name', __( 'Normal', 'supportcandy' ), 'wpsc_priorities' );
+	$default_ticket_priority = get_term_by( 'name', __( 'Medium', 'supportcandy' ), 'wpsc_priorities' );
 	if ( ! $default_ticket_priority ) {
 		WP_CLI::warning( 'Failed to get default ticket priority.' );
 	} else {
