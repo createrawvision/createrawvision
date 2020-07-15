@@ -340,7 +340,7 @@ function deploy_nav_menus() {
 		run_wp_cli_command( "menu item add-post $menu_id 16961 --title=Mandoline/Raspel/Hobel --parent-id=$advice_menu_item_id" );
 		run_wp_cli_command( "menu item add-post $menu_id 19262 --title=Waffelschneider --parent-id=$advice_menu_item_id" );
 
-  endforeach;
+	endforeach;
 
 	// Create secondary menu items
 	WP_CLI::log( 'Creating secondary menu' );
@@ -472,7 +472,7 @@ function deploy_landing_page() {
  * * login
  */
 function deploy_pages_for_templates() {
-	WP_CLI::log( 'Creating dashboard page' );
+	 WP_CLI::log( 'Creating dashboard page' );
 
 	wp_insert_post(
 		array(
@@ -579,7 +579,7 @@ function deploy_private_posts() {
  * Activates wp-bookmark plugin and sets options
  */
 function deploy_bookmark_plugin() {
-	WP_CLI::log( 'Activating and setting up wp-bookmarks' );
+	 WP_CLI::log( 'Activating and setting up wp-bookmarks' );
 
 	// Actiavte plugin.
 	run_wp_cli_command( 'plugin activate wp-bookmarks', array( 'exit_error' => true ) );
@@ -636,9 +636,110 @@ function deploy_bookmark_plugin() {
  * Install and activate SupportCandy and tweak some settings
  */
 function deploy_support_plugin() {
-	WP_CLI::log( 'Installing and setting up supportcandy' );
-
+	WP_CLI::log( 'Installing supportcandy' );
 	run_wp_cli_command( 'plugin install supportcandy --activate --force', array( 'exit_error' => true ) );
+
+	WP_CLI::log( 'Creating support pages' );
+	$contact_page = get_page_by_path( 'kontaktformular' );
+	wp_insert_post(
+		array(
+			'ID'           => $contact_page ? $contact_page->ID : 0, // Overwrite existing.
+			'post_content' => '[wpsc_create_ticket]',
+			'post_title'   => 'Kontaktformular',
+			'post_status'  => 'publish',
+			'post_type'    => 'page',
+		)
+	);
+	$tickets_page_id = wp_insert_post(
+		array(
+			'post_content' => '[supportcandy]',
+			'post_title'   => 'Meine Supportanfragen',
+			'post_name'    => 'support',
+			'post_status'  => 'publish',
+			'post_type'    => 'page',
+		)
+	);
+
+	WP_CLI::log( 'Hide ticket priority for customer ticket list and filter.' );
+	$ticket_priority_term = get_term_by( 'slug', 'ticket_priority', 'wpsc_ticket_custom_fields' );
+	update_term_meta( $ticket_priority_term->term_id, 'wpsc_customer_ticket_list_status', '0' );
+	update_term_meta( $ticket_priority_term->term_id, 'wpsc_allow_ticket_filter', '0' );
+
+	WP_CLI::log( 'Delete default ticket categories.' );
+	$old_ticket_categories = get_terms(
+		array(
+			'taxonomy'   => 'wpsc_categories',
+			'hide_empty' => false,
+		)
+	);
+	foreach ( $old_ticket_categories as $ticket_category ) {
+		wp_delete_term( $ticket_category->term_id, 'wpsc_categories' );
+	}
+
+	WP_CLI::log( 'Create custom ticket categories.' );
+	$ticket_categories = array(
+		'Fragen zum Mitgliederbereich',
+		'Technisches Problem',
+		'Zahlungen & Rechnungen',
+		'Fragen zu Zubehör',
+		'Zusammenarbeit',
+		'Verbesserungsvorschlag',
+		'Rezeptwunsch',
+		'Sonstiges',
+	);
+	foreach ( $ticket_categories as $key => $category_name ) {
+		$term = wp_insert_term( $category_name, 'wpsc_categories' );
+		add_term_meta( $term['term_id'], 'wpsc_category_load_order', strval( $key + 1 ) );
+
+		$wpsc_custom_category_localize = get_option( 'wpsc_custom_category_localize', array() );
+		$wpsc_custom_category_localize[ 'custom_category_' . $term['term_id'] ] = $category_name;
+		update_option( 'wpsc_custom_category_localize', $wpsc_custom_category_localize );
+
+		if ( 0 === $key ) {
+			$default_ticket_category_id = $term['term_id'];
+		}
+	}
+
+	WP_CLI::log( 'Disable ticket closed notification.' );
+	$email_template_ids    = get_terms(
+		array(
+			'taxonomy'   => 'wpsc_en',
+			'hide_empty' => false,
+			'orderby'    => 'ID',
+			'order'      => 'ASC',
+			'fields'     => 'ids',
+		)
+	);
+	$ticket_closed_term_id = $email_template_ids[3];
+	wp_delete_term( $ticket_closed_term_id, 'wpsc_en' );
+	$email_subject = get_option( 'wpsc_email_notification_subject', array() );
+	unset( $email_subject[ 'email_subject_' . $ticket_closed_term_id ] );
+	$email_body = get_option( 'wpsc_email_notification_body', array() );
+	unset( $email_body[ 'email_body_' . $ticket_closed_term_id ] );
+
+	$options = array(
+		'wpsc_support_page_id'            => get_page_by_path( 'tickets' ),
+		'wpsc_default_ticket_priority'    => get_term_by( 'name', __( 'Normal', 'supportcandy' ), 'wpsc_priorities' )->term_id,
+		'wpsc_default_ticket_category'    => $default_ticket_category_id,
+		'wpsc_allow_guest_ticket'         => '1',
+		'wpsc_set_in_gdpr'                => '1',
+		'wpsc_hide_show_priority'         => '0', // == hide
+		'wpsc_email_notification_subject' => $email_subject,
+		'wpsc_email_notification_body'    => $email_body,
+		'wpsc_support_page_id'            => $tickets_page_id,
+		'wpsc_en_from_name'               => 'CreateRawVision',
+		'wpsc_en_from_email'              => 'support@createrawvision.de',
+		'wpsc_ticket_alice'               => 'Anfrage #',
+		'wpsc_show_and_hide_filters'      => '0',
+		'wpsc_allow_reply_confirmation'   => '0',
+		'wpsc_reply_bcc_visibility'       => '0',
+		'wpsc_custom_ticket_count'        => '100',
+	);
+
+	WP_CLI::log( 'Updating options' );
+	foreach ( $options as $option_name => $option_value ) {
+		update_option( $option_name, $option_value );
+	}
 
 	WP_CLI::success( 'supportcandy done' );
 }
