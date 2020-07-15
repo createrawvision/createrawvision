@@ -845,3 +845,32 @@ add_filter(
 		return $ticket_priority;
 	}
 );
+
+/**
+ * Assign Angie as default agent for tickets
+ */
+add_action(
+	'wpsc_ticket_created',
+	function( $ticket_id ) {
+		global $wpscfunction;
+
+		$user_id = get_user_by( 'slug', 'rawangela' )->ID;
+
+		$agents = get_terms(
+			array(
+				'taxonomy'     => 'wpsc_agents',
+				'hide_empty'   => false,
+				'meta_key'     => 'user_id',
+				'meta_value'   => $user_id,
+				'meta_compare' => '=',
+				'fields'       => 'ids',
+			)
+		);
+
+		if ( ! $agents ) {
+			return;
+		}
+
+		$wpscfunction->assign_agent( $ticket_id, array( $agents[0] ) );
+	}
+);
