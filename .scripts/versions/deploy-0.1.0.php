@@ -2,26 +2,21 @@
 
 require_once __DIR__ . '/../wp-cli-utils.php';
 
-deploy_category_featured_images();
-deploy_restrict_content_pro();
-deploy_faqs();
-deploy_nav_menus();
-deploy_breadcrumbs();
-deploy_teaser();
-deploy_landing_page();
-deploy_pages_for_templates();
-deploy_featured_image();
-deploy_private_posts();
-deploy_bookmark_plugin();
-deploy_support_plugin();
-
-
-/*
- ###################
-   #                 #
-   #    FUNCTIONS    #
-   #                 #
-   ################### */
+// Return the function to deploy all changes. Don't do anything.
+return function () {
+	deploy_category_featured_images();
+	deploy_restrict_content_pro();
+	deploy_faqs();
+	deploy_nav_menus();
+	deploy_breadcrumbs();
+	deploy_teaser();
+	deploy_landing_page();
+	deploy_pages_for_templates();
+	deploy_featured_image();
+	deploy_private_posts();
+	deploy_bookmark_plugin();
+	deploy_support_plugin();
+};
 
 /**
  * Install Advanced Custom Fields
