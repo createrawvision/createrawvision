@@ -826,3 +826,51 @@ add_action(
 	14
 );
 
+
+
+/**
+ * Support tickets for members get high priority by default
+ */
+add_filter(
+	'wpsc_create_ticket_priority',
+	function( $ticket_priority ) {
+		if ( rcp_user_has_active_membership() ) {
+			$high_priority_term = get_term_by( 'name', __( 'High', 'supportcandy' ), 'wpsc_priorities' );
+
+			if ( $high_priority_term ) {
+				return $high_priority_term->term_id;
+			}
+		}
+
+		return $ticket_priority;
+	}
+);
+
+/**
+ * Assign Angie as default agent for tickets
+ */
+add_action(
+	'wpsc_ticket_created',
+	function( $ticket_id ) {
+		global $wpscfunction;
+
+		$user_id = get_user_by( 'slug', 'rawangela' )->ID;
+
+		$agents = get_terms(
+			array(
+				'taxonomy'     => 'wpsc_agents',
+				'hide_empty'   => false,
+				'meta_key'     => 'user_id',
+				'meta_value'   => $user_id,
+				'meta_compare' => '=',
+				'fields'       => 'ids',
+			)
+		);
+
+		if ( ! $agents ) {
+			return;
+		}
+
+		$wpscfunction->assign_agent( $ticket_id, array( $agents[0] ) );
+	}
+);
