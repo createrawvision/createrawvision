@@ -71,7 +71,7 @@ function deploy_category_featured_images() {
 	WP_CLI::log( 'Setting category featured image from JSON data' );
 	$category_images_json = file_get_contents( ABSPATH . '../deployment_data/category-images.json' );
 	$category_images      = json_decode( $category_images_json, $assoc = true );
-	foreach ( $category_images as array(
+	foreach ( $category_images as list(
 		'term_name'   => $term_name,
 		'term_id'     => $term_id,
 		'image_title' => $image_title,
@@ -249,7 +249,7 @@ function deploy_faqs() {
 			WP_CLI::warning( $term->get_error_message() );
 			continue;
 		}
-		array( 'term_id' => $term_id ) = $term;
+		list( 'term_id' => $term_id ) = $term;
 
 		// Create all faqs
 		$faqs = $category_obj->faqs;
