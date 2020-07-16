@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This script pulls the database from the given host and updates it to the current local URL.
  * Then it deactivates plugins and edits given options.
@@ -9,26 +8,24 @@
  * - Valid SSH Key for the server
  * - WP-CLI installed on the server
  * - WP-CLI installed locally
- * - Execute it within your WordPress root directory
  * - Git remote and valid SSH key for it
  *
- * Usage (from within WP-root):
+ * Usage:
  * wp eval-file .scripts/pull.php [skip-db, skip-files, local]
  */
-
 
 /*
  * SETTINGS
  */
-$host = 'createrawvision.de';
-$user = 'u1138-epznjctshp29';
-$port = 18765;
-$path = '/home/customer/www/createrawvision.de/public_html';
+$host        = 'createrawvision.de';
+$user        = 'u1138-epznjctshp29';
+$port        = 18765;
+$source_path = '/home/customer/www/createrawvision.de/public_html';
 
 $old_url = 'https://createrawvision.de';
 
-// folders inside wp-content (without trailing slash!)
-$folders = array( 'mu-plugins', 'plugins', 'uploads/2020' );
+// Folders inside wp-content, without trailing slash!
+$folders = array( 'languages', 'mu-plugins', 'plugins', 'themes', 'uploads/2020' );
 
 $plugins_to_deactivate = array(
 	'sg-cachepress',
@@ -43,20 +40,18 @@ if ( ! defined( 'WP_CLI' ) ) {
 	echo 'WP_CLI not defined';
 	exit( 1 );
 }
+$skip_db    = in_array( 'skip-db', $args, true );
+$skip_files = in_array( 'skip-files', $args, true );
+$local      = in_array( 'local', $args, true );
 
-$skip_db    = in_array( 'skip-db', $args );
-$skip_files = in_array( 'skip-files', $args );
-$local      = in_array( 'local', $args );
-
-
-// Avoid the output buffer
+// Avoid the output buffer.
 ob_end_flush();
 ob_implicit_flush();
 
 if ( $local ) {
-	$pull_helper = new LocalPullHelper( $path, $old_url, get_bloginfo( 'url' ) );
+	$pull_helper = new LocalPullHelper( $source_path, $old_url, get_bloginfo( 'url' ) );
 } else {
-	$pull_helper = new RemotePullHelper( $host, $user, $port, $path, $old_url, get_bloginfo( 'url' ) );
+	$pull_helper = new RemotePullHelper( $host, $user, $port, $source_path, $old_url, get_bloginfo( 'url' ) );
 }
 
 WP_CLI::log( 'Asserting conditions to run script' );
@@ -105,7 +100,7 @@ if ( $skip_files ) {
 	foreach ( $folders as $folder ) {
 		WP_CLI::log( "Pulling $folder" );
 		if ( ! $pull_helper->sync_files( $folder ) ) {
-			WP_CLI::error( 'Pulling uploads failed' );
+			WP_CLI::error( "Pulling $folder failed" );
 		}
 	}
 
@@ -134,13 +129,13 @@ abstract class PullHelper {
 	protected function wp_content_in_path( $path = '.' ) {
 		$command = "find '$path' -maxdepth 1 -type d -name 'wp-content'";
 		exec( $command, $output, $return_var );
-		return $return_var == 0 && $output;
+		return 0 === $return_var && $output;
 	}
 
 	/**
 	 * Gets the files from the source
 	 */
-	abstract public function sync_files( $folder);
+	abstract public function sync_files( $folder );
 
 	/**
 	 * Pull files from GitHub
@@ -149,7 +144,7 @@ abstract class PullHelper {
 	 */
 	public function git_pull() {
 		system( 'git pull', $return_var );
-		return $return_var == 0;
+		return 0 === $return_var;
 	}
 
 	/**
@@ -163,9 +158,9 @@ abstract class PullHelper {
 	 * @return boolean TRUE on success
 	 */
 	public function replace_url() {
-		 $command = "wp search-replace '{$this->old_url}' '{$this->new_url}' --recurse-objects --skip-columns=guid";
+		$command = "wp search-replace '{$this->old_url}' '{$this->new_url}' --recurse-objects --skip-columns=guid";
 		system( $command, $return_var );
-		return $return_var == 0;
+		return 0 === $return_var;
 	}
 
 	/**
@@ -173,7 +168,7 @@ abstract class PullHelper {
 	 */
 	public function remove_option( $option_name, $keys_to_remove ) {
 		$option_value = get_option( $option_name );
-		if ( $option_value == false ) {
+		if ( false === $option_value ) {
 			return false;
 		}
 		if ( array_intersect( $option_value, $keys_to_remove ) ) {
@@ -190,7 +185,7 @@ abstract class PullHelper {
 class RemotePullHelper extends PullHelper {
 
 	public function __construct( $host, $user, $port, $path, $old_url, $new_url ) {
-		 $this->host   = $host;
+		$this->host    = $host;
 		$this->user    = $user;
 		$this->port    = $port;
 		$this->path    = $path;
@@ -200,32 +195,31 @@ class RemotePullHelper extends PullHelper {
 
 	public function assert_conditions() {
 		return $this->valid_ssh()
-			&& $this->wp_content_in_path()
 			&& $this->wp_content_in_source_path();
 	}
 
 	private function valid_ssh() {
 		$command = "ssh -q -p {$this->port} {$this->user}@{$this->host} \"cd {$this->path}; exit;\"";
 		system( $command, $return_var );
-		return $return_var == 0;
+		return 0 === $return_var;
 	}
 
 	private function wp_content_in_source_path() {
 		$command = "ssh -p {$this->port} {$this->user}@{$this->host} \"cd {$this->path}; find . -maxdepth 1 -type d -name 'wp-content';\"";
 		exec( $command, $output, $return_var );
-		return $return_var == 0 && $output;
+		return 0 === $return_var && $output;
 	}
 
 	public function sync_files( $folder ) {
-		 $command = "rsync -avh --progress -e 'ssh -p {$this->port}' {$this->user}@{$this->host}:{$this->path}/wp-content/$folder/ ./wp-content/$folder";
+		$command = "rsync -avh --progress -e 'ssh -p {$this->port}' {$this->user}@{$this->host}:{$this->path}/wp-content/$folder/ " . ABSPATH . "wp-content/$folder";
 		system( $command, $return_var );
-		return $return_var == 0;
+		return 0 === $return_var;
 	}
 
 	public function pull_db() {
-		 $command = "ssh -p {$this->port} {$this->user}@{$this->host} \"cd {$this->path}; wp db export -\" | wp db import -";
+		$command = "ssh -p {$this->port} {$this->user}@{$this->host} \"cd {$this->path}; wp db export -\" | wp db import -";
 		system( $command, $return_var );
-		return $return_var == 0;
+		return 0 === $return_var;
 	}
 }
 
@@ -242,19 +236,18 @@ class LocalPullHelper extends PullHelper {
 	}
 
 	public function assert_conditions() {
-		return $this->wp_content_in_path()
-			&& $this->wp_content_in_path( $this->path );
+		return $this->wp_content_in_path( $this->path );
 	}
 
 	public function sync_files( $folder ) {
-		 $command = "rsync -avh --progress {$this->path}/wp-content/$folder/ ./wp-content/$folder";
+		$command = "rsync -avh --progress {$this->path}/wp-content/$folder/ " . ABSPATH . "wp-content/$folder";
 		system( $command, $return_var );
-		return $return_var == 0;
+		return 0 === $return_var;
 	}
 
 	public function pull_db() {
-		 $command = "wp db export --path={$this->path} - | wp db import -";
+		$command = "wp db export --path={$this->path} - | wp db import -";
 		system( $command, $return_var );
-		return $return_var == 0;
+		return 0 === $return_var;
 	}
 }
