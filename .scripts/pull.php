@@ -1,7 +1,6 @@
 <?php
 /**
  * This script pulls the database from the given host and updates it to the current local URL.
- * Then it deactivates plugins and edits given options.
  * It also syncs all specified folders and pull other files from GitHub
  *
  * Requirements:
@@ -26,12 +25,6 @@ $old_url = 'https://createrawvision.de';
 
 // Folders inside wp-content, without trailing slash!
 $folders = array( 'languages', 'mu-plugins', 'plugins', 'themes', 'uploads/2020' );
-
-$plugins_to_deactivate = array(
-	'sg-cachepress',
-	'autoptimize',
-);
-
 
 /*
  * OPTIONS
@@ -75,14 +68,6 @@ if ( $skip_db ) {
 	WP_CLI::log( 'Replacing URLs' );
 	if ( ! $pull_helper->replace_url() ) {
 		WP_CLI::error( 'Replacing URLs failed' );
-	}
-
-	WP_CLI::log( 'Deactivating plugins' );
-	deactivate_plugins( $plugins_to_deactivate );
-
-	WP_CLI::log( 'Deactivating jetpack modules' );
-	if ( ! $pull_helper->remove_option( 'jetpack_active_modules', array( 'photon', 'tiled-gallery' ) ) ) {
-		WP_CLI::error( 'Deactivating jetpack modules failed' );
 	}
 
 	WP_CLI::success( 'Pulling database complete' );
@@ -161,21 +146,6 @@ abstract class PullHelper {
 		$command = "wp search-replace '{$this->old_url}' '{$this->new_url}' --recurse-objects --skip-columns=guid";
 		system( $command, $return_var );
 		return 0 === $return_var;
-	}
-
-	/**
-	 * Removes entries in an option by keys
-	 */
-	public function remove_option( $option_name, $keys_to_remove ) {
-		$option_value = get_option( $option_name );
-		if ( false === $option_value ) {
-			return false;
-		}
-		if ( array_intersect( $option_value, $keys_to_remove ) ) {
-			$new_option_value = array_values( array_diff( $option_value, $keys_to_remove ) );
-			update_option( $option_name, $new_option_value );
-		}
-		return true;
 	}
 }
 
