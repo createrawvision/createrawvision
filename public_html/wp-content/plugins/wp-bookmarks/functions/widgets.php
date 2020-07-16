@@ -10,103 +10,123 @@ function wpb_bookmark_widget() {
 
 class WPB_WIDGET extends WP_Widget {
 
+
 	function __construct() {
-		$widget_ops = array( 'classname' => 'wpb_bookmark', 'description' => __('Show the bookmark widget in your sidebar', 'wpb') );
-		
-		$control_ops = array( 'width' => 300, 'height' => 350, 'id_base' => 'wpb_bookmark' );
-		
-		parent::__construct( 'wpb_bookmark', __('WP Bookmark Widget', 'wpb'), $widget_ops, $control_ops );
+		$widget_ops = array(
+			'classname'   => 'wpb_bookmark',
+			'description' => __( 'Show the bookmark widget in your sidebar', 'wpb' ),
+		);
+
+		$control_ops = array(
+			'width'   => 300,
+			'height'  => 350,
+			'id_base' => 'wpb_bookmark',
+		);
+
+		parent::__construct( 'wpb_bookmark', __( 'WP Bookmark Widget', 'wpb' ), $widget_ops, $control_ops );
 	}
-	
+
 	function widget( $args, $instance ) {
 		global $wpb;
 		$before_title = $args['before_title'];
-		$after_title = $args['after_title'];
-			// hard excluded by post type
-			if (wpb_get_option('include_post_types')){
-				if (is_array( wpb_get_option('include_post_types') ) && !in_array( get_post_type(), wpb_get_option('include_post_types')))
-					return false;
+		$after_title  = $args['after_title'];
+		// hard excluded by post type
+		if ( wpb_get_option( 'include_post_types' ) ) {
+			if ( is_array( wpb_get_option( 'include_post_types' ) ) && ! in_array( get_post_type(), wpb_get_option( 'include_post_types' ) ) ) {
+				return false;
 			}
-			
-			// soft excluded by post id
-			if (wpb_get_option('exclude_ids')){
-				$array = explode(',', wpb_get_option('exclude_ids'));
-				if (in_array($post->ID, $array))
-					return false;
-			}
+		}
 
-			//Our variables
-			$title = apply_filters('widget_title', $instance['title'] );
+		// soft excluded by post id
+		if ( wpb_get_option( 'exclude_ids' ) ) {
+			$array = explode( ',', wpb_get_option( 'exclude_ids' ) );
+			if ( in_array( $post->ID, $array ) ) {
+				return false;
+			}
+		}
+
+			// Our variables
+			$title = apply_filters( 'widget_title', $instance['title'] );
 
 			echo $args['before_widget'];
-			if ( $title )
-				echo $before_title . $title . $after_title;
-			echo $wpb->bookmark('width=100%&widgetized=1&no_top_margin=1&no_bottom_margin=1');
+		if ( $title ) {
+			echo $before_title . $title . $after_title;
+		}
+			echo $wpb->bookmark( 'width=100%&widgetized=1&no_top_margin=1&no_bottom_margin=1' );
 			echo $args['after_widget'];
-			
+
 	}
 
-	//Update the widget 
-	 
+	// Update the widget
+
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		//Strip tags from title and name to remove HTML 
+		// Strip tags from title and name to remove HTML
 		$instance['title'] = strip_tags( $new_instance['title'] );
 
 		return $instance;
 	}
 
-	
+
 	function form( $instance ) {
 
-		//Set up some default widget settings.
-		$defaults = array( 'title' => __('Bookmark Me', 'wpb') );
+		// Set up some default widget settings.
+		$defaults = array( 'title' => __( 'Bookmark Me', 'wpb' ) );
 		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'wpb'); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'wpb' ); ?></label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" class="widefat" />
 		</p>
 
-	<?php
+		<?php
 	}
 }
 
 
 class WPB_TOP_BOOKMARKED extends WP_Widget {
 
-	function __construct()  {
-		$widget_ops = array( 'classname' => 'wpb_top_bookmarks', 'description' => __('Show top 5 bookmarks', 'wpb') );
 
-		$control_ops = array( 'width' => 300, 'height' => 350, 'id_base' => 'wpb_top_bookmarks' );
+	function __construct() {
+		$widget_ops = array(
+			'classname'   => 'wpb_top_bookmarks',
+			'description' => __( 'Show top 5 bookmarks', 'wpb' ),
+		);
 
-		parent::__construct( 'wpb_top_bookmarks', __('Top 5 bookmarks', 'wpb'), $widget_ops, $control_ops );
+		$control_ops = array(
+			'width'   => 300,
+			'height'  => 350,
+			'id_base' => 'wpb_top_bookmarks',
+		);
+
+		parent::__construct( 'wpb_top_bookmarks', __( 'Top 5 bookmarks', 'wpb' ), $widget_ops, $control_ops );
 	}
 
 	function widget( $args, $instance ) {
 		global $wpb;
 
 		$before_title = $args['before_title'];
-		$after_title = $args['after_title'];
+		$after_title  = $args['after_title'];
 		// hard excluded by post type
-		
-		$title = apply_filters('widget_title', $instance['title'] );
+
+		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		echo $args['before_widget'];
-		if ( $title )
+		if ( $title ) {
 			echo $before_title . $title . $after_title;
+		}
 		echo $wpb->top_bookmarks( $args );
 		echo $args['after_widget'];
-			
+
 	}
 
-	//Update the widget
+	// Update the widget
 
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		//Strip tags from title and name to remove HTML
+		// Strip tags from title and name to remove HTML
 		$instance['title'] = strip_tags( $new_instance['title'] );
 
 		return $instance;
@@ -115,16 +135,17 @@ class WPB_TOP_BOOKMARKED extends WP_Widget {
 
 	function form( $instance ) {
 
-		//Set up some default widget settings.
-		$defaults = array( 'title' => __('Top 5 bookmarks', 'wpb') );
-		$instance = wp_parse_args( (array) $instance, $defaults ); ?>
+		// Set up some default widget settings.
+		$defaults = array( 'title' => __( 'Top 5 bookmarks', 'wpb' ) );
+		$instance = wp_parse_args( (array) $instance, $defaults );
+		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e('Title:', 'wpb'); ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:', 'wpb' ); ?></label>
 			<input id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" value="<?php echo $instance['title']; ?>" class="widefat" />
 		</p>
 
-	<?php
+		<?php
 	}
 }
 ?>

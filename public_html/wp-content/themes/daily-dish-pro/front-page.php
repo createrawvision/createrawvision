@@ -61,20 +61,29 @@ function daily_dish_homepage_widgets() {
 
 	echo '<h2 class="screen-reader-text">' . __( 'Main Content', 'daily-dish-pro' ) . '</h2>';
 
-	genesis_widget_area( 'home-top', array(
-		'before' => '<div class="home-top widget-area">',
-		'after'  => '</div>',
-	) );
+	genesis_widget_area(
+		'home-top',
+		array(
+			'before' => '<div class="home-top widget-area">',
+			'after'  => '</div>',
+		)
+	);
 
-	genesis_widget_area( 'home-middle', array(
-		'before' => '<div class="home-middle widget-area">',
-		'after'  => '</div>',
-	) );
+	genesis_widget_area(
+		'home-middle',
+		array(
+			'before' => '<div class="home-middle widget-area">',
+			'after'  => '</div>',
+		)
+	);
 
-	genesis_widget_area( 'home-bottom', array(
-		'before' => '<div class="home-bottom widget-area">',
-		'after'  => '</div>',
-	) );
+	genesis_widget_area(
+		'home-bottom',
+		array(
+			'before' => '<div class="home-bottom widget-area">',
+			'after'  => '</div>',
+		)
+	);
 
 }
 

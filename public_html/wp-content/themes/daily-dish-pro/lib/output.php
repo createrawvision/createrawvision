@@ -26,7 +26,8 @@ function daily_dish_css() {
 
 	$css = '';
 
-	$css .= ( daily_dish_customizer_get_default_link_color() !== $color_link ) ? sprintf( '
+	$css .= ( daily_dish_customizer_get_default_link_color() !== $color_link ) ? sprintf(
+		'
 
 		a,
 		p.entry-meta a:focus,
@@ -68,9 +69,12 @@ function daily_dish_css() {
 			}
 		}
 
-		', $color_link ) : '';
+		',
+		$color_link
+	) : '';
 
-	$css .= ( daily_dish_customizer_get_default_accent_color() !== $color_accent ) ? sprintf( '
+	$css .= ( daily_dish_customizer_get_default_accent_color() !== $color_accent ) ? sprintf(
+		'
 
 		button:focus,
 		button:hover,
@@ -120,7 +124,10 @@ function daily_dish_css() {
 				color: %1$s;
 			}
 		}
-		', $color_accent, daily_dish_color_contrast( $color_accent ) ) : '';
+		',
+		$color_accent,
+		daily_dish_color_contrast( $color_accent )
+	) : '';
 
 	if ( $css ) {
 		wp_add_inline_style( $handle, $css );

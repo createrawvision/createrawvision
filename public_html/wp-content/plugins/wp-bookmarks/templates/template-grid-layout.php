@@ -2,9 +2,9 @@
 
 global $post, $wpb;
 $defaults = array(
-		'default_collection' => wpb_get_option( 'default_collection' ),
+	'default_collection' => wpb_get_option( 'default_collection' ),
 );
-$args = wp_parse_args( $args, $defaults );
+$args     = wp_parse_args( $args, $defaults );
 
 /* The arguments are passed via shortcode through admin panel*/
 foreach ( $defaults as $key => $val ) {
@@ -16,7 +16,7 @@ foreach ( $defaults as $key => $val ) {
 }
 
 /* output */
-$output = '';
+$output  = '';
 $results = 0;
 // logged in
 if ( is_user_logged_in() ) {
@@ -30,40 +30,45 @@ if ( is_user_logged_in() ) {
 	<?php
 	foreach ( $collections as $id => $array ) {
 		include wpb_path . 'templates/template-grid-filter.php';
-	}?>
+	}
+	?>
 	</div>
 
 	<div class="wpb-grid">
 		<div class="wpb-loader loading" style="display: none;"></div>
-		<?php
-		$id = 0;?>
+	<?php
+	$id = 0;
+	?>
 
-		<div class="wpb-single-bmcount collection_<?php echo intval( $id );?>">
-			<span><?php echo intval( $wpb->get_bookmarks_count_by_collection( $id ) );
-				esc_html_e( ' Bookmarks in collection', 'wpb' ); ?>
+		<div class="wpb-single-bmcount collection_<?php echo intval( $id ); ?>">
+			<span>
+			<?php
+			echo intval( $wpb->get_bookmarks_count_by_collection( $id ) );
+				esc_html_e( ' Bookmarks in collection', 'wpb' );
+			?>
 			</span>
 		</div>
-		<?php
-		$bks = $wpb->get_bookmarks_by_collection( $id );
+	<?php
+	$bks = $wpb->get_bookmarks_by_collection( $id );
 
-		if ( is_array( $bks ) ) {
-			$bks = array_reverse( $bks, true );
+	if ( is_array( $bks ) ) {
+		$bks = array_reverse( $bks, true );
 
-			foreach ( $bks as $bkid => $array ) {
-				if ( 'label' !== $bkid && 'privacy' !== $bkid && 'userid' !== $bkid && 'type' !== $bkid ) {
-					$results++;
-					if ( get_post_status( $bkid ) === 'publish' ) { // active post
+		foreach ( $bks as $bkid => $array ) {
+			if ( 'label' !== $bkid && 'privacy' !== $bkid && 'userid' !== $bkid && 'type' !== $bkid ) {
+				$results++;
+				if ( get_post_status( $bkid ) === 'publish' ) { // active post
 
-						include wpb_path . 'templates/template-single-bookmark.php';
+					include wpb_path . 'templates/template-single-bookmark.php';
 
-					}
 				}
 			}
 		}
-		?>
+	}
+	?>
 	</div>
 </div>
-		<?php
+	<?php
 
 } else {
 	$output .= '<p>' . sprintf( esc_html__( 'You need to <a href="%1$s">login</a> or <a href="%2$s">register</a> to view and manage your bookmarks.', 'wpb' ), wp_login_url( get_permalink() ), site_url( '/wp-login.php?action=register&redirect_to=' . get_permalink() ) ) . '</p>';

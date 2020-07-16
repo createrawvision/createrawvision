@@ -1,6 +1,6 @@
 <?php
 if ( ! isset( $array['label'] ) ) {
-	$array = array();
+	$array          = array();
 	$array['label'] = $$key;
 }
 if ( 0 === $id ) {
@@ -10,8 +10,8 @@ if ( 0 === $id ) {
 }
 ?>
 <button
-	class="wpb-button button <?php echo esc_attr( $class );?> collection_<?php echo intval( $id );?>"
-	id="<?php echo intval( $id );?>">
-	<a href="#collection_<?php echo intval( $id );?>"
-		data-collection_id="<?php echo intval( $id );?>"><?php echo esc_attr( $array['label'] );?> </a>
+	class="wpb-button button <?php echo esc_attr( $class ); ?> collection_<?php echo intval( $id ); ?>"
+	id="<?php echo intval( $id ); ?>">
+	<a href="#collection_<?php echo intval( $id ); ?>"
+		data-collection_id="<?php echo intval( $id ); ?>"><?php echo esc_attr( $array['label'] ); ?> </a>
 </button>
