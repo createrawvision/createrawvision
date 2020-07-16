@@ -14,15 +14,33 @@ WordPress Blog about raw food and related things.
 |-- tests               WPBrowser/Codeception test without generated data
 ```
 
+## Procedures
+
+### Deployment
+
+```
+git pull
+wp eval-file .scripts/deploy.php --user=Josef
+```
+
+1. Test deployment on dev environment
+2. Test deployment on up-to-date staging environment (pull with `wp eval-file .scripts/pull.php local` first)
+3. Activate maintanence mode (on live environment): `wp maintenance-mode activate`
+4. Create fresh staging copy
+5. Deploy to staging
+6. Perform a quick test
+7. Deactivate maintanence mode (on staging environment): `wp maintanence-mode deactivate`
+8. Deploy staging environment to live environment
+
 ## Scripts
 
 Configuration for scripts is found in the files itself.
 
 ### `.scripts/pull.php`
 
-`wp eval-file .scripts/pull.php [skip-db, skip-files]`
+`wp eval-file .scripts/pull.php [skip-db, skip-files, local]`
 
-Syncs all files and database from the configured host via SSH. Then pulls files from GitHub.  
+Syncs all files and database from the configured host via SSH or locally. Then pulls files from GitHub.  
 See file for more details.
 
 ### `.scripts/export.php`
@@ -46,6 +64,9 @@ The root WP folder has to be **`public_html`**.
 **WP-CLI** has to be installed for scripts to run (`echo 'path: public_html' > wp-cli.yml` to allow execution from project root folder).
 
 ### Plugins
+
+<details>
+<summary>Plugin List</summary>
 
 - ad-inserter  
   For inserting banner ads on top and within the content.
@@ -110,6 +131,8 @@ The root WP folder has to be **`public_html`**.
   Use custom user avatars.
 - wordpress-seo  
   YoastSEO. Improved everything SEO.
+
+</details>
 
 ## Setup
 
