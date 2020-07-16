@@ -139,23 +139,16 @@ function update_bookmark_status( $post_id ) {
 }
 	add_filter( 'the_content', 'wp_bookmark_below_post', 1001 );
 function wp_bookmark_below_post( $content ) {
-	$post_id = get_the_ID();
-	$post    = get_post( $post_id );
-	if ( $post->post_type == 'page' ) {
+	$post = get_post();
+	if ( ! $post || 'post' !== $post->post_type || ! wpb_get_option( 'wpb_show_users_avatar' ) ) {
 		return $content;
 	}
-	if ( wpb_get_option( 'wpb_show_users_avatar' ) ) {
-		$avt_list      = '';
-		$bookmarked_by = get_post_meta( $post_id, 'wpb_bookmarked_by', true );
-		if ( $bookmarked_by == '' ) {
-			$bookmarked_by = array();
-		}
-		$bookmarked_by = array_unique( $bookmarked_by );
-		foreach ( $bookmarked_by as $user ) {
-			$avt_list .= get_avatar( $user, 30 );
-		}
-		return $content . '<style>.bookmarked-avatar img{margin: 3px;}</style><div class="bookmarked-avatar"><h3>Bookmarked By</h3>' . $avt_list;
-	}
 
-	return $content;
+	$avt_list      = '';
+	$bookmarked_by = $post->wpb_bookmarked_by ?: array();
+	$bookmarked_by = array_unique( $bookmarked_by );
+	foreach ( $bookmarked_by as $user ) {
+		$avt_list .= get_avatar( $user, 30 );
+	}
+	return $content . '<style>.bookmarked-avatar img{margin: 3px;}</style><div class="bookmarked-avatar"><h3>Bookmarked By</h3>' . $avt_list;
 }
