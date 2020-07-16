@@ -1081,4 +1081,5 @@ function wpb_allowed_html() {
 
 }
 
+global $wpb;
 $wpb = new wpb_api();

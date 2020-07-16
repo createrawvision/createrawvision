@@ -172,4 +172,5 @@ class wpb_admin {
 
 }
 
+global $wpb_admin;
 $wpb_admin = new wpb_admin();
