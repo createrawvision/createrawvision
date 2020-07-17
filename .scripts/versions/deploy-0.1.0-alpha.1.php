@@ -280,9 +280,8 @@ function deploy_nav_menus() {
 	WP_CLI::log( 'Creating new nav menus' );
 
 	// Delete existing menus
-	run_wp_cli_command( 'menu delete "Main Menu 2020"' );
-	run_wp_cli_command( 'menu delete "Main Menu Member 2020"' );
-	run_wp_cli_command( 'menu delete "Secondary Menu 2020"' );
+	$menu_ids_string = run_wp_cli_command( 'menu list --format=ids', array( 'return' => 'stdout' ) );
+	run_wp_cli_command( "menu delete $menu_ids_string" );
 
 	// Create new menus
 	$main_menu_id        = run_wp_cli_command( 'menu create "Main Menu 2020" --porcelain', array( 'return' => 'stdout' ) );
