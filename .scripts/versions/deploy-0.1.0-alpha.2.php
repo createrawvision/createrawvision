@@ -5,7 +5,6 @@ require_once __DIR__ . '/../wp-cli-utils.php';
 // Return the function to deploy all changes. Don't do anything.
 return function () {
 	deploy_teaser();
-	deploy_landing_page();
 	deploy_pages_for_templates();
 	deploy_featured_image();
 };
@@ -65,26 +64,6 @@ function deploy_teaser() {
 	$progressbar->finish();
 }
 
-
-/**
- * Creates the landing page for membership
- */
-function deploy_landing_page() {
-	WP_CLI::log( 'Creating landing page' );
-
-	wp_insert_post(
-		array(
-			'post_content'  => '',
-			'post_title'    => 'Member Landing Page',
-			'post_name'     => 'member-landing',
-			'post_status'   => 'publish',
-			'post_type'     => 'page',
-			'page_template' => 'landing',
-		)
-	);
-}
-
-
 /**
  * Creates empty pages for template files to use
  *
@@ -93,7 +72,7 @@ function deploy_landing_page() {
  * * login
  */
 function deploy_pages_for_templates() {
-	 WP_CLI::log( 'Creating dashboard page' );
+	WP_CLI::log( 'Creating dashboard page' );
 
 	wp_insert_post(
 		array(

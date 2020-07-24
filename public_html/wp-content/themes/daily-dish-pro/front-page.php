@@ -87,5 +87,38 @@ function daily_dish_homepage_widgets() {
 
 }
 
+/**
+ * Enqueue scripts and styles for a static homepage
+ */
+if ( is_front_page() && ! is_home() ) {
+	add_action(
+		'wp_enqueue_scripts',
+		function() {
+			wp_enqueue_style( 'daily-dish-front-style', CHILD_URL . '/style-front-page.css', null );
+			wp_enqueue_script( 'daily-dish-front-script', CHILD_URL . '/js/front-page.js', array( 'jquery' ), null, true );
+		}
+	);
+
+	// Avoid 'wpauto' for the front page.
+	remove_filter( 'the_content', 'wpautop' );
+	remove_filter( 'the_excerpt', 'wpautop' );
+
+	// Remove entry header elements.
+	remove_action( 'genesis_entry_header', 'genesis_entry_header_markup_open', 5 );
+	remove_action( 'genesis_entry_header', 'genesis_do_post_title', 10 );
+	remove_action( 'genesis_entry_header', 'genesis_entry_header_markup_close', 12 );
+
+	/** @todo remove */
+	// add_filter(
+	// 'the_content',
+	// function( $content ) {
+	// if ( ! is_main_query() || ! in_the_loop() ) {
+	// return $content;
+	// }
+	// return file_get_contents( ABSPATH . '/../deployment_data/homepage.html' );
+	// }
+	// );
+}
+
 // Run Genesis loop.
 genesis();
