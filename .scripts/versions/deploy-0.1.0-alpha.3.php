@@ -58,11 +58,7 @@ function deploy_bookmark_plugin() {
 		'remove_bookmark_category'       => 'Lesezeichen für Kategorie entfernen',
 		'allow_multiple_bookmarks'       => '1',
 		'auto_bookmark'                  => '0',
-		'include_post_types'             =>
-		array(
-			0 => 'post',
-			1 => 'page',
-		),
+		'include_post_types'             => array( 0 => 'post' ),
 		'exclude_ids'                    => '',
 		'bookmarks_envato_purchase_code' => '',
 		'wpb_show_users_avatar'          => '0',
