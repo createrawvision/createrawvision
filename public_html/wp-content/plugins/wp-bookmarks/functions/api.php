@@ -878,12 +878,12 @@ class wpb_api {
 	}
 
 	/*
-	* Display widget that shows top 5 bookmarks
+	* Display widget that shows top 10 bookmarks
 	*/
 
 	function top_bookmarks( $args = array() ) {
 		global $wpdb;
-		$query       = $wpdb->prepare( "SELECT post_id,meta_value FROM $wpdb->postmeta WHERE meta_key=%s order by cast(meta_value as unsigned) DESC LIMIT 5", '_wpb_post_bookmark_count' );
+		$query       = $wpdb->prepare( "SELECT post_id,meta_value FROM $wpdb->postmeta WHERE meta_key=%s order by cast(meta_value as unsigned) DESC LIMIT 10", '_wpb_post_bookmark_count' );
 		$posts       = $wpdb->get_results( $query );
 		$posts_count = count( $posts );
 		$output      = '';
