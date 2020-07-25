@@ -24,6 +24,9 @@ add_action(
 
 			// Remove recipe metadata
 			remove_filter( 'wpseo_schema_graph_pieces', array( 'WPRM_Metadata', 'wpseo_schema_graph_pieces' ), 1, 2 );
+
+			// Don't insert any ads
+			add_filter( 'ai_block_insertion_check', '__return_false' );
 		}
 	}
 );
