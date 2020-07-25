@@ -31,7 +31,8 @@
 		- Forms
 		- Tables
 		- Screen Reader Text
-	- Structure and Layout
+  - Structure and Layout
+    - Sticky Footer
 		- Site Containers
 		- Column Widths and Positions
 		- Column Classes
@@ -883,11 +884,43 @@ td {
 /* Structure and Layout
 ---------------------------------------------------------------------------------------------------- */
 
+/* Sticky Footer
+--------------------------------------------- */
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+body > * {
+  flex-shrink: 0;
+}
+
+.site-container {
+  flex: 1 0;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.site-container > * {
+  flex-shrink: 0;
+}
+
+.site-inner {
+  flex: 1 0;
+}
+
 /* Site Container
 --------------------------------------------- */
 
 .site-container {
   background-color: #fff;
+  width: 100%;
   margin: auto;
   padding-left: 80px;
   padding-right: 80px;
