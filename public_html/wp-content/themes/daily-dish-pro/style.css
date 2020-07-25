@@ -2973,3 +2973,79 @@ li.comment {
 .restriciton-message > a {
   white-space: nowrap;
 }
+
+/**
+ * Help Popup
+ */
+.crv-help-popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 2rem;
+  display: flex;
+  flex-flow: column-reverse nowrap;
+  align-items: flex-end;
+  z-index: 1001;
+  pointer-events: none;
+  transition: background-color 0.5s;
+}
+
+.crv-help-popup--visible {
+  background-color: #0004;
+  pointer-events: all;
+}
+
+.crv-help-popup * {
+  pointer-events: all;
+}
+
+.crv-help-popup__button {
+  font-size: 3rem;
+  font-weight: bold;
+
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 0.3rem 1rem #00000070;
+  text-shadow: 0 0 0.4rem #ffffff6b;
+}
+
+.crv-help-popup__button::before {
+  content: "?";
+}
+
+.crv-help-popup--visible .crv-help-popup__button::before {
+  content: "x";
+}
+
+.crv-help-popup__modal {
+  display: none;
+  max-width: 380px;
+  padding: 4rem;
+  margin: 3rem 2rem;
+  border-radius: 1rem;
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 5rem;
+  background-color: white;
+  overflow-y: auto;
+}
+
+.crv-help-popup--visible .crv-help-popup__modal {
+  display: block;
+}
+
+.crv-help-popup__title {
+  text-align: center;
+  font-style: italic;
+  font-size: 2.8rem;
+}
+
+.crv-help-popup__text a {
+  font-weight: bold;
+}

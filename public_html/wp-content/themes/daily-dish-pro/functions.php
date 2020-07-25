@@ -874,3 +874,9 @@ add_action(
 		$wpscfunction->assign_agent( $ticket_id, array( $agents[0] ) );
 	}
 );
+
+
+/**
+ * Show help button with popup on the bottom right.
+ */
+require_once CHILD_DIR . '/lib/help-popup.php';
