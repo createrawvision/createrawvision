@@ -10,7 +10,8 @@
 
 /* ... and add some. */
 section {
-  margin: 5rem 0;
+  margin: 5rem auto;
+  max-width: 1280px;
 }
 
 /* 
@@ -60,6 +61,20 @@ Hero
 /* 
 Introduction 
 */
+.introduction {
+  margin: 10rem 0;
+}
+
+.introduction__heading {
+  text-align: center;
+}
+
+.introduction__list {
+  max-width: max-content;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
 .introduction__item {
   /* flex: 0 0 clamp(260px, 30%, 420px); */
   list-style-image: url(images/check.svg);
@@ -72,6 +87,7 @@ Overview
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  font-size: 1.2em;
 }
 
 .overview__item {
@@ -100,26 +116,6 @@ Show more button and container
 */
 .show-more-container {
   display: none;
-}
-
-.show-more-button {
-  display: block;
-  width: auto;
-  margin: 10rem auto;
-  border-radius: 0.8rem;
-  padding: 2.5rem 3rem;
-  font-size: 1.8rem;
-  box-shadow: 0 0.3rem 1rem #0008;
-  transition: all 0.5s;
-}
-
-.show-more-button:hover {
-  background-color: #80005d;
-  box-shadow: 0 0.5rem 1.5rem #0008;
-}
-
-.show-more-button:hover {
-  background-color: #66004b;
 }
 
 /*
@@ -198,4 +194,29 @@ Testimonials
 
 .offer__title {
   margin-top: 0 !important; /* for jQuery animation, see https://bugs.jquery.com/ticket/7442 */
+}
+
+.offer__list {
+  list-style-image: url(images/check.svg);
+}
+
+/* CTA */
+.cta-button {
+  display: block;
+  width: auto;
+  margin: 10rem auto;
+  border-radius: 0.8rem;
+  padding: 2.5rem 3rem;
+  font-size: 1.8rem;
+  box-shadow: 0 0.3rem 1rem #0008;
+  transition: all 0.5s;
+}
+
+.cta-button:hover {
+  background-color: #80005d;
+  box-shadow: 0 0.5rem 1.5rem #0008;
+}
+
+.cta-button:hover {
+  background-color: #66004b;
 }
