@@ -14,6 +14,74 @@ section {
   max-width: 1280px;
 }
 
+/*
+Countdown
+*/
+.sticky-wrapper {
+  position: sticky;
+  top: -1px;
+  z-index: 10;
+  transition: all 1s;
+}
+
+.countdown {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 1em 0;
+  background: #e1cc9f;
+  transition: all 1s;
+}
+
+.sticky-wrapper--is_sticky .countdown {
+  flex-direction: row;
+  align-items: center;
+  gap: 5rem;
+  justify-content: center;
+}
+
+.countdown__timer {
+  display: flex;
+  justify-content: center;
+}
+
+.sticky-wrapper--is_sticky .countdown__timer {
+  display: inline-flex;
+}
+
+.countdown__timer__item {
+  display: inline-block;
+}
+
+.countdown__timer__time-element {
+  display: inline-block;
+  font-size: 2em;
+  min-width: 1.4em;
+  margin: 0 0 0 0.2em;
+  text-align: center;
+}
+
+.countdown__description {
+  text-align: center;
+  font-size: 1.4em;
+  margin: 0;
+}
+
+.sticky-wrapper--is_sticky .countdown__description {
+  display: none;
+}
+
+.countdown__button {
+  margin: 3rem auto !important;
+  display: inline-block !important;
+}
+
+.sticky-wrapper--is_sticky .countdown__button {
+  margin: 1rem !important;
+  padding: 1rem 1.5rem;
+}
+
 /* 
 Hero 
 */
@@ -209,7 +277,7 @@ Testimonials
   padding: 2.5rem 3rem;
   font-size: 1.8rem;
   box-shadow: 0 0.3rem 1rem #0008;
-  transition: all 0.5s;
+  transition: background-color 0.5s, box-shadow 0.5s;
 }
 
 .cta-button:hover {
