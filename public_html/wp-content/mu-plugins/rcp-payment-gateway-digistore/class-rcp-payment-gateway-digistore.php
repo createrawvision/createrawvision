@@ -42,6 +42,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 
 		try {
 			$product_id = $rcp_levels_db->get_meta( $this->subscription_id, 'digistore_product_id', true );
+			$payplan_id = $rcp_levels_db->get_meta( $this->subscription_id, 'digistore_payplan_id', true );
 
 			$api = DigistoreApi::connect( $this->api_key );
 
@@ -57,6 +58,11 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 				'currency'     => $this->currency,
 				'first_amount' => $this->initial_amount,
 			);
+
+			// Use the payment plan to get access to 'start_payplan_at' setting.
+			if ( $payplan_id ) {
+				$payment_plan['template'] = $payplan_id;
+			}
 
 			if ( $this->auto_renew ) {
 				$billing_interval = $this->length . '_' . $this->length_unit;
