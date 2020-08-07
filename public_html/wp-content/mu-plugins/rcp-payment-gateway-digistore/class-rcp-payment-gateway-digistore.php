@@ -70,6 +70,18 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 				'custom' => $this->user_id . '|' . absint( $this->membership->get_id() ),
 			);
 
+			// For upgrades add the old affiliate (only when valid).
+			if ( $this->membership->was_upgrade() ) {
+				$old_membership_id = $this->membership->get_upgraded_from();
+				$affiliate_id      = rcp_get_membership_meta( $old_membership_id, 'digistore_affiliate', true );
+
+				$api_response = $api->validateAffiliate( $affiliate_id, $product_id );
+
+				if ( 'invalid_affiliate_name' !== $api_response->affiliation_status ) {
+					$tracking['affiliate'] = $affiliate_id;
+				}
+			}
+
 			$valid_until = '2h';
 
 			$urls = array(
@@ -85,7 +97,6 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 
 			wp_redirect( $api_response->url );
 
-			$api->disconnect();
 		} catch ( DigistoreApiException $error ) {
 
 			$this->error_message = $error->getMessage();
@@ -94,7 +105,10 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 			$errormsg  = '<p>' . __( 'An unidentified error occurred.', 'rcp' ) . '</p>';
 			$errormsg .= '<p>' . $error->getMessage() . '</p>';
 
-			wp_die( $errormsg, __( 'Error', 'rcp' ), array( 'response' => '401' ) );
+			wp_die( wp_kses_post( $errormsg ), esc_html__( 'Error', 'rcp' ), array( 'response' => '401' ) );
+
+		} finally {
+			$api->disconnect();
 		}
 
 		exit;
@@ -171,6 +185,11 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 		$amount = isset( $posted['transaction_amount'] )
 		? number_format( (float) $posted['transaction_amount'], 2, '.', '' )
 		: false;
+
+		// Set the DigiStore Affiliate.
+		if ( $posted['affiliate_name'] ) {
+			rcp_update_membership_meta( $membership->get_id(), 'digistore_affiliate', $posted['affiliate_name'] );
+		}
 
 		// setup the payment info in an array for storage
 		$payment_data = array(
