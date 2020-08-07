@@ -889,3 +889,9 @@ function crv_is_before_membership_launch( $date = null ) {
 	$date = $date ?? new DateTime();
 	return $date < new DateTime( '2020-08-20 17:00:00' );
 }
+
+
+/**
+ * Settings for RCP membership upgrades.
+ */
+require_once CHILD_DIR . '/lib/rcp-upgrade-settings.php';
