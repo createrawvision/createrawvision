@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Restrict Content Pro\n"
 "Report-Msgid-Bugs-To: https://restrictcontentpro.com/support/\n"
 "POT-Creation-Date: 2019-12-20 10:29+0000\n"
-"PO-Revision-Date: 2020-08-07 13:40+0200\n"
+"PO-Revision-Date: 2020-08-07 15:28+0200\n"
 "Last-Translator: flowdee <coder@flowdee.de>\n"
 "Language-Team: sz\n"
 "Language: de\n"
@@ -3360,9 +3360,8 @@ msgstr "Automatische Erneuerung"
 
 #: includes/admin/memberships/add-membership.php:144
 #: includes/admin/memberships/edit-membership.php:206
-#, fuzzy
 msgid "Payment Method:"
-msgstr "Zahlungart"
+msgstr "Zahlungart:"
 
 #: includes/admin/memberships/add-membership.php:162
 #: includes/admin/memberships/edit-membership.php:226
@@ -3564,9 +3563,8 @@ msgid "Delete Membership"
 msgstr "﻿Mitglieder"
 
 #: includes/admin/memberships/edit-membership.php:327
-#, fuzzy
 msgid "Payments:"
-msgstr "﻿Zahlungen"
+msgstr "﻿Zahlungen:"
 
 #: includes/admin/memberships/edit-membership.php:361
 msgid "View all payments"
@@ -3764,9 +3762,8 @@ msgid "Restrict this content"
 msgstr "Diese Inhalte zu beschränken"
 
 #: includes/admin/payments/class-payments-table.php:29
-#, fuzzy
 msgid "Payment"
-msgstr "﻿Zahlungen"
+msgstr "﻿Zahlung"
 
 #: includes/admin/payments/class-payments-table.php:147
 #, php-format
@@ -6934,7 +6931,7 @@ msgstr ""
 
 #: includes/content-filters.php:113
 msgid "Your account is pending email verification."
-msgstr ""
+msgstr "Du musst deine E-Mail Adresse noch bestätigen."
 
 #: includes/customers/class-rcp-customer.php:570
 msgid "Email successfully verified."
@@ -8689,6 +8686,8 @@ msgid ""
 "Your account is pending email verification. <a href=\"%s\">Click here to re-"
 "send the verification email.</a>"
 msgstr ""
+"Du musst deine E-Mail Adresse noch bestätigen. <a href=\"%s\">Klicke hier, um "
+"die Bestätigungsmail nochmal zu senden.</a>"
 
 #: includes/user-page-columns.php:21
 #, fuzzy
@@ -8805,7 +8804,7 @@ msgstr "Gesamtsumme"
 
 #: templates/invoice.php:381
 msgid "Payment Status:"
-msgstr "Zahlung:"
+msgstr "Zahlungsstatus:"
 
 #: templates/invoice.php:391
 msgid "Additional Info:"
@@ -8986,9 +8985,8 @@ msgid ""
 msgstr ""
 
 #: templates/subscription.php:60
-#, fuzzy
 msgid "Expiration/Renewal Date"
-msgstr "Ablaufdatum"
+msgstr "Ablauf-/Verlängerungsdatum"
 
 #: templates/subscription.php:82
 msgid "(renews automatically)"
@@ -9000,9 +8998,8 @@ msgid "Update payment method"
 msgstr "Zahlung aktualisieren"
 
 #: templates/subscription.php:113
-#, fuzzy
 msgid "Renew your membership"
-msgstr "﻿Mitglieder"
+msgstr "Mitgliedschaft verlängern"
 
 #: templates/subscription.php:117
 #, fuzzy
@@ -9010,9 +9007,8 @@ msgid "Upgrade or change your membership"
 msgstr "Upgrade oder ändere dein Abo"
 
 #: templates/subscription.php:121
-#, fuzzy
 msgid "Cancel your membership"
-msgstr "﻿Mitglieder"
+msgstr "﻿Mitgliedschaft kündigen"
 
 #: templates/subscription.php:153
 #, php-format
@@ -9031,25 +9027,20 @@ msgid "Invoice #"
 msgstr "Rechnung #"
 
 #: templates/subscription.php:184
-#, fuzzy
 msgid "Payment Status"
-msgstr "Zahlung:"
+msgstr "Zahlungsstatus"
 
 #: templates/subscription.php:203
-#, fuzzy
 msgid "Retry Payment"
-msgstr "Zahlungen suchen"
+msgstr "Zahlungen nochmal versuchen"
 
 #: templates/subscription.php:203
-#, fuzzy
-#| msgid "Create Payment"
 msgid "Complete Payment"
-msgstr "Zahlung erstellen"
+msgstr "Zahlung abschließen"
 
 #: templates/subscription.php:206
-#, fuzzy
 msgid "View Receipt"
-msgstr "PDF Empfang"
+msgstr "Rechnung Ansehen"
 
 #: templates/subscription.php:212
 msgid "You have not made any payments."
