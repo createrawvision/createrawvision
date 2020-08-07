@@ -148,46 +148,79 @@ Bitte klicke hier, um deine E-Mail Adresse zu bestätigen:
 	WP_CLI::warning( "RCP license key wasn't set. Add the license key manually." );
 
 	WP_CLI::log( 'Creating membership levels' );
-	$rcp_levels  = new RCP_Levels();
-	$levels_args = array(
+	$levels = array(
 		array(
-			'name'                => 'CreateRawVision Member (monatlich)',
-			'description'         => 'Erhalte noch heute Zugriff zu über 400 großartigen Rezepte, hilfreichen Tipps &amp; Tricks und einer wertschätzenden Gemeinschaft.',
-			'duration'            => '1',
-			'duration_unit'       => 'month',
-			'trial_duration'      => '0',
-			'trial_duration_unit' => 'day',
-			'price'               => '10',
-			'fee'                 => '0',
-			'maximum_renewals'    => '0',
-			'after_final_payment' => '',
-			'list_order'          => '0',
-			'level'               => '0',
-			'status'              => 'active',
-			'role'                => 'subscriber',
+			'args' => array(
+				'name'                => 'CreateRawVision Mitgliedschaft (monatlich)',
+				'description'         => 'Erhalte noch heute Zugriff zu über 400 großartigen Rezepte, hilfreichen Tipps &amp; Tricks und einer wertschätzenden Gemeinschaft.',
+				'duration'            => '1',
+				'duration_unit'       => 'month',
+				'trial_duration'      => '0',
+				'trial_duration_unit' => 'day',
+				'price'               => '9',
+				'fee'                 => '0',
+				'maximum_renewals'    => '0',
+				'after_final_payment' => '',
+				'list_order'          => '0',
+				'level'               => '0',
+				'status'              => 'active',
+				'role'                => 'subscriber',
+			),
+			'meta' => array(
+				'digistore_product_id' => '339809',
+				'digistore_payplan_id' => '654397',
+			),
 		),
 		array(
-			'name'                => 'CreateRawVision Member (jährlich)',
-			'description'         => 'Erhalte noch heute Zugriff zu über 400 großartigen Rezepte, hilfreichen Tipps &amp; Tricks und einer wertschätzenden Gemeinschaft.',
-			'duration'            => '1',
-			'duration_unit'       => 'year',
-			'trial_duration'      => '0',
-			'trial_duration_unit' => 'day',
-			'price'               => '80',
-			'fee'                 => '0',
-			'maximum_renewals'    => '0',
-			'after_final_payment' => '',
-			'list_order'          => '0',
-			'level'               => '0',
-			'status'              => 'active',
-			'role'                => 'subscriber',
+			'args' => array(
+				'name'                => 'CreateRawVision Mitgliedschaft (jährlich)',
+				'description'         => 'Erhalte noch heute Zugriff zu über 400 großartigen Rezepte, hilfreichen Tipps &amp; Tricks und einer wertschätzenden Gemeinschaft.',
+				'duration'            => '1',
+				'duration_unit'       => 'year',
+				'trial_duration'      => '0',
+				'trial_duration_unit' => 'day',
+				'price'               => '90',
+				'fee'                 => '-20',
+				'maximum_renewals'    => '0',
+				'after_final_payment' => '',
+				'list_order'          => '0',
+				'level'               => '0',
+				'status'              => 'active',
+				'role'                => 'subscriber',
+			),
+			'meta' => array(
+				'digistore_product_id' => '301319',
+				'digistore_payplan_id' => '654347',
+			),
+		),
+		array(
+			'args' => array(
+				'name'                => 'CreateRawVision Mitgliedschaft (manuell)',
+				'description'         => 'Erhalte noch heute Zugriff zu über 400 großartigen Rezepte, hilfreichen Tipps &amp; Tricks und einer wertschätzenden Gemeinschaft.',
+				'duration'            => '1',
+				'duration_unit'       => 'month',
+				'trial_duration'      => '0',
+				'trial_duration_unit' => 'day',
+				'price'               => '0',
+				'fee'                 => '100',
+				'maximum_renewals'    => '1',
+				'after_final_payment' => 'expire_immediately',
+				'list_order'          => '0',
+				'level'               => '1',
+				'status'              => 'inactive',
+				'role'                => 'subscriber',
+			),
+			'meta' => array(),
 		),
 	);
-	foreach ( $levels_args as $level_args ) {
-		if ( $rcp_levels->get_level_by( 'name', $level_args['name'] ) ) {
-			WP_CLI::warning( "Membership Level '${level_args['name']}' already exists. Not changing it." );
-		} else {
-			$rcp_levels->insert( $level_args );
+
+	global $rcp_levels_db;
+
+	foreach ( $levels as $level ) {
+		$level_id = $rcp_levels_db->insert( $level['args'] );
+
+		foreach ( $level['meta'] as $meta_key => $meta_value ) {
+			$rcp_levels_db->update_meta( $level_id, $meta_key, $meta_value );
 		}
 	}
 }
@@ -306,8 +339,7 @@ function deploy_nav_menus() {
 		run_wp_cli_command( "menu item add-term $menu_id category 5869 --title=Rohkost&nbsp;Rezepte" );
 		run_wp_cli_command( "menu item add-term $menu_id category 5287 --title=Rohkost&nbsp;Tipps" );
 
-		/** @todo Link Blog main page? Create it? */
-		$blog_menu_item_id = run_wp_cli_command( "menu item add-custom $menu_id 'Blog' '' --porcelain", array( 'return' => 'stdout' ) );
+		$blog_menu_item_id = run_wp_cli_command( "menu item add-term $menu_id category 5933 --porcelain", array( 'return' => 'stdout' ) ); // Blog
 		run_wp_cli_command( "menu item add-term $menu_id category 5935 --parent-id=$blog_menu_item_id" ); // Bewusstsein & Achtsamkeit
 		run_wp_cli_command( "menu item add-term $menu_id category 5937 --parent-id=$blog_menu_item_id" ); // Gesund Leben
 
@@ -317,15 +349,17 @@ function deploy_nav_menus() {
 			run_wp_cli_command( "menu item add-post $menu_id 1888 --title=E-Book" ); // "Dein Weg Zur Rohkost Leicht Gemacht" Buch
 		}
 
-		$advice_menu_item_id = run_wp_cli_command( "menu item add-custom $menu_id 'Empfehlungen' '' --porcelain", array( 'return' => 'stdout' ) );
-		run_wp_cli_command( "menu item add-post $menu_id 18900 --title=Rohkost&nbsp;Ausstattung --parent-id=$advice_menu_item_id" );
+		/** @todo maybe make an extra page for overview */
+		$advice_menu_item_id = run_wp_cli_command( "menu item add-post $menu_id 19953 --title=Empfehlungen --porcelain", array( 'return' => 'stdout' ) );
+		run_wp_cli_command( "menu item add-post $menu_id 19953 --title=Rohkost&nbsp;Ausstattung --parent-id=$advice_menu_item_id" );
+		run_wp_cli_command( "menu item add-post $menu_id 18900 --title=Rohkost&nbsp;Lebensmittel --parent-id=$advice_menu_item_id" );
 		run_wp_cli_command( "menu item add-post $menu_id 19759 --title=Hochleistungsmixer --parent-id=$advice_menu_item_id" );
-		run_wp_cli_command( "menu item add-post $menu_id 16743 --title=Dörrgeräte --parent-id=$advice_menu_item_id" );
-		run_wp_cli_command( "menu item add-post $menu_id 16944 --title=Entsafter --parent-id=$advice_menu_item_id" );
+		run_wp_cli_command( "menu item add-post $menu_id 19942 --title=Dörrgeräte --parent-id=$advice_menu_item_id" );
+		run_wp_cli_command( "menu item add-post $menu_id 19951 --title=Entsafter --parent-id=$advice_menu_item_id" );
 		run_wp_cli_command( "menu item add-post $menu_id 16883 --title=Küchenmaschinen --parent-id=$advice_menu_item_id" );
-		run_wp_cli_command( "menu item add-post $menu_id 16977 --title=Spiralschneider --parent-id=$advice_menu_item_id" );
+		run_wp_cli_command( "menu item add-post $menu_id 19982 --title=Spiralschneider --parent-id=$advice_menu_item_id" );
 		run_wp_cli_command( "menu item add-post $menu_id 16961 --title=Mandoline/Raspel/Hobel --parent-id=$advice_menu_item_id" );
-		run_wp_cli_command( "menu item add-post $menu_id 19262 --title=Waffelschneider --parent-id=$advice_menu_item_id" );
+		run_wp_cli_command( "menu item add-post $menu_id 19973 --title=Waffelschneider --parent-id=$advice_menu_item_id" );
 
 	endforeach;
 

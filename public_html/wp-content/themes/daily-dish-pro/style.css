@@ -2975,35 +2975,78 @@ li.comment {
   white-space: nowrap;
 }
 
-/** 
- * Dashboard styling
+/**
+ * Help Popup
  */
-.dashboard-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(400px, 100%), 1fr));
-  gap: 2rem;
-}
-
-.dashboard-container > section {
+.crv-help-popup {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 2rem;
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: column-reverse nowrap;
+  align-items: flex-end;
+  z-index: 1001;
+  pointer-events: none;
+  transition: background-color 0.5s;
+}
+
+.crv-help-popup--visible {
+  background-color: #0004;
+  pointer-events: all;
+}
+
+.crv-help-popup * {
+  pointer-events: all;
+}
+
+.crv-help-popup__button {
+  font-size: 3rem;
+  font-weight: bold;
+
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+
+  display: flex;
   justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 0.3rem 1rem #00000070;
+  text-shadow: 0 0 0.4rem #ffffff6b;
+}
+
+.crv-help-popup__button::before {
+  content: "?";
+}
+
+.crv-help-popup--visible .crv-help-popup__button::before {
+  content: "x";
+}
+
+.crv-help-popup__modal {
+  display: none;
+  max-width: 380px;
+  padding: 4rem;
+  margin: 3rem 2rem;
   border-radius: 1rem;
-  padding: 3rem 2rem;
-
-  background-color: rgb(255 250 254);
-  background: linear-gradient(153deg, rgb(255 224 249), rgb(255 250 254));
-  box-shadow: 0 0.3rem 1rem rgb(0 0 0 / 25%);
+  box-shadow: rgba(0, 0, 0, 0.5) 0 0 5rem;
+  background-color: white;
+  overflow-y: auto;
 }
 
-.dashboard-container > section h2:first-child {
-  margin-top: 0;
+.crv-help-popup--visible .crv-help-popup__modal {
+  display: block;
 }
 
-.dashboard-container > section h2:last-child {
-  margin-bottom: 0;
-}
-
-.dashboard-container > section h2 {
+.crv-help-popup__title {
   text-align: center;
+  font-style: italic;
+  font-size: 2.8rem;
+}
+
+.crv-help-popup__text a {
+  font-weight: bold;
 }

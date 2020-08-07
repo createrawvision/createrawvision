@@ -11,8 +11,8 @@
 add_action(
 	'wp',
 	function () {
-		// Show all content to members or admins
-		if ( rcp_user_has_active_membership() || current_user_can( 'manage_options' ) ) {
+		// Show all content to members or admins. But before launch block access for access level 0.
+		if ( current_user_can( 'manage_options' ) || rcp_user_has_access( 0, 1 ) || ( rcp_user_has_active_membership() && ! crv_is_before_membership_launch() ) ) {
 			return;
 		}
 
@@ -24,6 +24,9 @@ add_action(
 
 			// Remove recipe metadata
 			remove_filter( 'wpseo_schema_graph_pieces', array( 'WPRM_Metadata', 'wpseo_schema_graph_pieces' ), 1, 2 );
+
+			// Don't insert any ads
+			add_filter( 'ai_block_insertion_check', '__return_false' );
 		}
 	}
 );
@@ -78,9 +81,13 @@ function crv_restricted_content() {
 		$excerpt                    = wpautop( wp_trim_words( $content_without_shortcodes ) );
 	}
 
-	$teaser_image     = wp_get_attachment_image( get_field( 'teaser_image' )['id'], 'full', false, array( 'class' => 'aligncenter' ) );
-	$post_thumbnail   = get_the_post_thumbnail( null, 'post-thumbnail', array( 'class' => 'aligncenter' ) );
-	$restrict_message = '<p class="restriciton-message">Dieser Beitrag ist nur für Mitglieder verfügbar. Um den Beitrag zu lesen, <a href="#">melde dich hier an</a> oder <a href="#">werde Mitglied</a>.</p>';
+	$teaser_image   = wp_get_attachment_image( get_field( 'teaser_image' )['id'], 'full', false, array( 'class' => 'aligncenter' ) );
+	$post_thumbnail = get_the_post_thumbnail( null, 'post-thumbnail', array( 'class' => 'aligncenter' ) );
+	if ( rcp_user_has_active_membership() ) {
+		$restrict_message = '<p class="restriciton-message">Du bist bereits Mitglied!<br>Ab dem 20. August um 17 Uhr stehen dir alle Inhalte zur Verfügung.<br>Vielen Dank für dein Vertrauen!</p>';
+	} else {
+		$restrict_message = '<p class="restriciton-message">Dieser Beitrag ist nur für Mitglieder verfügbar. Um Zugriff zu erhalten, <a href="#">werde Mitglied</a> oder <a href="#">melde dich hier an</a>.</p>';
+	}
 
 	return $teaser_image . $excerpt . rcp_restricted_message_pending_verification( $restrict_message ) . $post_thumbnail;
 }

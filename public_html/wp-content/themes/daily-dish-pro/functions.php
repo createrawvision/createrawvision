@@ -874,3 +874,53 @@ add_action(
 		$wpscfunction->assign_agent( $ticket_id, array( $agents[0] ) );
 	}
 );
+
+
+/**
+ * Show help button with popup on the bottom right.
+ */
+require_once CHILD_DIR . '/lib/help-popup.php';
+
+
+/**
+ * Returns true, when the date is before the membership launch
+ */
+function crv_is_before_membership_launch( $date = null ) {
+	$date = $date ?? new DateTime();
+	return $date < new DateTime( '2020-08-20 17:00:00' );
+}
+
+
+/**
+ * Settings for RCP membership upgrades.
+ */
+require_once CHILD_DIR . '/lib/rcp-upgrade-settings.php';
+
+
+/**
+ * Set expiration to launch day before launch for active memberships.
+ */
+add_filter(
+	'rcp_calculate_membership_level_expiration',
+	function( $expiration_date, $membership_level, $set_trial ) {
+		if ( new DateTime() < new DateTime( '2020-08-20' ) && 'active' === $membership_level->status ) {
+			return '2020-08-20 23:59:59';
+		}
+		return $expiration_date;
+	},
+	10,
+	3
+);
+
+/**
+ * Display different total amount today on RCP register form until launch.
+ */
+add_filter(
+	'rcp_registration_total',
+	function( $total ) {
+		if ( new DateTime() < new DateTime( '2020-08-20' ) ) {
+			return 'Kostenlos bis zur Veröffentlichung';
+		}
+		return $total;
+	}
+);

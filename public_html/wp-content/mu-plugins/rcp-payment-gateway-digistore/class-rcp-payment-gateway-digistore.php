@@ -42,6 +42,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 
 		try {
 			$product_id = $rcp_levels_db->get_meta( $this->subscription_id, 'digistore_product_id', true );
+			$payplan_id = $rcp_levels_db->get_meta( $this->subscription_id, 'digistore_payplan_id', true );
 
 			$api = DigistoreApi::connect( $this->api_key );
 
@@ -58,6 +59,11 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 				'first_amount' => $this->initial_amount,
 			);
 
+			// Use the payment plan to get access to 'start_payplan_at' setting.
+			if ( $payplan_id ) {
+				$payment_plan['template'] = $payplan_id;
+			}
+
 			if ( $this->auto_renew ) {
 				$billing_interval = $this->length . '_' . $this->length_unit;
 
@@ -69,6 +75,18 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 			$tracking = array(
 				'custom' => $this->user_id . '|' . absint( $this->membership->get_id() ),
 			);
+
+			// For upgrades add the old affiliate (only when valid).
+			if ( $this->membership->was_upgrade() ) {
+				$old_membership_id = $this->membership->get_upgraded_from();
+				$affiliate_id      = rcp_get_membership_meta( $old_membership_id, 'digistore_affiliate', true );
+
+				$api_response = $api->validateAffiliate( $affiliate_id, $product_id );
+
+				if ( 'invalid_affiliate_name' !== $api_response->affiliation_status ) {
+					$tracking['affiliate'] = $affiliate_id;
+				}
+			}
 
 			$valid_until = '2h';
 
@@ -85,7 +103,6 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 
 			wp_redirect( $api_response->url );
 
-			$api->disconnect();
 		} catch ( DigistoreApiException $error ) {
 
 			$this->error_message = $error->getMessage();
@@ -94,14 +111,17 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 			$errormsg  = '<p>' . __( 'An unidentified error occurred.', 'rcp' ) . '</p>';
 			$errormsg .= '<p>' . $error->getMessage() . '</p>';
 
-			wp_die( $errormsg, __( 'Error', 'rcp' ), array( 'response' => '401' ) );
+			wp_die( wp_kses_post( $errormsg ), esc_html__( 'Error', 'rcp' ), array( 'response' => '401' ) );
+
+		} finally {
+			$api->disconnect();
 		}
 
 		exit;
 	}
 
 	/**
-	 * Process Digistore IPN - Log payments and edit membership
+	 * Process Digistore IPN - Log payments and edit membership.
 	 *
 	 * @link https://docs.digistore24.com/knowledge-base/ipn-guide/
 	 */
@@ -172,6 +192,11 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 		? number_format( (float) $posted['transaction_amount'], 2, '.', '' )
 		: false;
 
+		// Set the DigiStore Affiliate.
+		if ( $posted['affiliate_name'] ) {
+			rcp_update_membership_meta( $membership->get_id(), 'digistore_affiliate', $posted['affiliate_name'] );
+		}
+
 		// setup the payment info in an array for storage
 		$payment_data = array(
 			'subscription'     => $membership_level->name,
@@ -201,18 +226,20 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 
 		switch ( $posted['event'] ) :
 
-			case 'on_payment': // (initial or renewal) payment successful
+			case 'on_payment': // (initial or renewal) payment successful or trial (amount 0)
 				rcp_log( 'Processing DigiStore on_payment IPN.' );
 
 				$pay_sequence_no = $posted['pay_sequence_no'];
 
-				if ( isset( $posted['billing_type'] ) && $posted['billing_type'] == 'installment' ) {
+				if ( isset( $posted['billing_type'] ) && 'installment' == $posted['billing_type'] ) {
 					rcp_log( 'Installments not supported.' );
 					break;
 				}
 
-				// single or initial payment
-				if ( $pay_sequence_no == 0 || $pay_sequence_no == 1 ) {
+				$is_single_payment  = 0 == $pay_sequence_no;
+				$is_initial_payment = 1 == $pay_sequence_no;
+
+				if ( $is_single_payment || $is_initial_payment ) {
 					$this->membership->set_gateway_subscription_id( $posted['order_id'] );
 
 					if ( ! empty( $pending_payment_id ) ) {
@@ -221,20 +248,18 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 						$payment_id = $pending_payment_id;
 					} else {
 						$payment_id = $rcp_payments->insert( $payment_data );
-
-						$is_recurring = $pay_sequence_no == 1;
-						if ( $is_recurring ) {
-							$this->renew_recurring_membership( $posted );
-						} else {
+						if ( $is_single_payment ) {
 							$this->membership->renew( false );
 						}
 					}
-				}
-				// renewal payment
-				else {
+				} else { // Renewal payment.
 					$payment_data['transaction_type'] = 'renewal';
 					$payment_id                       = $rcp_payments->insert( $payment_data );
+				}
 
+				// Renew recurring membership according to DigiStore (or fall back to today).
+				$is_recurring = $pay_sequence_no > 0;
+				if ( $is_recurring ) {
 					$this->renew_recurring_membership( $posted );
 
 					do_action( 'rcp_webhook_recurring_payment_processed', $member, $payment_id, $this );
@@ -307,31 +332,33 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 			default: // unhandeled or unknown event
 				break;
 
-	  endswitch;
+		endswitch;
 
 		die( 'OK' );
 	}
 
 
 	/**
-	 * Renews a recurring membership and sets expiration date to one day later than the posted 'next_payment_at' date
+	 * Renews a recurring membership and sets expiration date
+	 * to the end of the day the posted 'next_payment_at' date, if it is set,
+	 * otherwise it renews the membership according to RCP rules.
 	 */
 	private function renew_recurring_membership( $posted ) {
 		if ( isset( $posted['next_payment_at'] ) ) {
-			$this->membership->renew( true, 'active', static::add_one_day( $posted['next_payment_at'] ) );
+			$this->membership->renew( true, 'active', static::end_of_day( $posted['next_payment_at'] ) );
 		} else {
 			$this->membership->renew( true );
 		}
 	}
 
 	/**
-	 * Adds one day to the next_payment_at date
+	 * Calculates the end of the day.
 	 *
 	 * @param string next_payment_at parameter, i.e. '2020-04-09'
-	 * @return string expiration date in MySQL datetime format
+	 * @return string expiration date in MySQL datetime format, i.e. '2020-04-09 23:59:59'
 	 */
-	private static function add_one_day( $next_payment_at ) {
-		return date( 'Y-m-d H:i:s', strtotime( '+1 day', strtotime( $next_payment_at ) ) );
+	private static function end_of_day( $next_payment_at ) {
+		return date( 'Y-m-d', strtotime( $next_payment_at ) ) . ' 23:59:59';
 	}
 
 

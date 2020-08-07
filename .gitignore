@@ -12,6 +12,7 @@
 !/public_html/wp-content/languages/
 /public_html/wp-content/languages/*
 !/public_html/wp-content/languages/supportcandy
+!/public_html/wp-content/languages/rcp
 
 !/public_html/wp-content/plugins/
 /public_html/wp-content/plugins/*
