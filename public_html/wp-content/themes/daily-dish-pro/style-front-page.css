@@ -14,6 +14,27 @@ section {
   max-width: 1280px;
 }
 
+/* CTA */
+.cta-button {
+  display: block;
+  width: auto;
+  margin: 10rem auto;
+  border-radius: 0.8rem;
+  padding: 2.5rem 3rem;
+  font-size: 1.8rem;
+  box-shadow: 0 0.3rem 1rem #0008;
+  transition: background-color 0.5s, box-shadow 0.5s;
+}
+
+.cta-button:hover {
+  background-color: #80005d;
+  box-shadow: 0 0.5rem 1.5rem #0008;
+}
+
+.cta-button:hover {
+  background-color: #66004b;
+}
+
 /*
 Countdown
 */
@@ -73,12 +94,12 @@ Countdown
 }
 
 .countdown__button {
-  margin: 3rem auto !important;
-  display: inline-block !important;
+  margin: 3rem auto;
+  display: inline-block;
 }
 
 .sticky-wrapper--is_sticky .countdown__button {
-  margin: 1rem !important;
+  margin: 1rem;
   padding: 1rem 1.5rem;
 }
 
@@ -189,6 +210,14 @@ Show more button and container
 /*
 Testimonials
  */
+.testimonials {
+  display: none;
+}
+
+.user-is-unrestricted .testimonials {
+  display: initial;
+}
+
 .testimonials__title {
   text-align: center;
   margin-bottom: 3rem;
@@ -257,7 +286,7 @@ Testimonials
 
 /* Offer */
 .offer {
-  margin-top: 0; /* for jQuery animation, see https://bugs.jquery.com/ticket/7442 */
+  /* for jQuery animation, see https://bugs.jquery.com/ticket/7442 */
 }
 
 .offer__title {
@@ -268,23 +297,6 @@ Testimonials
   list-style-image: url(images/check.svg);
 }
 
-/* CTA */
-.cta-button {
-  display: block;
-  width: auto;
-  margin: 10rem auto;
-  border-radius: 0.8rem;
-  padding: 2.5rem 3rem;
-  font-size: 1.8rem;
-  box-shadow: 0 0.3rem 1rem #0008;
-  transition: background-color 0.5s, box-shadow 0.5s;
-}
-
-.cta-button:hover {
-  background-color: #80005d;
-  box-shadow: 0 0.5rem 1.5rem #0008;
-}
-
-.cta-button:hover {
-  background-color: #66004b;
+/* FAQs */
+.homepage-faqs {
 }
