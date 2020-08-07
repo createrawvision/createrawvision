@@ -8,7 +8,6 @@ use DrewM\MailChimp\MailChimp;
 add_action( 'rcp_customer_post_verify_email', 'crv_subscribe_verified_customer_to_mailchimp', 10, 2 );
 
 // When a members e-mail or name changes, update it in Mailchimp
-/** @todo maybe re-verify the e-mail-address, when it changes */
 add_action(
 	'rcp_user_profile_updated',
 	function ( $user_id, $userdata, $old_userdata ) {
@@ -17,7 +16,6 @@ add_action(
 	10,
 	3
 );
-
 
 // When a member's status changes, update the merge field in Mailchimp
 add_action( 'rcp_transition_membership_status', 'crv_update_rcp_status_mailchimp', 10, 3 );
@@ -86,13 +84,16 @@ function crv_update_rcp_status_mailchimp( $old_status, $new_status, $membership_
 		$user_id    = $membership->get_user_id();
 		$user       = get_user_by( 'id', $user_id );
 
-		$MailChimp             = new MailChimp( $rcp_options['mailchimp_api_key'] );
-		$list_id               = 'a04c23f499'; // List "Createrawvision"
-		$member_tag_segment_id = '508621'; // Tag "member"
-		$subscriber_hash       = $MailChimp->subscriberHash( $user->user_email );
+		$MailChimp                     = new MailChimp( $rcp_options['mailchimp_api_key'] );
+		$list_id                       = 'a04c23f499'; // List "Createrawvision"
+		$member_tag_segment_id         = '508621'; // Tag "member"
+		$member_yearly_tag_segement_id = '511654'; // Tag "member-yearly"
+		$subscriber_hash               = $MailChimp->subscriberHash( $user->user_email );
 
 		if ( $old_status === 'active' && $new_status === 'expired' ) {
 			$rcp_status = 'expired-suddenly';
+		} elseif ( $new_status === 'active' && crv_is_before_membership_launch() ) {
+			$rcp_status = 'active-presale';
 		} else {
 			$rcp_status = $new_status;
 		}
@@ -110,10 +111,20 @@ function crv_update_rcp_status_mailchimp( $old_status, $new_status, $membership_
 			throw new Exception( 'Failed to update RCP status in Mailchimp: ' . $MailChimp->getLastError() );
 		}
 
-		// Tag as "member" on active/cancelled membership, untag otherwise
-		$tag_url  = "lists/{$list_id}/segments/{$member_tag_segment_id}/members";
-		$tag_data = array( 'email_address' => $user->user_email );
+		// Tag as "member" or "member-yearly" on active/cancelled membership, untag otherwise
+		$level = ( new RCP_Levels() )->get_level( $membership->get_object_id() );
+		if ( 'year' === $level->duration_unit ) {
+			$tag_segment_id   = $member_yearly_tag_segement_id;
+			$untag_segment_id = $member_tag_segment_id;
+		} else {
+			$tag_segment_id   = $member_tag_segment_id;
+			$untag_segment_id = $member_yearly_tag_segement_id;
+		}
+		$tag_url   = "lists/{$list_id}/segments/{$tag_segment_id}/members";
+		$untag_url = "lists/{$list_id}/segments/{$untag_segment_id}/members";
+		$tag_data  = array( 'email_address' => $user->user_email );
 
+		$MailChimp->delete( $untag_url, $tag_data );
 		if ( in_array( $new_status, array( 'active', 'cancelled' ) ) ) {
 			$MailChimp->post( $tag_url, $tag_data );
 		} else {
