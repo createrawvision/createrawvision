@@ -148,46 +148,79 @@ Bitte klicke hier, um deine E-Mail Adresse zu bestätigen:
 	WP_CLI::warning( "RCP license key wasn't set. Add the license key manually." );
 
 	WP_CLI::log( 'Creating membership levels' );
-	$rcp_levels  = new RCP_Levels();
-	$levels_args = array(
+	$levels = array(
 		array(
-			'name'                => 'CreateRawVision Member (monatlich)',
-			'description'         => 'Erhalte noch heute Zugriff zu über 400 großartigen Rezepte, hilfreichen Tipps &amp; Tricks und einer wertschätzenden Gemeinschaft.',
-			'duration'            => '1',
-			'duration_unit'       => 'month',
-			'trial_duration'      => '0',
-			'trial_duration_unit' => 'day',
-			'price'               => '10',
-			'fee'                 => '0',
-			'maximum_renewals'    => '0',
-			'after_final_payment' => '',
-			'list_order'          => '0',
-			'level'               => '0',
-			'status'              => 'active',
-			'role'                => 'subscriber',
+			'args' => array(
+				'name'                => 'CreateRawVision Mitgliedschaft (monatlich)',
+				'description'         => 'Erhalte noch heute Zugriff zu über 400 großartigen Rezepte, hilfreichen Tipps &amp; Tricks und einer wertschätzenden Gemeinschaft.',
+				'duration'            => '1',
+				'duration_unit'       => 'month',
+				'trial_duration'      => '0',
+				'trial_duration_unit' => 'day',
+				'price'               => '9',
+				'fee'                 => '0',
+				'maximum_renewals'    => '0',
+				'after_final_payment' => '',
+				'list_order'          => '0',
+				'level'               => '0',
+				'status'              => 'active',
+				'role'                => 'subscriber',
+			),
+			'meta' => array(
+				'digistore_product_id' => '339809',
+				'digistore_payplan_id' => '654397',
+			),
 		),
 		array(
-			'name'                => 'CreateRawVision Member (jährlich)',
-			'description'         => 'Erhalte noch heute Zugriff zu über 400 großartigen Rezepte, hilfreichen Tipps &amp; Tricks und einer wertschätzenden Gemeinschaft.',
-			'duration'            => '1',
-			'duration_unit'       => 'year',
-			'trial_duration'      => '0',
-			'trial_duration_unit' => 'day',
-			'price'               => '80',
-			'fee'                 => '0',
-			'maximum_renewals'    => '0',
-			'after_final_payment' => '',
-			'list_order'          => '0',
-			'level'               => '0',
-			'status'              => 'active',
-			'role'                => 'subscriber',
+			'args' => array(
+				'name'                => 'CreateRawVision Mitgliedschaft (jährlich)',
+				'description'         => 'Erhalte noch heute Zugriff zu über 400 großartigen Rezepte, hilfreichen Tipps &amp; Tricks und einer wertschätzenden Gemeinschaft.',
+				'duration'            => '1',
+				'duration_unit'       => 'year',
+				'trial_duration'      => '0',
+				'trial_duration_unit' => 'day',
+				'price'               => '90',
+				'fee'                 => '-20',
+				'maximum_renewals'    => '0',
+				'after_final_payment' => '',
+				'list_order'          => '0',
+				'level'               => '0',
+				'status'              => 'active',
+				'role'                => 'subscriber',
+			),
+			'meta' => array(
+				'digistore_product_id' => '301319',
+				'digistore_payplan_id' => '654347',
+			),
+		),
+		array(
+			'args' => array(
+				'name'                => 'CreateRawVision Mitgliedschaft (manuell)',
+				'description'         => 'Erhalte noch heute Zugriff zu über 400 großartigen Rezepte, hilfreichen Tipps &amp; Tricks und einer wertschätzenden Gemeinschaft.',
+				'duration'            => '1',
+				'duration_unit'       => 'month',
+				'trial_duration'      => '0',
+				'trial_duration_unit' => 'day',
+				'price'               => '0',
+				'fee'                 => '100',
+				'maximum_renewals'    => '1',
+				'after_final_payment' => 'expire_immediately',
+				'list_order'          => '0',
+				'level'               => '1',
+				'status'              => 'inactive',
+				'role'                => 'subscriber',
+			),
+			'meta' => array(),
 		),
 	);
-	foreach ( $levels_args as $level_args ) {
-		if ( $rcp_levels->get_level_by( 'name', $level_args['name'] ) ) {
-			WP_CLI::warning( "Membership Level '${level_args['name']}' already exists. Not changing it." );
-		} else {
-			$rcp_levels->insert( $level_args );
+
+	global $rcp_levels_db;
+
+	foreach ( $levels as $level ) {
+		$level_id = $rcp_levels_db->insert( $level['args'] );
+
+		foreach ( $level['meta'] as $meta_key => $meta_value ) {
+			$rcp_levels_db->update_meta( $level_id, $meta_key, $meta_value );
 		}
 	}
 }
