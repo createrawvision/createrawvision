@@ -61,4 +61,3 @@ function deploy_teaser() {
 	}
 	$progressbar->finish();
 }
-

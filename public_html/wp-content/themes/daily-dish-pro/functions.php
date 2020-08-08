@@ -895,3 +895,32 @@ function crv_is_before_membership_launch( $date = null ) {
  * Settings for RCP membership upgrades.
  */
 require_once CHILD_DIR . '/lib/rcp-upgrade-settings.php';
+
+
+/**
+ * Set expiration to launch day before launch for active memberships.
+ */
+add_filter(
+	'rcp_calculate_membership_level_expiration',
+	function( $expiration_date, $membership_level, $set_trial ) {
+		if ( new DateTime() < new DateTime( '2020-08-20' ) && 'active' === $membership_level->status ) {
+			return '2020-08-20 23:59:59';
+		}
+		return $expiration_date;
+	},
+	10,
+	3
+);
+
+/**
+ * Display different total amount today on RCP register form until launch.
+ */
+add_filter(
+	'rcp_registration_total',
+	function( $total ) {
+		if ( new DateTime() < new DateTime( '2020-08-20' ) ) {
+			return 'Kostenlos bis zur Veröffentlichung';
+		}
+		return $total;
+	}
+);
