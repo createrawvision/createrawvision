@@ -113,25 +113,16 @@ if ( is_front_page() && ! is_home() ) {
 		}
 	);
 
-	// Avoid 'wpauto' for the front page.
-	remove_filter( 'the_content', 'wpautop' );
-	remove_filter( 'the_excerpt', 'wpautop' );
+	// Remove default loop.
+	remove_action( 'genesis_loop', 'genesis_do_loop' );
+	// Replace it with a template file.
+	add_action(
+		'genesis_loop',
+		function() {
+			load_template( CHILD_DIR . '/templates/front-page.php' );
+		}
+	);
 
-	// Remove entry header elements.
-	remove_action( 'genesis_entry_header', 'genesis_entry_header_markup_open', 5 );
-	remove_action( 'genesis_entry_header', 'genesis_do_post_title', 10 );
-	remove_action( 'genesis_entry_header', 'genesis_entry_header_markup_close', 12 );
-
-	/** @todo remove */
-	// add_filter(
-	// 'the_content',
-	// function( $content ) {
-	// if ( ! is_main_query() || ! in_the_loop() ) {
-	// return $content;
-	// }
-	// return file_get_contents( ABSPATH . '/../deployment_data/homepage.html' );
-	// }
-	// );
 }
 
 // Run Genesis loop.

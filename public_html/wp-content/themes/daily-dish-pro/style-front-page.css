@@ -304,10 +304,6 @@ Testimonials
 }
 
 /* Offer */
-.offer {
-  /* for jQuery animation, see https://bugs.jquery.com/ticket/7442 */
-}
-
 .offer__title {
   margin-top: 0 !important; /* for jQuery animation, see https://bugs.jquery.com/ticket/7442 */
   text-align: center;
@@ -315,6 +311,10 @@ Testimonials
 
 .offer__list {
   list-style-image: url(images/check.svg);
+}
+
+.offer__item {
+  margin-bottom: 1.5rem;
 }
 
 /*
@@ -353,14 +353,6 @@ Checkmarks
   height: 8rem;
 }
 
-.checkmarks__item:nth-child(2)::before {
-  background: center / contain no-repeat url(images/check-circle.svg);
-}
-.checkmarks__item:nth-child(3)::before {
-  filter: none;
-  background: center / contain no-repeat url(images/check.svg);
-}
-
 .checkmarks__heading {
   margin: 0 !important;
   font-weight: bold;
@@ -391,10 +383,23 @@ Mission
 
 .mission__content {
   margin: 0 auto !important;
+  text-align: justify;
 }
 
 /* 
 FAQs
  */
 .homepage-faqs {
+}
+
+.homepage-faqs__container {
+  overflow: hidden;
+  height: 200px;
+  -webkit-mask-image: linear-gradient(black 50%, transparent);
+  mask-image: linear-gradient(black 50%, transparent);
+}
+
+.homepage-faqs__container--open {
+  -webkit-mask-image: none;
+  mask-image: none;
 }

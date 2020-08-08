@@ -30,7 +30,7 @@
   }
 
   /**
-   * Add 'sticky-wrapper--sticky' class to sticky element when is scrolls out of the viewport.
+   * Add 'sticky-wrapper--visible' class to sticky element and animate it when is scrolls out of the viewport.
    */
   const countdown = $(".countdown:not(.countdown--inline)");
   const stickyWrapper = $(".sticky-wrapper");
@@ -39,15 +39,39 @@
     const windowTop = $(window).scrollTop();
     const gap = 500;
     const isScrolledPastGap = elBottom + gap < windowTop;
-    if (isScrolledPastGap && !stickyWrapper.hasClass("visible")) {
-      stickyWrapper.stop();
-      stickyWrapper.fadeIn(800);
-      stickyWrapper.addClass("visible");
-    } else if (!isScrolledPastGap && stickyWrapper.hasClass("visible")) {
-      stickyWrapper.stop();
-      stickyWrapper.fadeOut(800);
-      stickyWrapper.removeClass("visible");
+    if (isScrolledPastGap && !stickyWrapper.hasClass("sticky-wrapper--visible")) {
+      stickyWrapper.stop().fadeIn(800).addClass("sticky-wrapper--visible");
+    } else if (!isScrolledPastGap && stickyWrapper.hasClass("sticky-wrapper--visible")) {
+      stickyWrapper.stop().fadeOut(800).removeClass("sticky-wrapper--visible");
     }
-    // stickyWrapper.toggleClass('sticky-wrapper--sticky', isScrolledPastGap);
   });
+
+  /**
+   * Make collapsible FAQ Container
+   */
+  const faqsContainer = $('.homepage-faqs__container');
+  const faqsButton = $('.homepage-faqs__button');
+  faqsButton.click(function() {
+    // Determine 'height: auto' in pixels
+    const curHeight = faqsContainer.height();
+    const autoHeight = faqsContainer.css('height', 'auto').height();
+    const initialHeight = faqsContainer.css('height', '').height();
+    faqsContainer.height(curHeight);
+
+    const duration = 400;
+    const scrollMargin = 200;
+
+    // Open container, set class, button text and scroll
+    if(faqsContainer.hasClass('homepage-faqs__container--open')) {
+      faqsContainer.animate({height: initialHeight}, duration, 'swing', () => faqsContainer.css('height', ''))
+        .removeClass('homepage-faqs__container--open');
+      $(':root').animate({scrollTop: faqsContainer.offset().top + faqsContainer.outerHeight() - scrollMargin}, duration);
+      faqsButton.text('Mehr anzeigen');
+    } else {
+      faqsContainer.animate({height: autoHeight}, duration, 'swing', () => faqsContainer.css('height', 'auto'))
+        .addClass('homepage-faqs__container--open');
+      $(':root').animate({scrollTop: faqsContainer.offset().top - scrollMargin}, duration);
+      faqsButton.text('Weniger anzeigen');
+    }
+  })
 })(jQuery);

@@ -98,14 +98,6 @@
   <h2 class="introduction__heading">
     Warum solltest du Rohkost in deine Ernährung integrieren?
   </h2>
-  <div
-    class="introduction__video"
-    aria-label="Video: Warum solltest du Rohkost in deine Ernährung einbauen?"
-  >
-    [video width="1280" height="720"
-    mp4="https://createrawvision.de/wp-content/uploads/2020/08/warum-sollest-du-rohkost-in-deine-ernaehrung-einbauen.mp4"]
-    [/video]
-  </div>
   <ul class="introduction__list">
     <li class="introduction__item">
       Weil du es verdient hast, fit und voller Energie zu sein!
@@ -125,16 +117,25 @@
   </ul>
 </section>
 
+<section
+  class="video"
+  aria-label="Video: Warum solltest du Rohkost in deine Ernährung einbauen?"
+>
+  [video width="1280" height="720"
+  mp4="https://createrawvision.de/wp-content/uploads/2020/08/warum-sollest-du-rohkost-in-deine-ernaehrung-einbauen.mp4"]
+  [/video]
+</section>
+
 <!-- @todo Bilder -->
 <section class="offer-summary full-width">
   <h2 class="offer-summary__heading">
-    Mit meinem Mitgliederbereich kannst du erfolgreich mit der Rohkost in ein
-    gesünderes Leben durchstarten!
+    In meinem Mitgliederbereich kannst du erfolgreich mit der Rohkost in ein
+    gesünderes Leben starten!
   </h2>
   <ul class="offer-summary__list">
-    <li class="offer-summary__item">Erprobte Rezepte</li>
-    <li class="offer-summary__item">Leichte Tutorials</li>
-    <li class="offer-summary__item">Ein verständlicher Kurs für Anfänger</li>
+    <li class="offer-summary__item">Erprobte Rohkost-Rezepte</li>
+    <li class="offer-summary__item">Einfache Tutorials</li>
+    <li class="offer-summary__item">Verständlicher Kurs für Anfänger</li>
   </ul>
 </section>
 
@@ -146,7 +147,7 @@
 
 <section class="testimonials">
   <h2 class="testimonials__title">
-    Das sagen unsere Mitglieder
+    Das sagen unsere Nutzer
   </h2>
   <ul class="testimonials__list">
     <!-- @todo -->
@@ -295,7 +296,16 @@
 >
 
 <section class="homepage-faqs">
-  <h2>Die häufigsten Fragen</h2>
+  <h2>Häufig gestellte Fragen</h2>
+  <div class="homepage-faqs__container">
+    <p>Dummy Text</p>
+    <p>Dummy Text</p>
+    <p>Dummy Text</p>
+    <p>Dummy Text</p>
+    <p>Dummy Text</p>
+    <p>Dummy Text</p>
+  </div>
+  <button class="homepage-faqs__button">Mehr anzeigen</button>
 </section>
 
 <a href="/registrieren"

@@ -12,16 +12,11 @@ return function () {
  */
 function deploy_homepage_and_postlist() {
 	WP_CLI::log( 'Creating homepage' );
-	$homepage_content = file_get_contents( ABSPATH . '../deployment_data/homepage.html' );
-	if ( ! $homepage_content ) {
-		WP_CLI::error( 'Failed to read homepage content' );
-	}
 	$homepage_id = wp_insert_post(
 		array(
-			'post_title'   => 'Startseite',
-			'post_status'  => 'publish',
-			'post_type'    => 'page',
-			'post_content' => $homepage_content,
+			'post_title'  => 'Startseite',
+			'post_status' => 'publish',
+			'post_type'   => 'page',
 		)
 	);
 	if ( ! $homepage_id ) {
@@ -31,10 +26,9 @@ function deploy_homepage_and_postlist() {
 	WP_CLI::log( 'Creating postlist' );
 	$postlist_id = wp_insert_post(
 		array(
-			'post_title'   => 'Alle Beiträge',
-			'post_status'  => 'publish',
-			'post_type'    => 'page',
-			'post_content' => '',
+			'post_title'  => 'Alle Beiträge',
+			'post_status' => 'publish',
+			'post_type'   => 'page',
 		)
 	);
 	if ( ! $postlist_id ) {
