@@ -81,10 +81,12 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 				$old_membership_id = $this->membership->get_upgraded_from();
 				$affiliate_id      = rcp_get_membership_meta( $old_membership_id, 'digistore_affiliate', true );
 
-				$api_response = $api->validateAffiliate( $affiliate_id, $product_id );
+				if ( $affiliate_id ) {
+					$api_response = $api->validateAffiliate( $affiliate_id, $product_id );
 
-				if ( 'invalid_affiliate_name' !== $api_response->affiliation_status ) {
-					$tracking['affiliate'] = $affiliate_id;
+					if ( 'invalid_affiliate_name' !== $api_response->affiliation_status ) {
+						$tracking['affiliate'] = $affiliate_id;
+					}
 				}
 			}
 

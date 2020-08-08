@@ -32,6 +32,13 @@ wp eval-file .scripts/deploy.php --user=Josef
 7. Deactivate maintanence mode (on staging environment): `wp maintanence-mode deactivate`
 8. Deploy staging environment to live environment
 
+When deployment can't be handled by the server in one go, put all your versions in a shell variable `versions` in order. Then run:
+
+```
+versions=(0.1.0-alpha.01 0.1.0-alpha.02 0.1.0-alpha.03 0.1.0-alpha.04 0.1.0-alpha.05 0.1.0-alpha.06 0.1.0-alpha.07 0.1.0-alpha.08 0.1.0-alpha.09 0.1.0-alpha.10 0.1.0)
+for version in ${versions[*]}; do wp eval-file .scripts/deploy.php $version --user=Josef; done
+```
+
 ## Scripts
 
 Configuration for scripts is found in the files itself.

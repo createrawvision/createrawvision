@@ -5,8 +5,6 @@ require_once __DIR__ . '/../wp-cli-utils.php';
 // Return the function to deploy all changes. Don't do anything.
 return function () {
 	deploy_teaser();
-	deploy_pages_for_templates();
-	deploy_featured_image();
 };
 
 
@@ -61,73 +59,5 @@ function deploy_teaser() {
 
 		$progressbar->tick();
 	}
-	$progressbar->finish();
-}
-
-/**
- * Creates empty pages for template files to use
- *
- * Pages:
- * * dashboard
- * * login
- */
-function deploy_pages_for_templates() {
-	WP_CLI::log( 'Creating dashboard page' );
-
-	wp_insert_post(
-		array(
-			'post_content' => '',
-			'post_title'   => 'Member Dashboard',
-			'post_name'    => 'dashboard',
-			'post_status'  => 'publish',
-			'post_type'    => 'page',
-		)
-	);
-
-	WP_CLI::log( 'Creating login page' );
-
-	wp_insert_post(
-		array(
-			'post_content' => '[login_form redirect="/dashboard"]',
-			'post_title'   => 'Login',
-			'post_name'    => 'login',
-			'post_status'  => 'publish',
-			'post_type'    => 'page',
-		)
-	);
-
-	WP_CLI::log( 'Creating search page' );
-
-	wp_insert_post(
-		array(
-			'post_content' => '',
-			'post_title'   => 'Erweiterte Rezept-Suche',
-			'post_name'    => 'suche',
-			'post_status'  => 'publish',
-			'post_type'    => 'page',
-		)
-	);
-}
-
-
-/**
- * Sets the featured images from `deployment_data/featured-images.json`
- */
-function deploy_featured_image() {
-	$featured_image_json = file_get_contents( ABSPATH . '../deployment_data/featured-images.json' );
-	$featured_image_data = $featured_image_json ? json_decode( $featured_image_json, $assoc = true ) : array();
-
-	$progressbar = \WP_CLI\Utils\make_progress_bar( 'Setting featured images from json data', count( $featured_image_data ) );
-
-	foreach ( $featured_image_data as $post_id => $thumbnail_id ) {
-		$success = set_post_thumbnail( $post_id, $thumbnail_id );
-
-		if ( ! $success ) {
-			WP_CLI::warning( "Couldn't set thumbnail for post $post_id" );
-		}
-
-		$progressbar->tick();
-	}
-
 	$progressbar->finish();
 }
