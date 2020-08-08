@@ -948,3 +948,16 @@ add_action(
 		}
 	}
 );
+
+
+/**
+ * For now, show the normal blog home for restricted people.
+ *
+ * @todo remove when home is done
+ */
+add_filter(
+	'pre_option_show_on_front',
+	function() {
+		return crv_user_is_unrestricted() ? 'page' : 'posts';
+	}
+);
