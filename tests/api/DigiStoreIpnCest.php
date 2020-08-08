@@ -398,11 +398,34 @@ class DigiStoreIpnCest {
 		);
 	}
 
+		/**
+		 * one day after the `next_payment_at` ipn-parameter is the new expiration date
+		 * set the next_payment_at to 100 days later and check that expiration is in 100 days before midnight
+		 */
+	public function test_ipn_determines_initial_expiration( ApiTester $I ) {
+		$this->create_pending_membership( $I );
+
+		$this->receive_initial_payment_ipn(
+			$I,
+			array(
+				'next_payment_at' => date( 'Y-m-d', strtotime( '+100 days' ) ),
+			)
+		);
+
+		$I->seeInDatabase(
+			'a2kA1_rcp_memberships',
+			array(
+				'id'              => $this->membership_id,
+				'expiration_date' => date( 'Y-m-d', strtotime( '+100 days' ) ) . ' 23:59:59',
+			)
+		);
+	}
+
 	/**
 	 * one day after the `next_payment_at` ipn-parameter is the new expiration date
 	 * set the next_payment_at to 100 days later and check that expiration is in 101 days midnight
 	 */
-	public function test_ipn_determines_expiration( ApiTester $I ) {
+	public function test_ipn_determines_renewal_expiration( ApiTester $I ) {
 		$this->create_active_membership( $I );
 
 		$this->receive_ipn(
@@ -428,5 +451,54 @@ class DigiStoreIpnCest {
 		$I->sendPOST( self::API_URL );
 		$I->seeResponseContains( 'no membership found' );
 		$I->seeResponseCodeIs( 200 );
+	}
+
+	/**
+	 * Test if test phase IPN from DigiStore gets recorded, too.
+	 */
+	public function test_test_phase_ipn( ApiTester $I ) {
+		$this->create_pending_membership( $I );
+
+		$next_payment_at = date( 'Y-m-d', strtotime( '+14 days' ) );
+		$this->receive_initial_payment_ipn(
+			$I,
+			array(
+				'next_payment_at'    => $next_payment_at,
+				'transaction_amount' => '0.00',
+			)
+		);
+
+		$I->seeInDatabase(
+			'a2kA1_rcp_memberships',
+			array(
+				'id'                 => $this->membership_id,
+				'status'             => 'active',
+				'expiration_date >=' => date( 'Y-m-d H:i:s', strtotime( $next_payment_at ) ),
+			)
+		);
+	}
+
+	/**
+	 * Test single payment doesn't get renewed twice.
+	 */
+	public function test_single_payment_renewed_only_once( ApiTester $I ) {
+		$this->create_pending_membership( $I );
+
+		$this->receive_ipn(
+			$I,
+			array(
+				'pay_sequence_no' => 0,
+				'custom'          => $this->user_id . '|' . $this->membership_id,
+			)
+		);
+
+		$I->seeInDatabase(
+			'a2kA1_rcp_memberships',
+			array(
+				'id'                 => $this->membership_id,
+				'status'             => 'active',
+				'expiration_date <=' => date( 'Y-m-d H:i:s', strtotime( '+1 month +1 day' ) ),
+			)
+		);
 	}
 }
