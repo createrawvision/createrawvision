@@ -234,7 +234,7 @@ Testimonials
 }
 
 .user-is-unrestricted .testimonials {
-  display: initial;
+  display: block;
 }
 
 .testimonials__title {
@@ -260,6 +260,7 @@ Testimonials
   align-items: flex-start;
   gap: 3rem;
   transition: box-shadow 0.25s;
+  cursor: pointer;
 }
 
 .testimonials__entry:hover {
@@ -291,9 +292,51 @@ Testimonials
 
 .testimonials__text {
   font-style: italic;
+  max-height: 7em;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(black 50%, transparent);
+  mask-image: linear-gradient(black 50%, transparent);
+}
+
+.testimonials__text:first-of-type {
   margin: 1.5rem 0 0;
   padding-top: 1.5rem;
   border-top: 1px solid #ccc;
+}
+
+.testimonials__popup-wrapper {
+  position: relative;
+}
+
+.testimonials__popup {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 100%;
+  right: 0;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 5rem;
+}
+
+.testimonials__popup--visible {
+  display: flex;
+}
+
+.testimonials__popup > .testimonials__entry {
+  max-width: 700px;
+  box-shadow: 0 0 10rem 0rem grey;
+  cursor: auto;
+  position: relative;
+}
+
+.testimonials__popup .testimonials__text {
+  max-height: none;
+  overflow: auto;
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 @media only screen and (max-width: 480px) {
