@@ -37,10 +37,16 @@ WP_CLI::log( "Current version is $current_version" );
 
 $all_versions = array_unique(
 	array(
-		'0.1.0-alpha.1',
-		'0.1.0-alpha.2',
-		'0.1.0-alpha.3',
-		'0.1.0-alpha.4',
+		'0.1.0-alpha.01',
+		'0.1.0-alpha.02',
+		'0.1.0-alpha.03',
+		'0.1.0-alpha.04',
+		'0.1.0-alpha.05',
+		'0.1.0-alpha.06',
+		'0.1.0-alpha.07',
+		'0.1.0-alpha.08',
+		'0.1.0-alpha.09',
+		'0.1.0-alpha.10',
 		'0.1.0',
 	)
 );
