@@ -77,7 +77,7 @@ function deploy_pages_for_templates() {
 	wp_insert_post(
 		array(
 			'post_content' => '',
-			'post_title'   => 'Member Dashboard',
+			'post_title'   => 'Mitglieder Dashboard',
 			'post_name'    => 'dashboard',
 			'post_status'  => 'publish',
 			'post_type'    => 'page',
