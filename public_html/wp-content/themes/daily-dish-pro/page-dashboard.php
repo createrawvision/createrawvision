@@ -35,7 +35,7 @@ function show_overview() {
 
 function show_recipes() {
 	?>
-	<h2>Rezepte</h2>
+	<h2>Rohkost Rezepte</h2>
 	<ul>
 		<li><a href="<?php echo esc_url( get_term_link( 'rezepte', 'category' ) ); ?>">Rezepte nach Kategorien</a></li>
 		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'suche' ) ) ); ?>">Rezepte suchen</a></li>
@@ -52,10 +52,10 @@ function show_community() {
 }
 
 function show_tutorials() {
-	$tutorials_category_id = get_category_by_slug( 'tutorials' )->term_id;
+	$tutorials_category_id = get_category_by_slug( 'tipps-tutorials' )->term_id ?? 5287;
 	$courses               = get_categories( array( 'parent' => $tutorials_category_id ) );
 	?>
-	<h2><a href="<?php echo esc_url( get_category_link( $tutorials_category_id ) ); ?>">Tutorials</a></h2>
+	<h2><a href="<?php echo esc_url( get_category_link( $tutorials_category_id ) ); ?>">Rohkost Tipps & Tutorials</a></h2>
 	<ul>
 	<?php
 	foreach ( $courses as $course ) {

@@ -41,7 +41,7 @@ function deploy_nav_menus() {
 		}
 
 		run_wp_cli_command( "menu item add-term $menu_id category 5869 --title=Rohkost&nbsp;Rezepte" );
-		run_wp_cli_command( "menu item add-term $menu_id category 5287 --title=Rohkost&nbsp;Tipps" );
+		run_wp_cli_command( "menu item add-term $menu_id category 5287 --title=Rohkost&nbsp;Tipps&nbsp;&amp;&nbsp;Tutorials" );
 
 		$blog_menu_item_id = run_wp_cli_command( "menu item add-term $menu_id category 5933 --porcelain", array( 'return' => 'stdout' ) ); // Blog
 		run_wp_cli_command( "menu item add-term $menu_id category 5935 --parent-id=$blog_menu_item_id" ); // Bewusstsein & Achtsamkeit
