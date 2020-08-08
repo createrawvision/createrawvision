@@ -895,7 +895,7 @@ require_once CHILD_DIR . '/lib/help-popup.php';
  */
 function crv_is_before_membership_launch( $date = null ) {
 	$date = $date ?? new DateTime();
-	return $date < new DateTime( '2020-08-20 17:00:00' );
+	return $date < new DateTime( '2020-08-20 17:00:00', new DateTimeZone( 'Europe/Berlin' ) );
 }
 
 
@@ -911,7 +911,7 @@ require_once CHILD_DIR . '/lib/rcp-upgrade-settings.php';
 add_filter(
 	'rcp_calculate_membership_level_expiration',
 	function( $expiration_date, $membership_level, $set_trial ) {
-		if ( new DateTime() < new DateTime( '2020-08-20' ) && 'active' === $membership_level->status ) {
+		if ( new DateTime() < new DateTime( '2020-08-20', new DateTimeZone( 'Europe/Berlin' ) ) && 'active' === $membership_level->status ) {
 			return '2020-08-20 23:59:59';
 		}
 		return $expiration_date;
@@ -926,7 +926,7 @@ add_filter(
 add_filter(
 	'rcp_registration_total',
 	function( $total ) {
-		if ( new DateTime() < new DateTime( '2020-08-20' ) ) {
+		if ( new DateTime() < new DateTime( '2020-08-20', new DateTimeZone( 'Europe/Berlin' ) ) ) {
 			return 'Kostenlos bis zur Veröffentlichung';
 		}
 		return $total;
