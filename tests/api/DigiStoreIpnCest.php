@@ -416,7 +416,7 @@ class DigiStoreIpnCest {
 			'a2kA1_rcp_memberships',
 			array(
 				'id'              => $this->membership_id,
-				'expiration_date' => date( 'Y-m-d', strtotime( '+101 days' ) ) . ' 00:00:00',
+				'expiration_date' => date( 'Y-m-d', strtotime( '+100 days' ) ) . ' 23:59:59',
 			)
 		);
 	}
