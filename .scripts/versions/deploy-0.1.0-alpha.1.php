@@ -278,7 +278,7 @@ function deploy_faqs() {
 		$items_progressbar = \WP_CLI\Utils\make_progress_bar( "Creating all FAQs in category {$category_obj->name}", count( $faqs ) );
 
 		foreach ( $faqs as $faq ) {
-			wp_insert_post(
+			$faq_id = wp_insert_post(
 				array(
 					'post_title'   => $faq->title,
 					'post_content' => $faq->content,
@@ -287,6 +287,10 @@ function deploy_faqs() {
 					'tax_input'    => array( 'faq_category' => array( $term_id ) ),
 				)
 			);
+
+			if ( isset( $faq->home_faq ) && $faq->home_faq ) {
+				update_post_meta( $faq_id, 'home_faq', true );
+			}
 
 			$items_progressbar->tick();
 		}

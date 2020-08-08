@@ -40,7 +40,10 @@ function jw_display_faq_search() {
 /**
  * Display FAQs grouped by category
  */
-function jw_display_faqs() {
+function jw_display_faqs( $heading_level = 2, $meta_query = null ) {
+	// Sanitize input
+	$heading_level = absint( $heading_level );
+
 	// Disable relevanssi search.
 	remove_filter( 'posts_request', 'relevanssi_prevent_default_request' );
 	remove_filter( 'the_posts', 'relevanssi_query', 99 );
@@ -74,12 +77,16 @@ function jw_display_faqs() {
 			),
 		);
 
+		if ( $meta_query ) {
+			$query_args['meta_query'] = $meta_query;
+		}
+
 		$query = new WP_Query( $query_args );
 
 		// The FAQ loop.
 		if ( $query->have_posts() ) :
+			echo "<h{$heading_level}>" . esc_html( $term->name ) . "</h{$heading_level}>";
 			?>
-		<h2><?php echo $term->name; ?></h2>
 		<ul class="faq">
 			<?php
 			while ( $query->have_posts() ) :
@@ -87,7 +94,7 @@ function jw_display_faqs() {
 				$faq_count++;
 				?>
 			<li class="faq__item">
-				<h3 class="faq__title"><?php the_title(); ?></h3>
+				<h<?php echo $heading_level + 1; ?> class="faq__title"><?php the_title(); ?></h<?php echo $heading_level + 1; ?>>
 				<div class="faq__body"><?php the_content(); ?></div>
 			</li>
 				<?php
