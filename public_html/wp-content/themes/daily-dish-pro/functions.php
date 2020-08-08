@@ -710,6 +710,14 @@ add_filter(
 	}
 );
 
+/**
+ * Show all content to members or admins. But before launch block access for access level 0.
+ */
+function crv_user_is_unrestricted() {
+	return current_user_can( 'manage_options' ) 
+		|| rcp_user_has_access( 0, 1 ) 
+		|| ( rcp_user_has_active_membership() && ! crv_is_before_membership_launch() );
+}
 
 /**
  * Restrict content in the member category to members

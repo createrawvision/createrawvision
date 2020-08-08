@@ -30,18 +30,24 @@
   }
 
   /**
-   * Add 'countdown--is_sticky' class to countdown when is reaches sticky position.
+   * Add 'sticky-wrapper--sticky' class to sticky element when is scrolls out of the viewport.
    */
-  const stickyWrapper = document.querySelector(".sticky-wrapper");
-  const countdownElement = document.querySelector(".countdown");
-
-  const observer = new IntersectionObserver(
-    ([e]) => {
-        e.target.classList.toggle("sticky-wrapper--is_sticky", e.intersectionRatio < 1);
-        countdownElement.classList.toggle("full-width", e.intersectionRatio < 1);
-    },
-    { threshold: 1.0 }
-  );
-
-  observer.observe(stickyWrapper);
+  const countdown = $(".countdown:not(.countdown--inline)");
+  const stickyWrapper = $(".sticky-wrapper");
+  $(window).on("scroll", () => {
+    const elBottom = countdown.offset().top + countdown.outerHeight();
+    const windowTop = $(window).scrollTop();
+    const gap = 500;
+    const isScrolledPastGap = elBottom + gap < windowTop;
+    if (isScrolledPastGap && !stickyWrapper.hasClass("visible")) {
+      stickyWrapper.stop();
+      stickyWrapper.fadeIn(800);
+      stickyWrapper.addClass("visible");
+    } else if (!isScrolledPastGap && stickyWrapper.hasClass("visible")) {
+      stickyWrapper.stop();
+      stickyWrapper.fadeOut(800);
+      stickyWrapper.removeClass("visible");
+    }
+    // stickyWrapper.toggleClass('sticky-wrapper--sticky', isScrolledPastGap);
+  });
 })(jQuery);

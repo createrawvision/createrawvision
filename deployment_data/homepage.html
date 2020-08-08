@@ -1,5 +1,42 @@
+<div class="countdown full-width">
+  <div class="countdown__timer">
+    <div class="countdown__timer__item">
+      <span
+        class="countdown__timer__time-element countdown__timer__days"
+      ></span>
+      <span class="countdown__timer__time-label">Tage</span>
+    </div>
+    <div class="countdown__timer__item">
+      <span
+        class="countdown__timer__time-element countdown__timer__hours"
+      ></span>
+      <span class="countdown__timer__time-label">Stunden</span>
+    </div>
+    <div class="countdown__timer__item">
+      <span
+        class="countdown__timer__time-element countdown__timer__minutes"
+      ></span>
+      <span class="countdown__timer__time-label">Minuten</span>
+    </div>
+    <div class="countdown__timer__item">
+      <span
+        class="countdown__timer__time-element countdown__timer__seconds"
+      ></span>
+      <span class="countdown__timer__time-label">Sekunden</span>
+    </div>
+  </div>
+  <p class="countdown__description">
+    bis zur Veröffentlichung des Mitgliederbereichs
+  </p>
+  <a href="/registrieren"
+    ><button class="countdown__button cta-button">
+      Jetzt anmelden
+    </button></a
+  >
+</div>
+
 <div class="sticky-wrapper">
-  <section class="countdown">
+  <div class="countdown countdown--inline full-width">
     <div class="countdown__timer">
       <div class="countdown__timer__item">
         <span
@@ -26,15 +63,12 @@
         <span class="countdown__timer__time-label">Sekunden</span>
       </div>
     </div>
-    <p class="countdown__description">
-      bis zur Veröffentlichung des Mitgliederbereichs
-    </p>
     <a href="/registrieren"
       ><button class="countdown__button cta-button">
         Jetzt anmelden
       </button></a
     >
-  </section>
+  </div>
 </div>
 
 <header class="hero full-width">
@@ -43,33 +77,35 @@
 </header>
 
 <section class="overview" aria-label="Übersicht">
-  <div class="overview__item">
-    <p class="overview__text">
-      Hier bei CreateRawVision zeigen wir dir, wie du köstliche und
-      unvergleichlich gesunde Rohkost zubereitest, die andere in Erstaunen
-      versetzen wird.
-    </p>
-  </div>
-  <div class="overview__item">
-    <p class="overview__text">
-      Bereits seit 2013 zeige ich Interessierten wie köstliche und gesunde
-      Rohkost zubereitet wird. Gesundes, vitalstoffreiches und köstliches Essen
-      muss nicht schwer sein und ich zeige dir wie!
-    </p>
-  </div>
-  <div class="overview__item">
-    <p class="overview__text">
-      Für nur 8 Euro im Monat bekommst du uneingeschränkten Zugang zu hunderten
-      Rezepten und unzähligen Tutorials. Dadurch kann sich dein ganzes Leben
-      verändern.
-    </p>
-  </div>
+  <p class="overview__item">
+    Hier bei CreateRawVision zeigen wir dir, wie du köstliche und
+    unvergleichlich gesunde Rohkost zubereitest, die andere in Erstaunen
+    versetzen wird.
+  </p>
+  <p class="overview__item">
+    Bereits seit 2013 zeige ich Interessierten wie köstliche und gesunde Rohkost
+    zubereitet wird. Gesundes, vitalstoffreiches und köstliches Essen muss nicht
+    schwer sein und ich zeige dir wie!
+  </p>
+  <p class="overview__item">
+    Für nur 8 Euro im Monat bekommst du uneingeschränkten Zugang zu hunderten
+    Rezepten und unzähligen Tutorials. Dadurch kann sich dein ganzes Leben
+    verändern.
+  </p>
 </section>
 
 <section class="introduction">
   <h2 class="introduction__heading">
     Warum solltest du Rohkost in deine Ernährung integrieren?
   </h2>
+  <div
+    class="introduction__video"
+    aria-label="Video: Warum solltest du Rohkost in deine Ernährung einbauen?"
+  >
+    [video width="1280" height="720"
+    mp4="https://createrawvision.de/wp-content/uploads/2020/08/warum-sollest-du-rohkost-in-deine-ernaehrung-einbauen.mp4"]
+    [/video]
+  </div>
   <ul class="introduction__list">
     <li class="introduction__item">
       Weil du es verdient hast, fit und voller Energie zu sein!
@@ -89,14 +125,24 @@
   </ul>
 </section>
 
-<section
-  class="video"
-  aria-label="Video: Warum solltest du Rohkost in deine Ernährung einbauen?"
->
-  [video width="1280" height="720"
-  mp4="https://createrawvision.de/wp-content/uploads/2020/08/warum-sollest-du-rohkost-in-deine-ernaehrung-einbauen.mp4"]
-  [/video]
+<!-- @todo Bilder -->
+<section class="offer-summary full-width">
+  <h2 class="offer-summary__heading">
+    Mit meinem Mitgliederbereich kannst du erfolgreich mit der Rohkost in ein
+    gesünderes Leben durchstarten!
+  </h2>
+  <ul class="offer-summary__list">
+    <li class="offer-summary__item">Erprobte Rezepte</li>
+    <li class="offer-summary__item">Leichte Tutorials</li>
+    <li class="offer-summary__item">Ein verständlicher Kurs für Anfänger</li>
+  </ul>
 </section>
+
+<a href="/registrieren"
+  ><button class="cta-button">
+    Jetzt mit Rohkost durchstarten!
+  </button></a
+>
 
 <section class="testimonials">
   <h2 class="testimonials__title">
@@ -186,41 +232,52 @@
   </ul>
 </section>
 
-<section class="remarks">
-  <p class="remarks__item">
-    Wir werden deine Fragen per E-Mail und unter unseren Rezepten im
-    Mitgliederbereich beantworten.
+<section class="checkmarks full-width">
+  <ul class="checkmarks__list">
+    <li class="checkmarks__item">
+      <h3 class="checkmarks__heading">500+ Rezepte</h3>
+      <p class="checkmarks__text">
+        Du bekommst exklusiven Zugriff auf außergewöhnliche Rezepte für
+        internationale Gerichte, Kuchen, Brote, Käse und vieles mehr!
+      </p>
+    </li>
+    <li class="checkmarks__item">
+      <h3 class="checkmarks__heading">50+ Tutorials</h3>
+      <p class="checkmarks__text">
+        Mit diesen Tutorials gebe ich dir mein Expertenwissen aus 8 Jahren
+        Rohkosterfahrung weiter.
+      </p>
+    </li>
+    <li class="checkmarks__item">
+      <h3 class="checkmarks__heading">Kurs für Einsteiger</h3>
+      <p class="checkmarks__text">
+        Neu in der Rohkost? Mit diesem Kurs fängt dir der Anfang besonders
+        leicht!
+      </p>
+    </li>
+  </ul>
+</section>
+
+<section class="overview">
+  <p class="overview__item">
+    Ich habe mehr als 1.500 Tage in meiner Küche verbracht und dort mit rohen
+    Zutaten, Techniken und Rezepten experimentiert.
   </p>
-  <p class="remarks__item">
-    In deinem Mitgliederbereich wirst du nicht von Werbebannern, Pop-ups oder
-    anderen störenden Elementen belästigt. In meinen Rezepten und Tutorials
-    verlinke ich dir meine Lieblings-Zutaten beziehungsweise Zubehör.
-  </p>
-  <p class="remarks__item">
-    Du musst nicht komplett von Rohkost leben, um in den Genuss der positiven
-    Auswirkungen der Rohkost zu kommen.
-  </p>
-  <p class="remarks__item">
-    Die meisten meiner Leser leben nicht zu 100 Prozent von Rohkost. In ein Paar
-    wenigen Rezepten verwende sogar ich eine geringe Menge an erhitzten Zutaten.
-    Diesen Mitgliederbereich haben wir für jeden eingerichtet, der mehr gesunde
-    Rohkost in sein Leben bringen möchte,
-  </p>
-  <p class="remarks__item">
-    Ich, Angie habe mehr als 1.500 Tage in meiner Küche verbracht und dort mit
-    rohen Zutaten, Techniken und Rezepten experimentiert.
-  </p>
-  <p class="remarks__item">
+  <p class="overview__item">
     Alle meine Rezepte sind mehrfach getestet und sehr beliebt. Und das nicht
     nur von Rohköstlern, sondern auch von ganz normalen Essern und ganz
     besonders wichtig - von Kindern verschiedenen Alters.
   </p>
+  <p class="overview__item">
+    Du musst nicht komplett von Rohkost leben, um in den Genuss der positiven
+    Auswirkungen der Rohkost zu kommen.
+  </p>
 </section>
 
-<section class="mission">
-  <h3 class="mission__title">
+<section class="mission full-width">
+  <h2 class="mission__title">
     Was wir dir zum Abschluss noch unbedingt sagen möchten
-  </h3>
+  </h2>
   <p class="mission__content">
     Es ist unsere Berufung anderen auf dem Weg zu einer gesunden,
     vitalstoffreichen und energetischen Ernährung für ein besseres Leben zu
@@ -233,16 +290,16 @@
 
 <a href="/registrieren"
   ><button class="cta-button">
-    Lass dich von uns auf eine kulinarische Reise mitnehmen!
+    Jetzt durchstarten!
   </button></a
 >
 
 <section class="homepage-faqs">
-  <h3>Die häufigsten Fragen</h3>
+  <h2>Die häufigsten Fragen</h2>
 </section>
 
 <a href="/registrieren"
   ><button class="cta-button">
-    Lass dich von uns auf eine kulinarische Reise mitnehmen!
+    Melde dich hier an
   </button></a
 >
