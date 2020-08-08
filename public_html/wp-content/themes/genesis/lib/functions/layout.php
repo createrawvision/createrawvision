@@ -203,7 +203,14 @@ function genesis_unregister_layout( $id = '' ) {
  *
  * @global array $_genesis_layouts Holds all layout data.
  *
- * @param string $type Layout type to return. Leave empty to return all types.
+ * @param array|string $type Layout type to return. Leave empty to return default layouts. For arrays, types are checked
+ *                           from right to left, returning the first type with registered layouts and falling back to
+ *                           'site' if no passed types have registered layouts. If the final array value is numeric, the
+ *                           second value from the end is assumed to be a post type, such as 'post' or 'page' and the
+ *                           layout specific to that page or post ID would be registered as 'post-123' or 'page-123'.
+ *                           - Example 1, default layouts: `genesis_get_layouts();`
+ *                           - Example 2, 'page-123', 'page', 'singular', then 'site':
+ *                             `genesis_get_layouts( [ 'singular', get_post_type(), get_the_ID() ] );`.
  * @return array Registered layouts.
  */
 function genesis_get_layouts( $type = 'site' ) {

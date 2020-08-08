@@ -1,4 +1,4 @@
-# Copyright (C) 2019 StudioPress
+# Copyright (C) 2020 StudioPress
 # This file is distributed under the GPL-2.0-or-later.
 msgid ""
 msgstr ""
@@ -880,7 +880,7 @@ msgid "Posts"
 msgstr ""
 
 #: lib/functions/deprecated.php:810
-#: lib/structure/comments.php:76
+#: lib/structure/comments.php:75
 msgid "Comments"
 msgstr ""
 
@@ -995,11 +995,11 @@ msgstr ""
 msgid "No Label Selected"
 msgstr ""
 
-#: lib/functions/layout.php:573
+#: lib/functions/layout.php:580
 msgid "The default is true, so remove the third argument."
 msgstr ""
 
-#: lib/functions/layout.php:576
+#: lib/functions/layout.php:583
 msgid "Use `genesis_get_structural_wrap()` instead."
 msgstr ""
 
@@ -1152,11 +1152,11 @@ msgstr ""
 msgid "Widgets in this widget area will display after single entries."
 msgstr ""
 
-#: lib/init.php:131
+#: lib/init.php:163
 msgid "Primary Navigation Menu"
 msgstr ""
 
-#: lib/init.php:132
+#: lib/init.php:164
 msgid "Secondary Navigation Menu"
 msgstr ""
 
@@ -1195,25 +1195,25 @@ msgid "Filed Under: "
 msgstr ""
 
 #: lib/shortcodes/post.php:573
-#: lib/structure/comments.php:400
+#: lib/structure/comments.php:398
 #: lib/structure/post.php:495
 msgid "(Edit)"
 msgstr ""
 
-#: lib/structure/comments.php:176
+#: lib/structure/comments.php:174
 msgid "Trackbacks"
 msgstr ""
 
-#: lib/structure/comments.php:325
+#: lib/structure/comments.php:323
 msgid "says"
 msgstr ""
 
 #. translators: 1: A date, 2: A time.
-#: lib/structure/comments.php:369
+#: lib/structure/comments.php:367
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: lib/structure/comments.php:416
+#: lib/structure/comments.php:414
 msgid "Your comment is awaiting moderation."
 msgstr ""
 
@@ -1261,54 +1261,54 @@ msgstr ""
 msgid "About"
 msgstr ""
 
-#: lib/structure/post.php:810
+#: lib/structure/post.php:812
 msgid "The default is true, so remove the second argument."
 msgstr ""
 
-#: lib/structure/post.php:813
+#: lib/structure/post.php:815
 msgid "Use `genesis_get_author_box()` instead."
 msgstr ""
 
-#: lib/structure/post.php:885
-#: lib/structure/post.php:977
+#: lib/structure/post.php:887
+#: lib/structure/post.php:980
 msgid "Previous Page"
 msgstr ""
 
-#: lib/structure/post.php:886
-#: lib/structure/post.php:1039
+#: lib/structure/post.php:888
+#: lib/structure/post.php:1042
 msgid "Next Page"
 msgstr ""
 
-#: lib/structure/post.php:966
-msgid "Go to page"
-msgstr ""
-
-#: lib/structure/post.php:969
+#: lib/structure/post.php:963
 msgid "Pagination"
 msgstr ""
 
-#: lib/structure/post.php:976
+#: lib/structure/post.php:973
+msgid "Go to page"
+msgstr ""
+
+#: lib/structure/post.php:979
 msgid "<span class=\"screen-reader-text\">Go to</span> Previous Page"
 msgstr ""
 
-#: lib/structure/post.php:991
-#: lib/structure/post.php:1024
+#: lib/structure/post.php:994
+#: lib/structure/post.php:1027
 msgid "Interim pages omitted"
 msgstr ""
 
-#: lib/structure/post.php:1005
+#: lib/structure/post.php:1008
 msgid "Current page"
 msgstr ""
 
-#: lib/structure/post.php:1038
+#: lib/structure/post.php:1041
 msgid "<span class=\"screen-reader-text\">Go to</span> Next Page"
 msgstr ""
 
-#: lib/structure/post.php:1080
+#: lib/structure/post.php:1083
 msgid "Previous Post:"
 msgstr ""
 
-#: lib/structure/post.php:1093
+#: lib/structure/post.php:1096
 msgid "Next Post:"
 msgstr ""
 
@@ -1628,7 +1628,7 @@ msgstr ""
 
 #: lib/views/help/genesis-layout.php:15
 #: lib/js/build/layout-toggle.js:10
-#: lib/js/editor/layout-toggle.js:38
+#: lib/js/editor/layout-toggle.js:40
 msgid "Default Layout"
 msgstr ""
 
@@ -1822,7 +1822,7 @@ msgstr ""
 #: lib/views/meta-boxes/genesis-cpt-archives-layout-settings.php:20
 #: lib/views/meta-boxes/genesis-inpost-layout-box.php:24
 #: lib/js/build/layout-toggle.js:10
-#: lib/js/editor/layout-toggle.js:60
+#: lib/js/editor/layout-toggle.js:62
 msgid "Select Layout"
 msgstr ""
 
@@ -2686,7 +2686,7 @@ msgid "Hide Featured Image"
 msgstr ""
 
 #: lib/js/build/layout-toggle.js:10
-#: lib/js/editor/layout-toggle.js:56
+#: lib/js/editor/layout-toggle.js:58
 msgid "Layout"
 msgstr ""
 

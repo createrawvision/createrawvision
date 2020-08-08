@@ -56,8 +56,7 @@ function genesis_do_comments() {
 
 	global $wp_query;
 
-	// Bail if comments are off for this post type.
-	if ( ( is_page() && ! genesis_get_option( 'comments_pages' ) ) || ( is_single() && ! genesis_get_option( 'comments_posts' ) ) ) {
+	if ( ! genesis_comments_enabled() ) {
 		return;
 	}
 
@@ -154,8 +153,7 @@ function genesis_do_pings() {
 
 	global $wp_query;
 
-	// Bail if trackbacks are off for this post type.
-	if ( ( is_page() && ! genesis_get_option( 'trackbacks_pages' ) ) || ( is_single() && ! genesis_get_option( 'trackbacks_posts' ) ) ) {
+	if ( ! genesis_trackbacks_enabled() ) {
 		return;
 	}
 
@@ -463,8 +461,7 @@ add_action( 'genesis_comment_form', 'genesis_do_comment_form' );
  */
 function genesis_do_comment_form() {
 
-	// Bail if comments are closed for this post type.
-	if ( ( is_page() && ! genesis_get_option( 'comments_pages' ) ) || ( is_single() && ! genesis_get_option( 'comments_posts' ) ) ) {
+	if ( ! genesis_comments_enabled() ) {
 		return;
 	}
 
@@ -494,4 +491,55 @@ function genesis_comments_link_filter( $link, $post_id ) {
 
 	return $link;
 
+}
+
+/**
+ * Are comments enabled in Genesis at Theme Settings → Comments and Trackbacks?
+ *
+ * @since 3.3.0
+ *
+ * @return bool True if comments are enabled for this post type.
+ */
+function genesis_comments_enabled() {
+	return ( is_page() && genesis_get_option( 'comments_pages' ) )
+		|| ( is_single() && genesis_get_option( 'comments_posts' ) );
+}
+
+/**
+ * Are trackbacks enabled in Genesis at Theme Settings → Comments and Trackbacks?
+ *
+ * @since 3.3.0
+ *
+ * @return bool True if trackbacks are enabled for this post type.
+ */
+function genesis_trackbacks_enabled() {
+	return ( is_page() && genesis_get_option( 'trackbacks_pages' ) )
+		|| ( is_single() && genesis_get_option( 'trackbacks_posts' ) );
+}
+
+/**
+ * Are trackbacks or comments appearing on the current post?
+ *
+ * Used to improve heading level hierarchy in comments.php if comments or
+ * trackbacks are visible.
+ *
+ * @since 3.3.0
+ *
+ * @return bool True if trackbacks or comments are showing on the current post.
+ */
+function genesis_comments_trackbacks_showing() {
+	global $wp_query;
+
+	$showing = false;
+
+	if ( genesis_comments_enabled() ) {
+		$has_comments = ! empty( $wp_query->comments_by_type['comment'] );
+		$showing      = $has_comments || comments_open();
+	}
+
+	if ( ! $showing && genesis_trackbacks_enabled() ) {
+		$showing = ! empty( $wp_query->comments_by_type['pings'] );
+	}
+
+	return $showing;
 }

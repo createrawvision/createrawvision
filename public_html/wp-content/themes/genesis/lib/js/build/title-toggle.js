@@ -23,4 +23,4 @@ function u(e,t){var n=Object(o.select)("core/editor").getEditedPostAttribute("me
  * @author  StudioPress
  * @license GPL-2.0-or-later
  */
-function(e){var t=e.hideTitle,n=void 0!==t&&t,o=e.onUpdate;return Object(r.createElement)(r.Fragment,null,Object(r.createElement)(u.Fill,{name:"GenesisSidebar"},Object(r.createElement)(u.PanelBody,{initialOpen:!0,title:Object(i.__)("Title","genesis")},Object(r.createElement)(u.PanelRow,null,Object(r.createElement)(u.CheckboxControl,{label:Object(i.__)("Hide Title","genesis"),checked:!!n,onChange:function(){return o(!n)}})))))});Object(s.registerPlugin)("genesis-title-toggle",{render:a})}]);
+function(e){var t=e.hideTitle,n=void 0!==t&&t,o=e.onUpdate;return Object(r.createElement)(r.Fragment,null,Object(r.createElement)(u.Fill,{name:"GenesisSidebar"},Object(r.createElement)(u.PanelBody,{initialOpen:!0,title:Object(i.__)("Title","genesis")},Object(r.createElement)(u.PanelRow,null,Object(r.createElement)(u.CheckboxControl,{label:Object(i.__)("Hide Title","genesis"),checked:!!n,onChange:function(){return o(!n)}})))))});Object(s.registerPlugin)("genesis-title-toggle",{render:f})}]);
