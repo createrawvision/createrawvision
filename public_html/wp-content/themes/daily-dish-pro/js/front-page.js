@@ -66,12 +66,12 @@
       faqsContainer.animate({height: initialHeight}, duration, 'swing', () => faqsContainer.css('height', ''))
         .removeClass('homepage-faqs__container--open');
       $(':root').animate({scrollTop: faqsContainer.offset().top + faqsContainer.outerHeight() - scrollMargin}, duration);
-      faqsButton.text('Mehr anzeigen');
+      faqsButton.text('Mehr anzeigen').removeClass('homepage-faqs__button--open');
     } else {
       faqsContainer.animate({height: autoHeight}, duration, 'swing', () => faqsContainer.css('height', 'auto'))
         .addClass('homepage-faqs__container--open');
       $(':root').animate({scrollTop: faqsContainer.offset().top - scrollMargin}, duration);
-      faqsButton.text('Weniger anzeigen');
+      faqsButton.text('Weniger anzeigen').addClass('homepage-faqs__button--open');
     }
   })
 })(jQuery);

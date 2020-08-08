@@ -403,3 +403,41 @@ FAQs
   -webkit-mask-image: none;
   mask-image: none;
 }
+
+.homepage-faqs__button {
+  background-color: #ddd;
+  background: linear-gradient(10deg, #bbb, #eee);
+  color: #333;
+  font-weight: bold;
+  display: block;
+  width: auto;
+  margin: auto;
+  border-radius: 1.9rem;
+  padding: 1.3rem 2rem;
+  box-shadow: 0 0.3rem 1rem #0008;
+  transition: all 0.25s;
+}
+
+.homepage-faqs__button:hover,
+.homepage-faqs__button:focus,
+.homepage-faqs__button:active {
+  color: black;
+  box-shadow: 0 0.5rem 1.5rem #0008;
+}
+
+.homepage-faqs__button::before,
+.homepage-faqs__button::after {
+  content: "\2193";
+  display: inline-block;
+  transform: scale(1.5, 1);
+  font-size: 1.5em;
+  font-weight: normal;
+  transition: transfrom 0.5s;
+  margin: -1em 1em;
+  padding-bottom: 0.15em;
+}
+
+.homepage-faqs__button--open::before,
+.homepage-faqs__button--open::after {
+  transform: scale(1.5, 1) rotate(180deg);
+}
