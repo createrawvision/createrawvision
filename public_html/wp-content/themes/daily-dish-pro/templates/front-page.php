@@ -249,7 +249,7 @@
 		<li class="checkmarks__item">
 			<h3 class="checkmarks__heading">Kurs für Einsteiger</h3>
 			<p class="checkmarks__text">
-				Neu in der Rohkost? Mit diesem Kurs fängt dir der Anfang besonders
+				Neu in der Rohkost? Mit diesem Kurs fällt dir der Anfang besonders
 				leicht!
 			</p>
 		</li>
@@ -263,8 +263,8 @@
 	</p>
 	<p class="overview__item">
 		Alle meine Rezepte sind mehrfach getestet und sehr beliebt. Und das nicht
-		nur von Rohköstlern, sondern auch von ganz normalen Essern und ganz
-		besonders wichtig - von Kindern verschiedenen Alters.
+		nur bei Rohköstlern, sondern auch bei ganz normalen Essern und ganz
+		besonders wichtig - bei Kindern.
 	</p>
 	<p class="overview__item">
 		Du musst nicht komplett von Rohkost leben, um in den Genuss der positiven
