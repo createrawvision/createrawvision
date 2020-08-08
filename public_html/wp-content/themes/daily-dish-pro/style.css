@@ -931,6 +931,7 @@ body > * {
   left: -80px;
   right: 80px;
   width: calc(100% + 160px);
+  max-width: none !important;
 }
 
 .single .entry-content,

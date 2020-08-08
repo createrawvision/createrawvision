@@ -29,18 +29,23 @@ function deploy_nav_menus() {
 
 	foreach ( array( $main_menu_id, $main_menu_member_id ) as $menu_id ) :
 
-		$entry_menu_item_id = run_wp_cli_command( "menu item add-post $menu_id 19838 --porcelain", array( 'return' => 'stdout' ) ); // Neu hier?
-		run_wp_cli_command( "menu item add-post $menu_id 19602 --parent-id=$entry_menu_item_id" ); // Über Uns
-		run_wp_cli_command( "menu item add-post $menu_id 19655 --parent-id=$entry_menu_item_id" ); // Unsere Vision
+		$entry_menu_item_id = run_wp_cli_command( "menu item add-post $menu_id 19838 --porcelain", array( 'return' => 'stdout' ) ); // 'Neu hier?'
+		run_wp_cli_command( "menu item add-post $menu_id 19602 --parent-id=$entry_menu_item_id" ); // 'Über Uns'
+		run_wp_cli_command( "menu item add-post $menu_id 19655 --parent-id=$entry_menu_item_id" ); // 'Unsere Vision'
 		$faqs_id = get_page_by_path( 'faqs' )->ID;
 		run_wp_cli_command( "menu item add-post $menu_id $faqs_id --parent-id=$entry_menu_item_id" ); // Häufig gestellte Fragen
 		run_wp_cli_command( "menu item add-post $menu_id 19841 --title=Beste&nbsp;Beiträge --parent-id=$entry_menu_item_id" ); // Unsere Besten Beiträge
 
 		if ( $menu_id === $main_menu_member_id ) {
 			run_wp_cli_command( "menu item add-term $menu_id category 4269 --title=Mitgliederbereich" ); // Category 'member'
+		} else {
+			run_wp_cli_command( "menu item add-term $menu_id category 5926 --title=Öffentliche&nbsp;Beiträge" ); // Category 'free'
 		}
 
-		run_wp_cli_command( "menu item add-term $menu_id category 5869 --title=Rohkost&nbsp;Rezepte" );
+		$recipes_menu_item_id = run_wp_cli_command( "menu item add-term $menu_id category 5869 --title=Rohkost&nbsp;Rezepte --porcelain", array( 'return' => 'stdout' ) );
+		if ( $menu_id === $main_menu_id ) {
+			run_wp_cli_command( "menu item add-post $menu_id 21002 --parent-id=$recipes_menu_item_id" ); // 'Öffentliche Rezepte'
+		}
 		run_wp_cli_command( "menu item add-term $menu_id category 5287 --title=Rohkost&nbsp;Tipps&nbsp;&amp;&nbsp;Tutorials" );
 
 		$blog_menu_item_id = run_wp_cli_command( "menu item add-term $menu_id category 5933 --porcelain", array( 'return' => 'stdout' ) ); // Blog

@@ -87,6 +87,18 @@ function daily_dish_homepage_widgets() {
 
 }
 
+
+add_filter(
+	'body_class',
+	function( $classes ) {
+		/** @todo check restriction from restriction function */
+		if ( rcp_user_has_active_membership() ) {
+			$classes[] = 'user-is-unrestricted';
+		}
+		return $classes;
+	}
+);
+
 /**
  * Enqueue scripts and styles for a static homepage
  */
@@ -94,30 +106,23 @@ if ( is_front_page() && ! is_home() ) {
 	add_action(
 		'wp_enqueue_scripts',
 		function() {
-			wp_enqueue_style( 'daily-dish-front-style', CHILD_URL . '/style-front-page.css', null );
-			wp_enqueue_script( 'daily-dish-front-script', CHILD_URL . '/js/front-page.js', array( 'jquery' ), null, true );
+			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+			wp_enqueue_script( 'easytimer', CHILD_URL . "/js/easytimer{$suffix}.js", array(), '4.3.0', true );
+			wp_enqueue_style( 'daily-dish-front-style', CHILD_URL . '/style-front-page.css', array(), CHILD_THEME_VERSION );
+			wp_enqueue_script( 'daily-dish-front-script', CHILD_URL . '/js/front-page.js', array( 'jquery', 'easytimer' ), CHILD_THEME_VERSION, true );
 		}
 	);
 
-	// Avoid 'wpauto' for the front page.
-	remove_filter( 'the_content', 'wpautop' );
-	remove_filter( 'the_excerpt', 'wpautop' );
+	// Remove default loop.
+	remove_action( 'genesis_loop', 'genesis_do_loop' );
+	// Replace it with a template file.
+	add_action(
+		'genesis_loop',
+		function() {
+			load_template( CHILD_DIR . '/templates/front-page.php' );
+		}
+	);
 
-	// Remove entry header elements.
-	remove_action( 'genesis_entry_header', 'genesis_entry_header_markup_open', 5 );
-	remove_action( 'genesis_entry_header', 'genesis_do_post_title', 10 );
-	remove_action( 'genesis_entry_header', 'genesis_entry_header_markup_close', 12 );
-
-	/** @todo remove */
-	// add_filter(
-	// 'the_content',
-	// function( $content ) {
-	// if ( ! is_main_query() || ! in_the_loop() ) {
-	// return $content;
-	// }
-	// return file_get_contents( ABSPATH . '/../deployment_data/homepage.html' );
-	// }
-	// );
 }
 
 // Run Genesis loop.

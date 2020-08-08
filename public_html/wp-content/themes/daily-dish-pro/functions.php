@@ -710,6 +710,14 @@ add_filter(
 	}
 );
 
+/**
+ * Show all content to members or admins. But before launch block access for access level 0.
+ */
+function crv_user_is_unrestricted() {
+	return current_user_can( 'manage_options' )
+		|| rcp_user_has_access( 0, 1 )
+		|| ( rcp_user_has_active_membership() && ! crv_is_before_membership_launch() );
+}
 
 /**
  * Restrict content in the member category to members
@@ -887,7 +895,7 @@ require_once CHILD_DIR . '/lib/help-popup.php';
  */
 function crv_is_before_membership_launch( $date = null ) {
 	$date = $date ?? new DateTime();
-	return $date < new DateTime( '2020-08-20 17:00:00' );
+	return $date < new DateTime( '2020-08-20 17:00:00', new DateTimeZone( 'Europe/Berlin' ) );
 }
 
 
@@ -903,7 +911,7 @@ require_once CHILD_DIR . '/lib/rcp-upgrade-settings.php';
 add_filter(
 	'rcp_calculate_membership_level_expiration',
 	function( $expiration_date, $membership_level, $set_trial ) {
-		if ( new DateTime() < new DateTime( '2020-08-20' ) && 'active' === $membership_level->status ) {
+		if ( new DateTime() < new DateTime( '2020-08-20', new DateTimeZone( 'Europe/Berlin' ) ) && 'active' === $membership_level->status ) {
 			return '2020-08-20 23:59:59';
 		}
 		return $expiration_date;
@@ -918,9 +926,25 @@ add_filter(
 add_filter(
 	'rcp_registration_total',
 	function( $total ) {
-		if ( new DateTime() < new DateTime( '2020-08-20' ) ) {
+		if ( new DateTime() < new DateTime( '2020-08-20', new DateTimeZone( 'Europe/Berlin' ) ) ) {
 			return 'Kostenlos bis zur Veröffentlichung';
 		}
 		return $total;
+	}
+);
+
+
+/**
+ * Display the header for pages with custom 'query_args'.
+ *
+ * @see genesis_do_loop()
+ */
+add_action(
+	'genesis_before_loop',
+	function() {
+		// If genesis runs the custom loop, show the title of the page.
+		if ( is_singular( 'page' ) && genesis_get_custom_field( 'query_args' ) ) {
+			do_action( 'genesis_entry_header' );
+		}
 	}
 );

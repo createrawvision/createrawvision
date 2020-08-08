@@ -1,3 +1,7 @@
+:root {
+  --section-bg: linear-gradient(10deg, hsl(40 52% 84%), hsl(40 52% 94%));
+}
+
 /* Make the content full size */
 .entry-content {
   max-width: 100% !important;
@@ -10,7 +14,98 @@
 
 /* ... and add some. */
 .content section {
-  margin: 5rem 0;
+  margin: 7rem auto;
+  max-width: 1280px;
+}
+
+/* CTA */
+.cta-button {
+  display: block;
+  width: auto;
+  margin: 8rem auto;
+  border-radius: 0.8rem;
+  padding: 2.5rem 3rem;
+  font-size: 1.8rem;
+  box-shadow: 0 0.3rem 1rem #0008;
+  transition: background-color 0.5s, box-shadow 0.5s;
+}
+
+.cta-button:hover {
+  background-color: #80005d;
+  box-shadow: 0 0.5rem 1.5rem #0008;
+}
+
+.cta-button:hover {
+  background-color: #66004b;
+}
+
+/* Sticky Wrapper */
+.sticky-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: none;
+  height: 0;
+}
+
+/*
+Countdown
+*/
+.countdown {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  padding: 1em 0;
+  margin: 0 !important;
+  padding: 5rem 0;
+  background: var(--section-bg);
+}
+
+.countdown__timer {
+  display: flex;
+  justify-content: center;
+}
+
+.countdown__timer__item {
+  display: inline-block;
+}
+
+.countdown__timer__time-element {
+  display: inline-block;
+  font-size: 2em;
+  min-width: 1.4em;
+  margin: 0 0 0 0.2em;
+  text-align: center;
+}
+
+.countdown__description {
+  text-align: center;
+  font-size: 1.4em;
+  margin: 0;
+}
+
+.countdown__button {
+  margin: 3rem auto;
+  display: inline-block;
+}
+
+.countdown--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 5rem;
+  justify-content: center;
+  padding: 1rem 0;
+  box-shadow: 0 0 20px #00000080;
+}
+
+.countdown--inline .countdown__timer {
+  display: inline-flex;
+}
+
+.countdown--inline .countdown__button {
+  margin: 1rem;
+  padding: 1rem 1.5rem;
 }
 
 /* 
@@ -60,8 +155,23 @@ Hero
 /* 
 Introduction 
 */
+.introduction {
+  margin: 10rem auto;
+}
+
+.introduction__heading {
+  text-align: center;
+}
+
+.introduction__list {
+  max-width: max-content;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  font-size: 1.2em;
+}
+
 .introduction__item {
-  /* flex: 0 0 clamp(260px, 30%, 420px); */
+  margin-bottom: 1rem;
   list-style-image: url(images/check.svg);
 }
 
@@ -69,62 +179,64 @@ Introduction
 Overview 
 */
 .overview {
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: 800px !important;
+  font-size: 1.2em;
 }
 
 .overview__item {
+  margin-bottom: 5rem;
+  text-align: center;
+}
+
+/*
+Offer summary
+*/
+.offer-summary {
+  background: var(--section-bg);
+  margin: 0 !important;
+  padding: 7rem;
   display: flex;
-  flex-flow: row nowrap;
-  gap: 3rem;
+  flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  margin-bottom: 3rem;
 }
 
-.overview__item:nth-child(even) {
-  flex-direction: row-reverse;
+.offer-summary > * {
+  max-width: 900px;
 }
 
-.overview__text,
-.overview__image {
-  margin: 1rem;
+.offer-summary__heading {
   text-align: center;
-  width: 50%;
-  flex: 1 0 50%;
+  margin: 0 0 4rem !important;
 }
 
-/* 
-Show more button and container 
-*/
-.show-more-container {
-  display: none;
+.offer-summary__list {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 5rem;
+  justify-content: center;
+  align-items: center;
+  margin: 0 !important;
 }
 
-.show-more-button {
-  display: block;
-  width: auto;
-  margin: 10rem auto;
-  border-radius: 0.8rem;
-  padding: 2.5rem 3rem;
-  font-size: 1.8rem;
-  box-shadow: 0 0.3rem 1rem #0008;
-  transition: all 0.5s;
-}
-
-.show-more-button:hover {
-  background-color: #80005d;
-  box-shadow: 0 0.5rem 1.5rem #0008;
-}
-
-.show-more-button:hover {
-  background-color: #66004b;
+.offer-summary__item {
+  list-style-type: none !important;
+  flex: 1 0 0;
+  text-align: center;
+  font-size: 2.4rem;
 }
 
 /*
 Testimonials
  */
+.testimonials {
+  display: none;
+}
+
+.user-is-unrestricted .testimonials {
+  display: block;
+}
+
 .testimonials__title {
   text-align: center;
   margin-bottom: 3rem;
@@ -139,7 +251,7 @@ Testimonials
 
 .testimonials__entry {
   border-radius: 1rem;
-  background-color: #e1cc9f46;
+  background: var(--section-bg);
   box-shadow: 0 0.3rem 1rem #0008;
   list-style-type: none !important;
   padding: 2rem 3rem;
@@ -148,6 +260,7 @@ Testimonials
   align-items: flex-start;
   gap: 3rem;
   transition: box-shadow 0.25s;
+  cursor: pointer;
 }
 
 .testimonials__entry:hover {
@@ -179,9 +292,51 @@ Testimonials
 
 .testimonials__text {
   font-style: italic;
+  max-height: 7em;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(black 50%, transparent);
+  mask-image: linear-gradient(black 50%, transparent);
+}
+
+.testimonials__text:first-of-type {
   margin: 1.5rem 0 0;
   padding-top: 1.5rem;
   border-top: 1px solid #ccc;
+}
+
+.testimonials__popup-wrapper {
+  position: relative;
+}
+
+.testimonials__popup {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  min-height: 100%;
+  right: 0;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 5rem;
+}
+
+.testimonials__popup--visible {
+  display: flex;
+}
+
+.testimonials__popup > .testimonials__entry {
+  max-width: 700px;
+  box-shadow: 0 0 10rem 0rem grey;
+  cursor: auto;
+  position: relative;
+}
+
+.testimonials__popup .testimonials__text {
+  max-height: none;
+  overflow: auto;
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 @media only screen and (max-width: 480px) {
@@ -192,10 +347,140 @@ Testimonials
 }
 
 /* Offer */
-.offer {
-  margin-top: 0; /* for jQuery animation, see https://bugs.jquery.com/ticket/7442 */
-}
-
 .offer__title {
   margin-top: 0 !important; /* for jQuery animation, see https://bugs.jquery.com/ticket/7442 */
+  text-align: center;
+}
+
+.offer__list {
+  list-style-image: url(images/check.svg);
+}
+
+.offer__item {
+  margin-bottom: 1.5rem;
+}
+
+/*
+Checkmarks
+*/
+.checkmarks {
+  background: var(--section-bg);
+  padding: 5rem;
+}
+
+.checkmarks__list {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 5rem;
+  margin: 0 !important;
+}
+
+.checkmarks__item {
+  list-style-type: none !important;
+  flex: 1 0 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 3rem;
+}
+
+.checkmarks__item::before {
+  display: block;
+  content: "";
+  background: center / contain no-repeat url(images/bootstrap-check-circle.svg);
+  /* For #008000, see https://stackoverflow.com/a/53336754/5312432 */
+  filter: invert(24%) sepia(82%) saturate(2304%) hue-rotate(95deg)
+    brightness(96%) contrast(104%);
+  width: 8rem;
+  height: 8rem;
+}
+
+.checkmarks__heading {
+  margin: 0 !important;
+  font-weight: bold;
+}
+
+.checkmarks__text {
+  margin-bottom: 0 !important;
+  text-align: center;
+}
+
+/* 
+Mission
+ */
+.mission {
+  background: var(--section-bg);
+  margin: 0 !important;
+  padding: 5rem;
+}
+
+.mission > * {
+  max-width: 600px;
+}
+
+.mission__title {
+  text-align: center;
+  margin: 0 auto 3rem !important;
+}
+
+.mission__content {
+  margin: 0 auto !important;
+  text-align: justify;
+}
+
+/* 
+FAQs
+ */
+.homepage-faqs {
+}
+
+.homepage-faqs__container {
+  overflow: hidden;
+  height: 200px;
+  -webkit-mask-image: linear-gradient(black 50%, transparent);
+  mask-image: linear-gradient(black 50%, transparent);
+}
+
+.homepage-faqs__container--open {
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.homepage-faqs__button {
+  background-color: #ddd;
+  background: linear-gradient(10deg, #bbb, #eee);
+  color: #333;
+  font-weight: bold;
+  display: block;
+  width: auto;
+  margin: auto;
+  border-radius: 1.9rem;
+  padding: 1.3rem 2rem;
+  box-shadow: 0 0.3rem 1rem #0008;
+  transition: all 0.25s;
+}
+
+.homepage-faqs__button:hover,
+.homepage-faqs__button:focus,
+.homepage-faqs__button:active {
+  color: black;
+  box-shadow: 0 0.5rem 1.5rem #0008;
+}
+
+.homepage-faqs__button::before,
+.homepage-faqs__button::after {
+  content: "\2193";
+  display: inline-block;
+  transform: scale(1.5, 1);
+  font-size: 1.5em;
+  font-weight: normal;
+  transition: transfrom 0.5s;
+  margin: -1em 1em;
+  padding-bottom: 0.15em;
+}
+
+.homepage-faqs__button--open::before,
+.homepage-faqs__button--open::after {
+  transform: scale(1.5, 1) rotate(180deg);
 }
