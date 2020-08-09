@@ -13,7 +13,13 @@ return function () {
  */
 function deploy_support_plugin() {
 	WP_CLI::log( 'Installing supportcandy' );
-	run_wp_cli_command( 'plugin install supportcandy --activate --force', array( 'exit_error' => true ) );
+	run_wp_cli_command(
+		'plugin install supportcandy --activate --force',
+		array(
+			'exit_error' => true,
+			'launch'     => true,
+		)
+	);
 
 	WP_CLI::log( 'Creating support pages' );
 	$contact_page    = get_page_by_path( 'kontaktformular' );

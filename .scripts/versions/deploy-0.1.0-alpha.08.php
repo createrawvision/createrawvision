@@ -14,7 +14,13 @@ return function () {
 function deploy_bookmark_plugin() {
 	WP_CLI::log( 'Activating and setting up wp-bookmarks' );
 
-	run_wp_cli_command( 'plugin activate wp-bookmarks', array( 'exit_error' => true ) );
+	run_wp_cli_command(
+		'plugin activate wp-bookmarks',
+		array(
+			'exit_error' => true,
+			'launch'     => true,
+		)
+	);
 
 	WP_CLI::log( 'Creating bookmarks page.' );
 	$bookmarks_page_id = wp_insert_post(

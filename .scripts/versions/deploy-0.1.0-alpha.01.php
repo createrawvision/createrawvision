@@ -14,7 +14,13 @@ return function () {
  */
 function deploy_category_featured_images() {
 	WP_CLI::log( 'Installing and activating Advanced Custom Fields' );
-	run_wp_cli_command( 'plugin install advanced-custom-fields --activate --force', array( 'exit_error' => true ) );
+	run_wp_cli_command(
+		'plugin install advanced-custom-fields --activate --force',
+		array(
+			'exit_error' => true,
+			'launch'     => true,
+		)
+	);
 
 	WP_CLI::log( 'Removing categories from posts, when category has child categories' );
 
