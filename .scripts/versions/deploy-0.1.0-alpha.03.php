@@ -56,7 +56,7 @@ function deploy_faqs() {
 		);
 	}
 
-	// Create FAQs from JSON file
+	// Create FAQs from JSON file.
 	$faqs_json     = file_get_contents( ABSPATH . '../deployment_data/faqs.json' );
 	$category_objs = json_decode( $faqs_json );
 
@@ -65,7 +65,7 @@ function deploy_faqs() {
 	foreach ( $category_objs as $category_obj ) {
 		$category = $category_obj->category;
 
-		// Create the category term
+		// Create the category term.
 		$term = wp_insert_term(
 			$category->name,
 			'faq_category',
@@ -77,13 +77,13 @@ function deploy_faqs() {
 		}
 		list( 'term_id' => $term_id ) = $term;
 
-		// Create all faqs
+		// Create all faqs.
 		$faqs = $category_obj->faqs;
 
 		$items_progressbar = \WP_CLI\Utils\make_progress_bar( "Creating all FAQs in category {$category_obj->name}", count( $faqs ) );
 
 		foreach ( $faqs as $faq ) {
-			wp_insert_post(
+			$faq_id = wp_insert_post(
 				array(
 					'post_title'   => $faq->title,
 					'post_content' => $faq->content,
@@ -93,6 +93,10 @@ function deploy_faqs() {
 				)
 			);
 
+			if ( isset( $faq->home_faq ) && $faq->home_faq ) {
+				update_post_meta( $faq_id, 'home_faq', true );
+			}
+
 			$items_progressbar->tick();
 		}
 
@@ -101,7 +105,7 @@ function deploy_faqs() {
 	}
 	$category_progressbar->finish();
 
-	// Create Category to collect uncategorized FAQs
+	// Create Category to collect uncategorized FAQs.
 	wp_insert_term(
 		'Sonstige Fragen',
 		'faq_category',
