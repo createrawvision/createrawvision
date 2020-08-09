@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Restrict Content Pro\n"
 "Report-Msgid-Bugs-To: https://restrictcontentpro.com/support/\n"
 "POT-Creation-Date: 2019-12-20 10:29+0000\n"
-"PO-Revision-Date: 2020-08-09 09:09+0200\n"
+"PO-Revision-Date: 2020-08-09 19:15+0200\n"
 "Last-Translator: flowdee <coder@flowdee.de>\n"
 "Language-Team: sz\n"
 "Language: de\n"
@@ -8042,7 +8042,7 @@ msgstr "Sie haben keine Berechtigung, diese Rechnung zu speichern"
 
 #: includes/login-functions.php:81
 msgid "Invalid username or email"
-msgstr ""
+msgstr "Ungültiger Benutzername oder E-Mail-Adresse"
 
 #: includes/login-functions.php:86 includes/registration-functions.php:749
 msgid "Please enter a password"

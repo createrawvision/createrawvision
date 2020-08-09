@@ -3053,3 +3053,114 @@ li.comment {
 .crv-help-popup__text a {
   font-weight: bold;
 }
+
+/* 
+RCP
+*/
+/* Login Form */
+#rcp_login_form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#rcp_login_form .rcp-login-form-container {
+  padding: 2rem 3.5rem;
+  margin: 2rem 2rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 0 2.5rem #ffffff80;
+  background-color: white;
+  margin: 2rem 0;
+}
+
+#rcp_login_form .rcp_login_form__header {
+  margin-bottom: 2.4rem;
+}
+
+#rcp_login_form .rcp_login_form__icon {
+  margin: auto;
+  display: block;
+}
+
+#rcp_login_form .rcp_login_form__title {
+  text-align: center;
+  margin-bottom: 1rem;
+  margin-top: 1.5rem;
+}
+
+#rcp_login_form .rcp_login_form__subtitle {
+  text-align: center;
+  margin: 0;
+  font-style: italic;
+}
+
+#rcp_login_form input[type="text"],
+#rcp_login_form input[type="password"] {
+  border-radius: 1rem;
+  min-height: 4.5rem;
+  margin-top: 0.5rem;
+}
+
+#rcp_login_form p {
+  margin-bottom: 2rem;
+}
+
+#rcp_login_form p:last-child {
+  margin-bottom: 0;
+}
+
+#rcp_login_form .rcp_lost_password {
+  text-align: right;
+  font-size: 80%;
+}
+
+#rcp_login_form .rcp-button {
+  display: block;
+  width: auto;
+  margin: 0 auto;
+  padding: 1.5rem 4rem;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem #888;
+  transition: all 0.5s;
+}
+
+#rcp_login_form .rcp-button:hover {
+  box-shadow: 0 0.7rem 1.5rem #888;
+  background-color: hsl(316 100% 24% / 1);
+}
+
+#rcp_login_form .back-to-home {
+  display: block;
+  margin-top: 2.5rem;
+  text-align: right;
+  text-decoration: none;
+}
+
+.page-id-20591 #rcp_login_form {
+  position: fixed;
+  z-index: 1001;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #153237;
+  background: linear-gradient(#0001, #0001),
+    center / cover no-repeat url(/wp-content/uploads/2020/08/hintergrund.jpg);
+  overflow: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  #rcp_login_form .rcp-login-form-container {
+    padding: 3.2rem 2.8rem;
+  }
+
+  .page-id-20591 #rcp_login_form {
+    background-image: url(/wp-content/uploads/2020/08/hintergrund-1536x1024.jpg);
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .page-id-20591 #rcp_login_form {
+    background-image: url(/wp-content/uploads/2020/08/hintergrund-720x470.jpg);
+  }
+}

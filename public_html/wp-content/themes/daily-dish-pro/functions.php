@@ -961,3 +961,30 @@ add_filter(
 		return crv_user_is_unrestricted() ? 'page' : 'posts';
 	}
 );
+
+
+/**
+ * Add wrapper and header to rcp login form.
+ */
+add_action(
+	'rcp_before_login_form_fields',
+	function() {
+		echo '<div class="rcp-login-form-container">';
+
+		$site_icon_id = get_option( 'site_icon' );
+		echo '<div class="rcp_login_form__header">';
+		echo wp_get_attachment_image( $site_icon_id, $size = 'thumbnail', false, array( 'class' => 'rcp_login_form__icon' ) );
+		echo '<h2 class="rcp_login_form__title">CreateRawVision</h2>';
+		echo '<h3 class="rcp_login_form__subtitle">Mitgliederbereich</h3></div>';
+
+		rcp_show_error_messages( 'login' );
+	}
+);
+
+add_action(
+	'rcp_after_login_form_fields',
+	function() {
+		echo '<a class="back-to-home" href="' . esc_url( home_url() ) . '">← Zurück zur Startseite</a>';
+		echo '</div>';
+	}
+);
