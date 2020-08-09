@@ -3136,7 +3136,7 @@ RCP
   text-decoration: none;
 }
 
-.page-id-20591 #rcp_login_form {
+.page-id-21064 #rcp_login_form {
   position: fixed;
   z-index: 1001;
   top: 0;
@@ -3154,13 +3154,13 @@ RCP
     padding: 3.2rem 2.8rem;
   }
 
-  .page-id-20591 #rcp_login_form {
+  .page-id-21064 #rcp_login_form {
     background-image: url(/wp-content/uploads/2020/08/hintergrund-1536x1024.jpg);
   }
 }
 
 @media only screen and (max-width: 480px) {
-  .page-id-20591 #rcp_login_form {
+  .page-id-21064 #rcp_login_form {
     background-image: url(/wp-content/uploads/2020/08/hintergrund-720x470.jpg);
   }
 }
