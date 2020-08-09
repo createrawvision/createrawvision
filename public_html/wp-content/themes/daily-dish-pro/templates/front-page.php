@@ -197,16 +197,16 @@ $registration_page_id = $rcp_options['registration_page'];
 <!-- @todo mit Bild von Pose, text links bild rechts -->
 <section class="imagine">
 	<h2 class="imagine__heading">Träumst Du Davon…</h2>
-	<ul>
-		<li class="imagine__item">Den ganzen Tag energiegeladen und kraftvoll zu sein?</li>
-		<li class="imagine__item">Einen gesunden Körper zu haben, in dem du dich rundum wohl fühlst und der frei von jeglichen Beschwerden ist?</li>
-		<li class="imagine__item">Morgens voller Lebensfreude aufzustehen und den Tag kaum erwarten zu können?</li>
+	<ul class="imagine__list">
+		<li class="imagine__item">Den ganzen Tag energiegeladen und kraftvoll zu sein?</li>
+		<li class="imagine__item">Einen gesunden Körper zu haben, in dem du dich rundum wohl fühlst und der frei von jeglichen Beschwerden ist?</li>
+		<li class="imagine__item">Morgens voller Lebensfreude aufzustehen und den Tag kaum erwarten zu können?</li>
 	</ul>
 	<h2 class="imagine__heading">Was Wäre Wenn…</h2>
-	<ul>
-		<li class="imagine__item">Du in wenigen Wochen deine Ernährung so umstellst, dass dir unbegrenzt Kraft, Energie und Lebensfreude zur Verfügung steht?</li>
-		<li class="imagine__item">Du dich wieder fühlen würdest wie ein Kind und das Leben wieder bunt und farbenfroh ist?</li>
-		<li class="imagine__item">Dein Körper endlich wieder in dem Zustand ist, wie du es verdient hast und es von der Natur vorgesehen wurde?</li>
+	<ul class="imagine__list">
+		<li class="imagine__item">Du in wenigen Wochen deine Ernährung so umstellst, dass dir unbegrenzt Kraft, Energie und Lebensfreude zur Verfügung steht?</li>
+		<li class="imagine__item">Du dich wieder fühlen würdest wie ein Kind und das Leben wieder bunt und farbenfroh ist?</li>
+		<li class="imagine__item">Dein Körper endlich wieder in dem Zustand ist, wie du es verdient hast und es von der Natur vorgesehen wurde?</li>
 	</ul>
 </section>
 
@@ -289,7 +289,7 @@ $registration_page_id = $rcp_options['registration_page'];
 	<table>
 		<thead>
 			<tr>
-				<th>&nbsp;</th>
+				<td></td>
 				<th scope="col">Rezeptbuch</th>
 				<th scope="col">Mitgliederbereich</th>
 			</tr>
@@ -346,10 +346,10 @@ $registration_page_id = $rcp_options['registration_page'];
 
 <section class="reason">
 	<h3 class="reason__heading">Den Mitgliederbereich brauchst du, wenn ...</h3>
-	<ul>
-		<li class="reason__item">Du dich wieder jung und voller Energie fühlen willst und über mehr geistige Klarheit verfügen möchtest</li>
-		<li class="reason__item">Du Mangelerscheinungen, Krankheiten und Allergien verhindern und vorbeugen möchtest</li>
-		<li class="reason__item">Du Dich endlich natürlich ernähren möchtest, neugierig bist, was alles mit der Rohkost möglich ist und du deinen Horizont erweitern möchtest</li>
+	<ul class="reason__list">
+		<li class="reason__item">Du dich wieder jung und voller Energie fühlen willst und über mehr geistige Klarheit verfügen möchtest</li>
+		<li class="reason__item">Du Mangelerscheinungen, Krankheiten und Allergien verhindern und vorbeugen möchtest</li>
+		<li class="reason__item">Du Dich endlich natürlich ernähren möchtest, neugierig bist, was alles mit der Rohkost möglich ist und du deinen Horizont erweitern möchtest</li>
 		<li class="reason__item">Du Teil einer supercoolen und motivierten Rohkost Community sein möchtest</li>
 		<li class="reason__item">Du auf ein erfahrenes und langjähriges Rohkost-Expertenteam vertrauen möchtest</li>
 		<li class="reason__item">Du die besten, köstlichsten und außergewöhnlichsten Rohkost Rezepte der Welt essen möchtest</li>
@@ -465,8 +465,8 @@ $registration_page_id = $rcp_options['registration_page'];
 
 <section class="choice">
 	<h2 class="choice__heading">Du Hast Jetzt Genau 2 Möglichkeiten:</h2>
-	<p class="choice__item">1. Entweder du machst genauso weiter wie bisher, versorgst deinen Körper minderwertig und bleibst in deiner Situation stecken.</p>
-	<p class="choice__item">2. Oder du kommst mit dem Mitgliederbereich  schnell zu körperlichem Wohlbefinden, Leistungsfähigkeit und Gelassenheit.</p>
+	<p class="choice__item">1. Entweder du machst genauso weiter wie bisher, versorgst deinen Körper minderwertig und bleibst in deiner Situation stecken.</p>
+	<p class="choice__item">2. Oder du kommst mit dem Mitgliederbereich  schnell zu körperlichem Wohlbefinden, Leistungsfähigkeit und Gelassenheit.</p>
 </section>
 
 <section class="mission full-width">

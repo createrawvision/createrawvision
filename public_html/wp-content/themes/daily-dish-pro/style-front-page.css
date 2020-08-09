@@ -1,5 +1,7 @@
 :root {
   --section-bg: linear-gradient(10deg, hsl(40 52% 84%), hsl(40 52% 94%));
+  --ul-margin-left: 3rem;
+  --li-padding-left: 0.5rem;
 }
 
 /* Make the content full size */
@@ -167,14 +169,73 @@ Introduction
 
 .introduction__list {
   max-width: max-content;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  margin-left: var(--ul-margin-left);
   font-size: 1.2em;
 }
 
 .introduction__item {
   margin-bottom: 1rem;
+  padding-left: var(--li-padding-left);
   list-style-image: url(images/check.svg);
+}
+
+/*
+Checkmarks
+*/
+.checkmarks {
+  background: var(--section-bg);
+  padding: 5rem;
+}
+
+.checkmarks__title {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.checkmarks__list {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 5rem;
+  margin: 0 auto !important;
+  max-width: 1360px;
+}
+
+.checkmarks__item {
+  list-style-type: none !important;
+  flex: 1 0 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 3rem;
+}
+
+.checkmarks__item::before {
+  display: block;
+  content: "";
+  background: center / contain no-repeat url(images/bootstrap-check-circle.svg);
+  /* For #008000, see https://stackoverflow.com/a/53336754/5312432 */
+  filter: invert(24%) sepia(82%) saturate(2304%) hue-rotate(95deg)
+    brightness(96%) contrast(104%);
+  width: 8rem;
+  height: 8rem;
+}
+
+.checkmarks__heading {
+  margin: 0 !important;
+  font-weight: bold;
+  text-align: center;
+}
+
+.checkmarks__text {
+  margin-bottom: 0 !important;
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .checkmarks__list {
+    flex-direction: column;
+  }
 }
 
 /* 
@@ -348,7 +409,9 @@ Testimonials
   }
 }
 
-/* Offer */
+/* 
+Offer 
+*/
 .offer__title {
   margin-top: 0 !important; /* for jQuery animation, see https://bugs.jquery.com/ticket/7442 */
   text-align: center;
@@ -356,57 +419,69 @@ Testimonials
 
 .offer__list {
   list-style-image: url(images/check.svg);
+  margin-left: 3rem;
+  margin-left: var(--ul-margin-left);
 }
 
 .offer__item {
   margin-bottom: 1.5rem;
+  padding-left: var(--li-padding-left);
 }
 
 /*
-Checkmarks
+Imagine
 */
-.checkmarks {
-  background: var(--section-bg);
-  padding: 5rem;
+.imagine__list {
+  list-style-image: url(images/check.svg);
+  margin-left: 3rem;
+  margin-left: var(--ul-margin-left);
 }
 
-.checkmarks__list {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  gap: 5rem;
-  margin: 0 auto !important;
-  max-width: 1360px;
+.imagine__item {
+  margin-bottom: 1.5rem;
+  padding-left: var(--li-padding-left);
 }
 
-.checkmarks__item {
-  list-style-type: none !important;
-  flex: 1 0 0;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  gap: 3rem;
+/*
+Reason
+*/
+
+.reason__list {
+  list-style-image: url(images/check.svg);
+  margin-left: 3rem;
+  margin-left: var(--ul-margin-left);
 }
 
-.checkmarks__item::before {
-  display: block;
-  content: "";
-  background: center / contain no-repeat url(images/bootstrap-check-circle.svg);
-  /* For #008000, see https://stackoverflow.com/a/53336754/5312432 */
-  filter: invert(24%) sepia(82%) saturate(2304%) hue-rotate(95deg)
-    brightness(96%) contrast(104%);
-  width: 8rem;
-  height: 8rem;
+.reason__item {
+  margin-bottom: 1.5rem;
+  padding-left: var(--li-padding-left);
 }
 
-.checkmarks__heading {
-  margin: 0 !important;
-  font-weight: bold;
+/*
+Comparison table
+*/
+.comparison td,
+.comparison th {
+  padding: 1rem;
 }
 
-.checkmarks__text {
-  margin-bottom: 0 !important;
-  text-align: center;
+.comparison thead td {
+  border-top: none;
+}
+
+@media only screen and (max-width: 959px) {
+  .comparison td,
+  .comparison th {
+    display: block;
+  }
+
+  .comparison thead td {
+    display: none;
+  }
+
+  .comparison tbody th {
+    border-top: 2px solid black;
+  }
 }
 
 /* 
@@ -486,4 +561,22 @@ FAQs
 .homepage-faqs__button--open::before,
 .homepage-faqs__button--open::after {
   transform: scale(1.5, 1) rotate(180deg);
+}
+
+/* 
+reference and testing
+@todo remove
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+@media only screen and (max-width: 1280px) {
+@media only screen and (max-width: 959px) {
+@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 480px) {
+
+*/
+
+#wp-admin-bar {
+  display: none;
 }
