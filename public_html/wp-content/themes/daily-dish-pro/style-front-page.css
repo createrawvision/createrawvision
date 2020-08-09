@@ -373,7 +373,8 @@ Checkmarks
   flex-flow: row nowrap;
   justify-content: center;
   gap: 5rem;
-  margin: 0 !important;
+  margin: 0 auto !important;
+  max-width: 1360px;
 }
 
 .checkmarks__item {

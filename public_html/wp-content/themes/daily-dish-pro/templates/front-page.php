@@ -1,3 +1,8 @@
+<?php
+global $rcp_options;
+$registration_page_id = $rcp_options['registration_page'];
+?>
+
 <div class="countdown full-width">
 	<div class="countdown__timer">
 		<div class="countdown__timer__item">
@@ -20,9 +25,11 @@
 	<p class="countdown__description">
 		bis zur Veröffentlichung des Mitgliederbereichs
 	</p>
-	<a href="/registrieren"><button class="countdown__button cta-button">
+	<a href="<?php the_permalink( $registration_page_id ); ?>">
+		<button class="countdown__button cta-button">
 			Jetzt anmelden
-		</button></a>
+		</button>
+	</a>
 </div>
 
 <div class="sticky-wrapper">
@@ -45,9 +52,11 @@
 				<span class="countdown__timer__time-label">Sekunden</span>
 			</div>
 		</div>
-		<a href="/registrieren"><button class="countdown__button cta-button">
+		<a href="<?php the_permalink( $registration_page_id ); ?>">
+			<button class="countdown__button cta-button">
 				Jetzt anmelden
-			</button></a>
+			</button>
+		</a>
 	</div>
 </div>
 
@@ -123,9 +132,11 @@
 	</ul>
 </section>
 
-<a href="/registrieren"><button class="cta-button">
+<a href="<?php the_permalink( $registration_page_id ); ?>">
+	<button class="cta-button">
 		Jetzt mit Rohkost durchstarten!
-	</button></a>
+	</button>
+</a>
 
 <section class="testimonials">
 	<h2 class="testimonials__title">
@@ -286,9 +297,11 @@
 	</p>
 </section>
 
-<a href="/registrieren"><button class="cta-button">
+<a href="<?php the_permalink( $registration_page_id ); ?>">
+	<button class="cta-button">
 		Jetzt durchstarten!
-	</button></a>
+	</button>
+</a>
 
 <section class="homepage-faqs">
 	<h2>Häufig gestellte Fragen</h2>
@@ -312,6 +325,8 @@
 	<button class="homepage-faqs__button">Mehr anzeigen</button>
 </section>
 
-<a href="/registrieren"><button class="cta-button">
+<a href="<?php the_permalink( $registration_page_id ); ?>">
+	<button class="cta-button">
 		Melde dich hier an
-	</button></a>
+	</button>
+</a>
