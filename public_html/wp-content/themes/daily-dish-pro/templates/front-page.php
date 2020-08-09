@@ -77,7 +77,7 @@ $registration_page_id = $rcp_options['registration_page'];
 		schwer sein und ich zeige dir wie!
 	</p>
 	<p class="overview__item">
-		Für nur 8 Euro im Monat bekommst du uneingeschränkten Zugang zu hunderten
+		Für nur 9 Euro im Monat bekommst du uneingeschränkten Zugang zu hunderten
 		Rezepten und unzähligen Tutorials. Dadurch kann sich dein ganzes Leben
 		verändern.
 	</p>
@@ -85,7 +85,7 @@ $registration_page_id = $rcp_options['registration_page'];
 
 <section class="introduction">
 	<h2 class="introduction__heading">
-		Warum solltest du Rohkost in deine Ernährung integrieren?
+		Warum solltest du Rohkost in Deine Ernährung Integrieren?
 	</h2>
 	<ul class="introduction__list">
 		<li class="introduction__item">
@@ -122,8 +122,8 @@ $registration_page_id = $rcp_options['registration_page'];
 <!-- @todo Bilder -->
 <section class="offer-summary full-width">
 	<h2 class="offer-summary__heading">
-		In meinem Mitgliederbereich kannst du erfolgreich mit der Rohkost in ein
-		gesünderes Leben starten!
+		In Meinem Mitgliederbereich kannst Du Erfolgreich mit der Rohkost in ein
+		Gesundes Leben Starten!
 	</h2>
 	<ul class="offer-summary__list">
 		<li class="offer-summary__item">Erprobte Rohkost-Rezepte</li>
@@ -197,14 +197,14 @@ $registration_page_id = $rcp_options['registration_page'];
 
 <section class="offer">
 	<h2 class="offer__title">
-		Was bietet dir der Mitgliederbereich?
+		Was Bietet Dir der Mitgliederbereich?
 	</h2>
 	<p class="offer__intro">
 		Deine Mitgliedschaft beinhaltet exklusiven unbegrenzten Zugriff auf:
 	</p>
 	<ul class="offer__list">
 		<li class="offer__item">
-			Über 400 exklusive, gesunde, vitalstoffreiche, köstliche und getestete
+			Über 500 exklusive, gesunde, vitalstoffreiche, köstliche und getestete
 			rohe und vegane Rezepte (Link zu Membershiprezepten) Diese Rezepte passen
 			hervorragend zu vielen gesunden Ernährungsrichtungen. Das beinhaltet
 			Rohkost, vegan, vegetarisch, milchfrei, eifrei, sojafrei, glutenfrei und
@@ -285,7 +285,7 @@ $registration_page_id = $rcp_options['registration_page'];
 
 <section class="mission full-width">
 	<h2 class="mission__title">
-		Was wir dir zum Abschluss noch unbedingt sagen möchten
+		Was Wir Dir zum Abschluss noch Unbedingt Sagen Möchten
 	</h2>
 	<p class="mission__content">
 		Es ist unsere Berufung anderen auf dem Weg zu einer gesunden,
@@ -304,7 +304,7 @@ $registration_page_id = $rcp_options['registration_page'];
 </a>
 
 <section class="homepage-faqs">
-	<h2>Häufig gestellte Fragen</h2>
+	<h2>Häufig Gestellte Fragen</h2>
 	<div class="homepage-faqs__container">
 		<?php
 		require_once __DIR__ . '/../lib/faqs/faq-functions.php';
