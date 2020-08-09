@@ -11,6 +11,10 @@ add_action( 'wp_footer', __NAMESPACE__ . '\\show_markup' );
  * Shows the markup for the
  */
 function show_markup() {
+	// Don't show for landing pages
+	if ( is_page_template( 'page_landing.php' ) ) {
+		return;
+	}
 	?> 
 	<section class="crv-help-popup">
 		<button class="crv-help-popup__button"></button>

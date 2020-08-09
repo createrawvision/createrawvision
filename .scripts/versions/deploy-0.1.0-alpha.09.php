@@ -35,8 +35,11 @@ function deploy_support_plugin() {
 	if ( is_wp_error( $contact_page_id ) ) {
 		WP_CLI::warning( 'Failed to create support contact page: ', $contact_page_id->get_error_message() );
 	}
+
+	$tickets_page    = get_page_by_path( 'kontaktformular' );
 	$tickets_page_id = wp_insert_post(
 		array(
+			'ID'           => $tickets_page ? $tickets_page->ID : 0, // Overwrite existing.
 			'post_content' => '[supportcandy]',
 			'post_title'   => 'Meine Supportanfragen',
 			'post_name'    => 'support',
