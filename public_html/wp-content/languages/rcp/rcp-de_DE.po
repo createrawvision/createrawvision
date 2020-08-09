@@ -3,14 +3,14 @@ msgstr ""
 "Project-Id-Version: Restrict Content Pro\n"
 "Report-Msgid-Bugs-To: https://restrictcontentpro.com/support/\n"
 "POT-Creation-Date: 2019-12-20 10:29+0000\n"
-"PO-Revision-Date: 2020-08-07 15:28+0200\n"
+"PO-Revision-Date: 2020-08-09 09:09+0200\n"
 "Last-Translator: flowdee <coder@flowdee.de>\n"
 "Language-Team: sz\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -907,9 +907,8 @@ msgid "Email:"
 msgstr "E-Mail:"
 
 #: includes/admin/customers/add-customer.php:61
-#, fuzzy
 msgid "Username:"
-msgstr "Benutzername"
+msgstr "Benutzername:"
 
 #: includes/admin/customers/add-customer.php:69
 #, fuzzy
@@ -3016,9 +3015,8 @@ msgid "User Login"
 msgstr "Benutzer Login"
 
 #: includes/admin/import/import-functions.php:45
-#, fuzzy
 msgid "User Password"
-msgstr "Neues Passwort"
+msgstr "Benutzer Passwort"
 
 #: includes/admin/import/import-functions.php:46
 #: includes/class-rcp-export-members.php:44
@@ -5875,7 +5873,7 @@ msgstr "Dauer"
 #: includes/admin/subscriptions/edit-subscription.php:126
 #: includes/admin/subscriptions/subscription-levels.php:150
 msgid "Price"
-msgstr "Peis"
+msgstr "Preis"
 
 #: includes/admin/subscriptions/class-membership-levels-table.php:84
 msgid "Order"
@@ -6491,9 +6489,9 @@ msgid "User ID: %d"
 msgstr "Benutzer ID"
 
 #: includes/class-rcp-cli.php:396 includes/login-functions.php:271
-#, fuzzy, php-format
+#, php-format
 msgid "Username: %s"
-msgstr "Benutzername"
+msgstr "Benutzername: %s"
 
 #: includes/class-rcp-cli.php:397
 #, fuzzy, php-format
@@ -7803,6 +7801,42 @@ msgid ""
 "Welcome! This is your success page where members are redirected after "
 "completing their registration."
 msgstr ""
+"Herzlich willkommen[su_user field=\"first_name\" before=\" \"]!\n"
+"\n"
+"Wir freuen uns dich in unserem Mitgliederbereich begrüßen zu dürfen.\n"
+"<h2>Wie geht es weiter?</h2>\n"
+"Die Abbuchung der Bestellung erfolgt durch Digistore24. Du erhältst in den "
+"nächsten zehn Minuten eine Bestätigungs-E-Mail.\n"
+"Wenn du sie nicht erhalten hast, schau bitte in deinem Spamfolder nach oder "
+"schreibe uns <a href=\"https://staging3.createrawvision.de/kontaktformular/"
+"\">hier eine Nachricht</a>. Wir helfen dir gerne weiter.\n"
+"\n"
+"Du solltest von selbst angemeldet sein (im Menu steht am Ende \"Abmelden\"). "
+"Falls dort \"Anmelden\" steht, musst du dich zuerst anmelden, bevor du auf "
+"deine Mitgliedschaft zugreifen kannst.\n"
+"\n"
+"Jetzt kannst du dir einen Überblick deine Möglichkeiten als Mitglied "
+"verschaffen:\n"
+"<ul>\n"
+" \t<li>Schau dir <a href=\"https://staging3.createrawvision.de/einfuehrung/"
+"\">die Einführung in alle Mitgliederfunktionen</a> an.</li>\n"
+" \t<li>Wirf einen Blick auf <a href=\"https://staging3.createrawvision.de/"
+"dashboard/\">dein Dashboard</a> - eine Übersichtsseite, die zu allen wichtigen "
+"Funktionen verweist.</li>\n"
+" \t<li>Klick dich einfach mal durchs Menü.</li>\n"
+" \t<li>Lies dir <a href=\"https://staging3.createrawvision.de/neu-hier/\">den "
+"Beitrag \"Neu hier?\"</a> durch (falls du das nicht schon gemacht hast).</li>\n"
+"</ul>\n"
+"Falls du noch ungeklärte Fragen hast, lies dir bitte zuerst die häufig "
+"gestellten Fragen durch. Falls du dort keine Antwort findest, kannst du uns "
+"gerne <a href=\"https://staging3.createrawvision.de/kontaktformular/\">hier "
+"fragen</a>. Weil du ein Mitglied bist, wird deine Anfrage priorisiert.\n"
+"\n"
+"&nbsp;\n"
+"\n"
+"Wir wünschen dir viel Freude mit deiner Mitgliedschaft,\n"
+"\n"
+"Angie &amp; Josef"
 
 #: includes/install.php:266
 msgid "Your Membership"
@@ -8041,15 +8075,17 @@ msgstr ""
 
 #: includes/login-functions.php:269
 msgid "Someone requested that the password be reset for the following account:"
-msgstr ""
+msgstr "Jemand wollte das Passwort für folgendes Profil zurücksetzen:"
 
 #: includes/login-functions.php:272
 msgid "If this was a mistake, just ignore this email and nothing will happen."
 msgstr ""
+"Wenn du das Passwort nicht zurücksetzen willst, kannst du diese E-Mail einfach "
+"ignorieren. Dann wird nichts verändert."
 
 #: includes/login-functions.php:273
 msgid "To reset your password, visit the following address:"
-msgstr ""
+msgstr "Um dein Passwort zurückzusetzen, besuche den folgenden Link:"
 
 #: includes/login-functions.php:288
 #, php-format
@@ -8828,10 +8864,8 @@ msgid " You may now log in."
 msgstr ""
 
 #: templates/login.php:33
-#, fuzzy
-#| msgid "Username or E-mail:"
 msgid "Username or Email"
-msgstr "Benutzername oder E-Mail-Adresse:"
+msgstr "Benutzername oder E-Mail-Adresse"
 
 #: templates/login.php:37 templates/register-single.php:67
 #: templates/register.php:62
@@ -8857,7 +8891,7 @@ msgstr "Benutzername oder E-Mail-Adresse:"
 
 #: templates/lostpassword_checkemail.php:19
 msgid "Check your e-mail for the confirmation link."
-msgstr "Überprüfe dein eMail-Postfach für den Bestätigung-Link"
+msgstr "Überprüfe dein E-Mail-Postfach für den Bestätigung-Link."
 
 #: templates/paypal-express-confirm.php:26
 msgid "Please confirm your payment"

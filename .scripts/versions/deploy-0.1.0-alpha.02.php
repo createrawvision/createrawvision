@@ -110,7 +110,7 @@ Bitte klicke hier, um deine E-Mail Adresse zu bestätigen:
 				'trial_duration'      => '0',
 				'trial_duration_unit' => 'day',
 				'price'               => '0',
-				'fee'                 => '100',
+				'fee'                 => '0',
 				'maximum_renewals'    => '1',
 				'after_final_payment' => 'expire_immediately',
 				'list_order'          => '0',
