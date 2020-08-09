@@ -961,3 +961,55 @@ add_filter(
 		return crv_user_is_unrestricted() ? 'page' : 'posts';
 	}
 );
+
+
+/**
+ * Add 'crv_restricted_post' main archive query posts.
+ */
+add_action(
+	'pre_get_posts',
+	function( $query ) {
+		if ( is_admin() || ! $query->is_main_query() || ! $query->is_archive() ) {
+			return;
+		}
+
+		add_filter(
+			'the_posts',
+			function( $posts ) {
+
+				$post_ids = array_column( $posts, 'ID' );
+
+				$unrestricted_post_ids = crv_strip_restricted_posts( $post_ids );
+				$is_unrestricted_post  = array_flip( $unrestricted_post_ids );
+
+				foreach ( $posts as $post ) {
+					$post->crv_restricted_post = ! isset( $is_unrestricted_post[ $post->ID ] );
+				}
+
+				return $posts;
+			}
+		);
+
+		add_filter(
+			'genesis_attr_entry-content',
+			function( $attributes ) {
+				global $post;
+				$is_restricted = $post->crv_restricted_post;
+
+				// Don't do anything for unrestricted posts!
+				if ( ! $is_restricted ) {
+					return $attributes;
+				}
+
+				if ( isset( $attributes['class'] ) ) {
+					$attributes['class'] .= ' crv-restricted-content';
+				} else {
+					$attributes['class'] = 'crv-restricted-content';
+				}
+				return $attributes;
+			}
+		);
+	}
+);
+
+	return apply_filters( "genesis_attr_{$context}", $attributes, $context, $args );
