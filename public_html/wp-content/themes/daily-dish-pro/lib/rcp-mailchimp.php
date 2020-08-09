@@ -4,21 +4,25 @@ require __DIR__ . '/MailChimp.php';
 
 use DrewM\MailChimp\MailChimp;
 
-// Add new members to Mailchimp only when their e-mail-address is verified
+// Add new members to Mailchimp only when their e-mail-address is verified.
 add_action( 'rcp_customer_post_verify_email', 'crv_subscribe_verified_customer_to_mailchimp', 10, 2 );
 
-// When a members e-mail or name changes, update it in Mailchimp
+// When a members e-mail or name changes, update it in Mailchimp.
 add_action(
 	'rcp_user_profile_updated',
 	function ( $user_id, $userdata, $old_userdata ) {
-		crv_add_user_to_mailchimp( $userdata->user_email, $userdata->first_name, $userdata->last_name, $old_userdata->user_email );
+		if ( crv_rcp_skip_mailchimp( $user_id ) ) {
+			return;
+		}
+		crv_add_user_to_mailchimp( $userdata['user_email'], $userdata['first_name'], $userdata['last_name'], $old_userdata->user_email );
 	},
 	10,
 	3
 );
 
-// When a member's status changes, update the merge field in Mailchimp
+// When a member's status changes, update the merge field in Mailchimp.
 add_action( 'rcp_transition_membership_status', 'crv_update_rcp_status_mailchimp', 10, 3 );
+
 
 /**
  * Subscribes a customer with verified e-mail-address to Mailchimp list
@@ -31,16 +35,15 @@ function crv_subscribe_verified_customer_to_mailchimp( $customer_id, $customer )
 		return;
 	}
 
-	$user_id = $customer->get_user_id();
-	$user    = get_user_by( 'id', $user_id );
+	$user_id    = $customer->get_user_id();
+	$user       = get_user_by( 'id', $user_id );
+	$membership = rcp_get_membership_by( 'customer_id', $customer_id );
 
-	// Add the user to MailChimp, even if there are no memberships
-	crv_add_user_to_mailchimp( $user->user_email, $user->first_name, $user->last_name );
-
-	// Bail, if no memberships are found for the customer
-	if ( ! ( $membership = rcp_get_membership_by( 'customer_id', $customer_id ) ) ) {
+	if ( crv_rcp_skip_mailchimp( $user_id ) ) {
 		return;
 	}
+
+	crv_add_user_to_mailchimp( $user->user_email, $user->first_name, $user->last_name );
 
 	crv_update_rcp_status_mailchimp( '', $membership->get_status(), $membership->get_id() );
 }
@@ -76,6 +79,9 @@ function crv_add_user_to_mailchimp( $new_email, $first_name, $last_name, $old_em
 	}
 }
 
+/**
+ * Updates the mailchimp RCP status merge field.
+ */
 function crv_update_rcp_status_mailchimp( $old_status, $new_status, $membership_id ) {
 	global $rcp_options;
 
@@ -83,6 +89,10 @@ function crv_update_rcp_status_mailchimp( $old_status, $new_status, $membership_
 		$membership = rcp_get_membership( $membership_id );
 		$user_id    = $membership->get_user_id();
 		$user       = get_user_by( 'id', $user_id );
+
+		if ( crv_rcp_skip_mailchimp( $user_id ) ) {
+			return;
+		}
 
 		$MailChimp                     = new MailChimp( $rcp_options['mailchimp_api_key'] );
 		$list_id                       = 'a04c23f499'; // List "Createrawvision"
@@ -137,6 +147,43 @@ function crv_update_rcp_status_mailchimp( $old_status, $new_status, $membership_
 	} catch ( Exception $e ) {
 		rcp_log( $e->getMessage() );
 	}
+}
+
+
+/**
+ * Determines, when not to hit the Mailchimp API.
+ * Currently when a user only has manual levels.
+ */
+function crv_rcp_skip_mailchimp( $user_id, $manual_levels = array( 3 ) ) {
+
+	$customer = rcp_get_customer_by_user_id( $user_id );
+	if ( ! $customer ) {
+		return true;
+	}
+
+	$memberships = $customer->get_memberships();
+	if ( ! $memberships ) {
+		return true;
+	}
+
+	$level_ids = array_unique(
+		array_map(
+			function( $membership ) {
+				return $membership->get_object_id();
+			},
+			$memberships
+		)
+	);
+
+	$only_manual_levels = array_reduce(
+		$level_ids,
+		function( $only_manual_levels, $level_id ) use ( $manual_levels ) {
+			return $only_manual_levels && in_array( $level_id, $manual_levels );
+		},
+		true
+	);
+
+	return $only_manual_levels;
 }
 
 
