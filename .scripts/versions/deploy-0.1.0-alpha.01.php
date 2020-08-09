@@ -52,14 +52,18 @@ function deploy_category_featured_images() {
 	}
 	WP_CLI::log( 'Removed parent categories from following posts: ' . ( implode( ',', $post_ids_to_edit ) ?: '(none)' ) );
 
-	WP_CLI::log( 'Setting category featured image from JSON data' );
+	// Get images data.
 	$category_images_json = file_get_contents( ABSPATH . '../deployment_data/category-images.json' );
 	$category_images      = json_decode( $category_images_json, $assoc = true );
+
+	$progressbar = \WP_CLI\Utils\make_progress_bar( 'Setting category featured images from JSON data', count( $category_images ) );
+
 	foreach ( $category_images as list(
 		'term_name'   => $term_name,
 		'term_id'     => $term_id,
 		'image_title' => $image_title,
 	) ) {
+		$progressbar->tick();
 
 		// Get the image_id by title, skip if not found
 		$images = get_posts(
@@ -94,4 +98,6 @@ function deploy_category_featured_images() {
 			WP_CLI::warning( "Couldn't add image $image_title to term $term->name. Skipping..." );
 		}
 	}
+
+	$progressbar->finish();
 }
