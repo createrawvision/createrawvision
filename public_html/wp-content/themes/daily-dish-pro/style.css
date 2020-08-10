@@ -3164,3 +3164,33 @@ RCP
     background-image: url(/wp-content/uploads/2020/08/hintergrund-720x470.jpg);
   }
 }
+
+/*
+Cookie notice
+*/
+#cookie-notice .cookie-notice-container {
+  --bg: hsl(316 100% 10% / 1);
+  box-shadow: 0 0 1rem 0.3rem var(--bg);
+  background-color: var(--bg);
+  padding: 10rem 6rem 5rem;
+}
+
+#cookie-notice #cn-notice-text {
+  display: block;
+  color: hsl(41 52% 97% / 1);
+  font-size: 1.6rem;
+  font-family: Montserrat, -apple-system, BlinkMacSystemFont, Arial, Roboto,
+    "Helvetica Neue", sans-serif;
+  margin-bottom: 5rem;
+}
+
+#cookie-notice .cn-button.button {
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  font-family: Raleway, -apple-system, BlinkMacSystemFont, Arial, Roboto,
+    "Helvetica Neue", sans-serif;
+  padding: 1.5rem 2rem;
+  text-decoration: none;
+  margin: 0 1rem;
+  display: inline-block;
+}
