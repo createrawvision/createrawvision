@@ -670,8 +670,9 @@ add_filter(
 			return $args;
 		}
 
-		// Show different menus for RCP logged in users
-		if ( rcp_user_has_active_membership() ) {
+		// Show different menus for RCP logged in users and admins.
+		// Show it to members even before launch!
+		if ( rcp_user_has_active_membership() || current_user_can( 'manage_options' ) ) {
 			$args['menu'] = 'Main Menu Member 2020';
 		} else {
 			$args['menu'] = 'Main Menu 2020';
