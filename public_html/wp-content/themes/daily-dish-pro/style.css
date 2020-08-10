@@ -3071,6 +3071,7 @@ RCP
   box-shadow: 0 0 2.5rem #ffffff80;
   background-color: white;
   margin: 2rem 0;
+  z-index: 1;
 }
 
 #rcp_login_form .rcp_login_form__header {
@@ -3144,9 +3145,18 @@ RCP
   bottom: 0;
   left: 0;
   background-color: #153237;
+  overflow: auto;
+}
+
+.page-id-21064 #rcp_login_form::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: linear-gradient(#0001, #0001),
     center / cover no-repeat url(/wp-content/uploads/2020/08/hintergrund.jpg);
-  overflow: auto;
 }
 
 @media only screen and (max-width: 768px) {
@@ -3154,13 +3164,13 @@ RCP
     padding: 3.2rem 2.8rem;
   }
 
-  .page-id-21064 #rcp_login_form {
+  .page-id-21064 #rcp_login_form::before {
     background-image: url(/wp-content/uploads/2020/08/hintergrund-1536x1024.jpg);
   }
 }
 
 @media only screen and (max-width: 480px) {
-  .page-id-21064 #rcp_login_form {
+  .page-id-21064 #rcp_login_form::before {
     background-image: url(/wp-content/uploads/2020/08/hintergrund-720x470.jpg);
   }
 }
