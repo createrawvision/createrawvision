@@ -28,7 +28,8 @@ function show_markup() {
 			</p>
 			<p class="crv-help-popup__text">
 				Falls du immer noch keine Antwort hast, kannst du uns gerne 
-				<a href="<?php the_permalink( get_page_by_path( 'kontaktformular' ) ); ?>" target="_blank">hier persönlich fragen</a>.
+				<a href="<?php the_permalink( get_page_by_path( 'kontaktformular' ) ); ?>" target="_blank">hier persönlich fragen</a>.<br>
+				Nur bei Fragen zu Rezepten oder Beiträgen bitte unter dem Beitrag kommentieren. Wir werden dort antworten.
 			</p>
 		</div>
 	</section>
