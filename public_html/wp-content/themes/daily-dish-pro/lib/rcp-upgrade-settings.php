@@ -20,7 +20,7 @@ add_filter(
 );
 
 /**
- * Enable upgrades only for the first 14 days after launch.
+ * Enable upgrades only up to 14 days after launch.
  *
  * @todo Enable upgrades, when user gets sent offer e-mail.
  */
@@ -32,8 +32,8 @@ add_filter(
 			return $can_upgrade;
 		}
 
-		return ! crv_is_before_membership_launch()
-			&& crv_is_before_membership_launch( ( new DateTime() )->sub( new DateInterval( 'P14D' ) ) );
+		// 14 days before today was before the launch.
+		return crv_is_before_membership_launch( ( new DateTime() )->sub( new DateInterval( 'P14D' ) ) );
 	},
 	10,
 	2
