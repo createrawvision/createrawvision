@@ -684,6 +684,8 @@ add_filter(
 
 /**
  * Adds `nav-icon` class to nav items containing an svg element
+ *
+ * @todo add `sub-menu-toggle` to empty custom elements with children
  */
 add_filter(
 	'nav_menu_css_class',
