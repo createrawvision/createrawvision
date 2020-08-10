@@ -24,7 +24,7 @@ $source_path = '/home/customer/www/createrawvision.de/public_html';
 $old_url = 'https://createrawvision.de';
 
 // Folders inside wp-content, without trailing slash!
-$folders = array( 'languages', 'mu-plugins', 'plugins', 'themes', 'uploads/2020' );
+$folders = array( 'languages', 'mu-plugins', 'plugins', 'uploads/2020' );
 
 /*
  * OPTIONS
