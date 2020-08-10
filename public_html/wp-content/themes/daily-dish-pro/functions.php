@@ -767,7 +767,7 @@ function crv_loginout_menu_link( $menu, $args ) {
 		return $menu;
 	}
 
-	$menu .= is_user_logged_in() ? '<li class="menu-item"><a href="/dashboard">Zum Dashboard</a></li>' : '';
+	$menu .= is_user_logged_in() ? '<li class="menu-item"><a href="/dashboard">Übersichtsseite</a></li>' : '';
 	$menu .= '<li class="menu-item">' . crv_loginout() . '</li>';
 	return $menu;
 }
