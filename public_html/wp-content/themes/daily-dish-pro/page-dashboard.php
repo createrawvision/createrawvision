@@ -11,12 +11,28 @@ add_action(
 	}
 );
 
+/**
+ * Show username in title.
+ */
+add_filter(
+	'genesis_post_title_text',
+	function( $title ) {
+		if ( ! is_user_logged_in() ) {
+			return $title;
+		}
+		$name = get_userdata( get_current_user_id() )->first_name;
+		if ( ! $name ) {
+			return $title;
+		}
+		return 'Hallo, ' . $name . '!';
+	}
+);
+
 function show_dashboard() {
 	echo wp_kses_post( rcp_restricted_message_pending_verification( '' ) );
 	echo '<div class="dashboard-container full-width">';
 
 	$sections = array(
-		'walkthrough',
 		'overview',
 		'recipes',
 		'course',
@@ -37,15 +53,12 @@ function show_dashboard() {
 	echo '</div>';
 }
 
-function show_walkthrough() {
-	echo '<h2>Mitgliederbereich Einführung</h2>';
-	echo '<ul><li><a href="' . esc_url( get_permalink( get_page_by_path( 'einfuehrung' ) ) ) . '"><button>Zur Einführung</button></a></li></ul>';
-
-}
-
 function show_overview() {
-	echo '<h2>Mitgliederbereich Übersicht</h2>';
-	echo '<ul><li><a href="' . esc_url( get_category_link( 4269 ) ) . '"><button>Zur Übersicht</button></a></li></ul>';
+	echo '<h2>Mitgliederbereich</h2>';
+	echo '<ul>';
+	echo '<li><a href="' . esc_url( get_permalink( get_page_by_path( 'einfuehrung' ) ) ) . '"><button>Zur Einführung</button></a></li>';
+	echo '<li><a href="' . esc_url( get_category_link( 4269 ) ) . '"><button>Zur Übersicht</button></a></li>';
+	echo '</ul>';
 }
 
 function show_recipes() {
@@ -54,11 +67,11 @@ function show_recipes() {
 	// show_recent_recipes();
 	?>
 	<ul class="recipes__list">
-		<li><a href="<?php echo esc_url( get_term_link( 'rezepte', 'category' ) ); ?>"><button>Rezepte nach Kategorien</button></a><span class="action__hint">Eine Übersicht über alle Rezepte</span></li>
-		<li><a href="<?php the_permalink( get_page_by_path( 'neue-rezepte' ) ); ?>"><button>Neue Rezepte</button></a><span class="action__hint">Eine Rezeptübersicht von neu nach alt</span></li>
-		<li><a href="<?php the_permalink( get_page_by_path( 'suche' ) ); ?>"><button>Rezepte suchen</button></a><span class="action__hint">Suche Rezepte nach Schwieigkeit, Typ, Ausstattung,&nbsp;...</span></li>
-		<li><a href="<?php the_permalink( get_page_by_path( 'lesezeichen' ) ); ?>"><button>Deine Lieblingsrezepte</button></a><span class="action__hint">Deine gespeicherten Rezepte</span></li>
-		<li><a href="<?php the_permalink( get_page_by_path( 'beliebte-rezepte' ) ); ?>"><button>Beliebte Rezepte</button></a><span class="action__hint">Rezepte, die andere oft gespeichert haben</span></li>
+		<li><a href="<?php echo esc_url( get_term_link( 'rezepte', 'category' ) ); ?>"><button>Rezepte nach Kategorien</button></a></li>
+		<li><a href="<?php the_permalink( get_page_by_path( 'neue-rezepte' ) ); ?>"><button>Neue Rezepte</button></a></li>
+		<li><a href="<?php the_permalink( get_page_by_path( 'lesezeichen' ) ); ?>"><button>Deine Lieblingsrezepte</button></a></li>
+		<li><a href="<?php the_permalink( get_page_by_path( 'beliebte-rezepte' ) ); ?>"><button>Beliebte Rezepte</button></a></li>
+		<li><a href="<?php the_permalink( get_page_by_path( 'suche' ) ); ?>"><button>Rezepte suchen</button></a></li>
 	</ul>
 	<?php
 	echo '</div>';

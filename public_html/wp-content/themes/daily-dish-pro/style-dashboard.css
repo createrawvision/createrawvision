@@ -4,7 +4,7 @@ Styles for the dashboard page
 
 /* Variables */
 .dashboard-container {
-  --section-bg: linear-gradient(10deg, hsl(40 52% 84%), hsl(40 52% 94%));
+  --section-bg: linear-gradient(6deg, hsl(40 52% 75% / 1), hsl(40 52% 95% / 1));
 }
 
 /* Global styles */

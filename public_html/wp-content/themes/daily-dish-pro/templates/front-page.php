@@ -200,7 +200,7 @@ $registration_page_id = $rcp_options['registration_page'];
 		Was Bietet Dir der Mitgliederbereich?
 	</h2>
 	<p class="offer__intro">
-		Deine Mitgliedschaft beinhaltet exklusiven unbegrenzten Zugriff auf:
+		Deine Mitgliedschaft beinhaltet exklusiven und unbegrenzten Zugriff auf:
 	</p>
 	<ul class="offer__list">
 		<li class="offer__item">
