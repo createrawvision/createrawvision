@@ -2,8 +2,14 @@
 
 namespace crv\dashboard;
 
-add_action( 'genesis_entry_content', __NAMESPACE__ . '\show_dashboard' );
+/**
+ * Add content to entry_content.
+ */
+add_action( 'genesis_entry_content', __NAMESPACE__ . '\show_dashboard', 9 );
 
+/**
+ * Enqueue dashboard styles.
+ */
 add_action(
 	'wp_enqueue_scripts',
 	function() {
@@ -28,6 +34,31 @@ add_filter(
 	}
 );
 
+/**
+ * Make entry header full-width
+ */
+add_filter(
+	'genesis_attr_entry-header',
+	function( $attributes ) {
+		if ( isset( $attributes['class'] ) ) {
+			$attributes['class'] .= ' full-width';
+		} else {
+			$attributes['class'] = 'full-width';
+		}
+		return $attributes;
+	}
+);
+
+/**
+ * Show subtitle.
+ */
+add_action(
+	'genesis_entry_header',
+	function() {
+		echo '<p class="entry-subtitle">Willkommen an deinem Ort für Rohkost</p>';
+	}
+);
+
 function show_dashboard() {
 	echo wp_kses_post( rcp_restricted_message_pending_verification( '' ) );
 	echo '<div class="dashboard-container full-width">';
@@ -35,10 +66,7 @@ function show_dashboard() {
 	$sections = array(
 		'overview',
 		'recipes',
-		'course',
-		'tutorials',
 		// 'community',
-		'blog',
 		'settings',
 		'support',
 		'further',
@@ -53,85 +81,75 @@ function show_dashboard() {
 	echo '</div>';
 }
 
+/**
+ * Show a custom overview of the 'member' category
+ */
 function show_overview() {
-	echo '<h2>Starte Hier</h2>';
-	echo '<ul>';
-	echo '<li><a href="' . esc_url( get_permalink( get_page_by_path( 'einfuehrung' ) ) ) . '"><button>Zur Einführung</button></a></li>';
-	echo '<li><a href="' . esc_url( get_category_link( 4269 ) ) . '"><button>Zur Übersicht</button></a></li>';
+	$categories = array(
+		array(
+			'id'       => 5792,
+			'title'    => 'Zum Einsteigerkurs',
+			'image_id' => 21027,
+		),
+		array(
+			'id'       => 5869,
+			'title'    => 'Zu allen Rezepten',
+			'image_id' => 20833,
+		),
+		array(
+			'id'       => 5287,
+			'title'    => 'Zu den Tipps & Tutorials',
+			'image_id' => 20243,
+		),
+	);
+
+	echo '<ul class="overview__list">';
+	foreach ( $categories as $category ) {
+		echo '<li class="overview__item"><a href="' . get_category_link( $category['id'] ) . '">';
+		echo wp_get_attachment_image( $category['image_id'], 'thumbnail-portrait', false, array( 'class' => 'overview__image' ) );
+		echo '<p class="overview__title">' . $category['title'] . '</p>';
+		echo '</a></li>';
+	}
 	echo '</ul>';
 }
 
+/**
+ * Show everything related to recipes.
+ */
 function show_recipes() {
-	echo '<h2>Rohkost Rezepte</h2>';
-	echo '<div class="recipes__container">';
-	// show_recent_recipes();
 	?>
 	<ul class="recipes__list">
-		<li><a href="<?php echo esc_url( get_term_link( 'rezepte', 'category' ) ); ?>"><button>Rezepte nach Kategorien</button></a></li>
-		<li><a href="<?php the_permalink( get_page_by_path( 'neue-rezepte' ) ); ?>"><button>Neue Rezepte</button></a></li>
-		<li><a href="<?php the_permalink( get_page_by_path( 'lesezeichen' ) ); ?>"><button>Deine Lieblingsrezepte</button></a></li>
-		<li><a href="<?php the_permalink( get_page_by_path( 'beliebte-rezepte' ) ); ?>"><button>Beliebte Rezepte</button></a></li>
-		<li><a href="<?php the_permalink( get_page_by_path( 'suche' ) ); ?>"><button>Rezepte suchen</button></a></li>
+		<li class="recipes__card">
+			<h3 class="recipes__title">Deine Lieblingsrezepte</h3>
+			<p class="recipes__text">Um dir das Finden der Rezepte, die du am liebsten zubereitest zu erleichtern, kannst du hier deine Lieblingsrezepte abspeichern und einsehen.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'neue-rezepte' ) ); ?>">
+				<span class="recipes__link">Zu deinen Lieblingsrezepten</span>
+		</a></li>
+		<li class="recipes__card">
+			<h3 class="recipes__title">Rezeptsuche</h3>
+			<p class="recipes__text">Du bist auf der Suche nach einem bestimmten Rezept? Dann benutz unsere besondere Suchfunktion. Du kannst nach Kategorie, Schwierigkeitsgrad und vielem mehr filtern.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'lesezeichen' ) ); ?>">
+				<span class="recipes__link">Zur Rezeptsuche</span>
+		</a></li>
+		<li class="recipes__card">
+			<h3 class="recipes__title">Neue Rezepte</h3>
+			<p class="recipes__text">Bei uns bekommst du regelmäßig neue Rezepte. Hier findest du unsere neuesten Rezepte.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'suche' ) ); ?>">
+				<span class="recipes__link">Zu den neuen Rezepten</span>
+		</a></li>
+		<li class="recipes__card">
+			<h3 class="recipes__title">Die beliebtesten Rezepte</h3>
+			<p class="recipes__text">Welche Rezepte sind momentan die beliebtesten? Das kannst du hier herausfinden.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'beliebte-rezepte' ) ); ?>">
+				<span class="recipes__link">Zu den beliebten Rezepten</span>
+		</a></li>
 	</ul>
 	<?php
-	echo '</div>';
-}
-
-function show_recent_recipes() {
-	$recipe_cat_id  = 5869;
-	$recent_recipes = get_posts(
-		array(
-			'cat'          => $recipe_cat_id,
-			'numberposts'  => 4,
-			'meta_key'     => '_thumbnail_id',
-			'meta_compare' => 'EXISTS',
-		)
-	);
-	echo '<div class="recipes__recent"><a href="' . esc_url( get_permalink( get_page_by_path( 'neue-rezepte' ) ) ) . '"><span>Neue Rezepte</span></a>';
-	foreach ( $recent_recipes as $post ) {
-		echo '<div class="recipes__overlay">' . get_the_post_thumbnail( $post, 'thumbnail-portrait', array( 'class' => 'recipes__image' ) ) . '</div>';
-	}
-	echo '</div>';
 }
 
 function show_community() {
 	/** @todo */
 	echo '<h2 style="color: grey;">Community (demnächst verfügbar)</h2>';
-}
-
-function show_tutorials() {
-	$tutorials_category_id = get_category_by_slug( 'tipps-tutorials' )->term_id ?? 5287;
-	$courses               = get_categories( array( 'parent' => $tutorials_category_id ) );
-	?>
-	<h2>Rohkost Tipps & Tutorials</h2>
-	<ul>
-	<?php
-	foreach ( $courses as $course ) {
-		echo '<li><a href="' . esc_url( get_category_link( $course ) ) . '"><button>' . esc_html( $course->name ) . '</button></a></li>';
-	}
-	?>
-	</ul>
-	<?php
-}
-
-function show_course() {
-	echo '<h2>Dein Weg Zur Rohkost Leicht Gemacht</h2>';
-	echo '<ul><li><a href="' . esc_url( get_category_link( 5792 ) ) . '"><button>Zum Kurs</button></a></li></ul>';
-}
-
-function show_blog() {
-	$blog_category_id = get_category_by_slug( 'blog' )->term_id;
-	$categories       = get_categories( array( 'parent' => $blog_category_id ) );
-	?>
-	<h2>Blog</h2>
-	<ul>
-	<?php
-	foreach ( $categories as $category ) {
-		echo '<li><a href="' . esc_url( get_category_link( $category ) ) . '"><button>' . esc_html( $category->name ) . '</button></a></li>';
-	}
-	?>
-	</ul>
-	<?php
 }
 
 function show_further() {
@@ -142,7 +160,9 @@ function show_further() {
 		<!-- <li><button>Q&As</button></li> -->
 		<!-- @todo -->
 		<!-- <li><button>Kommende Veranstaltungen</button></li> -->
+		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'einfuehrung' ) ) ); ?>"><button>Zur Einführung</button></a></li>
 		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'unsere-vision' ) ) ); ?>"><button>Unsere Vision</button></a></li>
+
 	</ul>
 	<?php
 }
