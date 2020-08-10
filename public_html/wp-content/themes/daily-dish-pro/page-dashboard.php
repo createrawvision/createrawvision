@@ -54,7 +54,7 @@ function show_dashboard() {
 }
 
 function show_overview() {
-	echo '<h2>Mitgliederbereich</h2>';
+	echo '<h2>Starte Hier</h2>';
 	echo '<ul>';
 	echo '<li><a href="' . esc_url( get_permalink( get_page_by_path( 'einfuehrung' ) ) ) . '"><button>Zur Einführung</button></a></li>';
 	echo '<li><a href="' . esc_url( get_category_link( 4269 ) ) . '"><button>Zur Übersicht</button></a></li>';
