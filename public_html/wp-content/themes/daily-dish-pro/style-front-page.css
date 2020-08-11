@@ -114,8 +114,8 @@ Hero
 .hero {
   padding: 0 5rem;
   background: center / cover no-repeat;
-  background-image: radial-gradient(#0008, transparent 67%),
-    url(https://picsum.photos/1280/720);
+  background-image: linear-gradient(#0003, #0003),
+    url(../../uploads/2020/08/hero-home.jpeg);
   text-align: center;
   height: 500px;
   display: flex;
@@ -141,6 +141,8 @@ Hero
   .hero {
     padding: 0 2rem;
     height: 400px;
+    background-image: linear-gradient(#0003, #0003),
+      url(../../uploads/2020/08/hero-home-1024x522.jpeg);
   }
 
   .hero__title {

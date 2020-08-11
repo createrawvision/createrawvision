@@ -110,7 +110,7 @@ $registration_page_id = $rcp_options['registration_page'];
 	<?php
 	echo wp_video_shortcode(
 		array(
-			'src'    => 'https://createrawvision.de/wp-content/uploads/2020/08/warum-sollest-du-rohkost-in-deine-ernaehrung-einbauen.mp4',
+			'src'    => '/wp-content/uploads/2020/08/warum-sollest-du-rohkost-in-deine-ernaehrung-einbauen.mp4',
 			'height' => 720,
 			'width'  => 1280,
 			'poster' => '',

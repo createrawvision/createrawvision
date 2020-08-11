@@ -115,20 +115,20 @@ Site header
   /** @todo add media queries */
   background: linear-gradient(190deg, #0003, #0006),
     center / cover no-repeat
-      url(https://staging3.createrawvision.de/wp-content/uploads/2020/08/dashboard-hero.jpg);
+      url(../../wp-content/uploads/2020/08/dashboard-hero.jpg);
 }
 
 @media only screen and (max-width: 768px) {
   #genesis-content .entry-header {
     background-image: linear-gradient(190deg, #0003, #0006),
-      url(https://staging3.createrawvision.de/wp-content/uploads/2020/08/dashboard-hero-1024x537.jpg);
+      url(../../wp-content/uploads/2020/08/dashboard-hero-1024x537.jpg);
   }
 }
 
 @media only screen and (max-width: 480px) {
   #genesis-content .entry-header {
     background-image: linear-gradient(190deg, #0003, #0006),
-      url(https://staging3.createrawvision.de/wp-content/uploads/2020/08/dashboard-hero-500x500.jpg);
+      url(../../wp-content/uploads/2020/08/dashboard-hero-500x500.jpg);
   }
 }
 
