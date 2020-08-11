@@ -893,12 +893,16 @@ add_action(
 require_once CHILD_DIR . '/lib/help-popup.php';
 
 
+global $crv_launch_date;
+$crv_launch_date = new DateTime( '2020-08-20 17:00:00', new DateTimeZone( 'Europe/Berlin' ) );
 /**
  * Returns true, when the date is before the membership launch
  */
 function crv_is_before_membership_launch( $date = null ) {
+	global $crv_launch_date;
+
 	$date = $date ?? new DateTime();
-	return $date < new DateTime( '2020-08-20 17:00:00', new DateTimeZone( 'Europe/Berlin' ) );
+	return $date < $crv_launch_date;
 }
 
 
@@ -909,13 +913,19 @@ require_once CHILD_DIR . '/lib/rcp-upgrade-settings.php';
 
 
 /**
- * Set expiration to launch day before launch for active memberships.
+ * Set expiration to the launch day on days, which are at least one full day before launch.
+ * Just for active memberships.
+ * Reasion: DigiStore allows only full days of test phase.
  */
 add_filter(
 	'rcp_calculate_membership_level_expiration',
 	function( $expiration_date, $membership_level, $set_trial ) {
-		if ( new DateTime() < new DateTime( '2020-08-20', new DateTimeZone( 'Europe/Berlin' ) ) && 'active' === $membership_level->status ) {
-			return '2020-08-20 23:59:59';
+		global $crv_launch_date;
+		$day_before_launch = ( clone $crv_launch_date )->sub( new DateInterval( 'P1D' ) )->setTime( 0, 0, 0 );
+		$now               = new DateTime( 'now' );
+
+		if ( $now < $day_before_launch && 'active' === $membership_level->status ) {
+			return $crv_launch_date->format( 'Y-m-d' ) . ' 23:59:59';
 		}
 		return $expiration_date;
 	},
@@ -929,7 +939,11 @@ add_filter(
 add_filter(
 	'rcp_registration_total',
 	function( $total ) {
-		if ( new DateTime() < new DateTime( '2020-08-20', new DateTimeZone( 'Europe/Berlin' ) ) ) {
+		global $crv_launch_date;
+		$day_before_launch = ( clone $crv_launch_date )->sub( new DateInterval( 'P1D' ) )->setTime( 0, 0, 0 );
+		$now               = new DateTime( 'now' );
+
+		if ( $now < $day_before_launch ) {
 			return 'Kostenlos bis zur Veröffentlichung';
 		}
 		return $total;

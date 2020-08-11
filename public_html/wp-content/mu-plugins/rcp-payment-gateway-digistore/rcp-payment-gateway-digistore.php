@@ -124,48 +124,6 @@ add_action( 'rcp_edit_subscription_level', 'crv_add_digistore_product_id', 10, 2
 
 
 /**
- * Add the DigiStore Payment Plan ID to the subscription level form
- */
-function crv_digistore_payplan_id_form_field( $payplan_id = '' ) {
-	?>
-	<tr class="form-field">
-		<th scope="row" valign="top">
-			<label for="crv-digistore-payplan-id"><?php _e( 'DigiStore Payment Plan ID' ); ?></label>
-		</th>
-		<td>
-			<input id="crv-digistore-payplan-id" type="text" name="digistore_payplan_id" value="<?php echo $payplan_id; ?>" />
-		</td>
-	</tr>
-	<?php
-}
-
-function crv_digistore_payplan_id_form_field_edit( $level ) {
-	global $rcp_levels_db;
-	$payplan_id = $rcp_levels_db->get_meta( $level->id, 'digistore_payplan_id', true );
-
-	crv_digistore_payplan_id_form_field( $payplan_id );
-}
-
-add_action( 'rcp_add_subscription_form', 'crv_digistore_payplan_id_form_field' );
-add_action( 'rcp_edit_subscription_form', 'crv_digistore_payplan_id_form_field_edit' );
-
-/**
- * Add the DigiStore Payment Plan ID as subscription level meta
- */
-function crv_add_digistore_payplan_id( $level_id, $args ) {
-	if ( empty( $args['digistore_payplan_id'] ) ) {
-		return;
-	}
-
-	global $rcp_levels_db;
-
-	$rcp_levels_db->update_meta( $level_id, 'digistore_payplan_id', trim( $args['digistore_payplan_id'] ) );
-}
-add_action( 'rcp_add_subscription', 'crv_add_digistore_payplan_id', 10, 2 );
-add_action( 'rcp_edit_subscription_level', 'crv_add_digistore_payplan_id', 10, 2 );
-
-
-/**
  * Add DigiStore Settings
  */
 function crv_rcp_digistore_settings( $rcp_options ) {

@@ -76,7 +76,6 @@ Bitte klicke hier, um deine E-Mail Adresse zu bestätigen:
 			),
 			'meta' => array(
 				'digistore_product_id' => '339809',
-				'digistore_payplan_id' => '654397',
 			),
 		),
 		array(
@@ -98,7 +97,6 @@ Bitte klicke hier, um deine E-Mail Adresse zu bestätigen:
 			),
 			'meta' => array(
 				'digistore_product_id' => '301319',
-				'digistore_payplan_id' => '654347',
 			),
 		),
 		array(

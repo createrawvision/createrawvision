@@ -42,7 +42,6 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 
 		try {
 			$product_id = $rcp_levels_db->get_meta( $this->subscription_id, 'digistore_product_id', true );
-			$payplan_id = $rcp_levels_db->get_meta( $this->subscription_id, 'digistore_payplan_id', true );
 
 			$api = DigistoreApi::connect( $this->api_key );
 
@@ -59,17 +58,26 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 				'first_amount' => $this->initial_amount,
 			);
 
-			// Use the payment plan to get access to 'start_payplan_at' setting.
-			if ( $payplan_id ) {
-				$payment_plan['template'] = $payplan_id;
-			}
-
 			if ( $this->auto_renew ) {
 				$billing_interval = $this->length . '_' . $this->length_unit;
 
 				$payment_plan['other_amounts']           = $this->amount;
 				$payment_plan['first_billing_interval']  = $billing_interval;
 				$payment_plan['other_billing_intervals'] = $billing_interval;
+			}
+
+			// Add pre-launch testphase.
+			// DigiStore testphase starts the next day and ends the day before payment.
+			// So users on the day before launch have to pay immediately.
+			global $crv_launch_date;
+			if ( isset( $crv_launch_date ) ) {
+				$now        = new DateTime();
+				$launch_day = ( clone $crv_launch_date )->setTime( 0, 0, 0 );
+				$full_days  = date_diff( $now, $launch_day )->days;
+
+				if ( 0 < $full_days ) {
+					$payment_plan['test_interval'] = $full_days . '_day';
+				}
 			}
 
 			$tracking = array(
