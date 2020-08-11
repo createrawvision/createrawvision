@@ -107,10 +107,14 @@ function show_overview() {
 
 	echo '<ul class="overview__list">';
 	foreach ( $categories as $category ) {
-		echo '<li class="overview__item"><a href="' . get_category_link( $category['id'] ) . '">';
-		echo wp_get_attachment_image( $category['image_id'], 'thumbnail-portrait', false, array( 'class' => 'overview__image' ) );
-		echo '<p class="overview__title">' . $category['title'] . '</p>';
-		echo '</a></li>';
+		?> 
+		<li class="overview__item">
+			<a href="<?php echo esc_url( get_category_link( $category['id'] ) ); ?>">
+				<?php echo wp_get_attachment_image( $category['image_id'], 'thumbnail-portrait', false, array( 'class' => 'overview__image' ) ); ?>
+				<p class="overview__title"><?php echo esc_html( $category['title'] ); ?></p>
+			</a>
+		</li>
+		<?php
 	}
 	echo '</ul>';
 }
@@ -173,7 +177,7 @@ function show_further() {
 function show_settings() {
 	global $rcp_options;
 	?>
-	<h2 class="settings__header">Einstellungen</h2>
+	<h2 class="settings__heading">Einstellungen</h2>
 	<ul class="dashboard-cards">
 		<li class="dashboard-cards__item">
 			<h3 class="dashboard-cards__title">Profil bearbeiten</h3>
@@ -194,10 +198,10 @@ function show_settings() {
  */
 function show_support() {
 	?>
-	<h2>Support</h2>
-	<ul>
-		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'faqs' ) ) ); ?>"><button>Zu den häufigenn Fragen</button></a></li>
-		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'kontaktformular' ) ) ); ?>"><button>Jetzt uns kontaktieren</button></a></li>
+	<h2 class="support__heading">Hilfe & Support</h2>
+	<ul class="support__list">
+		<li class="support__item"><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'faqs' ) ) ); ?>">Zu den häufigen Fragen</a></li>
+		<li class="support__item"><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'kontaktformular' ) ) ); ?>">Uns jetzt kontaktieren</a></li>
 	</ul>
 	<?php
 }

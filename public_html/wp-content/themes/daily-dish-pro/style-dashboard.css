@@ -5,6 +5,7 @@ Styles for the dashboard page
 /* Variables */
 .dashboard-container {
   --section-bg: linear-gradient(6deg, hsl(40 52% 75% / 1), hsl(40 52% 95% / 1));
+  --card-bg: linear-gradient(190deg, white, #fdfbf7);
   --box-shadow: 0 0.5rem 1rem #999;
   --box-shadow--light: 0 0.3rem 0.6rem #aaa;
   --box-shadow--hard: 0 0.7rem 1.5rem #888;
@@ -26,24 +27,6 @@ Styles for the dashboard page
 
 .dashboard-container ul {
   margin-left: 0;
-}
-
-.dashboard-container button {
-  display: inline-block;
-  width: auto;
-  padding: 1.4rem 2.2rem;
-  border-radius: 1.5rem;
-  font-size: 2rem;
-  box-shadow: var(--box-shadow--light);
-  transition: box-shadow 0.5s, background-color 0.5s;
-  text-transform: none;
-  background-color: #94006c;
-}
-
-.dashboard-container button:hover {
-  background-color: hsl(316 100% 20% / 1);
-  box-shadow: var(--box-shadow);
-  transform: scale(1.01);
 }
 
 /* 
@@ -100,11 +83,11 @@ Cards
 }
 
 @media only screen and (max-width: 959px) {
-  .dashboard-cards__list {
+  .dashboard-cards {
     grid-template-columns: 1fr;
   }
 
-  .dashboard-cards__card {
+  .dashboard-cards__item {
     max-width: 65rem;
   }
 }
@@ -170,5 +153,33 @@ Overview
 }
 
 /*
-Other
+Support
 */
+.support__list {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 3rem 5rem;
+  justify-content: center;
+}
+
+.support__item {
+  display: inline-block;
+  width: auto;
+  padding: 1.4rem 2.2rem;
+  font-size: 2rem;
+  box-shadow: var(--box-shadow--light);
+  transition: box-shadow 0.5s, background-color 0.5s;
+  text-transform: none;
+  background: var(--card-bg);
+  color: black;
+  font-weight: bold;
+}
+
+.support__item:hover {
+  box-shadow: var(--box-shadow);
+  transform: scale(1.01);
+}
+
+.support__item > a {
+  text-decoration: none;
+}
