@@ -50,7 +50,7 @@ add_filter(
 );
 
 /**
- * Show subtitle.
+ * Show entry-header subtitle.
  */
 add_action(
 	'genesis_entry_header',
@@ -59,6 +59,9 @@ add_action(
 	}
 );
 
+/**
+ * Echo the whole dashboard content.
+ */
 function show_dashboard() {
 	echo wp_kses_post( rcp_restricted_message_pending_verification( '' ) );
 	echo '<div class="dashboard-container full-width">';
@@ -66,10 +69,9 @@ function show_dashboard() {
 	$sections = array(
 		'overview',
 		'recipes',
-		// 'community',
-		'settings',
 		'support',
 		'further',
+		'settings',
 	);
 
 	foreach ( $sections as $section ) {
@@ -118,75 +120,87 @@ function show_overview() {
  */
 function show_recipes() {
 	?>
-	<ul class="recipes__list">
-		<li class="recipes__card">
-			<h3 class="recipes__title">Deine Lieblingsrezepte</h3>
-			<p class="recipes__text">Um dir das Finden der Rezepte, die du am liebsten zubereitest zu erleichtern, kannst du hier deine Lieblingsrezepte abspeichern und einsehen.</p>
-			<a href="<?php the_permalink( get_page_by_path( 'lesezeichen' ) ); ?>">
-				<span class="recipes__link">Zu deinen Lieblingsrezepten</span>
-		</a></li>
-		<li class="recipes__card">
-			<h3 class="recipes__title">Rezeptsuche</h3>
-			<p class="recipes__text">Du bist auf der Suche nach einem bestimmten Rezept? Dann benutz unsere besondere Suchfunktion. Du kannst nach Kategorie, Schwierigkeitsgrad und vielem mehr filtern.</p>
-			<a href="<?php the_permalink( get_page_by_path( 'suche' ) ); ?>">
-				<span class="recipes__link">Zur Rezeptsuche</span>
-		</a></li>
-		<li class="recipes__card">
-			<h3 class="recipes__title">Neue Rezepte</h3>
-			<p class="recipes__text">Bei uns bekommst du regelmäßig neue Rezepte. Hier findest du unsere neuesten Rezepte.</p>
-			<a href="<?php the_permalink( get_page_by_path( 'neue-rezepte' ) ); ?>">
-				<span class="recipes__link">Zu den neuen Rezepten</span>
-		</a></li>
-		<li class="recipes__card">
-			<h3 class="recipes__title">Die beliebtesten Rezepte</h3>
-			<p class="recipes__text">Welche Rezepte sind momentan die beliebtesten? Das kannst du hier herausfinden.</p>
-			<a href="<?php the_permalink( get_page_by_path( 'beliebte-rezepte' ) ); ?>">
-				<span class="recipes__link">Zu den beliebten Rezepten</span>
-		</a></li>
+	<ul class="dashboard-cards">
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Deine Lieblingsrezepte</h3>
+			<p class="dashboard-cards__text">Um dir das Finden der Rezepte, die du am liebsten zubereitest zu erleichtern, kannst du hier deine Lieblingsrezepte abspeichern und einsehen.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'lesezeichen' ) ); ?>" class="dashboard-cards__link">Zu deinen Lieblingsrezepten</a>
+		</li>
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Rezeptsuche</h3>
+			<p class="dashboard-cards__text">Du bist auf der Suche nach einem bestimmten Rezept? Dann benutz unsere besondere Suchfunktion. Du kannst nach Kategorie, Schwierigkeitsgrad und vielem mehr filtern.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'suche' ) ); ?>" class="dashboard-cards__link">Zur Rezeptsuche</a>
+		</li>
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Neue Rezepte</h3>
+			<p class="dashboard-cards__text">Bei uns bekommst du regelmäßig neue Rezepte. Hier findest du unsere neuesten Rezepte.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'neue-rezepte' ) ); ?>" class="dashboard-cards__link">Zu den neuen Rezepten</a>
+		</li>
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Die beliebtesten Rezepte</h3>
+			<p class="dashboard-cards__text">Welche Rezepte sind momentan die beliebtesten? Das kannst du hier herausfinden.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'beliebte-rezepte' ) ); ?>" class="dashboard-cards__link">Zu den beliebten Rezepten</a>
+		</li>
 	</ul>
 	<?php
 }
 
-function show_community() {
-	/** @todo */
-	echo '<h2 style="color: grey;">Community (demnächst verfügbar)</h2>';
-}
-
+/**
+ * Show things, that don't fit somewhere else.
+ *
+ * @todo Q&As and events
+ */
 function show_further() {
 	?>
-	<h2>Weiteres</h2>
-	<ul>
-		<!-- @todo -->
-		<!-- <li><button>Q&As</button></li> -->
-		<!-- @todo -->
-		<!-- <li><button>Kommende Veranstaltungen</button></li> -->
-		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'einfuehrung' ) ) ); ?>"><button>Zur Einführung</button></a></li>
-		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'unsere-vision' ) ) ); ?>"><button>Unsere Vision</button></a></li>
-
+	<ul class="dashboard-cards">
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Einführung</h3>
+			<p class="dashboard-cards__text">Hier zeigen wir dir wie du dich am besten in unserem Mitgliederbereich zurechtfindest. Dadurch kannst du alle Vorteile deiner Mitgliedschaft ausschöpfen.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'einfuehrung' ) ); ?>" class="dashboard-cards__link">Zur Einführung</a>
+		</li>
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Unsere Vision</h3>
+			<p class="dashboard-cards__text">Warum machen wir das alles? Finde heraus, was uns bewegt und warum wir den Mitgliederbereich ins Leben gerufen haben.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'unsere-vision' ) ); ?>" class="dashboard-cards__link">Zu unserer Vision</a>
+		</li>
 	</ul>
 	<?php
 }
 
+/**
+ * Show all settings for the user.
+ */
 function show_settings() {
 	global $rcp_options;
 	?>
-	<h2>Einstellungen</h2>
-	<ul>
-		<li><a href="<?php the_permalink( $rcp_options['edit_profile'] ); ?>"><button>Profil bearbeiten</button></a></li>
-		<li><a href="<?php the_permalink( $rcp_options['account_page'] ); ?>"><button>Mitgliedschaft/Zahlungen verwalten</button></a></li>
+	<h2 class="settings__header">Einstellungen</h2>
+	<ul class="dashboard-cards">
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Profil bearbeiten</h3>
+			<p class="dashboard-cards__text">In diesem Bereich kannst du deine Profildaten wie Benutzername, Passwort und E-Mail-Adresse ändern.</p>
+			<a href="<?php the_permalink( $rcp_options['edit_profile'] ); ?>" class="dashboard-cards__link">Profil bearbeiten</a>
+		</li>
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Mitgliedschaft / Zahlungen verwalten</h3>
+			<p class="dashboard-cards__text">Hier kannst du den Status deiner Mitgliedschaft und alle Zahlungen einsehen und deine Mitgliedschaft bearbeiten.</p>
+			<a href="<?php the_permalink( $rcp_options['account_page'] ); ?>" class="dashboard-cards__link">Mitgliedschaft verwalten</a>
+		</li>
 	</ul>
 	<?php
 }
 
+/**
+ * Show support related items.
+ */
 function show_support() {
 	?>
 	<h2>Support</h2>
 	<ul>
-		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'faqs' ) ) ); ?>"><button>Häufige Fragen</button></a></li>
-		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'kontaktformular' ) ) ); ?>"><button>Kontakt</button></a></li>
-		<li><a href="#header-search-wrap" class="toggle-header-search"><button>Website durchsuchen</button></a></li>
+		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'faqs' ) ) ); ?>"><button>Zu den häufigenn Fragen</button></a></li>
+		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'kontaktformular' ) ) ); ?>"><button>Jetzt uns kontaktieren</button></a></li>
 	</ul>
 	<?php
 }
 
+// Start the engine.
 genesis();

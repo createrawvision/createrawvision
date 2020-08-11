@@ -37,6 +37,7 @@ Styles for the dashboard page
   box-shadow: var(--box-shadow--light);
   transition: box-shadow 0.5s, background-color 0.5s;
   text-transform: none;
+  background-color: #94006c;
 }
 
 .dashboard-container button:hover {
@@ -65,6 +66,47 @@ Set up sections
 
 .dashboard-container section > *:last-child {
   margin-bottom: 0;
+}
+
+/*
+Cards
+*/
+.dashboard-cards {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 110rem;
+  margin: auto;
+}
+
+.dashboard-cards__item {
+  background-color: white;
+  background: linear-gradient(190deg, white, #fdfbf7);
+  padding: 3rem;
+  border-radius: 0.3rem;
+  box-shadow: var(--box-shadow--light);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+}
+
+.dashboard-cards__title {
+  margin-top: 0 !important;
+  font-weight: bold;
+}
+
+.dashboard-cards__text {
+  margin-bottom: 2rem;
+}
+
+@media only screen and (max-width: 959px) {
+  .dashboard-cards__list {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-cards__card {
+    max-width: 65rem;
+  }
 }
 
 /* 
@@ -110,6 +152,13 @@ Site header
 /*
 Overview
 */
+.overview__list {
+  display: flex;
+  justify-content: center;
+  gap: 3rem 5rem;
+  flex-flow: row wrap;
+}
+
 .overview__title {
   font-size: 3.6rem;
   font-family: Raleway;
@@ -121,56 +170,5 @@ Overview
 }
 
 /*
-Recipe related things
-*/
-.recipes__list {
-  display: inline-grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
-  max-width: 110rem;
-  margin: auto;
-}
-
-.recipes__card {
-  background-color: white;
-  background: linear-gradient(190deg, white, #fdfbf7);
-  padding: 3rem;
-  border-radius: 0.3rem;
-  box-shadow: var(--box-shadow--light);
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-}
-
-.recipes__title {
-  margin-top: 0 !important;
-  font-weight: bold;
-}
-
-.recipes__text {
-  margin-bottom: 2rem;
-}
-
-@media only screen and (max-width: 959px) {
-  .recipes__list {
-    grid-template-columns: 1fr;
-  }
-
-  .recipes__card {
-    max-width: 65rem;
-  }
-}
-
-/*
 Other
 */
-
-.overview ul,
-.settings ul,
-.support ul,
-.further ul {
-  display: flex;
-  justify-content: center;
-  gap: 3rem 5rem;
-  flex-flow: row wrap;
-}
