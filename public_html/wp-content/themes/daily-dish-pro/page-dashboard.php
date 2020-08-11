@@ -122,19 +122,19 @@ function show_recipes() {
 		<li class="recipes__card">
 			<h3 class="recipes__title">Deine Lieblingsrezepte</h3>
 			<p class="recipes__text">Um dir das Finden der Rezepte, die du am liebsten zubereitest zu erleichtern, kannst du hier deine Lieblingsrezepte abspeichern und einsehen.</p>
-			<a href="<?php the_permalink( get_page_by_path( 'neue-rezepte' ) ); ?>">
+			<a href="<?php the_permalink( get_page_by_path( 'lesezeichen' ) ); ?>">
 				<span class="recipes__link">Zu deinen Lieblingsrezepten</span>
 		</a></li>
 		<li class="recipes__card">
 			<h3 class="recipes__title">Rezeptsuche</h3>
 			<p class="recipes__text">Du bist auf der Suche nach einem bestimmten Rezept? Dann benutz unsere besondere Suchfunktion. Du kannst nach Kategorie, Schwierigkeitsgrad und vielem mehr filtern.</p>
-			<a href="<?php the_permalink( get_page_by_path( 'lesezeichen' ) ); ?>">
+			<a href="<?php the_permalink( get_page_by_path( 'suche' ) ); ?>">
 				<span class="recipes__link">Zur Rezeptsuche</span>
 		</a></li>
 		<li class="recipes__card">
 			<h3 class="recipes__title">Neue Rezepte</h3>
 			<p class="recipes__text">Bei uns bekommst du regelmäßig neue Rezepte. Hier findest du unsere neuesten Rezepte.</p>
-			<a href="<?php the_permalink( get_page_by_path( 'suche' ) ); ?>">
+			<a href="<?php the_permalink( get_page_by_path( 'neue-rezepte' ) ); ?>">
 				<span class="recipes__link">Zu den neuen Rezepten</span>
 		</a></li>
 		<li class="recipes__card">
