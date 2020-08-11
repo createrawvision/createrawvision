@@ -894,7 +894,7 @@ require_once CHILD_DIR . '/lib/help-popup.php';
 
 
 global $crv_launch_date;
-$crv_launch_date = new DateTime( '2020-08-20 17:00:00', new DateTimeZone( 'Europe/Berlin' ) );
+$crv_launch_date = new DateTime( '2020-08-20 12:00:00', new DateTimeZone( 'Europe/Berlin' ) );
 /**
  * Returns true, when the date is before the membership launch
  */
