@@ -12,7 +12,7 @@ add_action( 'wp_footer', __NAMESPACE__ . '\\show_markup' );
  */
 function show_markup() {
 	// Don't show for landing pages
-	if ( is_page_template( 'page_landing.php' ) ) {
+	if ( is_page_template( 'page_landing.php' ) || is_admin() ) {
 		return;
 	}
 	?> 

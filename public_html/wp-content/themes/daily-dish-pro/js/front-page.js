@@ -74,18 +74,4 @@
       faqsButton.text('Weniger anzeigen').addClass('homepage-faqs__button--open');
     }
   });
-
-  /** 
-   * Popup testimonial entry on click.
-   */
-  $('.testimonials__entry').on("click", function(e) {
-    $(this).parent().next('.testimonials__popup').empty().append($(this).clone()).addClass('testimonials__popup--visible');
-  });
-
-  $('.testimonials__popup').on("click", function(e) {
-    if(e.target !== e.currentTarget) 
-      return;
-    
-    $(this).removeClass('testimonials__popup--visible'); 
-  });
 })(jQuery);

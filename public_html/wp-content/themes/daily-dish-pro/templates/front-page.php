@@ -88,12 +88,14 @@ $registration_page_id = $rcp_options['registration_page'];
 <!-- @todo add thumbnail from 1:05 with video title -->
 <section class="video" aria-label="Video: Warum solltest du Rohkost in deine Ernährung einbauen?">
 	<?php
+	$width  = 1280;
+	$height = 720;
 	echo wp_video_shortcode(
 		array(
-			'src'    => '/wp-content/uploads/2020/08/warum-sollest-du-rohkost-in-deine-ernaehrung-einbauen.mp4',
-			'height' => 720,
-			'width'  => 1280,
-			'poster' => '',
+			'src'    => wp_get_attachment_url( 20981 ),
+			'height' => $height,
+			'width'  => $width,
+			'poster' => wp_get_attachment_image_url( 22184, array( $width, $height ) ),
 		)
 	);
 	?>
@@ -170,44 +172,51 @@ $registration_page_id = $rcp_options['registration_page'];
 </section>
 
 <section class="recipe-slider">
-	<h2>Rezeptslider</h2>
+	<h2>Schau dir hier einige meiner Rezepte an</h2>
+	<?php echo do_shortcode( '[slide-anything id="22150"]' ); ?>
 </section>
 
 <!-- @todo links Bild, text rechts. Gemüsetaccos mit Kohlgemüse8: fade into white -->
-<section class="offer">
-	<h2 class="offer__heading">Das bekommst du für nur 9 EUR im Monat</h2>
-	<ul class="offer__list">
-		<li class="offer__item">500+ vegane Rohkost Rezepte</li>
-		<li class="offer__item">50 + Tipps, Tutorials und Schritten Rohkost Leicht Gemacht mit 60+ Lektionen</li>
-		<li class="offer__item">Mitgliederbereich mit einfacher Bedienung und kurzen Ladezeiten</li>
-		<li class="offer__item">Regelmäßig neue Rezepte, Tipps, Schritt-für-Schritt-Anleitungen</li>
-		<li class="offer__item">Aktive Mitgestaltung durch Wunschrezepte</li>
-		<li class="offer__item">Erstellen von eigenen Rezeptsammlungen </li>
-		<li class="offer__item">Monatliche Live-Calls</li>
-		<li class="offer__item">Ständige Pflege, Aktualisierung und Verbesserung des Mitgliederbereiches, der Inhalte und Rezepte</li>
-		<li class="offer__item">Rückfrage-Möglichkeiten zu den Rezepten – mit schnellen Antworten</li>
-		<li class="offer__item">Mitgliedschaft in einer wachsenden, sich gegenseitig unterstützenden Community</li>
-		<li class="offer__item">Gut sortierte Rezepte in verschiedenen Kategorien</li>
-		<li class="offer__item">Alle Rohkost-Zubereitungstechniken</li>
-		<li class="offer__item">Druckbare Rezepte im PDF-Format</li>
-		<li class="offer__item">Empfehlungen für gut recherchierte und erprobte Produkte</li>
-	</ul>
+<section class="offer full-width fading-bg fading-bg--right">
+	<div class="fading-bg__image"><div class="fading-bg__overlay"></div></div>
+	<div class="full-width-reset fading-bg__content offer__container">
+		<h2 class="offer__heading">Das bekommst du für nur 9 EUR im Monat</h2>
+		<ul class="offer__list">
+			<li class="offer__item">500+ vegane Rohkost Rezepte</li>
+			<li class="offer__item">50 + Tipps, Tutorials und Schritten Rohkost Leicht Gemacht mit 60+ Lektionen</li>
+			<li class="offer__item">Mitgliederbereich mit einfacher Bedienung und kurzen Ladezeiten</li>
+			<li class="offer__item">Regelmäßig neue Rezepte, Tipps, Schritt-für-Schritt-Anleitungen</li>
+			<li class="offer__item">Aktive Mitgestaltung durch Wunschrezepte</li>
+			<li class="offer__item">Erstellen von eigenen Rezeptsammlungen </li>
+			<li class="offer__item">Monatliche Live-Calls</li>
+			<li class="offer__item">Ständige Pflege, Aktualisierung und Verbesserung des Mitgliederbereiches, der Inhalte und Rezepte</li>
+			<li class="offer__item">Rückfrage-Möglichkeiten zu den Rezepten – mit schnellen Antworten</li>
+			<li class="offer__item">Mitgliedschaft in einer wachsenden, sich gegenseitig unterstützenden Community</li>
+			<li class="offer__item">Gut sortierte Rezepte in verschiedenen Kategorien</li>
+			<li class="offer__item">Alle Rohkost-Zubereitungstechniken</li>
+			<li class="offer__item">Druckbare Rezepte im PDF-Format</li>
+			<li class="offer__item">Empfehlungen für gut recherchierte und erprobte Produkte</li>
+		</ul>
+	</div>
 </section>
 
 <!-- @todo mit Bild von Pose, text links bild rechts -->
-<section class="imagine">
-	<h2 class="imagine__heading">Träumst Du Davon…</h2>
-	<ul class="imagine__list">
-		<li class="imagine__item">Den ganzen Tag energiegeladen und kraftvoll zu sein?</li>
-		<li class="imagine__item">Einen gesunden Körper zu haben, in dem du dich rundum wohl fühlst und der frei von jeglichen Beschwerden ist?</li>
-		<li class="imagine__item">Morgens voller Lebensfreude aufzustehen und den Tag kaum erwarten zu können?</li>
-	</ul>
-	<h2 class="imagine__heading">Was Wäre Wenn…</h2>
-	<ul class="imagine__list">
-		<li class="imagine__item">Du in wenigen Wochen deine Ernährung so umstellst, dass dir unbegrenzt Kraft, Energie und Lebensfreude zur Verfügung steht?</li>
-		<li class="imagine__item">Du dich wieder fühlen würdest wie ein Kind und das Leben wieder bunt und farbenfroh ist?</li>
-		<li class="imagine__item">Dein Körper endlich wieder in dem Zustand ist, wie du es verdient hast und es von der Natur vorgesehen wurde?</li>
-	</ul>
+<section class="imagine full-width fading-bg fading-bg--left">
+	<div class="fading-bg__image"><div class="fading-bg__overlay"></div></div>
+	<div class="full-width-reset fading-bg__content imagine__container">
+		<h2 class="imagine__heading">Träumst Du Davon…</h2>
+		<ul class="imagine__list">
+			<li class="imagine__item">Den ganzen Tag energiegeladen und kraftvoll zu sein?</li>
+			<li class="imagine__item">Einen gesunden Körper zu haben, in dem du dich rundum wohl fühlst und der frei von jeglichen Beschwerden ist?</li>
+			<li class="imagine__item">Morgens voller Lebensfreude aufzustehen und den Tag kaum erwarten zu können?</li>
+		</ul>
+		<h2 class="imagine__heading">Was Wäre Wenn…</h2>
+		<ul class="imagine__list">
+			<li class="imagine__item">Du in wenigen Wochen deine Ernährung so umstellst, dass dir unbegrenzt Kraft, Energie und Lebensfreude zur Verfügung steht?</li>
+			<li class="imagine__item">Du dich wieder fühlen würdest wie ein Kind und das Leben wieder bunt und farbenfroh ist?</li>
+			<li class="imagine__item">Dein Körper endlich wieder in dem Zustand ist, wie du es verdient hast und es von der Natur vorgesehen wurde?</li>
+		</ul>
+	</div>
 </section>
 
 <!-- @todo content / slide -->
@@ -215,57 +224,7 @@ $registration_page_id = $rcp_options['registration_page'];
 	<h2 class="testimonials__title">
 		Das sagen unsere Nutzer
 	</h2>
-	<div class="testimonials__popup-wrapper">
-	<ul class="testimonials__list">
-		<!-- @todo content -->
-		<li class="testimonials__entry">
-			<img class="testimonials__portrait" src="https://picsum.photos/200" />
-			<div class="testimonials__content">
-				<h3 class="testimonials__name">Vorname1 Name1</h3>
-				<span class="testimonials__address">aus Stadt</span>
-				<p class="testimonials__text">
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-				</p>
-			</div>
-		</li>
-		<li class="testimonials__entry">
-			<img class="testimonials__portrait" src="https://picsum.photos/200" />
-			<div class="testimonials__content">
-				<h3 class="testimonials__name">Vorname2 Name2</h3>
-				<span class="testimonials__address">aus Stadt</span>
-				<p class="testimonials__text">
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-				</p>
-			</div>
-		</li>
-		<li class="testimonials__entry">
-			<img class="testimonials__portrait" src="https://picsum.photos/200" />
-			<div class="testimonials__content">
-				<h3 class="testimonials__name">Vorname3 Name3</h3>
-				<span class="testimonials__address">aus Stadt</span>
-				<p class="testimonials__text">
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-				</p>
-			</div>
-		</li>
-	</ul>
-	<div class="testimonials__popup"></div>
-	</div>
+	<?php echo do_shortcode( '[slide-anything id="22167"]' ); ?>
 </section>
 
 <section class="overview">
@@ -344,123 +303,79 @@ $registration_page_id = $rcp_options['registration_page'];
 	</table>
 </section>
 
-<section class="reason">
-	<h3 class="reason__heading">Den Mitgliederbereich brauchst du, wenn ...</h3>
-	<ul class="reason__list">
-		<li class="reason__item">Du dich wieder jung und voller Energie fühlen willst und über mehr geistige Klarheit verfügen möchtest</li>
-		<li class="reason__item">Du Mangelerscheinungen, Krankheiten und Allergien verhindern und vorbeugen möchtest</li>
-		<li class="reason__item">Du Dich endlich natürlich ernähren möchtest, neugierig bist, was alles mit der Rohkost möglich ist und du deinen Horizont erweitern möchtest</li>
-		<li class="reason__item">Du Teil einer supercoolen und motivierten Rohkost Community sein möchtest</li>
-		<li class="reason__item">Du auf ein erfahrenes und langjähriges Rohkost-Expertenteam vertrauen möchtest</li>
-		<li class="reason__item">Du die besten, köstlichsten und außergewöhnlichsten Rohkost Rezepte der Welt essen möchtest</li>
-		<li class="reason__item">Du Fragen zum Thema Rohkost stellen und Antworten bekommen möchtest</li>
-		<li class="reason__item">Du alles Wissen zum Thema Rohkost aus einer Hand bekommen und die Rohkostbewegung aktiv mitgestalten möchtest</li>
-		<li class="reason__item">Du ein Profi in der Zubereitung von einzigartigen Rohkost Rezepten werden möchtest</li>
-		<li class="reason__item">Du all deine Lieblings-Rezepte an einem Ort haben möchtest</li>
-	</ul>
+<section class="reason full-width fading-bg fading-bg--right">
+	<div class="fading-bg__image"><div class="fading-bg__overlay"></div></div>
+	<div class="full-width-reset fading-bg__content reason__container">
+		<h3 class="reason__heading">Den Mitgliederbereich brauchst du, wenn ...</h3>
+		<ul class="reason__list">
+			<li class="reason__item">Du dich wieder jung und voller Energie fühlen willst und über mehr geistige Klarheit verfügen möchtest</li>
+			<li class="reason__item">Du Mangelerscheinungen, Krankheiten und Allergien verhindern und vorbeugen möchtest</li>
+			<li class="reason__item">Du Dich endlich natürlich ernähren möchtest, neugierig bist, was alles mit der Rohkost möglich ist und du deinen Horizont erweitern möchtest</li>
+			<li class="reason__item">Du Teil einer supercoolen und motivierten Rohkost Community sein möchtest</li>
+			<li class="reason__item">Du auf ein erfahrenes und langjähriges Rohkost-Expertenteam vertrauen möchtest</li>
+			<li class="reason__item">Du die besten, köstlichsten und außergewöhnlichsten Rohkost Rezepte der Welt essen möchtest</li>
+			<li class="reason__item">Du Fragen zum Thema Rohkost stellen und Antworten bekommen möchtest</li>
+			<li class="reason__item">Du alles Wissen zum Thema Rohkost aus einer Hand bekommen und die Rohkostbewegung aktiv mitgestalten möchtest</li>
+			<li class="reason__item">Du ein Profi in der Zubereitung von einzigartigen Rohkost Rezepten werden möchtest</li>
+			<li class="reason__item">Du all deine Lieblings-Rezepte an einem Ort haben möchtest</li>
+		</ul>
+	</div>
 </section>
 
 <section class="testimonials">
 	<h2 class="testimonials__title">
 		Das sagen unsere Nutzer
 	</h2>
-	<div class="testimonials__popup-wrapper">
-	<ul class="testimonials__list">
-		<!-- @todo content -->
-		<li class="testimonials__entry">
-			<img class="testimonials__portrait" src="https://picsum.photos/200" />
-			<div class="testimonials__content">
-				<h3 class="testimonials__name">Vorname1 Name1</h3>
-				<span class="testimonials__address">aus Stadt</span>
-				<p class="testimonials__text">
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-				</p>
-			</div>
-		</li>
-		<li class="testimonials__entry">
-			<img class="testimonials__portrait" src="https://picsum.photos/200" />
-			<div class="testimonials__content">
-				<h3 class="testimonials__name">Vorname2 Name2</h3>
-				<span class="testimonials__address">aus Stadt</span>
-				<p class="testimonials__text">
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-				</p>
-			</div>
-		</li>
-		<li class="testimonials__entry">
-			<img class="testimonials__portrait" src="https://picsum.photos/200" />
-			<div class="testimonials__content">
-				<h3 class="testimonials__name">Vorname3 Name3</h3>
-				<span class="testimonials__address">aus Stadt</span>
-				<p class="testimonials__text">
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-					Das hab ich zu sagen. Da gibt's so einiges, was ich zu sagen habe...
-					Also, das ist meine Message. Hör genau her!
-				</p>
-			</div>
-		</li>
-	</ul>
-	<div class="testimonials__popup"></div>
-	</div>
+	<?php echo do_shortcode( '[slide-anything id="22172"]' ); ?>
 </section>
 
-<section class="offer">
-	<h2 class="offer__title">
-		Was Bietet Dir der Mitgliederbereich?
-	</h2>
-	<p class="offer__intro">
-		Deine Mitgliedschaft beinhaltet exklusiven und unbegrenzten Zugriff auf:
-	</p>
-	<ul class="offer__list">
-		<li class="offer__item">
-			Über 500 exklusive, gesunde, vitalstoffreiche, köstliche und getestete
-			rohe und vegane Rezepte (Link zu Membershiprezepten) Diese Rezepte passen
-			hervorragend zu vielen gesunden Ernährungsrichtungen. Das beinhaltet
-			Rohkost, vegan, vegetarisch, milchfrei, eifrei, sojafrei, glutenfrei und
-			noch vieles darüber hinaus.
-		</li>
-		<li class="offer__item">
-			Verschiedene Zubereitungstechniken mit denen du deine Rezepte so
-			zubereiten kannst, dass sie köstlich schmecken und dennoch alle wertvollen
-			Vitalstoffe erhalten bleiben. Das beinhaltet das Zubereiten von Speisen
-			mit einer ähnlichen Textur und ähnlichem Geschmack wie gekochte Speisen.
-		</li>
-		<li class="offer__item">
-			Druckbare PDF-Rezepte – Erstelle dein eigenes Rohkost Kochbuch
-		</li>
-		<li class="offer__item">
-			Monatliche Gruppen-Lifecalls mit uns, in denen wir dir deine Fragen
-			beantworten.
-		</li>
-		<li class="offer__item">
-			Monatlich neue großartige Rezepte und Tutorials die wir regelmäßig auf
-			unserer und deiner Reise kreieren.
-		</li>
-		<li class="offer__item">
-			Eine große Vielfalt an Schritt-für-Schritt-Anleitungen, Infos und Tipps
-		</li>
-		<li class="offer__item">
-			Wunschbox – Bei uns kannst du Rezeptwünsche abgeben. Wir bemühen dann
-			deine Rezeptwünsche in Rohkostqualiät umzusetzen.
-		</li>
-		<li class="offer__item">
-			Auf individuelle Rezeptlisten, die du selber gestalten und mit deinen
-			Lieblingsrezepten füllen kannst.
-		</li>
-	</ul>
+<section class="offer2 full-width fading-bg fading-bg--left">
+	<div class="fading-bg__image"><div class="fading-bg__overlay"></div></div>
+	<div class="full-width-reset fading-bg__content offer2__container">
+		<h2 class="offer2__heading">
+			Was Bietet Dir der Mitgliederbereich?
+		</h2>
+		<p class="offer2__intro">
+			Deine Mitgliedschaft beinhaltet exklusiven und unbegrenzten Zugriff auf:
+		</p>
+		<ul class="offer2__list">
+			<li class="offer2__item">
+				Über 500 exklusive, gesunde, vitalstoffreiche, köstliche und getestete
+				rohe und vegane Rezepte (Link zu Membershiprezepten) Diese Rezepte passen
+				hervorragend zu vielen gesunden Ernährungsrichtungen. Das beinhaltet
+				Rohkost, vegan, vegetarisch, milchfrei, eifrei, sojafrei, glutenfrei und
+				noch vieles darüber hinaus.
+			</li>
+			<li class="offer2__item">
+				Verschiedene Zubereitungstechniken mit denen du deine Rezepte so
+				zubereiten kannst, dass sie köstlich schmecken und dennoch alle wertvollen
+				Vitalstoffe erhalten bleiben. Das beinhaltet das Zubereiten von Speisen
+				mit einer ähnlichen Textur und ähnlichem Geschmack wie gekochte Speisen.
+			</li>
+			<li class="offer2__item">
+				Druckbare PDF-Rezepte – Erstelle dein eigenes Rohkost Kochbuch
+			</li>
+			<li class="offer2__item">
+				Monatliche Gruppen-Lifecalls mit uns, in denen wir dir deine Fragen
+				beantworten.
+			</li>
+			<li class="offer2__item">
+				Monatlich neue großartige Rezepte und Tutorials die wir regelmäßig auf
+				unserer und deiner Reise kreieren.
+			</li>
+			<li class="offer2__item">
+				Eine große Vielfalt an Schritt-für-Schritt-Anleitungen, Infos und Tipps
+			</li>
+			<li class="offer2__item">
+				Wunschbox – Bei uns kannst du Rezeptwünsche abgeben. Wir bemühen dann
+				deine Rezeptwünsche in Rohkostqualiät umzusetzen.
+			</li>
+			<li class="offer2__item">
+				Auf individuelle Rezeptlisten, die du selber gestalten und mit deinen
+				Lieblingsrezepten füllen kannst.
+			</li>
+		</ul>
+	</div>
 </section>
 
 <section class="choice">

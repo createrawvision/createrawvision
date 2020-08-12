@@ -919,18 +919,23 @@ body > * {
 --------------------------------------------- */
 
 .site-container {
+  --site-container-padding: 80px;
   background-color: #fff;
+}
+
+.site-container,
+.full-width-reset {
   width: 100%;
   margin: auto;
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: var(--site-container-padding);
+  padding-right: var(--site-container-padding);
 }
 
 .full-width {
   position: relative;
-  left: -80px;
-  right: 80px;
-  width: calc(100% + 160px);
+  left: calc(-1 * var(--site-container-padding));
+  right: var(--site-container-padding);
+  width: calc(100% + 2 * var(--site-container-padding));
   max-width: none !important;
 }
 
@@ -2542,15 +2547,9 @@ li.comment {
   .after-footer,
   .before-header,
   .site-container {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
-
-  .full-width {
-    position: relative;
-    left: -40px;
-    right: 40px;
-    width: calc(100% + 80px);
+    --site-container-padding: 40px;
+    padding-left: var(--site-container-padding);
+    padding-right: var(--site-container-padding);
   }
 
   .single .entry-content,
@@ -2849,15 +2848,9 @@ li.comment {
   .after-footer,
   .before-header,
   .site-container {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .full-width {
-    position: relative;
-    left: -20px;
-    right: 20px;
-    width: calc(100% + 40px);
+    --site-container-padding: 20px;
+    padding-left: var(--site-container-padding);
+    padding-right: var(--site-container-padding);
   }
 
   .before-header {
