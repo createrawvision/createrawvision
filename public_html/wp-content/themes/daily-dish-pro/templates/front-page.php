@@ -66,26 +66,26 @@ $registration_page_id = $rcp_options['registration_page'];
 	<p class="hero__subtitle">Deine Anlaufstelle für Rohkost</p>
 </header>
 
-<!-- @todo add circle recipe images -->
-<section class="overview" aria-label="Übersicht">
-	<p class="overview__item">
+<section class="overview full-width" aria-label="Übersicht">
+	<img class="bubble bubble--right" src="<?php echo esc_url( CHILD_URL . '/images/home-himbeerbisquittorte.jpg' ); ?>" alt="Himbeerbisquittorte">
+	<p class="overview__item full-width-reset">
 		Hier bei CreateRawVision zeigen wir dir, wie du köstliche und
 		unvergleichlich gesunde Rohkost zubereitest, die andere in Erstaunen
 		versetzen wird.
 	</p>
-	<p class="overview__item">
+	<img class="bubble bubble--left" src="<?php echo esc_url( CHILD_URL . '/images/home-pasta-pomodoro.jpg' ); ?>" alt="Pasta Pomodoro">
+	<p class="overview__item full-width-reset">
 		Bereits seit 2013 zeige ich Interessierten wie köstliche und gesunde Rohkost
 		zubereitet wird. Gesundes, vitalstoffreiches und köstliches Essen muss nicht
 		schwer sein und ich zeige dir wie!
 	</p>
-	<p class="overview__item">
+	<p class="overview__item full-width-reset">
 		Für nur 9 Euro im Monat bekommst du uneingeschränkten Zugang zu hunderten
 		Rezepten und unzähligen Tutorials. Dadurch kann sich dein ganzes Leben
 		verändern.
 	</p>
 </section>
 
-<!-- @todo add thumbnail from 1:05 with video title -->
 <section class="video" aria-label="Video: Warum solltest du Rohkost in deine Ernährung einbauen?">
 	<?php
 	$width  = 1280;
@@ -163,12 +163,15 @@ $registration_page_id = $rcp_options['registration_page'];
 
 <!-- @todo Bilder -->
 <section class="about-us">
-	<h2>Über uns</h2>
-	<h3>Über Mich, Angie</h3>
-	<p>Vor etwa sieben Jahren habe ich die Rohkost entdeckt. Dadurch veränderte sich mein Leben in jeder Hinsicht grundlegend. Dank der Rohkost habe ich mich auf eine aufregende, spirituelle und erfüllende Reise begeben, durch die ich mittlerweile über unglaublich viel Energie, wesentlich mehr Gelassenheit und Ruhe verfüge.</p>
-	<p>Doch auch in der Rohkost stellten sich mir viele Hindernisse in den Weg. Vor allem zum Beginn meiner Reise vermisste ich den Geschmack von gekochten Gerichten. Daher war es mir sehr wichtig einen Ersatz für all die Rezepte zu finden, deren Geschmack mir vor der Rohkost so viel Freude bereitet haben. </p>
-	<p>Trotz der vielen Rohkostrezeptbücher war ich mit der Auswahl an Rezepten und deren Qualität nicht zufrieden. Oft gefielen mir nur ein paar wenige Rezepte pro Buch. Daher fing ich schnell an selbst kreativ zu werden. Mittlerweile habe ich mir in diesem Bereich so viel Wissen und Erfahrung angeeignet, dass ich spezielle Techniken gefunden habe, um die leckersten Rezepte der Kochkost rohkosttauglich zu machen.</p>
-	<h3>Über Mich, Josef</h3>
+	<h2 class="about-us__main-heading">Über uns</h2>
+	<img class="about-us__image" src="<?php echo esc_url( CHILD_URL . '/images/angie-josef-portrait.png' ); ?>" alt="Portrait Angie & Josef">
+	<h3 class="about-us__heading">Über Mich, Angie</h3>
+	<p class="about-us__text">Vor etwa sieben Jahren habe ich die Rohkost entdeckt. Dadurch veränderte sich mein Leben in jeder Hinsicht grundlegend. Dank der Rohkost habe ich mich auf eine aufregende, spirituelle und erfüllende Reise begeben, durch die ich mittlerweile über unglaublich viel Energie, wesentlich mehr Gelassenheit und Ruhe verfüge.</p>
+	<p class="about-us__text">Doch auch in der Rohkost stellten sich mir viele Hindernisse in den Weg. Vor allem zum Beginn meiner Reise vermisste ich den Geschmack von gekochten Gerichten. Daher war es mir sehr wichtig einen Ersatz für all die Rezepte zu finden, deren Geschmack mir vor der Rohkost so viel Freude bereitet haben. </p>
+	<p class="about-us__text">Trotz der vielen Rohkostrezeptbücher war ich mit der Auswahl an Rezepten und deren Qualität nicht zufrieden. Oft gefielen mir nur ein paar wenige Rezepte pro Buch. Daher fing ich schnell an selbst kreativ zu werden. Mittlerweile habe ich mir in diesem Bereich so viel Wissen und Erfahrung angeeignet, dass ich spezielle Techniken gefunden habe, um die leckersten Rezepte der Kochkost rohkosttauglich zu machen.</p>
+	<h3 class="about-us__heading">Über Mich, Josef</h3>
+	<p class="about-us__text">Vor vier Jahren habe ich die Rohkost entdeckt. Obwohl ich erst 18 Jahre alt war, hatte ich schon viele kleine Beschwerden wie Tinnitus, schmerzende Gelenke und Bauchschermzen. Diese sind innerhalb von wenigen Monaten verschwunden, nachdem ich immer mehr gesunde, rohe Nahrung zu mir nahm.</p>
+	<p class="about-us__text">Die Umstellung war keinesfalls leicht, vor allem, weil ich von allen Seiten verschiedene Informationen erhalten habe (und meine Mahlzeiten oft sehr langweilig waren - und andere haben das natürlich nicht verstanden). Aber jetzt kann ich mir kaum vorstellen, wieso ich mich jemals so unbewusst und ungesund ernährt habe.</p>
 </section>
 
 <section class="recipe-slider">
@@ -227,17 +230,19 @@ $registration_page_id = $rcp_options['registration_page'];
 	<?php echo do_shortcode( '[slide-anything id="22167"]' ); ?>
 </section>
 
-<section class="overview">
-	<p class="overview__item">
+<section class="overview full-width">
+	<img class="bubble bubble--right" src="<?php echo esc_url( CHILD_URL . '/images/home-karottensuppe.jpg' ); ?>" alt="Karottensuppe">
+	<p class="overview__item full-width-reset">
 		Ich habe mehr als 1.500 Tage in meiner Küche verbracht und dort mit rohen
 		Zutaten, Techniken und Rezepten experimentiert.
 	</p>
-	<p class="overview__item">
+	<img class="bubble bubble--left" src="<?php echo esc_url( CHILD_URL . '/images/home-kirsch-topfenstrudel.jpg' ); ?>" alt="Kirsch-Topfenstrudel">
+	<p class="overview__item full-width-reset">
 		Alle meine Rezepte sind mehrfach getestet und sehr beliebt. Und das nicht
 		nur bei Rohköstlern, sondern auch bei ganz normalen Essern und ganz
 		besonders wichtig - bei Kindern.
 	</p>
-	<p class="overview__item">
+	<p class="overview__item full-width-reset">
 		Du musst nicht komplett von Rohkost leben, um in den Genuss der positiven
 		Auswirkungen der Rohkost zu kommen.
 	</p>
@@ -306,7 +311,7 @@ $registration_page_id = $rcp_options['registration_page'];
 <section class="reason full-width fading-bg fading-bg--right">
 	<div class="fading-bg__image"><div class="fading-bg__overlay"></div></div>
 	<div class="full-width-reset fading-bg__content reason__container">
-		<h3 class="reason__heading">Den Mitgliederbereich brauchst du, wenn ...</h3>
+		<h2 class="reason__heading">Den Mitgliederbereich brauchst du, wenn ...</h2>
 		<ul class="reason__list">
 			<li class="reason__item">Du dich wieder jung und voller Energie fühlen willst und über mehr geistige Klarheit verfügen möchtest</li>
 			<li class="reason__item">Du Mangelerscheinungen, Krankheiten und Allergien verhindern und vorbeugen möchtest</li>
@@ -379,9 +384,11 @@ $registration_page_id = $rcp_options['registration_page'];
 </section>
 
 <section class="choice">
-	<h2 class="choice__heading">Du Hast Jetzt Genau 2 Möglichkeiten:</h2>
-	<p class="choice__item">1. Entweder du machst genauso weiter wie bisher, versorgst deinen Körper minderwertig und bleibst in deiner Situation stecken.</p>
-	<p class="choice__item">2. Oder du kommst mit dem Mitgliederbereich  schnell zu körperlichem Wohlbefinden, Leistungsfähigkeit und Gelassenheit.</p>
+	<h2 class="choice__heading">Du Hast Jetzt Genau Zwei Möglichkeiten:</h2>
+	<ol class="choice__list">
+		<li class="choice__item">Entweder du machst genauso weiter wie bisher, versorgst deinen Körper minderwertig und bleibst in deiner Situation stecken.</li>
+		<li class="choice__item">Oder du kommst mit dem Mitgliederbereich  schnell zu körperlichem Wohlbefinden, Leistungsfähigkeit und Gelassenheit.</li>
+	</ol>
 </section>
 
 <section class="mission full-width">
