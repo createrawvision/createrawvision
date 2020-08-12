@@ -125,7 +125,7 @@ $registration_page_id = $rcp_options['registration_page'];
 <!-- @todo Bilder -->
 <section class="checkmarks full-width">
 	<h2 class="checkmarks__title">
-		In Meinem Mitgliederbereich kannst Du Erfolgreich mit der Rohkost in ein
+		In Meinem Mitglieder&shy;bereich kannst Du Erfolgreich mit der Rohkost in ein
 		Gesundes Leben Starten!
 	</h2>
 	<ul class="checkmarks__list">
@@ -285,7 +285,7 @@ $registration_page_id = $rcp_options['registration_page'];
 </section>
 
 <section class="comparison">
-	<h2>Was sind die Vorteile eines Mitgliederbereiches im Vergleich zu Rezeptbüchern?</h2>
+	<h2>Was sind die Vorteile eines Mitglieder&shy;bereiches im Vergleich zu Rezeptbüchern?</h2>
 	<table>
 		<thead>
 			<tr>
