@@ -4,30 +4,30 @@
  * Return the form for filtering recipe posts
  */
 function crv_recipe_filter_form() {
-	 ob_start();
-	?><form action="<?php echo admin_url( 'admin-ajax.php' ); ?>" method="POST" id="recipe-filter">
+	ob_start(); ?>
+	<form action="<?php echo admin_url( 'admin-ajax.php' ); ?>" method="POST" id="recipe-filter">
 	<input type="text" name="search" id="search" placeholder="Suchbegriff eingeben...">
 	<?php
-	crv_show_taxonomy_dropdown( 'wprm_ingredient', 'Zutat auswählen...' );
+	// crv_show_taxonomy_dropdown( 'wprm_ingredient', 'Zutat auswählen...' );
 	crv_show_taxonomy_dropdown( 'wprm_difficulty', 'Schwierigkeitsgrad auswählen...' );
 	crv_show_taxonomy_dropdown( 'wprm_course', 'Gang/Typ auswählen...' );
 	crv_show_taxonomy_dropdown( 'wprm_cuisine', 'Küche auswählen...' );
-	crv_show_taxonomy_dropdown( 'wprm_keyword', 'Schlagwort auswählen...' );
+	// crv_show_taxonomy_dropdown( 'wprm_keyword', 'Schlagwort auswählen...' );
 	crv_show_taxonomy_dropdown( 'wprm_equipment', 'Ausstattung auswählen...' );
 	?>
 
-	<fieldset>
-	  <legend>Nach Datum sortieren</legend>
-	  <label><input type="radio" name="date" value="DESC" checked /> Neueste zuerst</label>
-	  <label><input type="radio" name="date" value="ASC" /> Älteste zuerst</label>
-	</fieldset>
+		<fieldset>
+			<legend>Nach Datum sortieren</legend>
+			<label><input type="radio" name="date" value="DESC" checked /> Neueste zuerst</label>
+			<label><input type="radio" name="date" value="ASC" /> Älteste zuerst</label>
+		</fieldset>
 
-	<label><input type="checkbox" name="free" /> Nur kostenfreie Rezepte anezeigen</label>
+		<label><input type="checkbox" name="free" /> Nur kostenfreie Rezepte anezeigen</label>
 
-	<button>Rezepte filtern</button>
-	<input type="hidden" name="action" value="crv_post_filter">
-  </form>
-  <div id="filter_results"></div>
+		<button>Rezepte filtern</button>
+		<input type="hidden" name="action" value="crv_post_filter">
+	</form>
+	<div id="filter_results"></div>
 	<?php
 	return ob_get_clean();
 }
@@ -59,7 +59,7 @@ add_action( 'wp_ajax_nopriv_crv_post_filter', 'crv_filter_recipes' );
  * - free: when true, only show free content
  */
 function crv_filter_recipes() {
-	 // WP_Query args for getting recipes
+	// WP_Query args for getting recipes.
 	$args = array(
 		'post_type' => 'wprm_recipe',
 		'orderby'   => 'date',
