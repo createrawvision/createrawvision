@@ -84,10 +84,8 @@ function crv_restricted_content() {
 		$restrict_message = '<p class="restriciton-message">Du bist bereits Mitglied!<br>Ab dem 20. August um 17 Uhr stehen dir alle Inhalte zur Verfügung.<br>Vielen Dank für dein Vertrauen!</p>';
 	} else {
 		global $rcp_options;
-		$registration_page_id = $rcp_options['registration_page'];
-
 		$restrict_message  = '<p class="restriciton-message">Dieser Beitrag ist nur für Mitglieder verfügbar.';
-		$restrict_message .= ' Um Zugriff zu erhalten, <a href="' . esc_url( get_permalink( $registration_page_id ) ) . '">werde Mitglied</a>';
+		$restrict_message .= ' Um Zugriff zu erhalten, <a href="' . esc_url( get_option( 'crv_restriction_url', get_permalink( $rcp_options['registration_page'] ) ) ) . '">werde Mitglied</a>';
 		$restrict_message .= ' oder <a href="' . esc_url( get_permalink( get_page_by_path( 'login' ) ) ) . '">melde dich hier an</a>.</p>';
 
 	}
