@@ -112,7 +112,6 @@ Site header
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  /** @todo add media queries */
   background: linear-gradient(190deg, #0003, #0006),
     center / cover no-repeat
       url(../../wp-content/uploads/2020/08/dashboard-hero.jpg);

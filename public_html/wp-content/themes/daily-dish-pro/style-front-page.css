@@ -592,6 +592,15 @@ About us
 }
 
 /*
+Recipe Slider
+*/
+
+.recipe-slider__heading {
+  text-align: center;
+  padding: 0 2rem;
+}
+
+/*
 Imagine
 */
 .imagine .fading-bg__image {

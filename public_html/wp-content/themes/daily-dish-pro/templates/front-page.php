@@ -61,7 +61,6 @@ $recipes_category_id  = 5869;
 	</div>
 </div>
 
-<!-- @todo Schrift größer -->
 <header class="hero full-width">
 	<h1 class="hero__title">Willkommen bei CreateRawVision</h1>
 	<p class="hero__subtitle">Deine Anlaufstelle für Rohkost</p>
@@ -133,7 +132,7 @@ $recipes_category_id  = 5869;
 
 <section class="checkmarks full-width">
 	<h2 class="checkmarks__title">
-		In Meinem Mitglieder&shy;bereich kannst Du Erfolgreich mit der Rohkost in ein
+		In Unserem Mitglieder&shy;bereich kannst Du Erfolgreich mit der Rohkost in ein
 		Gesundes Leben Starten!
 	</h2>
 	<ul class="checkmarks__list">
@@ -172,8 +171,8 @@ $recipes_category_id  = 5869;
 	<p class="about-us__text">Die Umstellung war keinesfalls leicht, vor allem, weil ich von allen Seiten verschiedene Informationen erhalten habe. Meine Mahlzeiten waren oft sehr langweilig und andere hatten auch kaum Verständnis. Aber jetzt kann ich mir ein Leben ohne Rohkost nicht mehr vorstellen.</p>
 </section>
 
-<section class="recipe-slider">
-	<h2>Schau dir hier einige meiner Rezepte an</h2>
+<section class="recipe-slider full-width">
+	<h2 class="recipe-slider__heading">Schau dir hier einige meiner Rezepte an</h2>
 	<?php echo do_shortcode( '[slide-anything id="22150"]' ); ?>
 </section>
 
