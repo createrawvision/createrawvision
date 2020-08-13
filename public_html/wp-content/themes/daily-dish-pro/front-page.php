@@ -87,18 +87,6 @@ function daily_dish_homepage_widgets() {
 
 }
 
-
-add_filter(
-	'body_class',
-	function( $classes ) {
-		/** @todo check restriction from restriction function */
-		if ( rcp_user_has_active_membership() ) {
-			$classes[] = 'user-is-unrestricted';
-		}
-		return $classes;
-	}
-);
-
 /**
  * Enqueue scripts and styles for a static homepage
  */

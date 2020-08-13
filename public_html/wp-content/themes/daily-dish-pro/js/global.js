@@ -105,4 +105,8 @@
 		}
 	});
 
+	// Make rcp form receive focus.
+	$( document ).ready(function() {
+		$('#rcp_login_form #rcp_user_login').focus();
+	});
 })( jQuery );

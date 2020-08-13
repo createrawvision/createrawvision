@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Restrict Content Pro\n"
 "Report-Msgid-Bugs-To: https://restrictcontentpro.com/support/\n"
 "POT-Creation-Date: 2019-12-20 10:29+0000\n"
-"PO-Revision-Date: 2020-08-09 19:15+0200\n"
+"PO-Revision-Date: 2020-08-11 18:28+0200\n"
 "Last-Translator: flowdee <coder@flowdee.de>\n"
 "Language-Team: sz\n"
 "Language: de\n"
@@ -6929,7 +6929,9 @@ msgstr ""
 
 #: includes/content-filters.php:113
 msgid "Your account is pending email verification."
-msgstr "Du musst deine E-Mail Adresse noch bestätigen."
+msgstr ""
+"Du musst deine E-Mail Adresse noch bestätigen. Bitte überprüfe dein E-Mail "
+"Postfach. Um die E-Mail nochmal zu versenden, besuche deine Profilseite."
 
 #: includes/customers/class-rcp-customer.php:570
 msgid "Email successfully verified."

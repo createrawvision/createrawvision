@@ -68,7 +68,7 @@ function deploy_nav_menus() {
 		$advice_menu_item_id = run_wp_cli_command( "menu item add-custom $menu_id Empfehlungen '' --porcelain", array( 'return' => 'stdout' ) );
 		run_wp_cli_command( "menu item add-post $menu_id 19759 --title=Hochleistungsmixer --parent-id=$advice_menu_item_id" );
 		run_wp_cli_command( "menu item add-post $menu_id 19942 --title=Dörrgeräte --parent-id=$advice_menu_item_id" );
-		run_wp_cli_command( "menu item add-post $menu_id 16883 --title=Küchenmaschinen --parent-id=$advice_menu_item_id" );
+		run_wp_cli_command( "menu item add-post $menu_id 20994 --title=Küchenmaschinen --parent-id=$advice_menu_item_id" );
 		run_wp_cli_command( "menu item add-post $menu_id 19951 --title=Entsafter --parent-id=$advice_menu_item_id" );
 		run_wp_cli_command( "menu item add-post $menu_id 18900 --title=Rohkost&nbsp;Lebensmittel --parent-id=$advice_menu_item_id" );
 		run_wp_cli_command( "menu item add-post $menu_id 19982 --title=Spiralschneider --parent-id=$advice_menu_item_id" );
@@ -81,11 +81,11 @@ function deploy_nav_menus() {
 	// Create secondary menu items
 	WP_CLI::log( 'Creating secondary menu' );
 
-	run_wp_cli_command( "menu item add-post $secondary_menu_id 85 --title=Kontakt --porcelain" );
+	run_wp_cli_command( "menu item add-post $secondary_menu_id 85 --title=Kontakt --porcelain --target=_blank" );
 
 	$work_with_me_menu_item_id = run_wp_cli_command( "menu item add-custom $secondary_menu_id 'Arbeite mit mir' '' --porcelain", array( 'return' => 'stdout' ) );
-	run_wp_cli_command( "menu item add-post $secondary_menu_id 18999 --title=Kooperationen --parent-id=$work_with_me_menu_item_id" );
-	run_wp_cli_command( "menu item add-post $secondary_menu_id 19006 --title=Rezeptentwicklung --parent-id=$work_with_me_menu_item_id" );
+	run_wp_cli_command( "menu item add-post $secondary_menu_id 18999 --title=Kooperationen --parent-id=$work_with_me_menu_item_id  --target=_blank" );
+	run_wp_cli_command( "menu item add-post $secondary_menu_id 19006 --title=Rezeptentwicklung --parent-id=$work_with_me_menu_item_id  --target=_blank" );
 
 	$facebook_svg  = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M23.738.214v4.714h-2.804c-1.023 0-1.714.214-2.071.643s-.536 1.071-.536 1.929v3.375h5.232l-.696 5.286h-4.536v13.554h-5.464V16.161H8.309v-5.286h4.554V6.982c0-2.214.62-3.932 1.857-5.152S17.607 0 19.666 0c1.75 0 3.107.071 4.071.214z"/></svg>';
 	$pinterest_svg = '<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M4.571 10.661q0-1.929.67-3.634t1.848-2.973 2.714-2.196T13.107.465t3.607-.464q2.821 0 5.25 1.188t3.946 3.455 1.518 5.125q0 1.714-.339 3.357t-1.071 3.161-1.786 2.67-2.589 1.839-3.375.688q-1.214 0-2.411-.571t-1.714-1.571q-.179.696-.5 2.009t-.42 1.696-.366 1.268-.464 1.268-.571 1.116-.821 1.384-1.107 1.545l-.25.089-.161-.179q-.268-2.804-.268-3.357 0-1.643.384-3.688t1.188-5.134.929-3.625q-.571-1.161-.571-3.018 0-1.482.929-2.786t2.357-1.304q1.089 0 1.696.723t.607 1.83q0 1.179-.786 3.411t-.786 3.339q0 1.125.804 1.866t1.946.741q.982 0 1.821-.446t1.402-1.214 1-1.696.679-1.973.357-1.982.116-1.777q0-3.089-1.955-4.813t-5.098-1.723q-3.571 0-5.964 2.313t-2.393 5.866q0 .786.223 1.518t.482 1.161.482.813.223.545q0 .5-.268 1.304t-.661.804q-.036 0-.304-.054-.911-.268-1.616-1t-1.089-1.688-.58-1.929-.196-1.902z"/></svg>';

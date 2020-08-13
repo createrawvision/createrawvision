@@ -48,7 +48,8 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 // Child theme (do not remove).
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
-define( 'CHILD_THEME_VERSION', '2.0.0' );
+// define( 'CHILD_THEME_VERSION', '2.0.0' );
+define( 'CHILD_THEME_VERSION', '0.1.0' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -670,8 +671,9 @@ add_filter(
 			return $args;
 		}
 
-		// Show different menus for RCP logged in users
-		if ( rcp_user_has_active_membership() ) {
+		// Show different menus for RCP logged in users and admins.
+		// Show it to members even before launch!
+		if ( rcp_user_has_active_membership() || current_user_can( 'manage_options' ) ) {
 			$args['menu'] = 'Main Menu Member 2020';
 		} else {
 			$args['menu'] = 'Main Menu 2020';
@@ -684,6 +686,8 @@ add_filter(
 
 /**
  * Adds `nav-icon` class to nav items containing an svg element
+ *
+ * @todo add `sub-menu-toggle` to empty custom elements with children
  */
 add_filter(
 	'nav_menu_css_class',
@@ -764,7 +768,7 @@ function crv_loginout_menu_link( $menu, $args ) {
 		return $menu;
 	}
 
-	$menu .= is_user_logged_in() ? '<li class="menu-item"><a href="/dashboard">Zum Dashboard</a></li>' : '';
+	$menu .= is_user_logged_in() ? '<li class="menu-item"><a href="/dashboard">Übersichtsseite</a></li>' : '';
 	$menu .= '<li class="menu-item">' . crv_loginout() . '</li>';
 	return $menu;
 }
@@ -890,12 +894,16 @@ add_action(
 require_once CHILD_DIR . '/lib/help-popup.php';
 
 
+global $crv_launch_date;
+$crv_launch_date = new DateTime( '2020-08-20 12:00:00', new DateTimeZone( 'Europe/Berlin' ) );
 /**
  * Returns true, when the date is before the membership launch
  */
 function crv_is_before_membership_launch( $date = null ) {
+	global $crv_launch_date;
+
 	$date = $date ?? new DateTime();
-	return $date < new DateTime( '2020-08-20 17:00:00', new DateTimeZone( 'Europe/Berlin' ) );
+	return $date < $crv_launch_date;
 }
 
 
@@ -906,13 +914,19 @@ require_once CHILD_DIR . '/lib/rcp-upgrade-settings.php';
 
 
 /**
- * Set expiration to launch day before launch for active memberships.
+ * Set expiration to the launch day on days, which are at least one full day before launch.
+ * Just for active memberships.
+ * Reasion: DigiStore allows only full days of test phase.
  */
 add_filter(
 	'rcp_calculate_membership_level_expiration',
 	function( $expiration_date, $membership_level, $set_trial ) {
-		if ( new DateTime() < new DateTime( '2020-08-20', new DateTimeZone( 'Europe/Berlin' ) ) && 'active' === $membership_level->status ) {
-			return '2020-08-20 23:59:59';
+		global $crv_launch_date;
+		$day_before_launch = ( clone $crv_launch_date )->sub( new DateInterval( 'P1D' ) )->setTime( 0, 0, 0 );
+		$now               = new DateTime( 'now' );
+
+		if ( $now < $day_before_launch && 'active' === $membership_level->status ) {
+			return $crv_launch_date->format( 'Y-m-d' ) . ' 23:59:59';
 		}
 		return $expiration_date;
 	},
@@ -926,7 +940,11 @@ add_filter(
 add_filter(
 	'rcp_registration_total',
 	function( $total ) {
-		if ( new DateTime() < new DateTime( '2020-08-20', new DateTimeZone( 'Europe/Berlin' ) ) ) {
+		global $crv_launch_date;
+		$day_before_launch = ( clone $crv_launch_date )->sub( new DateInterval( 'P1D' ) )->setTime( 0, 0, 0 );
+		$now               = new DateTime( 'now' );
+
+		if ( $now < $day_before_launch ) {
 			return 'Kostenlos bis zur Veröffentlichung';
 		}
 		return $total;
@@ -946,19 +964,6 @@ add_action(
 		if ( is_singular( 'page' ) && genesis_get_custom_field( 'query_args' ) ) {
 			do_action( 'genesis_entry_header' );
 		}
-	}
-);
-
-
-/**
- * For now, show the normal blog home for restricted people.
- *
- * @todo remove when home is done
- */
-add_filter(
-	'pre_option_show_on_front',
-	function() {
-		return crv_user_is_unrestricted() ? 'page' : 'posts';
 	}
 );
 

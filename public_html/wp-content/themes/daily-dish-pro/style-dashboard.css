@@ -4,7 +4,11 @@ Styles for the dashboard page
 
 /* Variables */
 .dashboard-container {
-  --section-bg: linear-gradient(10deg, hsl(40 52% 84%), hsl(40 52% 94%));
+  --section-bg: linear-gradient(6deg, hsl(40 52% 75% / 1), hsl(40 52% 95% / 1));
+  --card-bg: linear-gradient(190deg, white, #fdfbf7);
+  --box-shadow: 0 0.5rem 1rem #999;
+  --box-shadow--light: 0 0.3rem 0.6rem #aaa;
+  --box-shadow--hard: 0 0.7rem 1.5rem #888;
 }
 
 /* Global styles */
@@ -23,51 +27,17 @@ Styles for the dashboard page
 
 .dashboard-container ul {
   margin-left: 0;
-  display: flex;
-  justify-content: center;
-  gap: 3rem 5rem;
-  flex-flow: row wrap;
 }
 
-.dashboard-container button {
-  display: inline-block;
-  width: auto;
-  padding: 1.4rem 2.2rem;
-  border-radius: 1.5rem;
-  font-size: 2rem;
-  box-shadow: 0 0.5rem 1rem #888;
-  transition: box-shadow 0.5s, background-color 0.5s;
-  text-transform: none;
-}
-
-.dashboard-container button:hover {
-  background-color: hsl(316 100% 20% / 1);
-  box-shadow: 0 0.7rem 1.5rem #888;
-  transform: scale(1.01);
-}
-
-.dashboard-container .action__hint {
-  font-style: italic;
-  color: #666;
-  display: block;
-  margin-top: 1.5rem;
-  font-size: 0.9em;
-}
-
-/* Main heading */
-h1.entry-title {
-  font-size: 4.2rem;
-  font-weight: bold;
-}
-
-/* Set up sections */
-.dashboard-container .section-wrapper:nth-of-type(odd) {
+/* 
+Set up sections 
+*/
+.dashboard-container .section-wrapper:nth-of-type(even) {
   background-color: #e1cc9f;
   background: var(--section-bg);
 }
 
 .dashboard-container section {
-  /* max-width: 800px; */
   padding: 5rem;
   margin: 0 auto;
   text-align: center;
@@ -81,103 +51,134 @@ h1.entry-title {
   margin-bottom: 0;
 }
 
-/* 
-Recipes
-*/
 /*
-.recipes h2 {
-  font-size: 3.6rem;
-  margin-bottom: 4rem;
-}
-
-.recipes__container {
-  display: flex;
-  flex-flow: row nowrap;
-  align-items: center;
-  justify-content: center;
-  gap: 10rem;
-  max-width: 100vh;
+Cards
+*/
+.dashboard-cards {
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  max-width: 110rem;
   margin: auto;
 }
 
-.recipes__container > *:first-child {
-  flex: 1 0 auto;
+.dashboard-cards__item {
+  background-color: white;
+  background: linear-gradient(190deg, white, #fdfbf7);
+  padding: 3rem;
+  border-radius: 0.3rem;
+  box-shadow: var(--box-shadow--light);
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
 }
 
-/* Recent Recipes */
-.recipes__recent {
-  position: relative;
-  display: inline-grid;
-  grid-template-columns: repeat(2, auto);
-  border: 0.8rem solid #94006c;
-  transition: all 0.5s;
-  max-width: fit-content;
+.dashboard-cards__title {
+  margin-top: 0 !important;
+  font-weight: bold;
 }
 
-.recipes__recent:hover {
+.dashboard-cards__text {
+  margin-bottom: 2rem;
+}
+
+@media only screen and (max-width: 959px) {
+  .dashboard-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-cards__item {
+    max-width: 65rem;
+  }
+}
+
+/* 
+Site header 
+*/
+#genesis-content .entry-title {
+  font-size: 8rem;
+  font-weight: bold;
+  color: white;
+}
+
+#genesis-content .entry-subtitle {
+  font-size: 3rem;
+  color: white;
+}
+
+#genesis-content .entry-header {
+  min-height: 50rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(190deg, #0003, #0006),
+    center / cover no-repeat
+      url(../../wp-content/uploads/2020/08/dashboard-hero.jpg);
+}
+
+@media only screen and (max-width: 768px) {
+  #genesis-content .entry-header {
+    background-image: linear-gradient(190deg, #0003, #0006),
+      url(../../wp-content/uploads/2020/08/dashboard-hero-1024x537.jpg);
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #genesis-content .entry-header {
+    background-image: linear-gradient(190deg, #0003, #0006),
+      url(../../wp-content/uploads/2020/08/dashboard-hero-500x500.jpg);
+  }
+}
+
+/*
+Overview
+*/
+.overview__list {
+  display: flex;
+  justify-content: center;
+  gap: 3rem 5rem;
+  flex-flow: row wrap;
+}
+
+.overview__title {
+  font-size: 3.6rem;
+  font-family: Raleway;
+  margin: 2rem 0 0;
+}
+
+.overview__image {
+  box-shadow: var(--box-shadow--hard);
+}
+
+/*
+Support
+*/
+.support__list {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 3rem 5rem;
+  justify-content: center;
+}
+
+.support__item {
+  display: inline-block;
+  width: auto;
+  padding: 1.4rem 2.2rem;
+  font-size: 2rem;
+  box-shadow: var(--box-shadow--light);
+  transition: box-shadow 0.5s, background-color 0.5s;
+  text-transform: none;
+  background: var(--card-bg);
+  color: black;
+  font-weight: bold;
+}
+
+.support__item:hover {
+  box-shadow: var(--box-shadow);
   transform: scale(1.01);
 }
 
-.recipes__recent a {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 5rem;
-  font-weight: bold;
+.support__item > a {
   text-decoration: none;
-  color: black;
-}
-
-.recipes__recent a span {
-  background-color: white;
-  background: radial-gradient(
-    closest-side,
-    white 50%,
-    rgba(255, 255, 255, 0.747) 75%,
-    transparent
-  );
-  display: block;
-  padding: 12vh;
-  border-radius: 4rem;
-  margin: 5rem;
-  width: min-content;
-}
-
-.recipes__overlay {
-  position: relative;
-}
-
-.recipes__overlay > img {
-  width: auto;
-  max-height: 35vh;
-}
-
-.recipes__overlay::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  box-shadow: 0 0 1.6vw 1.8vw white inset;
-}
-
-/* Recipe Buttons */
-.recipes__list {
-  display: flex;
-  flex-flow: column nowrap;
-  gap: 5rem;
-  margin: 0 !important;
-  justify-content: space-around;
-}
-*/ @media only screen and (max-width: 1280px) {
-  .recipes__container {
-    flex-flow: column nowrap;
-  }
 }

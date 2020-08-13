@@ -32,8 +32,6 @@ add_action(
 
 /**
  * All posts in category 'member' are member-content
- *
- * @todo make generic with array of posts
  */
 function crv_is_restricted_post( $post_id ) {
 	return empty( crv_strip_restricted_posts( array( $post_id ) ) );

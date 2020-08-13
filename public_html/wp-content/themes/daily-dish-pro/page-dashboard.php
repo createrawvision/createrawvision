@@ -2,8 +2,14 @@
 
 namespace crv\dashboard;
 
-add_action( 'genesis_entry_content', __NAMESPACE__ . '\show_dashboard' );
+/**
+ * Add content to entry_content.
+ */
+add_action( 'genesis_entry_content', __NAMESPACE__ . '\show_dashboard', 9 );
 
+/**
+ * Enqueue dashboard styles.
+ */
 add_action(
 	'wp_enqueue_scripts',
 	function() {
@@ -11,6 +17,51 @@ add_action(
 	}
 );
 
+/**
+ * Show username in title.
+ */
+add_filter(
+	'genesis_post_title_text',
+	function( $title ) {
+		if ( ! is_user_logged_in() ) {
+			return $title;
+		}
+		$name = get_userdata( get_current_user_id() )->first_name;
+		if ( ! $name ) {
+			return $title;
+		}
+		return 'Hallo, ' . $name . '!';
+	}
+);
+
+/**
+ * Make entry header full-width
+ */
+add_filter(
+	'genesis_attr_entry-header',
+	function( $attributes ) {
+		if ( isset( $attributes['class'] ) ) {
+			$attributes['class'] .= ' full-width';
+		} else {
+			$attributes['class'] = 'full-width';
+		}
+		return $attributes;
+	}
+);
+
+/**
+ * Show entry-header subtitle.
+ */
+add_action(
+	'genesis_entry_header',
+	function() {
+		echo '<p class="entry-subtitle">Willkommen an deinem Ort für Rohkost</p>';
+	}
+);
+
+/**
+ * Echo the whole dashboard content.
+ */
 function show_dashboard() {
 	echo wp_kses_post( rcp_restricted_message_pending_verification( '' ) );
 	echo '<div class="dashboard-container full-width">';
@@ -18,13 +69,9 @@ function show_dashboard() {
 	$sections = array(
 		'overview',
 		'recipes',
-		'course',
-		'tutorials',
-		// 'community',
-		'blog',
-		'settings',
 		'support',
 		'further',
+		'settings',
 	);
 
 	foreach ( $sections as $section ) {
@@ -36,118 +83,128 @@ function show_dashboard() {
 	echo '</div>';
 }
 
+/**
+ * Show a custom overview of the 'member' category
+ */
 function show_overview() {
-	echo '<h2>Mitgliederbereich-Übersicht</h2>';
-	echo '<ul><li><a href="' . esc_url( get_category_link( 4269 ) ) . '"><button>Zur Übersicht</button></a></li></ul>';
-
-}
-
-function show_recipes() {
-	echo '<h2>Rohkost Rezepte</h2>';
-	echo '<div class="recipes__container">';
-	// show_recent_recipes();
-	?>
-	<ul class="recipes__list">
-		<li><a href="<?php echo esc_url( get_term_link( 'rezepte', 'category' ) ); ?>"><button>Rezepte nach Kategorien</button></a><span class="action__hint">Eine Übersicht über alle Rezepte</span></li>
-		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'neue-rezepte' ) ) ); ?>"><button>Neue Rezepte</button></a><span class="action__hint">Eine Rezeptübersicht von neu nach alt</span></li>
-		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'suche' ) ) ); ?>"><button>Rezepte suchen</button></a><span class="action__hint">Suche Rezepte nach Schwieigkeit, Typ, Ausstattung,&nbsp;...</span></li>
-		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'lesezeichen' ) ) ); ?>"><button>Deine Lieblingsrezepte</button></a><span class="action__hint">Deine gespeicherten Rezepte</span></li>
-		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'beliebte-rezepte' ) ) ); ?>"><button>Beliebte Rezepte</button></a><span class="action__hint">Rezepte, die andere oft gespeichert haben</span></li>
-	</ul>
-	<?php
-	echo '</div>';
-}
-
-function show_recent_recipes() {
-	$recipe_cat_id  = 5869;
-	$recent_recipes = get_posts(
+	$categories = array(
 		array(
-			'cat'          => $recipe_cat_id,
-			'numberposts'  => 4,
-			'meta_key'     => '_thumbnail_id',
-			'meta_compare' => 'EXISTS',
-		)
+			'id'       => 5792,
+			'title'    => 'Zum Einsteigerkurs',
+			'image_id' => 21027,
+		),
+		array(
+			'id'       => 5869,
+			'title'    => 'Zu allen Rezepten',
+			'image_id' => 20833,
+		),
+		array(
+			'id'       => 5287,
+			'title'    => 'Zu den Tipps & Tutorials',
+			'image_id' => 20243,
+		),
 	);
-	echo '<div class="recipes__recent"><a href="' . esc_url( get_permalink( get_page_by_path( 'neue-rezepte' ) ) ) . '"><span>Neue Rezepte</span></a>';
-	foreach ( $recent_recipes as $post ) {
-		echo '<div class="recipes__overlay">' . get_the_post_thumbnail( $post, 'thumbnail-portrait', array( 'class' => 'recipes__image' ) ) . '</div>';
-	}
-	echo '</div>';
-}
 
-function show_community() {
-	/** @todo */
-	echo '<h2 style="color: grey;">Community (demnächst verfügbar)</h2>';
-}
-
-function show_tutorials() {
-	$tutorials_category_id = get_category_by_slug( 'tipps-tutorials' )->term_id ?? 5287;
-	$courses               = get_categories( array( 'parent' => $tutorials_category_id ) );
-	?>
-	<h2>Rohkost Tipps & Tutorials</h2>
-	<ul>
-	<?php
-	foreach ( $courses as $course ) {
-		echo '<li><a href="' . esc_url( get_category_link( $course ) ) . '"><button>' . esc_html( $course->name ) . '</button></a></li>';
-	}
-	?>
-	</ul>
-	<?php
-}
-
-function show_course() {
-	echo '<h2>Dein Weg Zur Rohkost Leicht Gemacht</h2>';
-	echo '<ul><li><a href="' . esc_url( get_category_link( 5792 ) ) . '"><button>Zum Kurs</button></a></li></ul>';
-}
-
-function show_blog() {
-	$blog_category_id = get_category_by_slug( 'blog' )->term_id;
-	$categories       = get_categories( array( 'parent' => $blog_category_id ) );
-	?>
-	<h2>Blog</h2>
-	<ul>
-	<?php
+	echo '<ul class="overview__list">';
 	foreach ( $categories as $category ) {
-		echo '<li><a href="' . esc_url( get_category_link( $category ) ) . '"><button>' . esc_html( $category->name ) . '</button></a></li>';
+		?> 
+		<li class="overview__item">
+			<a href="<?php echo esc_url( get_category_link( $category['id'] ) ); ?>">
+				<?php echo wp_get_attachment_image( $category['image_id'], 'thumbnail-portrait', false, array( 'class' => 'overview__image' ) ); ?>
+				<p class="overview__title"><?php echo esc_html( $category['title'] ); ?></p>
+			</a>
+		</li>
+		<?php
 	}
+	echo '</ul>';
+}
+
+/**
+ * Show everything related to recipes.
+ */
+function show_recipes() {
 	?>
+	<ul class="dashboard-cards">
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Deine Lieblingsrezepte</h3>
+			<p class="dashboard-cards__text">Um dir das Finden der Rezepte, die du am liebsten zubereitest zu erleichtern, kannst du hier deine Lieblingsrezepte abspeichern und einsehen.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'lesezeichen' ) ); ?>" class="dashboard-cards__link">Zu deinen Lieblingsrezepten</a>
+		</li>
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Rezeptsuche</h3>
+			<p class="dashboard-cards__text">Du bist auf der Suche nach einem bestimmten Rezept? Dann benutz unsere besondere Suchfunktion. Du kannst nach Kategorie, Schwierigkeitsgrad und vielem mehr filtern.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'suche' ) ); ?>" class="dashboard-cards__link">Zur Rezeptsuche</a>
+		</li>
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Neue Rezepte</h3>
+			<p class="dashboard-cards__text">Bei uns bekommst du regelmäßig neue Rezepte. Hier findest du unsere neuesten Rezepte.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'neue-rezepte' ) ); ?>" class="dashboard-cards__link">Zu den neuen Rezepten</a>
+		</li>
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Die beliebtesten Rezepte</h3>
+			<p class="dashboard-cards__text">Welche Rezepte sind momentan die beliebtesten? Das kannst du hier herausfinden.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'beliebte-rezepte' ) ); ?>" class="dashboard-cards__link">Zu den beliebten Rezepten</a>
+		</li>
 	</ul>
 	<?php
 }
 
+/**
+ * Show things, that don't fit somewhere else.
+ *
+ * @todo Q&As and events
+ */
 function show_further() {
 	?>
-	<h2>Weiteres</h2>
-	<ul>
-		<!-- @todo -->
-		<!-- <li><button>Q&As</button></li> -->
-		<!-- @todo -->
-		<!-- <li><button>Kommende Veranstaltungen</button></li> -->
-		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'unsere-vision' ) ) ); ?>"><button>Unsere Vision</button></a></li>
+	<ul class="dashboard-cards">
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Einführung</h3>
+			<p class="dashboard-cards__text">Hier zeigen wir dir wie du dich am besten in unserem Mitgliederbereich zurechtfindest. Dadurch kannst du alle Vorteile deiner Mitgliedschaft ausschöpfen.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'einfuehrung' ) ); ?>" class="dashboard-cards__link">Zur Einführung</a>
+		</li>
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Unsere Vision</h3>
+			<p class="dashboard-cards__text">Warum machen wir das alles? Finde heraus, was uns bewegt und warum wir den Mitgliederbereich ins Leben gerufen haben.</p>
+			<a href="<?php the_permalink( get_page_by_path( 'unsere-vision' ) ); ?>" class="dashboard-cards__link">Zu unserer Vision</a>
+		</li>
 	</ul>
 	<?php
 }
 
+/**
+ * Show all settings for the user.
+ */
 function show_settings() {
 	global $rcp_options;
 	?>
-	<h2>Einstellungen</h2>
-	<ul>
-		<li><a href="<?php the_permalink( $rcp_options['edit_profile'] ); ?>"><button>Profil bearbeiten</button></a></li>
-		<li><a href="<?php the_permalink( $rcp_options['account_page'] ); ?>"><button>Mitgliedschaft/Zahlungen verwalten</button></a></li>
+	<h2 class="settings__heading">Einstellungen</h2>
+	<ul class="dashboard-cards">
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Profil bearbeiten</h3>
+			<p class="dashboard-cards__text">In diesem Bereich kannst du deine Profildaten wie Benutzername, Passwort und E-Mail-Adresse ändern.</p>
+			<a href="<?php the_permalink( $rcp_options['edit_profile'] ); ?>" class="dashboard-cards__link">Profil bearbeiten</a>
+		</li>
+		<li class="dashboard-cards__item">
+			<h3 class="dashboard-cards__title">Mitgliedschaft / Zahlungen verwalten</h3>
+			<p class="dashboard-cards__text">Hier kannst du den Status deiner Mitgliedschaft und alle Zahlungen einsehen und deine Mitgliedschaft bearbeiten.</p>
+			<a href="<?php the_permalink( $rcp_options['account_page'] ); ?>" class="dashboard-cards__link">Mitgliedschaft verwalten</a>
+		</li>
 	</ul>
 	<?php
 }
 
+/**
+ * Show support related items.
+ */
 function show_support() {
 	?>
-	<h2>Support</h2>
-	<ul>
-		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'faqs' ) ) ); ?>"><button>Häufige Fragen</button></a></li>
-		<li><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'kontaktformular' ) ) ); ?>"><button>Kontakt</button></a></li>
-		<li><a href="#header-search-wrap" class="toggle-header-search"><button>Website durchsuchen</button></a></li>
+	<h2 class="support__heading">Hilfe & Support</h2>
+	<ul class="support__list">
+		<li class="support__item"><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'faqs' ) ) ); ?>">Zu den häufigen Fragen</a></li>
+		<li class="support__item"><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'kontaktformular' ) ) ); ?>">Uns jetzt kontaktieren</a></li>
 	</ul>
 	<?php
 }
 
+// Start the engine.
 genesis();

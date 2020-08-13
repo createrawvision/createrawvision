@@ -35,13 +35,15 @@ const matches = (text, search) => {
 }
 
 const searchInput = document.querySelector('#faq-searchform');
-const searchForm = searchInput.parentElement;
+if( searchInput ) {
+  const searchForm = searchInput.parentElement;
 
-// filter faqs once, when input is prefilled
-filterFaqs(searchInput.value); 
+  // filter faqs once, when input is prefilled
+  filterFaqs(searchInput.value); 
 
-// ... and filter on each input
-searchInput.addEventListener("input", () => filterFaqs(searchInput.value));
+  // ... and filter on each input
+  searchInput.addEventListener("input", () => filterFaqs(searchInput.value));
 
-// prevent search submission when JS is active
-searchForm.addEventListener("submit", event => event.preventDefault());
+  // prevent search submission when JS is active
+  searchForm.addEventListener("submit", event => event.preventDefault());
+}

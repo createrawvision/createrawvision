@@ -919,18 +919,23 @@ body > * {
 --------------------------------------------- */
 
 .site-container {
+  --site-container-padding: 80px;
   background-color: #fff;
+}
+
+.site-container,
+.full-width-reset {
   width: 100%;
   margin: auto;
-  padding-left: 80px;
-  padding-right: 80px;
+  padding-left: var(--site-container-padding);
+  padding-right: var(--site-container-padding);
 }
 
 .full-width {
   position: relative;
-  left: -80px;
-  right: 80px;
-  width: calc(100% + 160px);
+  left: calc(-1 * var(--site-container-padding));
+  right: var(--site-container-padding);
+  width: calc(100% + 2 * var(--site-container-padding));
   max-width: none !important;
 }
 
@@ -2542,15 +2547,9 @@ li.comment {
   .after-footer,
   .before-header,
   .site-container {
-    padding-left: 40px;
-    padding-right: 40px;
-  }
-
-  .full-width {
-    position: relative;
-    left: -40px;
-    right: 40px;
-    width: calc(100% + 80px);
+    --site-container-padding: 40px;
+    padding-left: var(--site-container-padding);
+    padding-right: var(--site-container-padding);
   }
 
   .single .entry-content,
@@ -2849,15 +2848,9 @@ li.comment {
   .after-footer,
   .before-header,
   .site-container {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  .full-width {
-    position: relative;
-    left: -20px;
-    right: 20px;
-    width: calc(100% + 40px);
+    --site-container-padding: 20px;
+    padding-left: var(--site-container-padding);
+    padding-right: var(--site-container-padding);
   }
 
   .before-header {
@@ -3054,6 +3047,14 @@ li.comment {
   font-weight: bold;
 }
 
+@media only screen and (max-width: 480px) {
+  .crv-help-popup__button {
+    width: 5.5rem;
+    height: 5.5rem;
+    font-size: 2.5rem;
+  }
+}
+
 /* 
 RCP
 */
@@ -3071,6 +3072,7 @@ RCP
   box-shadow: 0 0 2.5rem #ffffff80;
   background-color: white;
   margin: 2rem 0;
+  z-index: 1;
 }
 
 #rcp_login_form .rcp_login_form__header {
@@ -3144,9 +3146,18 @@ RCP
   bottom: 0;
   left: 0;
   background-color: #153237;
+  overflow: auto;
+}
+
+.page-id-21064 #rcp_login_form::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   background: linear-gradient(#0001, #0001),
     center / cover no-repeat url(/wp-content/uploads/2020/08/hintergrund.jpg);
-  overflow: auto;
 }
 
 @media only screen and (max-width: 768px) {
@@ -3154,13 +3165,54 @@ RCP
     padding: 3.2rem 2.8rem;
   }
 
-  .page-id-21064 #rcp_login_form {
+  .page-id-21064 #rcp_login_form::before {
     background-image: url(/wp-content/uploads/2020/08/hintergrund-1536x1024.jpg);
   }
 }
 
 @media only screen and (max-width: 480px) {
-  .page-id-21064 #rcp_login_form {
+  .page-id-21064 #rcp_login_form::before {
     background-image: url(/wp-content/uploads/2020/08/hintergrund-720x470.jpg);
   }
+}
+
+/*
+Cookie notice
+*/
+#cookie-notice .cookie-notice-container {
+  --bg: hsl(316 100% 10% / 1);
+  box-shadow: 0 0 1rem 0.3rem var(--bg);
+  background-color: var(--bg);
+  padding: 10rem 6rem 5rem;
+}
+
+#cookie-notice #cn-notice-text {
+  display: block;
+  color: hsl(41 52% 97% / 1);
+  font-size: 1.6rem;
+  font-family: Montserrat, -apple-system, BlinkMacSystemFont, Arial, Roboto,
+    "Helvetica Neue", sans-serif;
+  margin-bottom: 5rem;
+}
+
+#cookie-notice .cn-button.button {
+  font-size: 1.6rem;
+  text-transform: uppercase;
+  font-family: Raleway, -apple-system, BlinkMacSystemFont, Arial, Roboto,
+    "Helvetica Neue", sans-serif;
+  padding: 1.5rem 2rem;
+  text-decoration: none;
+  margin: 0 1rem;
+  display: inline-block;
+}
+
+/*
+Admin bar overflowing fix
+*/
+#wpadminbar {
+  overflow-x: auto;
+}
+
+#wpadminbar:hover {
+  overflow-x: visible;
 }

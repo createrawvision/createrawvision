@@ -1,28 +1,46 @@
 :root {
   --section-bg: linear-gradient(10deg, hsl(40 52% 84%), hsl(40 52% 94%));
+  --ul-margin-left: 3rem;
+  --li-padding-left: 0.5rem;
+  --content-width: 1280px;
+  --bubble-size: 24rem;
 }
 
-/* Make the content full size */
+/*
+Resets / Overrides
+*/
 .entry-content {
   max-width: 100% !important;
 }
 
-/* Remove some margin from the top */
 .content {
   padding: 0;
 }
 
-/* ... and add some. */
-.content section {
-  margin: 7rem auto;
-  max-width: 1280px;
+.footer-widgets {
+  padding-top: 20px;
 }
 
-/* CTA */
+.full-width-reset {
+  max-width: var(--content-width);
+  position: relative;
+}
+
+/* 
+Global styles 
+*/
+.content section {
+  margin: 7rem auto;
+  max-width: var(--content-width);
+}
+
+/* 
+CTA 
+*/
 .cta-button {
   display: block;
   width: auto;
-  margin: 8rem auto;
+  margin: 7rem auto;
   border-radius: 0.8rem;
   padding: 2.5rem 3rem;
   font-size: 1.8rem;
@@ -49,6 +67,108 @@
 }
 
 /*
+Fading image
+*/
+.fading-bg {
+  position: relative;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.fading-bg__image {
+  position: absolute;
+  top: -2rem;
+  bottom: -2rem;
+  width: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.fading-bg--right .fading-bg__image {
+  right: 0;
+}
+
+.fading-bg--left .fading-bg__image {
+  left: 0;
+}
+
+.fading-bg__overlay {
+  height: 100%;
+}
+
+.fading-bg--right .fading-bg__overlay {
+  background-image: linear-gradient(to left, transparent 50%, white),
+    linear-gradient(to top, transparent 80%, white),
+    linear-gradient(to bottom, transparent 80%, white);
+}
+
+.fading-bg--left .fading-bg__overlay {
+  background-image: linear-gradient(to right, transparent 50%, white),
+    linear-gradient(to top, transparent 80%, white),
+    linear-gradient(to bottom, transparent 80%, white);
+}
+
+.fading-bg__content {
+  width: 60%;
+}
+
+.fading-bg--right .fading-bg__content {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+.fading-bg--left .fading-bg__content {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .fading-bg {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .fading-bg__image {
+    width: 100%;
+  }
+
+  .fading-bg__image {
+    display: none;
+  }
+
+  .fading-bg__content {
+    width: 100%;
+  }
+}
+
+/*
+Bubble
+*/
+.bubble {
+  --offset: 0px; /* calc(var(--bubble-size) / 2); */
+  --margin: 1rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  width: var(--bubble-size);
+  height: var(--bubble-size);
+  clip-path: circle(50%);
+}
+
+.bubble--right {
+  float: right;
+  right: calc(-1 * var(--offset));
+  margin-left: var(--margin);
+  shape-outside: circle(50% at calc(50% + var(--offset)) 50%);
+}
+
+.bubble--left {
+  float: left;
+  left: calc(-1 * var(--offset));
+  margin-right: var(--margin);
+  shape-outside: circle(50% at calc(50% - var(--offset)) 50%);
+}
+
+/*
 Countdown
 */
 .countdown {
@@ -56,9 +176,8 @@ Countdown
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
-  padding: 1em 0;
   margin: 0 !important;
-  padding: 5rem 0;
+  padding: 5rem 3rem;
   background: var(--section-bg);
 }
 
@@ -79,10 +198,14 @@ Countdown
   text-align: center;
 }
 
+.countdown__timer__time-label {
+  text-align: center;
+}
+
 .countdown__description {
   text-align: center;
   font-size: 1.4em;
-  margin: 0;
+  margin: 1rem 0 0;
 }
 
 .countdown__button {
@@ -104,8 +227,55 @@ Countdown
 }
 
 .countdown--inline .countdown__button {
-  margin: 1rem;
   padding: 1rem 1.5rem;
+  margin: 0 1rem;
+}
+
+@media only screen and (max-width: 959px) {
+  .countdown--inline {
+    font-size: 1.4rem;
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .countdown--inline .countdown__button {
+    font-size: 1.2rem;
+    width: min-content;
+    padding: 0.7rem 1rem;
+  }
+
+  .countdown--inline .countdown__timer {
+    gap: 1.2rem;
+  }
+
+  .countdown--inline .countdown__timer__item {
+    display: inline-flex;
+    flex-flow: column nowrap;
+  }
+
+  .countdown--inline .countdown__timer__time-element {
+    margin: 0;
+    font-size: 2.4rem;
+  }
+
+  .countdown--inline .countdown__timer__time-label {
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .countdown {
+    font-size: 1.4rem;
+  }
+
+  .countdown__timer {
+    gap: 1.2rem;
+  }
+
+  .countdown__timer__item {
+    display: inline-flex;
+    flex-flow: column nowrap;
+  }
 }
 
 /* 
@@ -114,8 +284,8 @@ Hero
 .hero {
   padding: 0 5rem;
   background: center / cover no-repeat;
-  background-image: radial-gradient(#0008, transparent 67%),
-    url(https://picsum.photos/1280/720);
+  background-image: linear-gradient(#0003, #0003),
+    url(../../uploads/2020/08/hero-home.jpeg);
   text-align: center;
   height: 500px;
   display: flex;
@@ -126,14 +296,14 @@ Hero
 
 .hero__title {
   font-weight: bold;
-  font-size: 4.2rem;
+  font-size: 6rem;
   color: white;
 }
 
 .hero__subtitle {
   font-style: italic;
   color: white;
-  font-size: 2.4rem;
+  font-size: 3rem;
   margin: 0;
 }
 
@@ -141,6 +311,8 @@ Hero
   .hero {
     padding: 0 2rem;
     height: 400px;
+    background-image: linear-gradient(#0003, #0003),
+      url(../../uploads/2020/08/hero-home-1024x522.jpeg);
   }
 
   .hero__title {
@@ -149,6 +321,51 @@ Hero
 
   .hero__subtitle {
     font-size: 2rem;
+  }
+}
+
+/* 
+Overview 
+*/
+.overview {
+  overflow-x: hidden;
+  font-size: 1.2em;
+  padding-left: calc(1.3 * var(--bubble-size));
+  padding-right: calc(1.3 * var(--bubble-size));
+}
+
+.overview .bubble {
+  --offset: calc(0.8 * var(--bubble-size));
+}
+
+.overview__item {
+  margin-bottom: 5rem;
+  text-align: center;
+  max-width: 90rem;
+}
+
+@media only screen and (max-width: 1280px) {
+  .overview {
+    padding-left: calc(0.55 * var(--bubble-size));
+    padding-right: calc(0.55 * var(--bubble-size));
+  }
+
+  .overview .bubble {
+    --offset: calc(0.5 * var(--bubble-size));
+    --margin: 2rem;
+  }
+}
+
+@media only screen and (max-width: 959px) {
+  .overview {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .overview .bubble {
+    display: none;
   }
 }
 
@@ -164,28 +381,73 @@ Introduction
 }
 
 .introduction__list {
-  max-width: max-content;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  margin-left: var(--ul-margin-left);
   font-size: 1.2em;
 }
 
 .introduction__item {
   margin-bottom: 1rem;
+  padding-left: var(--li-padding-left);
   list-style-image: url(images/check.svg);
 }
 
-/* 
-Overview 
+/*
+Checkmarks
 */
-.overview {
-  max-width: 800px !important;
-  font-size: 1.2em;
+.checkmarks {
+  background: var(--section-bg);
+  padding: 5rem;
 }
 
-.overview__item {
-  margin-bottom: 5rem;
+.checkmarks__title {
   text-align: center;
+  margin-bottom: 4rem;
+}
+
+.checkmarks__list {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  gap: 5rem;
+  margin: 0 auto !important;
+  max-width: 1360px;
+}
+
+.checkmarks__item {
+  list-style-type: none !important;
+  flex: 1 0 0;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  gap: 3rem;
+}
+
+.checkmarks__item::before {
+  display: block;
+  content: "";
+  background: center / contain no-repeat url(images/bootstrap-check-circle.svg);
+  /* For #008000, see https://stackoverflow.com/a/53336754/5312432 */
+  filter: invert(24%) sepia(82%) saturate(2304%) hue-rotate(95deg)
+    brightness(96%) contrast(104%);
+  width: 8rem;
+  height: 8rem;
+}
+
+.checkmarks__heading {
+  margin: 0 !important;
+  font-weight: bold;
+  text-align: center;
+}
+
+.checkmarks__text {
+  margin-bottom: 0 !important;
+  text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .checkmarks__list {
+    flex-direction: column;
+  }
 }
 
 /*
@@ -229,24 +491,13 @@ Offer summary
 /*
 Testimonials
  */
-.testimonials {
-  display: none;
-}
-
-.user-is-unrestricted .testimonials {
-  display: block;
+section.testimonials {
+  max-width: none;
 }
 
 .testimonials__title {
   text-align: center;
   margin-bottom: 3rem;
-}
-
-.testimonials__list {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(440px, 100%), 1fr));
-  gap: 2rem;
-  margin-left: 0 !important;
 }
 
 .testimonials__entry {
@@ -256,27 +507,24 @@ Testimonials
   list-style-type: none !important;
   padding: 2rem 3rem;
   display: flex;
-  flex-flow: row nowrap;
-  align-items: flex-start;
-  gap: 3rem;
+  flex-flow: column nowrap;
+  align-items: center;
+  text-align: center;
   transition: box-shadow 0.25s;
-  cursor: pointer;
 }
 
 .testimonials__entry:hover {
   box-shadow: 0 0.5rem 1.5rem #0008;
 }
 
-.testimonials__portrait {
+.testimonials__portrait,
+/* In case it gets replaced in content editor */
+.testimonials__entry img {
   border-radius: 50%;
   width: 120px;
   height: 120px;
-  margin: 1rem 0;
   object-fit: cover;
-}
-
-.testimonials__content {
-  margin: 1rem 0;
+  margin-bottom: 1.5rem;
 }
 
 .testimonials__name {
@@ -286,148 +534,250 @@ Testimonials
 }
 
 .testimonials__address {
+  display: block;
   color: #666;
-  display: inline-block;
 }
 
 .testimonials__text {
   font-style: italic;
-  max-height: 7em;
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(black 50%, transparent);
-  mask-image: linear-gradient(black 50%, transparent);
-}
-
-.testimonials__text:first-of-type {
-  margin: 1.5rem 0 0;
-  padding-top: 1.5rem;
   border-top: 1px solid #ccc;
+  padding-top: 1rem;
+  margin: 1rem 0 0;
 }
 
-.testimonials__popup-wrapper {
-  position: relative;
+/* 
+Offer 
+*/
+.offer .fading-bg__image {
+  background-image: url(images/home-feigenkuchen.jpg);
+  background-position-y: bottom;
 }
 
-.testimonials__popup {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  min-height: 100%;
-  right: 0;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  padding: 5rem;
-}
-
-.testimonials__popup--visible {
-  display: flex;
-}
-
-.testimonials__popup > .testimonials__entry {
-  max-width: 700px;
-  box-shadow: 0 0 10rem 0rem grey;
-  cursor: auto;
-  position: relative;
-}
-
-.testimonials__popup .testimonials__text {
-  max-height: none;
-  overflow: auto;
-  -webkit-mask-image: none;
-  mask-image: none;
-}
-
-@media only screen and (max-width: 480px) {
-  .testimonials__entry {
-    flex-flow: column nowrap;
-    gap: 0;
-  }
-}
-
-/* Offer */
 .offer__title {
-  margin-top: 0 !important; /* for jQuery animation, see https://bugs.jquery.com/ticket/7442 */
   text-align: center;
 }
 
 .offer__list {
   list-style-image: url(images/check.svg);
+  margin-left: var(--ul-margin-left);
 }
 
 .offer__item {
   margin-bottom: 1.5rem;
+  padding-left: var(--li-padding-left);
 }
 
 /*
-Checkmarks
+About us
 */
-.checkmarks {
-  background: var(--section-bg);
-  padding: 5rem;
-}
-
-.checkmarks__list {
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  gap: 5rem;
-  margin: 0 auto !important;
-  max-width: 1360px;
-}
-
-.checkmarks__item {
-  list-style-type: none !important;
-  flex: 1 0 0;
-  display: flex;
-  flex-flow: column nowrap;
-  align-items: center;
-  gap: 3rem;
-}
-
-.checkmarks__item::before {
+.about-us__image {
+  max-width: 250px;
+  float: right;
   display: block;
-  content: "";
-  background: center / contain no-repeat url(images/bootstrap-check-circle.svg);
-  /* For #008000, see https://stackoverflow.com/a/53336754/5312432 */
-  filter: invert(24%) sepia(82%) saturate(2304%) hue-rotate(95deg)
-    brightness(96%) contrast(104%);
-  width: 8rem;
-  height: 8rem;
+  margin-left: 2rem;
+  margin-bottom: -1rem;
 }
 
-.checkmarks__heading {
-  margin: 0 !important;
-  font-weight: bold;
+.about-us__heading {
+  text-align: left;
+  margin-top: 2rem;
 }
 
-.checkmarks__text {
-  margin-bottom: 0 !important;
+@media only screen and (max-width: 768px) {
+  .about-us__image {
+    float: none;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/*
+Recipe Slider
+*/
+
+.recipe-slider__heading {
   text-align: center;
+  padding: 0 2rem;
+}
+
+/*
+Imagine
+*/
+.imagine .fading-bg__image {
+  background-image: url(images/angie-pose.jpg);
+  background-position-y: center;
+}
+
+.imagine__heading {
+  margin-top: 4rem;
+}
+
+.imagine__list {
+  list-style-image: url(images/check.svg);
+  margin-left: 3rem;
+  margin-left: var(--ul-margin-left);
+}
+
+.imagine__item {
+  margin-bottom: 1.5rem;
+  padding-left: var(--li-padding-left);
+}
+
+/*
+Reason
+*/
+.reason .fading-bg__image {
+  background-image: url(images/home-griechischer-fetakaese.jpg);
+  background-position-y: 66%;
+}
+
+.reason__list {
+  list-style-image: url(images/check.svg);
+  margin-left: 3rem;
+  margin-left: var(--ul-margin-left);
+}
+
+.reason__item {
+  margin-bottom: 1.5rem;
+  padding-left: var(--li-padding-left);
+}
+
+/*
+Comparison table
+*/
+.comparison td,
+.comparison th {
+  padding: 1rem;
+}
+
+.comparison thead td {
+  border-top: none;
+}
+
+.comparison tbody th {
+  border-top: 1px solid #ddd;
+}
+
+@media only screen and (max-width: 959px) {
+  .comparison thead {
+    display: none;
+  }
+
+  .comparison td,
+  .comparison th {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .comparison thead td {
+    display: none;
+  }
+
+  .comparison tbody th {
+    border-top: 2px solid black;
+  }
+
+  .comparison tbody td::before {
+    font-style: italic;
+    display: inline-block;
+    width: 10rem;
+    flex-shrink: 0;
+    line-break: strict;
+  }
+
+  .comparison tbody td:first-of-type::before {
+    content: "Buch";
+  }
+
+  .comparison tbody td:last-of-type::before {
+    content: "Mit\0000adglie\0000adder\0000adbe\0000adreich";
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .comparison td {
+    gap: 1rem;
+  }
+
+  .comparison tbody td {
+    word-break: break-word;
+  }
+
+  .comparison tbody td::before {
+    width: 7.5rem;
+  }
+}
+
+/*
+Offer again 
+*/
+.offer2 .fading-bg__image {
+  background-image: url(images/home-paprikapasta.jpg);
+  background-position-y: bottom;
+}
+
+.offer2__title {
+  text-align: center;
+}
+
+.offer2__list {
+  list-style-image: url(images/check.svg);
+  margin-left: var(--ul-margin-left);
+}
+
+.offer2__item {
+  margin-bottom: 1.5rem;
+  padding-left: var(--li-padding-left);
+}
+
+/*
+Choice
+*/
+.choice__item {
+  list-style-type: inherit;
+  margin-left: 2rem;
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
 }
 
 /* 
 Mission
  */
 .mission {
-  background: var(--section-bg);
+  --gradient: linear-gradient(#0004, #0002);
+  background: var(--gradient),
+    center / cover no-repeat url(images/angie-josef-abend.jpg);
   margin: 0 !important;
-  padding: 5rem;
+  padding: 5rem 3rem;
+  min-height: 60rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  text-shadow: 0 0 5rem black;
 }
 
 .mission > * {
-  max-width: 600px;
+  max-width: 108rem;
+  color: white;
 }
 
 .mission__title {
   text-align: center;
-  margin: 0 auto 3rem !important;
+  margin: 0 auto 4rem !important;
+  font-size: 3.6rem;
 }
 
 .mission__content {
   margin: 0 auto !important;
-  text-align: justify;
+  text-align: center;
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 480px) {
+  .mission {
+    background-image: var(--gradient), url(images/angie-josef-abend-mobile.jpg);
+  }
 }
 
 /* 

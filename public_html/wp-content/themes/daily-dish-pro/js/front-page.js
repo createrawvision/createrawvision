@@ -11,8 +11,8 @@
   /**
    * Timer
    */
-  // Equal to '2020-08-20 17:00:00 GMT+0200', but Date.parseString() is discouraged.
-  const launchDate = new Date(Date.UTC(2020, 7, 20, 15));
+  // Equal to '2020-08-20 12:00:00 GMT+0200', but Date.parseString() is discouraged.
+  const launchDate = new Date(Date.UTC(2020, 7, 20, 10));
   const now = new Date();
   const secondsToLaunch = (launchDate - now) / 1000;
 
@@ -73,19 +73,5 @@
       $(':root').animate({scrollTop: faqsContainer.offset().top - scrollMargin}, duration);
       faqsButton.text('Weniger anzeigen').addClass('homepage-faqs__button--open');
     }
-  });
-
-  /** 
-   * Popup testimonial entry on click.
-   */
-  $('.testimonials__entry').on("click", function(e) {
-    $(this).parent().next('.testimonials__popup').empty().append($(this).clone()).addClass('testimonials__popup--visible');
-  });
-
-  $('.testimonials__popup').on("click", function(e) {
-    if(e.target !== e.currentTarget) 
-      return;
-    
-    $(this).removeClass('testimonials__popup--visible'); 
   });
 })(jQuery);
