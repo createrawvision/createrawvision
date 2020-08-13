@@ -51,6 +51,13 @@ Set up sections
   margin-bottom: 0;
 }
 
+@media only screen and (max-width: 480px) {
+  .dashboard-container section {
+    padding: 2.5rem;
+    margin-bottom: 4rem;
+  }
+}
+
 /*
 Cards
 */
@@ -134,10 +141,11 @@ Site header
 Overview
 */
 .overview__list {
-  display: flex;
+  display: inline-grid;
+  grid-template-columns: repeat(3, 1fr);
   justify-content: center;
-  gap: 3rem 5rem;
-  flex-flow: row wrap;
+  align-items: start;
+  gap: 5rem;
 }
 
 .overview__title {
@@ -148,6 +156,19 @@ Overview
 
 .overview__image {
   box-shadow: var(--box-shadow--hard);
+}
+
+@media only screen and (max-width: 959px) {
+  .overview__list {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+  }
+
+  .overview__image {
+    max-height: 400px;
+    width: auto;
+  }
 }
 
 /*
