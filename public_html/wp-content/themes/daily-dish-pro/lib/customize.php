@@ -20,11 +20,14 @@ add_action( 'customize_register', 'daily_dish_customizer_register' );
  */
 function daily_dish_customizer_register( $wp_customize ) {
 
-	$wp_customize->add_section( 'daily_dish_theme_options', array(
-		'description' => __( 'Personalize the Daily Dish Pro theme with these available options.', 'daily-dish-pro' ),
-		'title'       => __( 'Daily Dish Pro Settings', 'daily-dish-pro' ),
-		'priority'    => 80,
-	) );
+	$wp_customize->add_section(
+		'daily_dish_theme_options',
+		array(
+			'description' => __( 'Personalize the Daily Dish Pro theme with these available options.', 'daily-dish-pro' ),
+			'title'       => __( 'Daily Dish Pro Settings', 'daily-dish-pro' ),
+			'priority'    => 80,
+		)
+	);
 
 	$wp_customize->add_setting(
 		'daily_dish_link_color',

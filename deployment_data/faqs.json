@@ -1,0 +1,187 @@
+[
+  {
+    "category": {
+      "name": "Fragen zur Mitgliedschaft",
+      "slug": "membership-faqs"
+    },
+    "faqs": [
+      {
+        "title": "Muss ich etwas bezahlen, um von dieser Seite profitieren zu können?",
+        "content": "Nein, mein Blog und über 60 Rezepte stehen dir kostenlos zur Verfügung. Hier geht’s zu den kostenlosen Rezepten. Die Artikel und die Rezepte können dir bereits auf deinem Weg zu einer gesunden Ernährung helfen.",
+        "home_faq": true
+      },
+      {
+        "title": "Was kann ich von meiner Mitgliedschaft erwarten?",
+        "content": "Du bekommst sofort Zugriff auf alles, was ich auf Createrawvision zu bieten habe. Klicke hier für mehr Info. Um eine Übersicht der Rezepte im Mitgliederbereich zu bekommen, klicke hier und sieh dich in Ruhe um. Zusätzlich bekommst du auch Zugriff auf meine Tutorials, Küchentipps und andere nützliche Infos. Klicke dafür hier. Die Möglichkeiten dir mehr Wissen über Rohkost anzueignen und neue Rezepte zu lernen sind schier unbegrenzt. Jeden Monat kommen neue Rezepte, Infos und Tutorials dazu.",
+        "home_faq": true
+      },
+      {
+        "title": "Ist der Inhalt für Anfänger oder eher für Fortgeschrittene geeignet?",
+        "content": "Für beide! Meine Zielsetzung ist es mein Wissen bezüglich Rohkost und generell einer gesunden Lebensweise zu teilen. Dabei lerne ich selbst immer weiter dazu, um dieses Wissen auch an dich weiterzugeben. Im Mitgliederbereich findest du Schritt für Schritt Anleitungen, nützliche Informationen, einfache als auch raffinierte Rezepte.",
+        "home_faq": true
+      },
+      {
+        "title": "Ich weiß bereits alles über die Rohkost Küche, warum sollte ich mich dennoch einschreiben?",
+        "content": "Jeder Mensch weiß unterschiedliche Dinge und dass was du auf Createrawvision findest, ist das Wissen, dass ich in über acht Jahren Rohkost gelernt habe. Außerdem habe ich bereits über 400 verschiedene Rezepte selbst kreiert, Seminare gegeben und Rohkostbücher geschrieben. Ich selbst bilde mich in diesem Bereich immer weiter und das kannst du auch!",
+        "home_faq": true
+      },
+      {
+        "title": "Warum muss ich bezahlen? Könnte das alles nicht mit Werbung finanziert werden?",
+        "content": "Nein, denn dies würde bedeuten, dass meine Seite voller Banner, und Pop-ups zugemüllt wäre. Ich möchte, dass meine Seite ein Rückzugsort ist, an dem man sich wohlfühlt, interessante Dinge lernt und dies genießen kann.\n\nCreaterawvision ist unabhängig von der Lebensmittelindustrie und du wirst nur für ausgewählte Zutaten und Artikel Links finden, die du für Rezepte oder sonstige Tutorials benötigst.",
+        "home_faq": true
+      },
+      {
+        "title": "Wofür wird die Mitgliedsgebühr genutzt?",
+        "content": "Wir benutzen die Gebühren, um weiterhin die Möglichkeiten zu haben, anderen dabei zu helfen ein gesundes und erfülltes Leben zu führen, indem wir immer mehr Wissen über Rohkost und Rezepte kreieren und zur Verfügung stellen.\n\nIch möchte es ermöglichen, dass du die Rohkostküche als einfach, kreativ, köstlich und nährstoffreich erlebst. Und das natürlich mit so viel Spaß wie möglich.\n\nDeine Mitgliedschaftsgebühr hilft nicht nur dabei dieses Ziel zu ermöglichen, sondern auch, dass wir dies als ein Vollzeitjob  bewerkstelligen können. So sind wir in der Lage immer neuen und großartigen Inhalt für unsere Mitglieder zu kreieren. Im Moment sind wir zu dritt. Mein Partner Josef ist für alles Technische und Food Fotografie zuständig. Meine Tochter Sidney für den Bereich Design und Marketing und ich für die Entwicklung und Design von Rezepten und das Schreiben von Texten.",
+        "home_faq": true
+      },
+      {
+        "title": "Wie viel kostet mich die Mitgliedschaftsgebühr?",
+        "content": "Die Mitgliedschaftsgebühr beträgt monatlich nur EUR 9,00. Du kannst die Mitgliedschaft so lange laufen lassen, wie du möchtest. Oder du schreibst dich für ein Jahr ein. Dann kostet die Mitgliedschaft sogar nur EUR 90,00 für zwölf Monate. Klicke hier um dich anzumelden.",
+        "home_faq": true
+      },
+      {
+        "title": "Wie kann ich meine Mitgliedschaft kündigen?",
+        "content": "",
+        "home_faq": true
+      },
+      {
+        "title": "Kann ich meine Mitgliedschaft jederzeit kündigen?",
+        "content": "Ja, natürlich kannst du die Mitgliedschaft kündigen, wann immer du willst. Du wirst so lange Zugriff auf den Mitgliederbereich von Createrawvision haben, wie du dafür bezahlt hast.",
+        "home_faq": true
+      },
+      {
+        "title": "Kann ich mich nach meiner Kündigung noch im Mitgliederbereich einloggen?",
+        "content": "Du wirst so lange Zugriff auf die Mitgliederinhalte von Createrawvision haben, wie du bezahlt hast."
+      },
+      {
+        "title": "Kann ich mich erneut einschreiben, wenn ich meine Mitgliedschaft schon einmal gekündigt habe?",
+        "content": "Natürlich, du kannst jederzeit wieder Mitglied unserer CreateRawVision Community werden."
+      },
+      {
+        "title": "Wie kann ich meine Mitgliedschaft bezahlen?",
+        "content": "",
+        "home_faq": true
+      },
+      {
+        "title": "Kann ich von jedem Land aus Mitglied werden?",
+        "content": "Ja, jeder auf der ganzen Welt ist herzlich willkommen, Mitglied in unserer Createrawvision Community zu werden. Du solltest aber berücksichtigen, dass zum aktuellen Zeitpunkt der Mitgliederbereich nur in Deutsch verfügbar ist. Die Kosten werden in deine lokale Währung umgerechnet.",
+        "home_faq": true
+      },
+      {
+        "title": "Ich habe Probleme damit mich einzuloggen. Was soll ich tun?",
+        "content": ""
+      },
+      {
+        "title": "Ich habe mein Passwort vergessen, was soll ich tun?",
+        "content": ""
+      },
+      {
+        "title": "Wie kann ich meine Zahlungsmethode ändern?",
+        "content": ""
+      },
+      {
+        "title": "Kann ich eine Rechnung für die Mitgliedsgebühr bekommen?",
+        "content": "Ja natürlich. Du wirst nach jeder Zahlung eine E-Mail Bestätigung erhalten. Diese kannst du als Rechnung verwenden.",
+        "home_faq": true
+      },
+      {
+        "title": "Ich möchte Mitglied werden. Wie kann ich mich einschreiben?",
+        "content": "Das ist ganz einfach. Klicke hier und folge den einfachen Schritten, die dich durch den Einschreibungsprozess leiten.",
+        "home_faq": true
+      },
+      {
+        "title": "Hast du noch weitere Fragen?",
+        "content": "Hast du noch andere Fragen oder Anmerkungen, die die Funktion dieser Seite oder Themen rund um die Seite betreffen?\n\nBitte gehe durch alle FAQ Fragen, um zu sehen, ob die Frage bereits beantwortet wurde. Falls sie noch nicht beantwortet wurde, sende mir eine email unter helpatcreaterawvision.de\n\nFalls du Fragen zu Rezepten oder Tutorials hast, hinterlasse deine Kommentare und Fragen direkt unter dem Rezept.",
+        "home_faq": true
+      }
+    ]
+  },
+  {
+    "category": {
+      "name": "Fragen zu Rezepten",
+      "slug": "recipe-faqs"
+    },
+    "faqs": [
+      {
+        "title": "Benötige ich eine spezielle Ausrüstung um die Rezepte im Mitgliederbereich zubereiten zu können?",
+        "content": "Die meisten Rezepte erfordern keine besondere Ausrüstung mit Ausnahme von einem Hochleistungsmixer, einem Dörrgerät und einer Küchenmaschine. Mit diesen Geräten solltest du unbedingt in deiner Küche ausgestattet sein. Wenn du die richtigen Geräte verwendest, werden deine Zubereitungen besser, effektiver und wesentlich einfacher.\n\nMir ist bewusst, dass diese Geräte eine Investition darstellen, aber sie lohnt sich. Wenn du nur ein geringes Budget zur Verfügung hast, dann besorge dir gebrauchte Geräte zum Beispiel auf Ebay. Klicke hier um Zubehör, dass ich für verschiedene Rezepte empfehle, anzuzeigen.",
+        "home_faq": true
+      },
+      {
+        "title": "Falls ich kein Dörrgerät besitze, kann ich meinen Ofen stattdessen benutzen?",
+        "content": "Wenn du einen Ofen verwendest, ist es sehr wichtig, dass du auf die Temperatur aufpasst. Es ist schwierig sicherzustellen, dass das Rezept Rohkostqualität behält und die richtige Konsistenz erzielt. Ich kann dir nicht versprechen, dass das Rezept dir genauso gut gelingen wird, wie mit dem Dörrgerät. Dörrgeräte funktionieren mit einer konsistenten Wärme und Luftzirkulation. Ein Ofen funktioniert anders. ",
+        "home_faq": true
+      },
+      {
+        "title": "Ersatz für Zutaten",
+        "content": "Die größte Freude bei der Zubereitung von Rohkost ist es, mit den Zutaten zu experimentieren. Wir alle haben bestimmte Anforderungen an unsere Ernährung und so kann es nötig sein, bestimmte Zutaten in einem Rezept abzuwandeln. Ich empfehle auch unbedingt sich darin auszuprobieren.\n\nDu solltest dir aber immer darüber bewusst sein, dass das natürlich auch zu einem unterschiedlichen Rezept mit einer unterschiedlichen Textur und Geschmack führen kann als mit der empfohlenen Zutat.\n\nManchmal kann es funktionieren und manchmal nicht. Daher kann ich leider nicht garantieren, dass das Rezept dann genauso wird, wie von mir beschrieben.\n\nAber nur, wenn du ausprobierst und herumexperimentierst wirst du damit auch neue Rezeptkreationen erschaffen und viel mehr Gefühl für das Kombinieren von Zutaten bekommen.\n\nWenn du Fragen zum Ersatz der Zutaten n einem Rezept hast, dann kommentiere unter dem Rezept. Das erspart mir mehr Zeit, als wenn ich sonst nach dem Rezept suchen müsste."
+      },
+      {
+        "title": "Verwendest du nur rohe Zutaten?",
+        "content": "Nein. Wir verwenden roh-vegane Zutaten zu circa 98 Prozent, denn wir sind der Meinung, dass Rohkost zwar das beste für den Körper, aber es nicht sinnvoll ist, dogmatisch zu sein. So verwenden wir auch gelegentlich nicht rohe Zutaten. Diese aber natürlich dennoch in einer hohen Qualität.\n\nJeder Mensch ist unterschiedlich und so hat auch jeder unterschiedliche Vorstellungen über seine Ernährung. Rohkost zu essen trägt viel zur Gesundheit deines Körpers bei. Aber es ist ebenfalls notwendig sich die Freiheit zu geben auch gelegentlich etwas Erhitztes zu essen, wenn man darauf Lust hat.\n\nUnser Ziel ist es, jedem Menschen zu helfen, die optimale Gesundheit durch unsere Rezepte die ich teile, zu erlangen.\n\nDeswegen kann es gelegentlich vorkommen, dass ich ein erhitztes Lebensmittel verwende. Wenn das für dich nicht akzeptabel ist, dann ersetze diese Zutat durch eine rohe Version. ",
+        "home_faq": true
+      },
+      {
+        "title": "Sollte ich Nüsse und Saaten einweichen?",
+        "content": "Nein, die Rezepte können auch ohne Einweichen der Nüsse und Saaten zubereitet werden. Allerdings empfehle ich es, sie aus ernährungsphysiologischen Gründen dennoch einzuweichen. Hier mehr dazu warum das so wichtig ist."
+      },
+      {
+        "title": "Sind alle Rezepte im Mitgliederbereich vegan?",
+        "content": "Ja, alle Rezepte sind vegan, bis auf Honig, den ich in einigen Rezepten verwende. Solltest du keinen Honig verwenden wollen, kannst du ihn ganz einfach durch ein anderes Süßungsmittel ersetzen.",
+        "home_faq": true
+      },
+      {
+        "title": "Welches Zubehör benötige ich zur Zubereitung der Rezepte?",
+        "content": "Zur Zubereitung unserer Rezepte benötigst du unbedingt einen Hochleistungsmixer. Ohne einen Hochleistungsmixer ist es sehr schwierig leckere Rezepte zu kreieren. Ein guter Hochleistungsmixer ist das wichtigste beim Start in die Rohkost. Auch eine einfache Küchenmaschine ist notwendig. Außerdem wäre es gut ein Dörrgerät zu besitzen. Am Anfang kannst du auch erst einmal einen Backofen mit niedriger Einstellung und offener Tür verwenden. Mehr dazu hier. Ansonsten wären Springformen, Spiralschneider und anderes kleineres Zubehör sinnvoll. Eine vollständige Liste mit allen Funktionen findest du hier. ",
+        "home_faq": true
+      },
+      {
+        "title": "Kann ich die Rezepte ausdrucken?",
+        "content": "Wir haben ein sehr gutes Plugin installiert, dass es ermöglicht jedes Rezept auszudrucken.",
+        "home_faq": true
+      },
+      {
+        "title": "Kann ich die Rezepte und Fotos kopieren und auf meine eigene Seite stellen?",
+        "content": "Wenn du zu einem Rezept im Mitgliederbereich von Createrawvision verlinken möchtest, dann kannst du dafür gerne ein Foto vom Rezept verwenden. Du kannst dafür auch gerne den Einleitungstext benutzen, soweit er auch für Nicht-Mitglieder öffentlich zugänglich ist. Du solltest dabei aber immer direkt zum Rezept auf Createrawvision verlinken. Das Rezept selbst darf aber nicht auf deiner Seite angezeigt werden.\n\nAlles, was darüber hinaus geht, erfordert unsere ausdrückliche Erlaubnis. Das Verwenden unserer Fotos für irgendeinen anderen Zweck als die Verbreitung des Rezeptes erfordert ebenfalls unser ausdrückliches Einverständnis. Für diesen Zweck kannst du eine email an infoatcreaterawvision schreiben.\n\nPinterest Pins sind willkommen, solange du sicherstellst, dass sie zu unserer Seite zurück verlinken und das Rezept nicht mit einkopiert wird. ",
+        "home_faq": true
+      }
+    ]
+  },
+  {
+    "category": {
+      "name": "Fragen zur Rohkost Ernährung",
+      "slug": "diet-faqs"
+    },
+    "faqs": [
+      {
+        "title": "Was ist Rohkost?",
+        "content": "Das Spezielle an der Rohkost Ernährung ist der Verzehr von unverarbeiteten, pflanzlichen und idealerweise auch biologischen Lebensmitteln, die nicht über 42 Grad Celsius erhitzt wurden. Anstatt die Lebensmittel zu kochen, wird die Nahrung auf spezielle Art und Weise zubereitet. Man verwendet auch keinen Ofen, sondern stattdessen ein Dörrgerät. Statt verpacktem Essen werden vollwertige, frische, pflanzliche Lebensmittel verwendet. Dadurch, dass die Lebensmittel naturbelassen sind, profitiert der Körper von allen noch vorhandenen Vitalstoffen.",
+        "home_faq": true
+      },
+      {
+        "title": "Muss ich 100 Prozent roh essen, um davon zu profitieren?",
+        "content": "Nein, auf keinen Fall! Es ist nicht wichtig nur roh zu essen. Du solltest da auf keinen Fall ein Dogma daraus machen. Für mich heißt das, das unsere Nahrung möglichst naturbelassen sein sollte. Das bedeutet zum Beispiel frei von Pestiziden und Konservierungsstoffen. \n\nJede gekochte Mahlzeit, die du durch eine rohe Mahlzeit ersetzt, wird deinem Körper richtig guttun und ihn mit Nährstoffen versorgen. Das heißt aber nicht, dass man nicht auch einmal gekochte Nahrung zu sich nehmen kann.\n\nWorum es in meinem Mitgliederbereich in erster Linie geht, ist zu lernen, wie man vollwertige, rohe und gesunde Lebensmittel so zubereitet, dass alle Vitalstoffe erhalten bleiben und so eine optimale Versorgung des Körpers gewährleistet ist.\n\nWir alle könnten mehr rohe Früchte, Gemüse, Nüsse und Saaten zu uns nehmen. Siehst du das auch so?",
+        "home_faq": true
+      },
+      {
+        "title": "Was, wenn ich nicht alle Lebensmittel in Bioqualität bekomme?",
+        "content": "Du musst nicht zwangsläufig alles in Bioqualität verwenden. Aber ich empfehle dir einen möglichst hohen Anteil in Bioqualität zu dir zu nehmen. Sehr gute Nahrung in Bioqualität bekommst du vor allem auf Bauernmärkten."
+      },
+      {
+        "title": "Kann ich sofort und ohne Vorbereitung mit Rohkost beginnen?",
+        "content": "Nach den Erfahrungen von vielen anderen Menschen, die sich durch Rohkost ernähren, empfehle ich dir nicht über Nacht voll auf Rohkost umzusteigen. Das ist eine sehr radikale Umstellung für den Körper. Es braucht einige Zeit, bis dein Körper gelernt hat mit dem unverarbeiteten Essen umzugehen. Dies könnte sonst zu Magenproblemen, Blähungen und ganz allgemein zu Verdauungsbeschwerden führen.\n\nFalls du dich aber schon einige Zeit gesünder ernährst, ist so eine  Umstellung für deinen Körper leichter. Höre darauf wie dein Körper auf die Nahrung reagiert und gehe die Sache langsam an. \n\nDie Tatsache, dass du deinen Rohkostanteil schon etwas erhöhst wird deinem Körper sehr guttun. Und so kannst du Schritt für Schritt diesen Anteil immer höher werden lassen. Es gibt hier keine festen Regeln. Jeder Mensch ist unterschiedlich. Du selbst wirst spüren, was die richtige Geschwindigkeit für dich ist. ",
+        "home_faq": true
+      },
+      {
+        "title": "Angie, lebst du zu 100 Prozent roh?",
+        "content": "Nein, das tue ich nicht. Aber die ersten drei Jahre tat ich das. Ich war damals unglaublich dogmatisch und sah es als eine große Sünde an, etwas nicht rohes zu essen.\n\nTatsächlich würde ich mich jetzt nicht einmal mehr als reine Rohköstlerin bezeichnen. Denn ich esse dass, was meinem Körper gerade guttut. Und dies kann auch mal gedünstetes Gemüse im Winter oder eine Suppe sein. Aber meistens verlangt mein Körper eben nach rohen Lebensmitteln. Im Sommer zum Beispiel tut es meinem Körper überhaupt nicht gut, Gekochtes zu essen. Und auch im Winter gibt es Phasen wo ich nur Rohkost esse. Aber eben nicht immer. Auch in meinen Rezepten kommt gelegentlich eine nicht rohe Zutat zum Einsatz.\n\nRohkost kann deinen Körper unglaublich viel Energie geben. Aber es muss eben nicht hundert Prozent sein. ",
+        "home_faq": true
+      },
+      {
+        "title": "Kann ich in Restaurants essen gehen?",
+        "content": "Natürlich kannst du das! Erst einmal ist es nicht schlimm für deinen Körper, wenn er einmal etwas Gekochtes bekommt und zum anderen bekommst du in fast jedem Restaurant auch Rohkost. Und sei es nur einen leckeren Salat."
+      }
+    ]
+  }
+]

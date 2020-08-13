@@ -93,4 +93,20 @@
 
 	}
 
+	// Toggle help popup on button click.
+	$( '.crv-help-popup__button' ).on( 'click', function () {
+		$( this ).closest( '.crv-help-popup' ).toggleClass('crv-help-popup--visible')
+	});
+	
+	// Close help popup on click outside.
+	$( '.crv-help-popup' ).on( 'click', function ( event ) {
+		if(event.target === event.currentTarget){
+			$( this ).removeClass('crv-help-popup--visible')
+		}
+	});
+
+	// Make rcp form receive focus.
+	$( document ).ready(function() {
+		$('#rcp_login_form #rcp_user_login').focus();
+	});
 })( jQuery );

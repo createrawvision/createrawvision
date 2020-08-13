@@ -1,100 +1,76 @@
 <?php
-
 /**
- * This script deploys the changes from GitHub to the given server.
- * NOTE: Only the database gets backed up! Backup your files manually, if you want to.
- * 
- * Requirements:
- * - Valid SSH Key for the server
- * - WP-CLI installed on the server
- * - WP-CLI installed locally (made required, so the script can only be run through WP-CLI)
- * - SSH path has to be the WordPress root directory
- * - Git remote and valid SSH key for it on the server
- * 
- * Usage:
- * wp eval-file ../.scripts/deploy.php
+ * Makes changes to the database by comparing 'crv_version' option.
+ *
+ * Execute with WP-CLI (and add `--user=Josef` to have enough capabilites)!
+ * wp eval-file .scripts/deploy.php [max-version] --user=Josef
  */
 
-/*
- * SETTINGS
- */
-$host = 'createrawvision.de';
-$user = 'u1138-epznjctshp29';
-$port = 18765;
-$path = '/home/customer/www/staging3.createrawvision.de/public_html';
-$path_to_script = $path . '/wp-content/deploy.php';
-
-
-/*
- * CHECKS
- */
-if (!defined('WP_CLI')) {
-  echo 'WP_CLI not defined';
-  exit;
+if ( ! defined( 'WP_CLI' ) || ! WP_CLI ) {
+	echo 'WP_CLI not defined', PHP_EOL;
+	exit( 1 );
 }
 
-echo 'Testing SSH connection', PHP_EOL;
-if (!valid_ssh($host, $user, $port, $path)) {
-  echo 'SHH connection failed', PHP_EOL;
-  exit;
+if ( ! current_user_can( 'manage_options' ) ) {
+	echo 'Insufficient capabilites. Make sure to run the script with admin capabilites (e.g. --user=<admin>).', PHP_EOL;
+	exit( 1 );
 }
 
-echo 'Checking if WP CLI is on the server', PHP_EOL;
-if (!is_remote_wp_cli($host, $user, $port, $path)) {
-  echo 'WP CLI not on server', PHP_EOL;
-  exit;
+require_once __DIR__ . '/wp-cli-utils.php';
+
+// Avoid the output buffer.
+ob_end_flush();
+ob_implicit_flush();
+
+// Stop deployment, when max_version is reached.
+$max_version = $args[0] ?? (string) PHP_INT_MAX;
+
+// Check the version to deploy all needed changes.
+$version_option_name = 'crv_version';
+$current_version     = get_option( $version_option_name );
+
+if ( ! $current_version ) {
+	$current_version = '0.0.0';
+	add_option( $version_option_name, $current_version );
+}
+WP_CLI::log( "Current version is $current_version" );
+
+$all_versions = array_unique(
+	array(
+		'0.1.0-alpha.01',
+		'0.1.0-alpha.02',
+		'0.1.0-alpha.03',
+		'0.1.0-alpha.04',
+		'0.1.0-alpha.05',
+		'0.1.0-alpha.06',
+		'0.1.0-alpha.07',
+		'0.1.0-alpha.08',
+		'0.1.0-alpha.09',
+		'0.1.0-alpha.10',
+		'0.1.0',
+	)
+);
+usort( $all_versions, 'version_compare' );
+
+foreach ( $all_versions as $new_version ) {
+	if ( version_compare( $current_version, $new_version, '<' ) && version_compare( $new_version, $max_version, '<=' ) ) {
+		WP_CLI::log( "Deploying version $new_version" );
+
+		( require __DIR__ . "/versions/deploy-${new_version}.php" )();
+
+		// Update verion in database.
+		update_option( $version_option_name, $new_version );
+		WP_CLI::success( 'Deployed version ' . $new_version );
+	}
 }
 
 
-/*
- * COMMAND
- */
-echo 'Building remote command', PHP_EOL;
+WP_CLI::log( 'Flushing all caches' );
+run_wp_cli_command( 'sg purge' );
+run_wp_cli_command( 'autoptimize clear' );
+run_wp_cli_command( 'cache flush' );
+run_wp_cli_command( 'rewrite flush' );
 
-$deploy_command = "echo 'Activating maintenance mode';";
-$deploy_command .= "wp maintenance-mode activate;";
-
-$deploy_command .= "echo 'Creating Database Backup';";
-$deploy_command .= "wp db export;";
-
-$deploy_command .= "echo 'Pulling from GitHub';";
-$deploy_command .= "git pull;";
-
-$deploy_command .= "echo 'Running deployment script';";
-$deploy_command .= "if [ -f '$path_to_script' ]; then wp eval-file '$path_to_script'; else echo 'Script not found'; fi;";
-
-$deploy_command .= "echo 'Deactivating maintenance mode';";
-$deploy_command .= "wp maintenance-mode deactivate;";
-
-echo 'Launching remote command via ssh', PHP_EOL;
-echo $deploy_command;
-if (!execute_remote($deploy_command, $host, $user, $port, $path)) {
-  echo 'Remote command failed', PHP_EOL;
-  exit;
-}
-
-
-/*
- * FUNCTIONS
- */
-
-function valid_ssh($host, $user, $port, $path)
-{
-  $command = "ssh -q -p $port $user@$host \"cd $path; exit;\"";
-  system($command, $return_var);
-  return $return_var == 0;
-}
-
-function is_remote_wp_cli($host, $user, $port, $path)
-{
-  $command = "ssh -q -p $port $user@$host \"cd $path; wp cli version;\"";
-  system($command, $return_var);
-  return $return_var == 0;
-}
-
-function execute_remote($command, $host, $user, $port, $path)
-{
-  $command = "ssh -p $port $user@$host \"cd $path; $command\"";
-  system($command, $return_var);
-  return $return_var == 0;
-}
+WP_CLI::success( 'Deployment complete' );
+/** @todo maybe use `WP_CLI\Utils\launch_editor_for_input`  */
+WP_CLI::warning( 'Remember to set your API keys!' );

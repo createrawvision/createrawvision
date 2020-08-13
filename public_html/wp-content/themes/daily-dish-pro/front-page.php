@@ -61,20 +61,55 @@ function daily_dish_homepage_widgets() {
 
 	echo '<h2 class="screen-reader-text">' . __( 'Main Content', 'daily-dish-pro' ) . '</h2>';
 
-	genesis_widget_area( 'home-top', array(
-		'before' => '<div class="home-top widget-area">',
-		'after'  => '</div>',
-	) );
+	genesis_widget_area(
+		'home-top',
+		array(
+			'before' => '<div class="home-top widget-area">',
+			'after'  => '</div>',
+		)
+	);
 
-	genesis_widget_area( 'home-middle', array(
-		'before' => '<div class="home-middle widget-area">',
-		'after'  => '</div>',
-	) );
+	genesis_widget_area(
+		'home-middle',
+		array(
+			'before' => '<div class="home-middle widget-area">',
+			'after'  => '</div>',
+		)
+	);
 
-	genesis_widget_area( 'home-bottom', array(
-		'before' => '<div class="home-bottom widget-area">',
-		'after'  => '</div>',
-	) );
+	genesis_widget_area(
+		'home-bottom',
+		array(
+			'before' => '<div class="home-bottom widget-area">',
+			'after'  => '</div>',
+		)
+	);
+
+}
+
+/**
+ * Enqueue scripts and styles for a static homepage
+ */
+if ( is_front_page() && ! is_home() ) {
+	add_action(
+		'wp_enqueue_scripts',
+		function() {
+			$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
+			wp_enqueue_script( 'easytimer', CHILD_URL . "/js/easytimer{$suffix}.js", array(), '4.3.0', true );
+			wp_enqueue_style( 'daily-dish-front-style', CHILD_URL . '/style-front-page.css', array(), CHILD_THEME_VERSION );
+			wp_enqueue_script( 'daily-dish-front-script', CHILD_URL . '/js/front-page.js', array( 'jquery', 'easytimer' ), CHILD_THEME_VERSION, true );
+		}
+	);
+
+	// Remove default loop.
+	remove_action( 'genesis_loop', 'genesis_do_loop' );
+	// Replace it with a template file.
+	add_action(
+		'genesis_loop',
+		function() {
+			load_template( CHILD_DIR . '/templates/front-page.php' );
+		}
+	);
 
 }
 
