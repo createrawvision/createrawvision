@@ -40,7 +40,7 @@ CTA
 .cta-button {
   display: block;
   width: auto;
-  margin: 8rem auto;
+  margin: 7rem auto;
   border-radius: 0.8rem;
   padding: 2.5rem 3rem;
   font-size: 1.8rem;
@@ -296,14 +296,14 @@ Hero
 
 .hero__title {
   font-weight: bold;
-  font-size: 4.2rem;
+  font-size: 6rem;
   color: white;
 }
 
 .hero__subtitle {
   font-style: italic;
   color: white;
-  font-size: 2.4rem;
+  font-size: 3rem;
   margin: 0;
 }
 
@@ -491,6 +491,10 @@ Offer summary
 /*
 Testimonials
  */
+section.testimonials {
+  max-width: none;
+}
+
 .testimonials__title {
   text-align: center;
   margin-bottom: 3rem;
@@ -566,11 +570,6 @@ Offer
 /*
 About us
 */
-.about-us__main-heading {
-  margin-bottom: 0;
-  text-align: center;
-}
-
 .about-us__image {
   max-width: 250px;
   float: right;
@@ -580,7 +579,7 @@ About us
 }
 
 .about-us__heading {
-  text-align: center;
+  text-align: left;
   margin-top: 2rem;
 }
 
@@ -736,23 +735,40 @@ Choice
 Mission
  */
 .mission {
-  background: var(--section-bg);
+  --gradient: linear-gradient(#0004, #0002);
+  background: var(--gradient),
+    center / cover no-repeat url(images/angie-josef-abend.jpg);
   margin: 0 !important;
-  padding: 5rem;
+  padding: 5rem 3rem;
+  min-height: 60rem;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  text-shadow: 0 0 5rem black;
 }
 
 .mission > * {
-  max-width: 600px;
+  max-width: 108rem;
+  color: white;
 }
 
 .mission__title {
   text-align: center;
-  margin: 0 auto 3rem !important;
+  margin: 0 auto 4rem !important;
+  font-size: 3.6rem;
 }
 
 .mission__content {
   margin: 0 auto !important;
   text-align: center;
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+
+@media only screen and (max-width: 480px) {
+  .mission {
+    background-image: var(--gradient), url(images/angie-josef-abend-mobile.jpg);
+  }
 }
 
 /* 

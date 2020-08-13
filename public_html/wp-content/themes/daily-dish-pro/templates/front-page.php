@@ -1,6 +1,7 @@
 <?php
 global $rcp_options;
 $registration_page_id = $rcp_options['registration_page'];
+$recipes_category_id  = 5869;
 ?>
 
 <div class="countdown full-width">
@@ -124,7 +125,12 @@ $registration_page_id = $rcp_options['registration_page'];
 	</ul>
 </section>
 
-<!-- @todo Bilder -->
+<a href="<?php the_permalink( $registration_page_id ); ?>">
+	<button class="cta-button">
+		Jetzt mit Rohkost durchstarten!
+	</button>
+</a>
+
 <section class="checkmarks full-width">
 	<h2 class="checkmarks__title">
 		In Meinem Mitglieder&shy;bereich kannst Du Erfolgreich mit der Rohkost in ein
@@ -155,23 +161,15 @@ $registration_page_id = $rcp_options['registration_page'];
 	</ul>
 </section>
 
-<a href="<?php the_permalink( $registration_page_id ); ?>">
-	<button class="cta-button">
-		Jetzt mit Rohkost durchstarten!
-	</button>
-</a>
-
-<!-- @todo Bilder -->
 <section class="about-us">
-	<h2 class="about-us__main-heading">Über uns</h2>
 	<img class="about-us__image" src="<?php echo esc_url( CHILD_URL . '/images/angie-josef-portrait.png' ); ?>" alt="Portrait Angie & Josef">
-	<h3 class="about-us__heading">Über Mich, Angie</h3>
+	<h2 class="about-us__heading">Hey, ich bin Angie!</h2>
 	<p class="about-us__text">Vor etwa sieben Jahren habe ich die Rohkost entdeckt. Dadurch veränderte sich mein Leben in jeder Hinsicht grundlegend. Dank der Rohkost habe ich mich auf eine aufregende, spirituelle und erfüllende Reise begeben, durch die ich mittlerweile über unglaublich viel Energie, wesentlich mehr Gelassenheit und Ruhe verfüge.</p>
 	<p class="about-us__text">Doch auch in der Rohkost stellten sich mir viele Hindernisse in den Weg. Vor allem zum Beginn meiner Reise vermisste ich den Geschmack von gekochten Gerichten. Daher war es mir sehr wichtig einen Ersatz für all die Rezepte zu finden, deren Geschmack mir vor der Rohkost so viel Freude bereitet haben. </p>
 	<p class="about-us__text">Trotz der vielen Rohkostrezeptbücher war ich mit der Auswahl an Rezepten und deren Qualität nicht zufrieden. Oft gefielen mir nur ein paar wenige Rezepte pro Buch. Daher fing ich schnell an selbst kreativ zu werden. Mittlerweile habe ich mir in diesem Bereich so viel Wissen und Erfahrung angeeignet, dass ich spezielle Techniken gefunden habe, um die leckersten Rezepte der Kochkost rohkosttauglich zu machen.</p>
-	<h3 class="about-us__heading">Über Mich, Josef</h3>
-	<p class="about-us__text">Vor vier Jahren habe ich die Rohkost entdeckt. Obwohl ich erst 18 Jahre alt war, hatte ich schon viele kleine Beschwerden wie Tinnitus, schmerzende Gelenke und Bauchschermzen. Diese sind innerhalb von wenigen Monaten verschwunden, nachdem ich immer mehr gesunde, rohe Nahrung zu mir nahm.</p>
-	<p class="about-us__text">Die Umstellung war keinesfalls leicht, vor allem, weil ich von allen Seiten verschiedene Informationen erhalten habe (und meine Mahlzeiten oft sehr langweilig waren - und andere haben das natürlich nicht verstanden). Aber jetzt kann ich mir kaum vorstellen, wieso ich mich jemals so unbewusst und ungesund ernährt habe.</p>
+	<h2 class="about-us__heading">Hallo, ich bin Josef!</h2>
+	<p class="about-us__text">Vor vier Jahren habe ich die Rohkost entdeckt. Obwohl ich erst 18 Jahre alt war, hatte ich schon viele kleine Beschwerden wie Tinnitus, schmerzende Gelenke und Bauchschmerzen. Diese sind innerhalb von wenigen Monaten verschwunden, nachdem ich immer mehr gesunde, rohe Nahrung zu mir nahm.</p>
+	<p class="about-us__text">Die Umstellung war keinesfalls leicht, vor allem, weil ich von allen Seiten verschiedene Informationen erhalten habe. Meine Mahlzeiten waren oft sehr langweilig und andere hatten auch kaum Verständnis. Aber jetzt kann ich mir ein Leben ohne Rohkost nicht mehr vorstellen.</p>
 </section>
 
 <section class="recipe-slider">
@@ -179,7 +177,12 @@ $registration_page_id = $rcp_options['registration_page'];
 	<?php echo do_shortcode( '[slide-anything id="22150"]' ); ?>
 </section>
 
-<!-- @todo links Bild, text rechts. Gemüsetaccos mit Kohlgemüse8: fade into white -->
+<a href="<?php echo esc_url( get_category_link( $recipes_category_id ) ); ?>" target="_blank">
+	<button class="cta-button">
+		Alle Rezepte anschauen
+	</button>
+</a>
+
 <section class="offer full-width fading-bg fading-bg--right">
 	<div class="fading-bg__image"><div class="fading-bg__overlay"></div></div>
 	<div class="full-width-reset fading-bg__content offer__container">
@@ -203,7 +206,12 @@ $registration_page_id = $rcp_options['registration_page'];
 	</div>
 </section>
 
-<!-- @todo mit Bild von Pose, text links bild rechts -->
+<a href="<?php the_permalink( $registration_page_id ); ?>">
+	<button class="cta-button">
+		Jetzt anmelden
+	</button>
+</a>
+
 <section class="imagine full-width fading-bg fading-bg--left">
 	<div class="fading-bg__image"><div class="fading-bg__overlay"></div></div>
 	<div class="full-width-reset fading-bg__content imagine__container">
@@ -222,7 +230,6 @@ $registration_page_id = $rcp_options['registration_page'];
 	</div>
 </section>
 
-<!-- @todo content / slide -->
 <section class="testimonials">
 	<h2 class="testimonials__title">
 		Das sagen unsere Nutzer
@@ -247,6 +254,12 @@ $registration_page_id = $rcp_options['registration_page'];
 		Auswirkungen der Rohkost zu kommen.
 	</p>
 </section>
+
+<a href="<?php the_permalink( $registration_page_id ); ?>">
+	<button class="cta-button">
+		Jetzt mit Rohkost durchstarten!
+	</button>
+</a>
 
 <section class="comparison">
 	<h2>Was sind die Vorteile eines Mitglieder&shy;bereiches im Vergleich zu Rezeptbüchern?</h2>
@@ -334,6 +347,12 @@ $registration_page_id = $rcp_options['registration_page'];
 	<?php echo do_shortcode( '[slide-anything id="22172"]' ); ?>
 </section>
 
+<a href="<?php the_permalink( $registration_page_id ); ?>">
+	<button class="cta-button">
+		Jetzt anmelden
+	</button>
+</a>
+
 <section class="offer2 full-width fading-bg fading-bg--left">
 	<div class="fading-bg__image"><div class="fading-bg__overlay"></div></div>
 	<div class="full-width-reset fading-bg__content offer2__container">
@@ -391,6 +410,12 @@ $registration_page_id = $rcp_options['registration_page'];
 	</ol>
 </section>
 
+<a href="<?php the_permalink( $registration_page_id ); ?>">
+	<button class="cta-button">
+		Jetzt mit Rohkost durchstarten!
+	</button>
+</a>
+
 <section class="mission full-width">
 	<h2 class="mission__title">
 		Was Wir Dir zum Abschluss noch Unbedingt Sagen Möchten
@@ -404,12 +429,6 @@ $registration_page_id = $rcp_options['registration_page'];
 		gesund und voller Vitalität bist.
 	</p>
 </section>
-
-<a href="<?php the_permalink( $registration_page_id ); ?>">
-	<button class="cta-button">
-		Jetzt durchstarten!
-	</button>
-</a>
 
 <section class="homepage-faqs">
 	<h2>Häufig Gestellte Fragen</h2>
@@ -435,6 +454,6 @@ $registration_page_id = $rcp_options['registration_page'];
 
 <a href="<?php the_permalink( $registration_page_id ); ?>">
 	<button class="cta-button">
-		Melde dich hier an
+		Jetzt mit Rohkost durchstarten!
 	</button>
 </a>
