@@ -3216,3 +3216,244 @@ Admin bar overflowing fix
 #wpadminbar:hover {
   overflow-x: visible;
 }
+
+/*
+Reuseable components
+--------------------------------------------------------
+*/
+
+/* 
+CTA Button
+*/
+.cta-button {
+  display: block;
+  width: auto;
+  margin: 7rem auto;
+  border-radius: 0.8rem;
+  padding: 2.5rem 3rem;
+  font-size: 1.8rem;
+  box-shadow: 0 0.3rem 1rem #0008;
+  transition: background-color 0.5s, box-shadow 0.5s;
+}
+
+.cta-button:hover {
+  background-color: #66004b;
+  box-shadow: 0 0.5rem 1.5rem #0008;
+}
+
+/* Sticky Wrapper */
+.sticky-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: none;
+  height: 0;
+}
+
+/*
+Fading image
+*/
+.fading-bg {
+  position: relative;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.fading-bg__image {
+  position: absolute;
+  top: -2rem;
+  bottom: -2rem;
+  width: 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.fading-bg--right .fading-bg__image {
+  right: 0;
+}
+
+.fading-bg--left .fading-bg__image {
+  left: 0;
+}
+
+.fading-bg__overlay {
+  height: 100%;
+}
+
+.fading-bg--right .fading-bg__overlay {
+  background-image: linear-gradient(to left, transparent 50%, white),
+    linear-gradient(to top, transparent 80%, white),
+    linear-gradient(to bottom, transparent 80%, white);
+}
+
+.fading-bg--left .fading-bg__overlay {
+  background-image: linear-gradient(to right, transparent 50%, white),
+    linear-gradient(to top, transparent 80%, white),
+    linear-gradient(to bottom, transparent 80%, white);
+}
+
+.fading-bg__content {
+  width: 60%;
+}
+
+.fading-bg--right .fading-bg__content {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+.fading-bg--left .fading-bg__content {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+@media only screen and (max-width: 768px) {
+  .fading-bg {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .fading-bg__image {
+    display: none;
+  }
+
+  .fading-bg__content {
+    width: 100%;
+  }
+}
+
+/*
+Bubble
+*/
+.bubble {
+  --offset: 0px; /* calc(var(--bubble-size) / 2); */
+  --margin: 1rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  width: var(--bubble-size);
+  height: var(--bubble-size);
+  clip-path: circle(50%);
+}
+
+.bubble--right {
+  float: right;
+  right: calc(-1 * var(--offset));
+  margin-left: var(--margin);
+  shape-outside: circle(50% at calc(50% + var(--offset)) 50%);
+}
+
+.bubble--left {
+  float: left;
+  left: calc(-1 * var(--offset));
+  margin-right: var(--margin);
+  shape-outside: circle(50% at calc(50% - var(--offset)) 50%);
+}
+
+/*
+Countdown
+*/
+.countdown {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 !important;
+  padding: 5rem 3rem;
+  background: var(--section-bg);
+}
+
+.countdown__timer {
+  display: flex;
+  justify-content: center;
+}
+
+.countdown__timer__item {
+  display: inline-block;
+}
+
+.countdown__timer__time-element {
+  display: inline-block;
+  font-size: 2em;
+  min-width: 1.4em;
+  margin: 0 0 0 0.2em;
+  text-align: center;
+}
+
+.countdown__timer__time-label {
+  text-align: center;
+}
+
+.countdown__description {
+  text-align: center;
+  font-size: 1.4em;
+  margin: 1rem 0 0;
+}
+
+.countdown__button {
+  margin: 3rem auto;
+  display: inline-block;
+}
+
+.countdown--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 5rem;
+  justify-content: center;
+  padding: 1rem 0;
+  box-shadow: 0 0 20px #00000080;
+}
+
+.countdown--inline .countdown__timer {
+  display: inline-flex;
+}
+
+.countdown--inline .countdown__button {
+  padding: 1rem 1.5rem;
+  margin: 0 1rem;
+}
+
+@media only screen and (max-width: 959px) {
+  .countdown--inline {
+    font-size: 1.4rem;
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .countdown--inline .countdown__button {
+    font-size: 1.2rem;
+    width: min-content;
+    padding: 0.7rem 1rem;
+  }
+
+  .countdown--inline .countdown__timer {
+    gap: 1.2rem;
+  }
+
+  .countdown--inline .countdown__timer__item {
+    display: inline-flex;
+    flex-flow: column nowrap;
+  }
+
+  .countdown--inline .countdown__timer__time-element {
+    margin: 0;
+    font-size: 2.4rem;
+  }
+
+  .countdown--inline .countdown__timer__time-label {
+    font-size: 0.8rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .countdown {
+    font-size: 1.4rem;
+  }
+
+  .countdown__timer {
+    gap: 1.2rem;
+  }
+
+  .countdown__timer__item {
+    display: inline-flex;
+    flex-flow: column nowrap;
+  }
+}
