@@ -3411,23 +3411,20 @@ Countdown
   margin: 0 1rem;
 }
 
-.countdown__done-message {
+.countdown__show-on-done {
   display: none;
 }
 
-.countdown--done .countdown__done-message {
+.countdown--done .countdown__show-on-done {
   display: block;
-  text-align: center;
-  font-size: 1.4em;
-  margin: 1rem 0 0;
 }
 
 .countdown--done .countdown__timer,
-.countdown--done .countdown__description {
+.countdown--done .countdown__hide-on-done {
   display: none;
 }
 
-.countdown--inline .countdown__done-message {
+.countdown--inline .countdown__show-on-done {
   margin: 0;
   font-size: 1.2em;
 }
@@ -3476,5 +3473,33 @@ Countdown
   .countdown__timer__item {
     display: inline-flex;
     flex-flow: column nowrap;
+  }
+}
+
+.single .countdown {
+  min-height: 45rem;
+  background: linear-gradient(
+      to right,
+      transparent,
+      10%,
+      white 40%,
+      white 60%,
+      90%,
+      transparent
+    ),
+    linear-gradient(to bottom, white, transparent 10%, transparent 90%, white),
+    left 70% / 50% auto no-repeat url(images/home-paprikapasta.jpg),
+    right 80% / 50% auto no-repeat url(images/home-feigenkuchen.jpg);
+}
+
+.single .countdown__description {
+  list-style: inside url(images/check.svg);
+  margin-top: 2rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .single .countdown {
+    background: linear-gradient(190deg, #fffd, #fffa),
+      50% 80% / cover no-repeat url(images/home-feigenkuchen.jpg);
   }
 }

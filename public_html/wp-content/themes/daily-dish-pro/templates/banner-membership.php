@@ -26,9 +26,11 @@ wp_enqueue_script( 'crv-countdown' );
 				<span class="countdown__timer__time-label">Sekunden</span>
 			</div>
 		</div>
-		<p class="countdown__done-message">
-			Der Mitgliederbereich ist Veröffentlicht!
-		</p>
+		<ul class="countdown__description">
+			<li>500+ einzigartige Rohkost Rezepte</li>
+			<li>50+ Tipps & Tutorials</li>
+			<li>Rohkost Kurs für Einsteiger</li>
+		</ul>
 		<a href="<?php echo esc_url( home_url() ); ?>">
 			<button class="countdown__button cta-button">
 				Jetzt mit Rohkost durchstarten!
