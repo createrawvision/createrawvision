@@ -3411,6 +3411,27 @@ Countdown
   margin: 0 1rem;
 }
 
+.countdown__done-message {
+  display: none;
+}
+
+.countdown--done .countdown__done-message {
+  display: block;
+  text-align: center;
+  font-size: 1.4em;
+  margin: 1rem 0 0;
+}
+
+.countdown--done .countdown__timer,
+.countdown--done .countdown__description {
+  display: none;
+}
+
+.countdown--inline .countdown__done-message {
+  margin: 0;
+  font-size: 1.2em;
+}
+
 @media only screen and (max-width: 959px) {
   .countdown--inline {
     font-size: 1.4rem;

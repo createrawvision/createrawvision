@@ -26,6 +26,9 @@ wp_enqueue_script( 'crv-countdown' );
 				<span class="countdown__timer__time-label">Sekunden</span>
 			</div>
 		</div>
+		<p class="countdown__done-message">
+			Der Mitgliederbereich ist Veröffentlicht!
+		</p>
 		<a href="<?php echo esc_url( home_url() ); ?>">
 			<button class="countdown__button cta-button">
 				Jetzt mit Rohkost durchstarten!
