@@ -1,0 +1,202 @@
+.countdown {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 !important;
+  padding: 5rem 3rem;
+  background: var(--section-bg);
+}
+
+.countdown__timer {
+  display: flex;
+  justify-content: center;
+}
+
+.countdown__description {
+  text-align: center;
+  font-size: 1.4em;
+  margin: 1rem 0 0;
+}
+
+.countdown__button {
+  margin: 3rem auto;
+  display: block;
+}
+
+.countdown--inline {
+  flex-direction: row;
+  align-items: center;
+  gap: 5rem;
+  justify-content: center;
+  padding: 1rem 0;
+  box-shadow: 0 0 20px #00000080;
+}
+
+.countdown--inline .countdown__button {
+  padding: 1rem 1.5rem;
+  margin: 0 1rem;
+}
+
+.countdown__show-on-done {
+  display: none;
+}
+
+.countdown--done {
+  display: none;
+}
+
+@media only screen and (max-width: 959px) {
+  .countdown--inline {
+    font-size: 1.4rem;
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .countdown--inline .countdown__button {
+    font-size: 1.2rem;
+    width: min-content;
+    padding: 0.7rem 1rem;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .countdown {
+    font-size: 1.4rem;
+  }
+}
+
+.single .countdown {
+  min-height: 45rem;
+  background: linear-gradient(
+      to right,
+      transparent,
+      10%,
+      white 40%,
+      white 60%,
+      90%,
+      transparent
+    ),
+    linear-gradient(to bottom, white, transparent 10%, transparent 90%, white),
+    left 70% / 50% auto no-repeat url(../images/home-paprikapasta.jpg),
+    right 80% / 50% auto no-repeat url(../images/home-feigenkuchen.jpg);
+}
+
+.single .countdown--done {
+  display: block;
+}
+
+.single .countdown--done .countdown__timer {
+  display: none;
+}
+
+.single .countdown__description {
+  list-style: inside url(../images/check.svg);
+  margin-top: 2rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .single .countdown {
+    background: linear-gradient(190deg, #fffd, #fffa),
+      50% 80% / cover no-repeat url(../images/home-feigenkuchen.jpg);
+  }
+}
+
+/* 
+Responsive flipclock and smaller flipclock
+ */
+.countdown--inline .flip-clock-label {
+  display: none;
+}
+
+.flip-clock-wrapper ul {
+  height: 50px;
+  width: 36px;
+  line-height: 50px;
+}
+.flip-clock-wrapper ul li {
+  line-height: 50px;
+}
+.flip-clock-wrapper ul li a div.up:after {
+  top: 24px;
+}
+.flip-clock-divider {
+  height: 50px;
+  width: 15px;
+}
+.flip-clock-dot {
+  height: 6px;
+  width: 6px;
+  left: 7px;
+  left: 5px;
+}
+.flip-clock-dot.top {
+  top: 20px;
+}
+.flip-clock-dot.bottom {
+  bottom: 8px;
+}
+
+.flip-clock-divider.days .flip-clock-label {
+  right: -61px;
+}
+.flip-clock-divider.hours .flip-clock-label {
+  right: -67px;
+}
+.flip-clock-divider.minutes .flip-clock-label {
+  right: -66px;
+}
+.flip-clock-divider.seconds .flip-clock-label {
+  right: -70px;
+}
+
+.flip-clock-wrapper ul li a div div.inn {
+  font-size: 36px;
+}
+
+@media (max-width: 480px) {
+  .flip-clock-wrapper ul {
+    height: 35px;
+    width: 20px;
+    line-height: 35px;
+    margin: 3px;
+  }
+
+  .flip-clock-wrapper ul li {
+    line-height: 35px;
+  }
+
+  .flip-clock-divider {
+    width: 10px;
+  }
+
+  .flip-clock-dot {
+    left: 2px;
+  }
+  .flip-clock-dot.top {
+    top: 14px;
+  }
+  .flip-clock-dot.bottom {
+    bottom: 17px;
+  }
+
+  .flip-clock-divider .flip-clock-label {
+    font-size: 12px;
+  }
+  .flip-clock-divider.days .flip-clock-label {
+    right: -40px;
+  }
+  .flip-clock-divider.hours .flip-clock-label {
+    right: -50px;
+  }
+  .flip-clock-divider.minutes .flip-clock-label {
+    right: -50px;
+  }
+  .flip-clock-divider.seconds .flip-clock-label {
+    right: -60px;
+  }
+
+  .flip-clock-wrapper ul li a div div.inn {
+    font-size: 25px;
+  }
+}

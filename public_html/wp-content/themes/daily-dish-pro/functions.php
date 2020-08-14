@@ -75,8 +75,10 @@ function daily_dish_enqueue_scripts_styles() {
 	);
 
 	// Register countdown scripts for later use.
-	wp_register_script( 'easytimer', CHILD_URL . "/js/easytimer{$suffix}.js", array(), '4.3.0', true );
-	wp_register_script( 'crv-countdown', CHILD_URL . '/js/countdown.js', array( 'jquery', 'easytimer' ), CHILD_THEME_VERSION, true );
+	wp_register_script( 'flipclock', CHILD_URL . "/js/flipclock{$suffix}.js", array( 'jquery' ), '1.1', true );
+	wp_register_style( 'flipclock', CHILD_URL . '/css/flipclock.css', array(), '1.1' );
+	wp_register_script( 'crv-countdown', CHILD_URL . '/js/countdown.js', array( 'jquery', 'flipclock' ), CHILD_THEME_VERSION, true );
+	wp_register_style( 'crv-countdown', CHILD_URL . '/css/countdown.css', array( 'flipclock' ), CHILD_THEME_VERSION );
 }
 
 /**
@@ -1003,13 +1005,29 @@ add_action(
  * Add a banner to every post (for non-members).
  * Hidden, when crv_hide_member_banner option is truthy.
  */
+function crv_hide_banner() {
+	return ! is_single() || rcp_user_has_active_membership() || get_option( 'crv_hide_member_banner' );
+}
+
 add_action(
 	'genesis_before_content',
 	function() {
-		if ( ! is_single() || rcp_user_has_active_membership() || get_option( 'crv_hide_member_banner' ) ) {
+		if ( crv_hide_banner() ) {
 			return;
 		}
 
 		include __DIR__ . '/templates/banner-membership.php';
+	}
+);
+
+add_action(
+	'wp_enqueue_scripts',
+	function() {
+		if ( crv_hide_banner() ) {
+			return;
+		}
+
+		wp_enqueue_script( 'crv-countdown' );
+		wp_enqueue_style( 'crv-countdown' );
 	}
 );
