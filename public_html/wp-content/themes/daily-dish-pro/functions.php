@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.0' );
+define( 'CHILD_THEME_VERSION', '0.1.4' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -73,6 +73,10 @@ function daily_dish_enqueue_scripts_styles() {
 		'genesis_responsive_menu',
 		daily_dish_get_responsive_menu_settings()
 	);
+
+	// Register countdown scripts for later use.
+	wp_register_script( 'easytimer', CHILD_URL . "/js/easytimer{$suffix}.js", array(), '4.3.0', true );
+	wp_register_script( 'crv-countdown', CHILD_URL . '/js/countdown.js', array( 'jquery', 'easytimer' ), CHILD_THEME_VERSION, true );
 }
 
 /**
@@ -991,5 +995,20 @@ add_action(
 	function() {
 		echo '<a class="back-to-home" href="' . esc_url( home_url() ) . '">← Zurück zur Startseite</a>';
 		echo '</div>';
+	}
+);
+
+
+/**
+ * Add a banner to every post.
+ */
+add_action(
+	'genesis_before_content',
+	function() {
+		if ( ! is_single() || rcp_user_has_active_membership() ) {
+			return;
+		}
+
+		include __DIR__ . '/templates/banner-membership.php';
 	}
 );

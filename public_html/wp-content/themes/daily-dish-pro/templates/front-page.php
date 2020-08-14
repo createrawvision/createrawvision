@@ -26,6 +26,9 @@ $recipes_category_id  = 5869;
 	<p class="countdown__description">
 		bis zur Veröffentlichung des Mitgliederbereichs
 	</p>
+	<p class="countdown__done-message">
+		Der Mitgliederbereich ist veröffentlicht!
+	</p>
 	<a href="<?php the_permalink( $registration_page_id ); ?>">
 		<button class="countdown__button cta-button">
 			Jetzt anmelden
@@ -53,6 +56,9 @@ $recipes_category_id  = 5869;
 				<span class="countdown__timer__time-label">Sekunden</span>
 			</div>
 		</div>
+		<p class="countdown__done-message">
+			Der Mitgliederbereich ist veröffentlicht!
+		</p>
 		<a href="<?php the_permalink( $registration_page_id ); ?>">
 			<button class="countdown__button cta-button">
 				Jetzt anmelden
