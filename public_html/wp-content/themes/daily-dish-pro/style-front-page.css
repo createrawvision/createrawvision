@@ -171,7 +171,8 @@ Checkmarks
 
 .checkmarks__item {
   list-style-type: none !important;
-  flex: 1 0 0;
+  /* set flex-basis because of safari, see https://github.com/philipwalton/flexbugs#flexbug-11 */
+  flex: 1 1 30rem;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
@@ -204,44 +205,6 @@ Checkmarks
   .checkmarks__list {
     flex-direction: column;
   }
-}
-
-/*
-Offer summary
-*/
-.offer-summary {
-  background: var(--section-bg);
-  margin: 0 !important;
-  padding: 7rem;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.offer-summary > * {
-  max-width: 900px;
-}
-
-.offer-summary__heading {
-  text-align: center;
-  margin: 0 0 4rem !important;
-}
-
-.offer-summary__list {
-  display: flex;
-  flex-flow: row nowrap;
-  gap: 5rem;
-  justify-content: center;
-  align-items: center;
-  margin: 0 !important;
-}
-
-.offer-summary__item {
-  list-style-type: none !important;
-  flex: 1 0 0;
-  text-align: center;
-  font-size: 2.4rem;
 }
 
 /*

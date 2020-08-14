@@ -2881,61 +2881,45 @@ li.comment {
 }
 
 /**
- * Archives Grid Layout (special for membership)
+ * Archives Grid Layout
  */
 @media only screen and (min-width: 500px) {
-  .blog #genesis-content,
-  .archive #genesis-content,
-  .search #genesis-content {
+  #genesis-content.crv-grid {
     display: grid;
     column-gap: 40px;
   }
 
-  .blog #genesis-content,
-  .archive #genesis-content {
+  #genesis-content.crv-grid {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   }
 
-  .archive.category-member #genesis-content,
-  .search #genesis-content {
+  .category-member #genesis-content.crv-grid {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 
-  .archive #genesis-content .breadcrumb,
-  .search #genesis-content .breadcrumb,
-  .blog #genesis-content .archive-description,
-  .archive #genesis-content .archive-description,
-  .search #genesis-content .archive-description,
-  .blog #genesis-content .pagination,
-  .archive #genesis-content .pagination,
-  .search #genesis-content .pagination {
+  #genesis-content.crv-grid .breadcrumb,
+  #genesis-content.crv-grid .archive-description,
+  #genesis-content.crv-grid > .entry-header,
+  #genesis-content.crv-grid .pagination {
     grid-column: 1 / -1;
     width: 100%;
   }
 }
 
-.blog #genesis-content .entry-content img,
-.archive #genesis-content .entry-content img,
-.search #genesis-content .entry-content img {
+#genesis-content.crv-grid .entry-content img {
   box-shadow: 5px 5px 10px 1px #000000a8;
 }
 
-.blog #genesis-content .entry,
-.archive #genesis-content .entry,
-.search #genesis-content .entry {
+#genesis-content.crv-grid .entry {
   display: flex;
   flex-direction: column;
 }
 
-.blog #genesis-content .entry-content,
-.archive #genesis-content .entry-content,
-.search #genesis-content .entry-content {
+#genesis-content.crv-grid .entry-content {
   order: -1;
 }
 
-.blog #genesis-content .entry-footer,
-.archive #genesis-content .entry-footer,
-.search #genesis-content .entry-footer {
+#genesis-content.crv-grid .entry-footer {
   margin: 0;
 }
 
@@ -3346,160 +3330,4 @@ Bubble
   left: calc(-1 * var(--offset));
   margin-right: var(--margin);
   shape-outside: circle(50% at calc(50% - var(--offset)) 50%);
-}
-
-/*
-Countdown
-*/
-.countdown {
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  margin: 0 !important;
-  padding: 5rem 3rem;
-  background: var(--section-bg);
-}
-
-.countdown__timer {
-  display: flex;
-  justify-content: center;
-}
-
-.countdown__timer__item {
-  display: inline-block;
-}
-
-.countdown__timer__time-element {
-  display: inline-block;
-  font-size: 2em;
-  min-width: 1.4em;
-  margin: 0 0 0 0.2em;
-  text-align: center;
-}
-
-.countdown__timer__time-label {
-  text-align: center;
-}
-
-.countdown__description {
-  text-align: center;
-  font-size: 1.4em;
-  margin: 1rem 0 0;
-}
-
-.countdown__button {
-  margin: 3rem auto;
-  display: inline-block;
-}
-
-.countdown--inline {
-  flex-direction: row;
-  align-items: center;
-  gap: 5rem;
-  justify-content: center;
-  padding: 1rem 0;
-  box-shadow: 0 0 20px #00000080;
-}
-
-.countdown--inline .countdown__timer {
-  display: inline-flex;
-}
-
-.countdown--inline .countdown__button {
-  padding: 1rem 1.5rem;
-  margin: 0 1rem;
-}
-
-.countdown__show-on-done {
-  display: none;
-}
-
-.countdown--done .countdown__show-on-done {
-  display: block;
-}
-
-.countdown--done .countdown__timer,
-.countdown--done .countdown__hide-on-done {
-  display: none;
-}
-
-.countdown--inline .countdown__show-on-done {
-  margin: 0;
-  font-size: 1.2em;
-}
-
-@media only screen and (max-width: 959px) {
-  .countdown--inline {
-    font-size: 1.4rem;
-    gap: 2rem;
-    padding: 1rem;
-  }
-
-  .countdown--inline .countdown__button {
-    font-size: 1.2rem;
-    width: min-content;
-    padding: 0.7rem 1rem;
-  }
-
-  .countdown--inline .countdown__timer {
-    gap: 1.2rem;
-  }
-
-  .countdown--inline .countdown__timer__item {
-    display: inline-flex;
-    flex-flow: column nowrap;
-  }
-
-  .countdown--inline .countdown__timer__time-element {
-    margin: 0;
-    font-size: 2.4rem;
-  }
-
-  .countdown--inline .countdown__timer__time-label {
-    font-size: 0.8rem;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  .countdown {
-    font-size: 1.4rem;
-  }
-
-  .countdown__timer {
-    gap: 1.2rem;
-  }
-
-  .countdown__timer__item {
-    display: inline-flex;
-    flex-flow: column nowrap;
-  }
-}
-
-.single .countdown {
-  min-height: 45rem;
-  background: linear-gradient(
-      to right,
-      transparent,
-      10%,
-      white 40%,
-      white 60%,
-      90%,
-      transparent
-    ),
-    linear-gradient(to bottom, white, transparent 10%, transparent 90%, white),
-    left 70% / 50% auto no-repeat url(images/home-paprikapasta.jpg),
-    right 80% / 50% auto no-repeat url(images/home-feigenkuchen.jpg);
-}
-
-.single .countdown__description {
-  list-style: inside url(images/check.svg);
-  margin-top: 2rem;
-}
-
-@media only screen and (max-width: 768px) {
-  .single .countdown {
-    background: linear-gradient(190deg, #fffd, #fffa),
-      50% 80% / cover no-repeat url(images/home-feigenkuchen.jpg);
-  }
 }

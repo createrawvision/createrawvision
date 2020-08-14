@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.6' );
+define( 'CHILD_THEME_VERSION', '0.1.7' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -75,8 +75,10 @@ function daily_dish_enqueue_scripts_styles() {
 	);
 
 	// Register countdown scripts for later use.
-	wp_register_script( 'easytimer', CHILD_URL . "/js/easytimer{$suffix}.js", array(), '4.3.0', true );
-	wp_register_script( 'crv-countdown', CHILD_URL . '/js/countdown.js', array( 'jquery', 'easytimer' ), CHILD_THEME_VERSION, true );
+	wp_register_script( 'flipclock', CHILD_URL . "/js/flipclock{$suffix}.js", array( 'jquery' ), '1.1', true );
+	wp_register_style( 'flipclock', CHILD_URL . '/css/flipclock.css', array(), '1.1' );
+	wp_register_script( 'crv-countdown', CHILD_URL . '/js/countdown.js', array( 'jquery', 'flipclock' ), CHILD_THEME_VERSION, true );
+	wp_register_style( 'crv-countdown', CHILD_URL . '/css/countdown.css', array( 'flipclock' ), CHILD_THEME_VERSION );
 }
 
 /**
@@ -125,9 +127,8 @@ add_theme_support(
 );
 
 // Add image sizes.
-add_image_size( 'daily-dish-featured', 720, 470, true );
 add_image_size( 'daily-dish-archive', 500, 262, true );
-add_image_size( 'daily-dish-sidebar', 100, 100, true );
+add_image_size( 'thumbnail-portrait', 400, 600, true );
 
 // Add support for custom header.
 add_theme_support(
@@ -506,23 +507,54 @@ function jw_prevent_akward_post_title_line_break( $title, $length = 17 ) {
 add_filter( 'genesis_post_title_text', 'jw_prevent_akward_post_title_line_break' );
 
 
-/*
- * Make portrait thumbnails when original image was portrait
+/**
+ * On home, archives, search and custom loops, show posts in grid.
  */
-add_image_size( 'thumbnail-portrait', 400, 600, true );
-add_action( 'genesis_pre_get_option_image_size', 'jw_portait_thumbnail', 11 );
+add_action(
+	'genesis_before_content',
+	function() {
+		if ( is_admin() || ! is_main_query() ) {
+			return;
+		}
 
-function jw_portait_thumbnail( $image_size ) {
-	if (
-		( is_home() || is_archive() || is_search() )
-		&& is_main_query()
-		&& jw_is_thumbnail_portrait()
-	) {
-		return 'thumbnail-portrait';
+		$show_grid = is_home() || is_archive() || is_search()
+			|| ( is_singular( 'page' ) && genesis_get_custom_field( 'query_args' ) );
+
+		if ( ! $show_grid ) {
+			return;
+		}
+
+		// Remove text from preview.
+		remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
+		remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
+
+		// Add 'crv-grid' class to the 'content' tag.
+		add_filter(
+			'genesis_attr_content',
+			function( $attributes ) {
+				if ( isset( $attributes['class'] ) ) {
+					$attributes['class'] .= ' crv-grid';
+				} else {
+					$attributes['class'] = 'crv-grid';
+				}
+				return $attributes;
+			}
+		);
+
+		// Display portraits for portrait thumbnails (overwriting default).
+		add_action(
+			'genesis_pre_get_option_image_size',
+			function( $image_size ) {
+				return jw_is_thumbnail_portrait() ? 'thumbnail-portrait' : $image_size;
+			}
+		);
 	}
-	return $image_size;
-}
+);
 
+
+/**
+ * Checks whether the current post thumbnail is higher than wide.
+ */
 function jw_is_thumbnail_portrait() {
 	$post_thumbnail_id = get_post_thumbnail_id();
 	$image             = wp_get_attachment_image_src( $post_thumbnail_id, 'full' );
@@ -531,16 +563,6 @@ function jw_is_thumbnail_portrait() {
 	return $image_width < $image_height;
 }
 
-/*
- * Don't show excerpts and entry meta on archives, home or search
- */
-function jw_remove_excerpts_and_entry_meta() {
-	if ( ( is_home() || is_archive() || is_search() ) && is_main_query() ) {
-		remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
-		remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
-	}
-}
-add_action( 'genesis_before_content', 'jw_remove_excerpts_and_entry_meta', 1 );
 
 /**
  * Use the first image attatched to the member post for sharing when featured image is portrait
@@ -1003,13 +1025,29 @@ add_action(
  * Add a banner to every post (for non-members).
  * Hidden, when crv_hide_member_banner option is truthy.
  */
+function crv_hide_banner() {
+	return ! is_single() || rcp_user_has_active_membership() || get_option( 'crv_hide_member_banner' );
+}
+
 add_action(
 	'genesis_before_content',
 	function() {
-		if ( ! is_single() || rcp_user_has_active_membership() || get_option( 'crv_hide_member_banner' ) ) {
+		if ( crv_hide_banner() ) {
 			return;
 		}
 
 		include __DIR__ . '/templates/banner-membership.php';
+	}
+);
+
+add_action(
+	'wp_enqueue_scripts',
+	function() {
+		if ( crv_hide_banner() ) {
+			return;
+		}
+
+		wp_enqueue_script( 'crv-countdown' );
+		wp_enqueue_style( 'crv-countdown' );
 	}
 );
