@@ -6,11 +6,8 @@ $recipes_category_id  = 5869;
 
 <div class="countdown full-width">
 	<div class="countdown__timer"></div>
-	<p class="countdown__description countdown__hide-on-done">
+	<p class="countdown__description">
 		bis zur Veröffentlichung des Mitgliederbereichs
-	</p>
-	<p class="countdown__description countdown__show-on-done">
-		Der Mitgliederbereich ist veröffentlicht!
 	</p>
 	<a href="<?php the_permalink( $registration_page_id ); ?>">
 		<button class="countdown__button cta-button">
@@ -22,9 +19,6 @@ $recipes_category_id  = 5869;
 <div class="sticky-wrapper">
 	<div class="countdown countdown--inline full-width">
 		<div class="countdown__timer"></div>
-		<p class="countdown__description countdown__show-on-done">
-			Der Mitgliederbereich ist veröffentlicht!
-		</p>
 		<a href="<?php the_permalink( $registration_page_id ); ?>">
 			<button class="countdown__button cta-button">
 				Jetzt anmelden
