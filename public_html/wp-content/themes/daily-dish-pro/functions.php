@@ -997,18 +997,3 @@ add_action(
 		echo '</div>';
 	}
 );
-
-
-/**
- * Add a banner to every post.
- */
-add_action(
-	'genesis_before_content',
-	function() {
-		if ( ! is_single() || rcp_user_has_active_membership() ) {
-			return;
-		}
-
-		include __DIR__ . '/templates/banner-membership.php';
-	}
-);
