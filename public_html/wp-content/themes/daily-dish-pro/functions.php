@@ -1005,7 +1005,7 @@ add_action(
 add_action(
 	'genesis_before_content',
 	function() {
-		if ( ! is_single() || rcp_user_has_active_membership() ) {
+		if ( ! is_single() || rcp_user_has_active_membership() || get_option( 'crv_hide_member_banner', ! crv_is_before_membership_launch() ) ) {
 			return;
 		}
 
