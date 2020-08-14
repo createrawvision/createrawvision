@@ -2881,61 +2881,45 @@ li.comment {
 }
 
 /**
- * Archives Grid Layout (special for membership)
+ * Archives Grid Layout
  */
 @media only screen and (min-width: 500px) {
-  .blog #genesis-content,
-  .archive #genesis-content,
-  .search #genesis-content {
+  #genesis-content.crv-grid {
     display: grid;
     column-gap: 40px;
   }
 
-  .blog #genesis-content,
-  .archive #genesis-content {
+  #genesis-content.crv-grid {
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
   }
 
-  .archive.category-member #genesis-content,
-  .search #genesis-content {
+  .category-member #genesis-content.crv-grid {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   }
 
-  .archive #genesis-content .breadcrumb,
-  .search #genesis-content .breadcrumb,
-  .blog #genesis-content .archive-description,
-  .archive #genesis-content .archive-description,
-  .search #genesis-content .archive-description,
-  .blog #genesis-content .pagination,
-  .archive #genesis-content .pagination,
-  .search #genesis-content .pagination {
+  #genesis-content.crv-grid .breadcrumb,
+  #genesis-content.crv-grid .archive-description,
+  #genesis-content.crv-grid > .entry-header,
+  #genesis-content.crv-grid .pagination {
     grid-column: 1 / -1;
     width: 100%;
   }
 }
 
-.blog #genesis-content .entry-content img,
-.archive #genesis-content .entry-content img,
-.search #genesis-content .entry-content img {
+#genesis-content.crv-grid .entry-content img {
   box-shadow: 5px 5px 10px 1px #000000a8;
 }
 
-.blog #genesis-content .entry,
-.archive #genesis-content .entry,
-.search #genesis-content .entry {
+#genesis-content.crv-grid .entry {
   display: flex;
   flex-direction: column;
 }
 
-.blog #genesis-content .entry-content,
-.archive #genesis-content .entry-content,
-.search #genesis-content .entry-content {
+#genesis-content.crv-grid .entry-content {
   order: -1;
 }
 
-.blog #genesis-content .entry-footer,
-.archive #genesis-content .entry-footer,
-.search #genesis-content .entry-footer {
+#genesis-content.crv-grid .entry-footer {
   margin: 0;
 }
 
