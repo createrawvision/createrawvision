@@ -997,3 +997,19 @@ add_action(
 		echo '</div>';
 	}
 );
+
+
+/**
+ * Add a banner to every post (for non-members).
+ * Hidden, when crv_hide_member_banner option is truthy.
+ */
+add_action(
+	'genesis_before_content',
+	function() {
+		if ( ! is_single() || rcp_user_has_active_membership() || get_option( 'crv_hide_member_banner' ) ) {
+			return;
+		}
+
+		include __DIR__ . '/templates/banner-membership.php';
+	}
+);
