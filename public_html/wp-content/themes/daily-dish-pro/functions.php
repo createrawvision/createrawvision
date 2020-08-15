@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.7' );
+define( 'CHILD_THEME_VERSION', '0.1.8' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -565,16 +565,24 @@ function jw_is_thumbnail_portrait() {
 
 
 /**
- * Use the first image attatched to the member post for sharing when featured image is portrait
+ * Use the first image attatched to the member post for sharing when featured image is portrait.
+ * When the set $image_url is not the thumbnail, return it instead.
  */
 add_filter( 'wpseo_opengraph_image', 'jw_avoid_portrait_og_image' );
 
 function jw_avoid_portrait_og_image( $image_url ) {
-	global $post;
+	// Bail, if $image_url was set manually.
+	if ( wp_get_attachment_url( get_post_thumbnail_id() ) !== $image_url ) {
+		return $image_url;
+	}
+
+	// Bail, if the thumbnail is not portrait.
 	if ( ! jw_is_thumbnail_portrait() ) {
 		return $image_url;
 	}
-	$first_image_url = jw_get_first_image_url( $post->post_content );
+
+	// Return the first image of a post, when it exists (assume it is not portrait).
+	$first_image_url = jw_get_first_image_url( get_the_content() );
 	if ( empty( $first_image_url ) ) {
 		return $image_url;
 	}
@@ -582,7 +590,10 @@ function jw_avoid_portrait_og_image( $image_url ) {
 }
 
 function jw_get_first_image_url( $post_content ) {
-	preg_match( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post_content, $matches );
+	$is_match = preg_match( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post_content, $matches );
+	if ( ! $is_match ) {
+		return null;
+	}
 	$first_image_url = $matches[1];
 	return $first_image_url;
 }
