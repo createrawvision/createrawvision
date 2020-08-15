@@ -3194,6 +3194,99 @@ RCP
   }
 }
 
+/* Registration page */
+.rcp_header {
+  display: none;
+}
+
+#rcp_registration_form {
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: hsl(41 25% 90% / 1);
+  padding: 3rem !important;
+}
+
+#rcp_registration_form .rcp_subscription_fieldset {
+  order: -1;
+}
+
+#rcp_registration_form .rcp_subscription_message {
+  text-align: center;
+}
+
+#rcp_subscription_levels {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 2rem;
+}
+
+.rcp_subscription_level {
+  list-style: none !important;
+  padding: 2rem;
+  border: 0.3rem solid #94006c;
+  border-radius: 0.5rem;
+  background-color: white;
+  display: flex;
+  flex-flow: column-reverse nowrap;
+  text-align: center;
+  flex-grow: 1;
+  font-size: 1.2em;
+}
+
+.rcp_subscription_level label {
+  display: flex !important;
+  flex-flow: column nowrap;
+}
+
+.rcp_subscription_level .rcp_separator {
+  display: none;
+}
+
+#rcp_subscription_levels input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 90%;
+  max-width: 18rem;
+  height: 4rem;
+  margin: 1.6rem auto 0;
+  border-radius: 0.7rem;
+  background-color: #c7d1c7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#rcp_subscription_levels input::before {
+  font-size: 2rem;
+  content: "✔";
+  color: white;
+}
+
+#rcp_subscription_levels input:checked {
+  background-color: #009900;
+}
+
+@media only screen and (max-width: 768px) {
+  #rcp_subscription_levels {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #rcp_registration_form {
+    padding: 1.5rem !important;
+  }
+
+  .rcp-table td:before {
+    margin-left: 0;
+  }
+
+  .rcp-table tr td {
+    padding-left: 0;
+  }
+}
+
 /*
 Cookie notice
 */
