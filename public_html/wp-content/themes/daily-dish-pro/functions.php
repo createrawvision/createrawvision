@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.8' );
+define( 'CHILD_THEME_VERSION', '0.1.9' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -1037,7 +1037,10 @@ add_action(
  * Hidden, when crv_hide_member_banner option is truthy.
  */
 function crv_hide_banner() {
-	return ! is_single() || rcp_user_has_active_membership() || get_option( 'crv_hide_member_banner' );
+	return ! is_single()
+		|| rcp_user_has_active_membership()
+		|| crv_is_restricted_post( get_the_ID() )
+		|| get_option( 'crv_hide_member_banner' );
 }
 
 add_action(

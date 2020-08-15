@@ -81,16 +81,18 @@ function crv_restricted_content() {
 	$teaser_image   = wp_get_attachment_image( get_field( 'teaser_image' )['id'], 'full', false, array( 'class' => 'aligncenter' ) );
 	$post_thumbnail = get_the_post_thumbnail( null, 'post-thumbnail', array( 'class' => 'aligncenter' ) );
 	if ( rcp_user_has_active_membership() ) {
-		$restrict_message = '<p class="restriciton-message">Du bist bereits Mitglied!<br>Ab dem 20. August um 17 Uhr stehen dir alle Inhalte zur Verfügung.<br>Vielen Dank für dein Vertrauen!</p>';
+		$restrict_message = '<p class="restriciton-message">Du bist bereits Mitglied!<br>Ab dem 20. August um 12 Uhr stehen dir alle Inhalte zur Verfügung.<br>Vielen Dank für dein Vertrauen!</p>';
 	} else {
 		global $rcp_options;
-		$restrict_message  = '<p class="restriciton-message">Dieser Beitrag ist nur für Mitglieder verfügbar.';
-		$restrict_message .= ' Um Zugriff zu erhalten, <a href="' . esc_url( get_option( 'crv_restriction_url', get_permalink( $rcp_options['registration_page'] ) ) ) . '">werde Mitglied</a>';
-		$restrict_message .= ' oder <a href="' . esc_url( get_permalink( get_page_by_path( 'login' ) ) ) . '">melde dich hier an</a>.</p>';
-
+		$restrict_message  = '<div class="restriciton-message">';
+		$restrict_message .= '<p>Dieser Beitrag ist nur für Mitglieder verfügbar. Werde Mitglied, um Zugriff zu erhalten.</p>';
+		$restrict_message .= '<a href="' . esc_url( add_query_arg( 'level', 2, get_permalink( $rcp_options['registration_page'] ) ) ) . '"><button class="cta-button cta-button--small">Jetzt Mitglied werden</button></a>';
+		$restrict_message .= '<a href="' . esc_url( home_url() ) . '"><button class="cta-button cta-button--small">Mehr erfahren</button></a>';
+		$restrict_message .= '<p>Bereits Mitglied? Hier geht\'s <a href="' . esc_url( get_permalink( get_page_by_path( 'login' ) ) ) . '">zum&nbsp;Login</a>.</p>';
+		$restrict_message .= '</div>';
 	}
 
-	return $teaser_image . $excerpt . rcp_restricted_message_pending_verification( $restrict_message ) . $post_thumbnail;
+	return $teaser_image . $excerpt . '<div class="restriction-wrapper">' . rcp_restricted_message_pending_verification( $restrict_message ) . $post_thumbnail . '</div>';
 }
 
 /**

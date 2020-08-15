@@ -2139,12 +2139,6 @@ span.ERComment {
   margin-bottom: 40px;
 }
 
-.home .entry,
-.archive .entry,
-.search .entry {
-  border-bottom: 1px dotted #ddd;
-}
-
 .page .entry {
   margin-bottom: 0;
 }
@@ -2883,43 +2877,52 @@ li.comment {
 /**
  * Archives Grid Layout
  */
-@media only screen and (min-width: 500px) {
-  #genesis-content.crv-grid {
-    display: grid;
-    column-gap: 40px;
-  }
-
-  #genesis-content.crv-grid {
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-  }
-
-  .category-member #genesis-content.crv-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
-
-  #genesis-content.crv-grid .breadcrumb,
-  #genesis-content.crv-grid .archive-description,
-  #genesis-content.crv-grid > .entry-header,
-  #genesis-content.crv-grid .pagination {
-    grid-column: 1 / -1;
-    width: 100%;
-  }
+.crv-grid {
+  display: grid;
+  column-gap: 40px;
+  align-items: flex-start;
+  justify-items: center;
 }
 
-#genesis-content.crv-grid .entry-content img {
+.crv-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
+}
+
+.page .crv-grid,
+.category-member .crv-grid {
+  grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+}
+
+.crv-grid .breadcrumb,
+.crv-grid .archive-description,
+.crv-grid > .entry-header,
+.crv-grid .pagination {
+  grid-column: 1 / -1;
+  width: 100%;
+}
+
+.crv-grid .entry-content img {
   box-shadow: 5px 5px 10px 1px #000000a8;
 }
 
-#genesis-content.crv-grid .entry {
+.crv-grid .entry {
   display: flex;
-  flex-direction: column;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: start;
+  margin-bottom: 4rem;
 }
 
-#genesis-content.crv-grid .entry-content {
+.crv-grid .entry .entry-header {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.crv-grid .entry-content {
   order: -1;
 }
 
-#genesis-content.crv-grid .entry-footer {
+.crv-grid .entry-footer {
   margin: 0;
 }
 
@@ -2945,14 +2948,45 @@ li.comment {
 /**
  * Restricted content message
  */
-.restriciton-message {
-  border: thick dashed #ccc;
-  text-align: center;
-  padding: 2rem 3rem;
+.restriction-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 4rem;
+  align-items: flex-start;
 }
 
-.restriciton-message > a {
-  white-space: nowrap;
+.restriction-wrapper > * {
+  flex: 1 1 50%;
+  width: 50% !important;
+}
+
+.restriciton-message {
+  background: hsl(41 52% 95% / 1);
+  text-align: center;
+  padding: 3rem;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 3rem;
+  font-size: 1.2em;
+}
+
+.restriciton-message * {
+  margin: 0 !important;
+}
+
+.restriciton-message .cta-button {
+  padding: 1.5rem 2rem;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 768px) {
+  .restriction-wrapper {
+    flex-flow: column nowrap;
+  }
+
+  .restriction-wrapper > * {
+    width: auto !important;
+  }
 }
 
 /**
@@ -3157,6 +3191,99 @@ RCP
 @media only screen and (max-width: 480px) {
   .page-id-21064 #rcp_login_form::before {
     background-image: url(/wp-content/uploads/2020/08/hintergrund-720x470.jpg);
+  }
+}
+
+/* Registration page */
+.rcp_header {
+  display: none;
+}
+
+#rcp_registration_form {
+  display: flex;
+  flex-flow: column nowrap;
+  background-color: hsl(41 25% 90% / 1);
+  padding: 3rem !important;
+}
+
+#rcp_registration_form .rcp_subscription_fieldset {
+  order: -1;
+}
+
+#rcp_registration_form .rcp_subscription_message {
+  text-align: center;
+}
+
+#rcp_subscription_levels {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 2rem;
+}
+
+.rcp_subscription_level {
+  list-style: none !important;
+  padding: 2rem;
+  border: 0.3rem solid #94006c;
+  border-radius: 0.5rem;
+  background-color: white;
+  display: flex;
+  flex-flow: column-reverse nowrap;
+  text-align: center;
+  flex-grow: 1;
+  font-size: 1.2em;
+}
+
+.rcp_subscription_level label {
+  display: flex !important;
+  flex-flow: column nowrap;
+}
+
+.rcp_subscription_level .rcp_separator {
+  display: none;
+}
+
+#rcp_subscription_levels input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 90%;
+  max-width: 18rem;
+  height: 4rem;
+  margin: 1.6rem auto 0;
+  border-radius: 0.7rem;
+  background-color: #c7d1c7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+#rcp_subscription_levels input::before {
+  font-size: 2rem;
+  content: "✔";
+  color: white;
+}
+
+#rcp_subscription_levels input:checked {
+  background-color: #009900;
+}
+
+@media only screen and (max-width: 768px) {
+  #rcp_subscription_levels {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  #rcp_registration_form {
+    padding: 1.5rem !important;
+  }
+
+  .rcp-table td:before {
+    margin-left: 0;
+  }
+
+  .rcp-table tr td {
+    padding-left: 0;
   }
 }
 
