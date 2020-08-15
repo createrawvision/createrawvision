@@ -1037,7 +1037,10 @@ add_action(
  * Hidden, when crv_hide_member_banner option is truthy.
  */
 function crv_hide_banner() {
-	return ! is_single() || rcp_user_has_active_membership() || get_option( 'crv_hide_member_banner' );
+	return ! is_single()
+		|| rcp_user_has_active_membership()
+		|| crv_is_restricted_post( get_the_ID() )
+		|| get_option( 'crv_hide_member_banner' );
 }
 
 add_action(
