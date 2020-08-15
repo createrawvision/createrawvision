@@ -1,7 +1,7 @@
 <?php
 global $rcp_options;
-$registration_page_id = $rcp_options['registration_page'];
-$recipes_category_id  = 5869;
+$registration_page_url_raw = add_query_arg( 'level', 2, get_permalink( $rcp_options['registration_page'] ) );
+$recipes_category_id       = 5869;
 ?>
 
 <div class="countdown full-width">
@@ -9,7 +9,7 @@ $recipes_category_id  = 5869;
 	<p class="countdown__description">
 		bis zur Veröffentlichung des Mitgliederbereichs
 	</p>
-	<a href="<?php the_permalink( $registration_page_id ); ?>">
+	<a href="<?php echo esc_url( $registration_page_url_raw ); ?>">
 		<button class="countdown__button cta-button">
 			Jetzt anmelden
 		</button>
@@ -19,7 +19,7 @@ $recipes_category_id  = 5869;
 <div class="sticky-wrapper">
 	<div class="countdown countdown--inline full-width">
 		<div class="countdown__timer"></div>
-		<a href="<?php the_permalink( $registration_page_id ); ?>">
+		<a href="<?php echo esc_url( $registration_page_url_raw ); ?>">
 			<button class="countdown__button cta-button">
 				Jetzt anmelden
 			</button>
@@ -90,7 +90,7 @@ $recipes_category_id  = 5869;
 	</ul>
 </section>
 
-<a href="<?php the_permalink( $registration_page_id ); ?>">
+<a href="<?php echo esc_url( $registration_page_url_raw ); ?>">
 	<button class="cta-button">
 		Jetzt mit Rohkost durchstarten!
 	</button>
@@ -171,7 +171,7 @@ $recipes_category_id  = 5869;
 	</div>
 </section>
 
-<a href="<?php the_permalink( $registration_page_id ); ?>">
+<a href="<?php echo esc_url( $registration_page_url_raw ); ?>">
 	<button class="cta-button">
 		Jetzt anmelden
 	</button>
@@ -220,7 +220,7 @@ $recipes_category_id  = 5869;
 	</p>
 </section>
 
-<a href="<?php the_permalink( $registration_page_id ); ?>">
+<a href="<?php echo esc_url( $registration_page_url_raw ); ?>">
 	<button class="cta-button">
 		Jetzt mit Rohkost durchstarten!
 	</button>
@@ -312,7 +312,7 @@ $recipes_category_id  = 5869;
 	<?php echo do_shortcode( '[slide-anything id="22172"]' ); ?>
 </section>
 
-<a href="<?php the_permalink( $registration_page_id ); ?>">
+<a href="<?php echo esc_url( $registration_page_url_raw ); ?>">
 	<button class="cta-button">
 		Jetzt anmelden
 	</button>
@@ -375,7 +375,7 @@ $recipes_category_id  = 5869;
 	</ol>
 </section>
 
-<a href="<?php the_permalink( $registration_page_id ); ?>">
+<a href="<?php echo esc_url( $registration_page_url_raw ); ?>">
 	<button class="cta-button">
 		Jetzt mit Rohkost durchstarten!
 	</button>
@@ -417,7 +417,7 @@ $recipes_category_id  = 5869;
 	<button class="homepage-faqs__button">Mehr anzeigen</button>
 </section>
 
-<a href="<?php the_permalink( $registration_page_id ); ?>">
+<a href="<?php echo esc_url( $registration_page_url_raw ); ?>">
 	<button class="cta-button">
 		Jetzt mit Rohkost durchstarten!
 	</button>

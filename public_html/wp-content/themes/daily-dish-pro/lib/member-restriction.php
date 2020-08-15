@@ -86,7 +86,7 @@ function crv_restricted_content() {
 		global $rcp_options;
 		$restrict_message  = '<div class="restriciton-message">';
 		$restrict_message .= '<p>Dieser Beitrag ist nur für Mitglieder verfügbar. Werde Mitglied, um Zugriff zu erhalten.</p>';
-		$restrict_message .= '<a href="' . esc_url( get_permalink( $rcp_options['registration_page'] ) ) . '"><button class="cta-button cta-button--small">Jetzt Mitglied werden</button></a>';
+		$restrict_message .= '<a href="' . esc_url( add_query_arg( 'level', 2, get_permalink( $rcp_options['registration_page'] ) ) ) . '"><button class="cta-button cta-button--small">Jetzt Mitglied werden</button></a>';
 		$restrict_message .= '<a href="' . esc_url( home_url() ) . '"><button class="cta-button cta-button--small">Mehr erfahren</button></a>';
 		$restrict_message .= '<p>Bereits Mitglied? Hier geht\'s <a href="' . esc_url( get_permalink( get_page_by_path( 'login' ) ) ) . '">zum&nbsp;Login</a>.</p>';
 		$restrict_message .= '</div>';
