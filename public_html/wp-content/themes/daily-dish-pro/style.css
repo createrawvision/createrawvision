@@ -2948,14 +2948,45 @@ li.comment {
 /**
  * Restricted content message
  */
-.restriciton-message {
-  border: thick dashed #ccc;
-  text-align: center;
-  padding: 2rem 3rem;
+.restriction-wrapper {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 4rem;
+  align-items: flex-start;
 }
 
-.restriciton-message > a {
-  white-space: nowrap;
+.restriction-wrapper > * {
+  flex: 1 1 50%;
+  width: 50% !important;
+}
+
+.restriciton-message {
+  background: hsl(41 52% 95% / 1);
+  text-align: center;
+  padding: 3rem;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 3rem;
+  font-size: 1.2em;
+}
+
+.restriciton-message * {
+  margin: 0 !important;
+}
+
+.restriciton-message .cta-button {
+  padding: 1.5rem 2rem;
+  display: inline-block;
+}
+
+@media only screen and (max-width: 768px) {
+  .restriction-wrapper {
+    flex-flow: column nowrap;
+  }
+
+  .restriction-wrapper > * {
+    width: auto !important;
+  }
 }
 
 /**
