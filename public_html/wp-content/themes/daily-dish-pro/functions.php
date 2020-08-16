@@ -1081,7 +1081,7 @@ add_action(
 
 
 /**
- * Add 'crv_restricted_post' main archive query posts.
+ * For archives, prepend the unrestricted posts, when a query parameter was set.
  */
 add_action(
 	'pre_get_posts',
@@ -1090,43 +1090,34 @@ add_action(
 			return;
 		}
 
-		add_filter(
-			'the_posts',
-			function( $posts ) {
-
-				$post_ids = array_column( $posts, 'ID' );
-
-				$unrestricted_post_ids = crv_strip_restricted_posts( $post_ids );
-				$is_unrestricted_post  = array_flip( $unrestricted_post_ids );
-
-				foreach ( $posts as $post ) {
-					$post->crv_restricted_post = ! isset( $is_unrestricted_post[ $post->ID ] );
-				}
-
-				return $posts;
-			}
-		);
-
-		add_filter(
-			'genesis_attr_entry-content',
-			function( $attributes ) {
-				global $post;
-				$is_restricted = $post->crv_restricted_post;
-
-				// Don't do anything for unrestricted posts!
-				if ( ! $is_restricted ) {
-					return $attributes;
-				}
-
-				if ( isset( $attributes['class'] ) ) {
-					$attributes['class'] .= ' crv-restricted-content';
-				} else {
-					$attributes['class'] = 'crv-restricted-content';
-				}
-				return $attributes;
-			}
-		);
+		// Only act, when query parameter was set.
+		if ( isset( $_GET['free'] ) ) {
+			add_filter( 'the_posts', 'crv_unrestricted_posts_first' );
+		}
 	}
 );
 
-	return apply_filters( "genesis_attr_{$context}", $attributes, $context, $args );
+/**
+ * Keeps the original order, but prepends unrestricted posts.
+ */
+function crv_unrestricted_posts_first( $posts ) {
+	// Find all unrestricted post at once and build a lookup table.
+	$post_ids              = array_column( $posts, 'ID' );
+	$unrestricted_post_ids = crv_strip_restricted_posts( $post_ids );
+	$is_unrestricted_post  = array_combine( $unrestricted_post_ids, array_fill( 0, count( $unrestricted_post_ids ), true ) );
+
+	// Group post being restricted / unrestricted.
+	$restricted_posts   = array();
+	$unrestricted_posts = array();
+
+	// Preserve the original order in the posts array.
+	foreach ( $posts as $post ) {
+		if ( isset( $is_unrestricted_post[ $post->ID ] ) ) {
+			$unrestricted_posts[] = $post;
+		} else {
+			$restricted_posts[] = $post;
+		}
+	}
+
+	return array_merge( $unrestricted_posts, $restricted_posts );
+}
