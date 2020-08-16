@@ -3,25 +3,33 @@
 /provision
 /vendor
 
-# Only include themes and deploy script
 /public_html/*
 !/public_html/wp-content/
 /public_html/wp-content/*
+
+# MU-Plugins
 !/public_html/wp-content/mu-plugins/
 
+# Include some translations
 !/public_html/wp-content/languages/
 /public_html/wp-content/languages/*
 !/public_html/wp-content/languages/supportcandy
 !/public_html/wp-content/languages/rcp
+!/public_html/wp-content/languages/plugins
+/public_html/wp-content/languages/plugins/*
+!/public_html/wp-content/languages/plugins/wpb-de_DE.mo
+!/public_html/wp-content/languages/plugins/wpb-de_DE.po
+!/public_html/wp-content/languages/plugins/wp-recipe-maker-de_DE.mo
+!/public_html/wp-content/languages/plugins/wp-recipe-maker-de_DE.po
 
+# Include WP-Bookmarks plugin with custom edits (abandoned plugin)
 !/public_html/wp-content/plugins/
 /public_html/wp-content/plugins/*
 !/public_html/wp-content/plugins/wp-bookmarks/
 
+# Themes (not twenty...)
 !/public_html/wp-content/themes/
 /public_html/wp-content/themes/twenty*
-
-!/public_html/wp-content/deploy.php
 
 # Only include neccessary test data (no config)
 /*.sql

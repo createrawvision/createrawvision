@@ -48,7 +48,8 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 // Child theme (do not remove).
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
-define( 'CHILD_THEME_VERSION', '2.0.0' );
+// define( 'CHILD_THEME_VERSION', '2.0.0' );
+define( 'CHILD_THEME_VERSION', '0.1.10' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -72,6 +73,12 @@ function daily_dish_enqueue_scripts_styles() {
 		'genesis_responsive_menu',
 		daily_dish_get_responsive_menu_settings()
 	);
+
+	// Register countdown scripts for later use.
+	wp_register_script( 'flipclock', CHILD_URL . "/js/flipclock{$suffix}.js", array( 'jquery' ), '1.1', true );
+	wp_register_style( 'flipclock', CHILD_URL . '/css/flipclock.css', array(), '1.1' );
+	wp_register_script( 'crv-countdown', CHILD_URL . '/js/countdown.js', array( 'jquery', 'flipclock' ), CHILD_THEME_VERSION, true );
+	wp_register_style( 'crv-countdown', CHILD_URL . '/css/countdown.css', array( 'flipclock' ), CHILD_THEME_VERSION );
 }
 
 /**
@@ -120,9 +127,8 @@ add_theme_support(
 );
 
 // Add image sizes.
-add_image_size( 'daily-dish-featured', 720, 470, true );
 add_image_size( 'daily-dish-archive', 500, 262, true );
-add_image_size( 'daily-dish-sidebar', 100, 100, true );
+add_image_size( 'thumbnail-portrait', 400, 600, true );
 
 // Add support for custom header.
 add_theme_support(
@@ -501,23 +507,51 @@ function jw_prevent_akward_post_title_line_break( $title, $length = 17 ) {
 add_filter( 'genesis_post_title_text', 'jw_prevent_akward_post_title_line_break' );
 
 
-/*
- * Make portrait thumbnails when original image was portrait
+/**
+ * On home, archives, search and custom loops, show posts in grid.
  */
-add_image_size( 'thumbnail-portrait', 400, 600, true );
-add_action( 'genesis_pre_get_option_image_size', 'jw_portait_thumbnail', 11 );
+add_action(
+	'genesis_before_content',
+	function() {
+		if ( is_admin() || ! is_main_query() ) {
+			return;
+		}
 
-function jw_portait_thumbnail( $image_size ) {
-	if (
-		( is_home() || is_archive() || is_search() )
-		&& is_main_query()
-		&& jw_is_thumbnail_portrait()
-	) {
-		return 'thumbnail-portrait';
+		$show_grid = is_home() || is_archive() || is_search()
+			|| ( is_singular( 'page' ) && genesis_get_custom_field( 'query_args' ) );
+
+		if ( ! $show_grid ) {
+			return;
+		}
+
+		// Remove text from preview.
+		remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
+		remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
+
+		// Add 'crv-grid' class to the 'content' tag.
+		add_filter(
+			'genesis_attr_content',
+			function( $attributes ) {
+				// Class is always set, at least to context.
+					$attributes['class'] .= ' crv-grid';
+				return $attributes;
+			}
+		);
+
+		// Display portraits for portrait thumbnails (overwriting default).
+		add_action(
+			'genesis_pre_get_option_image_size',
+			function( $image_size ) {
+				return jw_is_thumbnail_portrait() ? 'thumbnail-portrait' : $image_size;
+			}
+		);
 	}
-	return $image_size;
-}
+);
 
+
+/**
+ * Checks whether the current post thumbnail is higher than wide.
+ */
 function jw_is_thumbnail_portrait() {
 	$post_thumbnail_id = get_post_thumbnail_id();
 	$image             = wp_get_attachment_image_src( $post_thumbnail_id, 'full' );
@@ -526,28 +560,26 @@ function jw_is_thumbnail_portrait() {
 	return $image_width < $image_height;
 }
 
-/*
- * Don't show excerpts and entry meta on archives, home or search
- */
-function jw_remove_excerpts_and_entry_meta() {
-	if ( ( is_home() || is_archive() || is_search() ) && is_main_query() ) {
-		remove_action( 'genesis_entry_content', 'genesis_do_post_content' );
-		remove_action( 'genesis_entry_header', 'genesis_post_info', 12 );
-	}
-}
-add_action( 'genesis_before_content', 'jw_remove_excerpts_and_entry_meta', 1 );
 
 /**
- * Use the first image attatched to the member post for sharing when featured image is portrait
+ * Use the first image attatched to the member post for sharing when featured image is portrait.
+ * When the set $image_url is not the thumbnail, return it instead.
  */
 add_filter( 'wpseo_opengraph_image', 'jw_avoid_portrait_og_image' );
 
 function jw_avoid_portrait_og_image( $image_url ) {
-	global $post;
+	// Bail, if $image_url was set manually.
+	if ( wp_get_attachment_url( get_post_thumbnail_id() ) !== $image_url ) {
+		return $image_url;
+	}
+
+	// Bail, if the thumbnail is not portrait.
 	if ( ! jw_is_thumbnail_portrait() ) {
 		return $image_url;
 	}
-	$first_image_url = jw_get_first_image_url( $post->post_content );
+
+	// Return the first image of a post, when it exists (assume it is not portrait).
+	$first_image_url = jw_get_first_image_url( get_the_content() );
 	if ( empty( $first_image_url ) ) {
 		return $image_url;
 	}
@@ -555,7 +587,10 @@ function jw_avoid_portrait_og_image( $image_url ) {
 }
 
 function jw_get_first_image_url( $post_content ) {
-	preg_match( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post_content, $matches );
+	$is_match = preg_match( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post_content, $matches );
+	if ( ! $is_match ) {
+		return null;
+	}
 	$first_image_url = $matches[1];
 	return $first_image_url;
 }
@@ -670,8 +705,9 @@ add_filter(
 			return $args;
 		}
 
-		// Show different menus for RCP logged in users
-		if ( rcp_user_has_active_membership() ) {
+		// Show different menus for RCP logged in users and admins.
+		// Show it to members even before launch!
+		if ( rcp_user_has_active_membership() || current_user_can( 'manage_options' ) ) {
 			$args['menu'] = 'Main Menu Member 2020';
 		} else {
 			$args['menu'] = 'Main Menu 2020';
@@ -684,6 +720,8 @@ add_filter(
 
 /**
  * Adds `nav-icon` class to nav items containing an svg element
+ *
+ * @todo add `sub-menu-toggle` to empty custom elements with children
  */
 add_filter(
 	'nav_menu_css_class',
@@ -764,7 +802,7 @@ function crv_loginout_menu_link( $menu, $args ) {
 		return $menu;
 	}
 
-	$menu .= is_user_logged_in() ? '<li class="menu-item"><a href="/dashboard">Zum Dashboard</a></li>' : '';
+	$menu .= is_user_logged_in() ? '<li class="menu-item"><a href="/dashboard">Übersichtsseite</a></li>' : '';
 	$menu .= '<li class="menu-item">' . crv_loginout() . '</li>';
 	return $menu;
 }
@@ -890,12 +928,16 @@ add_action(
 require_once CHILD_DIR . '/lib/help-popup.php';
 
 
+global $crv_launch_date;
+$crv_launch_date = new DateTime( '2020-08-20 12:00:00', new DateTimeZone( 'Europe/Berlin' ) );
 /**
  * Returns true, when the date is before the membership launch
  */
 function crv_is_before_membership_launch( $date = null ) {
+	global $crv_launch_date;
+
 	$date = $date ?? new DateTime();
-	return $date < new DateTime( '2020-08-20 17:00:00', new DateTimeZone( 'Europe/Berlin' ) );
+	return $date < $crv_launch_date;
 }
 
 
@@ -906,13 +948,19 @@ require_once CHILD_DIR . '/lib/rcp-upgrade-settings.php';
 
 
 /**
- * Set expiration to launch day before launch for active memberships.
+ * Set expiration to the launch day on days, which are at least one full day before launch.
+ * Just for active memberships.
+ * Reasion: DigiStore allows only full days of test phase.
  */
 add_filter(
 	'rcp_calculate_membership_level_expiration',
 	function( $expiration_date, $membership_level, $set_trial ) {
-		if ( new DateTime() < new DateTime( '2020-08-20', new DateTimeZone( 'Europe/Berlin' ) ) && 'active' === $membership_level->status ) {
-			return '2020-08-20 23:59:59';
+		global $crv_launch_date;
+		$day_before_launch = ( clone $crv_launch_date )->sub( new DateInterval( 'P1D' ) )->setTime( 0, 0, 0 );
+		$now               = new DateTime( 'now' );
+
+		if ( $now < $day_before_launch && 'active' === $membership_level->status ) {
+			return $crv_launch_date->format( 'Y-m-d' ) . ' 23:59:59';
 		}
 		return $expiration_date;
 	},
@@ -926,7 +974,11 @@ add_filter(
 add_filter(
 	'rcp_registration_total',
 	function( $total ) {
-		if ( new DateTime() < new DateTime( '2020-08-20', new DateTimeZone( 'Europe/Berlin' ) ) ) {
+		global $crv_launch_date;
+		$day_before_launch = ( clone $crv_launch_date )->sub( new DateInterval( 'P1D' ) )->setTime( 0, 0, 0 );
+		$now               = new DateTime( 'now' );
+
+		if ( $now < $day_before_launch ) {
 			return 'Kostenlos bis zur Veröffentlichung';
 		}
 		return $total;
@@ -951,14 +1003,79 @@ add_action(
 
 
 /**
- * For now, show the normal blog home for restricted people.
- *
- * @todo remove when home is done
+ * Add wrapper and header to rcp login form.
  */
-add_filter(
-	'pre_option_show_on_front',
+add_action(
+	'rcp_before_login_form_fields',
 	function() {
-		return crv_user_is_unrestricted() ? 'page' : 'posts';
+		echo '<div class="rcp-login-form-container">';
+
+		$site_icon_id = get_option( 'site_icon' );
+		echo '<div class="rcp_login_form__header">';
+		echo wp_get_attachment_image( $site_icon_id, $size = 'thumbnail', false, array( 'class' => 'rcp_login_form__icon' ) );
+		echo '<h2 class="rcp_login_form__title">CreateRawVision</h2>';
+		echo '<h3 class="rcp_login_form__subtitle">Mitgliederbereich</h3></div>';
+
+		rcp_show_error_messages( 'login' );
+	}
+);
+
+add_action(
+	'rcp_after_login_form_fields',
+	function() {
+		echo '<a class="back-to-home" href="' . esc_url( home_url() ) . '">← Zurück zur Startseite</a>';
+		echo '</div>';
+	}
+);
+
+
+/**
+ * Add a banner to every post (for non-members).
+ * Hidden, when crv_hide_member_banner option is truthy.
+ */
+function crv_hide_banner() {
+	return ! is_single()
+		|| rcp_user_has_active_membership()
+		|| crv_is_restricted_post( get_the_ID() )
+		|| get_option( 'crv_hide_member_banner' );
+}
+
+add_action(
+	'genesis_before_content',
+	function() {
+		if ( crv_hide_banner() ) {
+			return;
+		}
+
+		include __DIR__ . '/templates/banner-membership.php';
+	}
+);
+
+add_action(
+	'wp_enqueue_scripts',
+	function() {
+		if ( crv_hide_banner() ) {
+			return;
+		}
+
+		wp_enqueue_script( 'crv-countdown' );
+		wp_enqueue_style( 'crv-countdown' );
+	}
+);
+
+/**
+ * Make the banner full width for 'unsere-vision'
+ */
+add_action(
+	'genesis_attr_entry-header',
+	function( $attributes ) {
+		if ( ! is_page( 'unsere-vision' ) ) {
+			return $attributes;
+		}
+
+		// Class is always set (at least context).
+		$attributes['class'] .= ' full-width';
+		return $attributes;
 	}
 );
 
