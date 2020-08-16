@@ -59,7 +59,12 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 			);
 
 			if ( $this->auto_renew ) {
-				$billing_interval = $this->length . '_' . $this->length_unit;
+				// DigiStore does not know 'year' as length_unit.
+				if ( 'year' === $this->length_unit ) {
+					$billing_interval = 12 * $this->length . '_month';
+				} else {
+					$billing_interval = $this->length . '_' . $this->length_unit;
+				}
 
 				$payment_plan['other_amounts']           = $this->amount;
 				$payment_plan['first_billing_interval']  = $billing_interval;
