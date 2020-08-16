@@ -2898,9 +2898,16 @@ li.comment {
 .crv-grid .breadcrumb,
 .crv-grid .archive-description,
 .crv-grid > .entry-header,
-.crv-grid .pagination {
+.crv-grid .pagination,
+.crv-grid .unrestricted-first {
   grid-column: 1 / -1;
   width: 100%;
+}
+
+.crv-grid .unrestricted-first button {
+  margin: 0 auto 4rem;
+  width: auto;
+  display: block;
 }
 
 .crv-grid .entry-content img {
@@ -2918,6 +2925,7 @@ li.comment {
 .crv-grid .entry .entry-header {
   margin-bottom: 0;
   text-align: center;
+  width: 100%;
 }
 
 .crv-grid .entry-content {

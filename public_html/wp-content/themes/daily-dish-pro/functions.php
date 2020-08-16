@@ -1078,3 +1078,46 @@ add_action(
 		return $attributes;
 	}
 );
+
+
+/**
+ * For category archives, prepend the unrestricted posts, when a query parameter was set.
+ */
+add_action(
+	'pre_get_posts',
+	function( $query ) {
+		if ( is_admin() || ! $query->is_main_query() || ! $query->is_category() ) {
+			return;
+		}
+
+		// Only act, when query parameter was set.
+		if ( isset( $_GET['free'] ) && $_GET['free'] ) {
+			add_filter( 'the_posts', 'crv_unrestricted_posts_first' );
+		}
+	}
+);
+
+/**
+ * Keeps the original order, but prepends unrestricted posts.
+ */
+function crv_unrestricted_posts_first( $posts ) {
+	// Find all unrestricted post at once and build a lookup table.
+	$post_ids              = array_column( $posts, 'ID' );
+	$unrestricted_post_ids = crv_strip_restricted_posts( $post_ids );
+	$is_unrestricted_post  = array_combine( $unrestricted_post_ids, array_fill( 0, count( $unrestricted_post_ids ), true ) );
+
+	// Group post being restricted / unrestricted.
+	$restricted_posts   = array();
+	$unrestricted_posts = array();
+
+	// Preserve the original order in the posts array.
+	foreach ( $posts as $post ) {
+		if ( isset( $is_unrestricted_post[ $post->ID ] ) ) {
+			$unrestricted_posts[] = $post;
+		} else {
+			$restricted_posts[] = $post;
+		}
+	}
+
+	return array_merge( $unrestricted_posts, $restricted_posts );
+}
