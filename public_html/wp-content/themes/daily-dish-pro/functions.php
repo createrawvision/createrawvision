@@ -1081,17 +1081,17 @@ add_action(
 
 
 /**
- * For archives, prepend the unrestricted posts, when a query parameter was set.
+ * For category archives, prepend the unrestricted posts, when a query parameter was set.
  */
 add_action(
 	'pre_get_posts',
 	function( $query ) {
-		if ( is_admin() || ! $query->is_main_query() || ! $query->is_archive() ) {
+		if ( is_admin() || ! $query->is_main_query() || ! $query->is_category() ) {
 			return;
 		}
 
 		// Only act, when query parameter was set.
-		if ( isset( $_GET['free'] ) ) {
+		if ( isset( $_GET['free'] ) && $_GET['free'] ) {
 			add_filter( 'the_posts', 'crv_unrestricted_posts_first' );
 		}
 	}

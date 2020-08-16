@@ -37,4 +37,26 @@ add_action(
 	9
 );
 
+/**
+ * Show a button to show unrestricted posts first on recipe category archives.
+ */
+add_action(
+	'genesis_before_while',
+	function() {
+		$category       = get_queried_object();
+		$recipes_cat_id = 5869;
+
+		// Bail, if not child of recipes category.
+		if ( ! cat_is_ancestor_of( $recipes_cat_id, $category ) ) {
+			return;
+		}
+
+		if ( isset( $_GET['free'] ) && $_GET['free'] ) {
+			echo '<form class="unrestricted-first"><button type="submit" name="free" value="0">Sortierung aufheben</button></form>';
+		} else {
+			echo '<form class="unrestricted-first"><button type="submit" name="free" value="1">Kostenfreie Rezepte zuerst anzeigen</button></form>';
+		}
+	}
+);
+
 genesis();
