@@ -19,6 +19,8 @@
 /public_html/wp-content/languages/plugins/*
 !/public_html/wp-content/languages/plugins/wpb-de_DE.mo
 !/public_html/wp-content/languages/plugins/wpb-de_DE.po
+!/public_html/wp-content/languages/plugins/wp-recipe-maker-de_DE.mo
+!/public_html/wp-content/languages/plugins/wp-recipe-maker-de_DE.po
 
 # Include WP-Bookmarks plugin with custom edits (abandoned plugin)
 !/public_html/wp-content/plugins/

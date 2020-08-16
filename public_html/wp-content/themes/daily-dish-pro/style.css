@@ -2884,13 +2884,15 @@ li.comment {
   justify-items: center;
 }
 
-.crv-grid {
-  grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
-}
-
+.blog .crv-grid,
 .page .crv-grid,
 .category-member .crv-grid {
   grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+}
+
+.crv-grid,
+.crv-grid.crv-grid--large {
+  grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
 }
 
 .crv-grid .breadcrumb,
@@ -3457,4 +3459,33 @@ Bubble
   left: calc(-1 * var(--offset));
   margin-right: var(--margin);
   shape-outside: circle(50% at calc(50% - var(--offset)) 50%);
+}
+
+/*
+'unsere-vision' hero
+*/
+.page-id-19655 .entry-header {
+  background: 50% 80% / cover no-repeat;
+  background-image: linear-gradient(to bottom, #0000, #0006),
+    url(images/unsere-vision-hero.jpg);
+  min-height: 50rem;
+  padding: 0 5rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-flow: column nowrap;
+}
+
+.page-id-19655 .entry-title {
+  font-weight: bold;
+  font-size: 6rem;
+  color: white;
+  margin-bottom: 5rem;
+}
+
+@media only screen and (max-width: 480px) {
+  .page-id-19655 .entry-header {
+    background-image: linear-gradient(to bottom, #0000, #0006),
+      url(images/unsere-vision-hero-mobile.jpg);
+  }
 }
