@@ -532,11 +532,8 @@ add_action(
 		add_filter(
 			'genesis_attr_content',
 			function( $attributes ) {
-				if ( isset( $attributes['class'] ) ) {
+				// Class is always set, at least to context.
 					$attributes['class'] .= ' crv-grid';
-				} else {
-					$attributes['class'] = 'crv-grid';
-				}
 				return $attributes;
 			}
 		);
@@ -1063,5 +1060,21 @@ add_action(
 
 		wp_enqueue_script( 'crv-countdown' );
 		wp_enqueue_style( 'crv-countdown' );
+	}
+);
+
+/**
+ * Make the banner full width for 'unsere-vision'
+ */
+add_action(
+	'genesis_attr_entry-header',
+	function( $attributes ) {
+		if ( ! is_page( 'unsere-vision' ) ) {
+			return $attributes;
+		}
+
+		// Class is always set (at least context).
+		$attributes['class'] .= ' full-width';
+		return $attributes;
 	}
 );

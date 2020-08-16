@@ -3458,3 +3458,32 @@ Bubble
   margin-right: var(--margin);
   shape-outside: circle(50% at calc(50% - var(--offset)) 50%);
 }
+
+/*
+'unsere-vision' hero
+*/
+.page-id-19655 .entry-header {
+  background: 50% 80% / cover no-repeat;
+  background-image: linear-gradient(to bottom, #0000, #0006),
+    url(images/unsere-vision-hero.jpg);
+  min-height: 50rem;
+  padding: 0 5rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-flow: column nowrap;
+}
+
+.page-id-19655 .entry-title {
+  font-weight: bold;
+  font-size: 6rem;
+  color: white;
+  margin-bottom: 5rem;
+}
+
+@media only screen and (max-width: 480px) {
+  .page-id-19655 .entry-header {
+    background-image: linear-gradient(to bottom, #0000, #0006),
+      url(images/unsere-vision-hero-mobile.jpg);
+  }
+}
