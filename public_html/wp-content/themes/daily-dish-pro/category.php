@@ -23,35 +23,13 @@ add_action(
 				// Don't show the "no content matches" message
 				remove_action( 'genesis_loop_else', 'genesis_do_noposts' );
 
-				foreach ( $child_categories as $category ) :
+				foreach ( $child_categories as $category ) {
 					$image_id = get_field( 'featured_image', $category );
 					$link     = esc_url( get_category_link( $category->term_id ) );
-					?>
-		<article class="entry">
-		  <header class="entry-header">
-			<h2 class="entry-title">
-			  <a class="entry-title-link" href="<?php echo $link; ?>">
-						<?php echo $category->name; ?>
-			  </a>
-			</h2>
-		  </header>
-						<?php if ( $image_id ) : ?>
-			<div class="entry-content">
-			  <a class="entry-image-link" href="<?php echo $link; ?>">
-							<?php
-							echo wp_get_attachment_image(
-								$image_id,
-								'thumbnail-portrait',
-								false,
-								array( 'class' => 'alignleft' )
-							);
-							?>
-			  </a>
-			</div>
-		  <?php endif; ?>
-		</article>
-					<?php
-				  endforeach;
+					$title    = $category->name;
+
+					require __DIR__ . '/templates/grid.php';
+				}
 
 		  endif;
 		}

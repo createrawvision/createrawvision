@@ -2884,13 +2884,15 @@ li.comment {
   justify-items: center;
 }
 
-.crv-grid {
-  grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
-}
-
+.blog .crv-grid,
 .page .crv-grid,
 .category-member .crv-grid {
   grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
+}
+
+.crv-grid,
+.crv-grid.crv-grid--large {
+  grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
 }
 
 .crv-grid .breadcrumb,
