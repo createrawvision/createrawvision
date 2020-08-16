@@ -3497,3 +3497,20 @@ Bubble
       url(images/unsere-vision-hero-mobile.jpg);
   }
 }
+
+/*
+Recipe Filter
+*/
+#recipe-filter > * {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+#recipe-filter input[type="checkbox"],
+#recipe-filter input[type="radio"] {
+  margin-right: 0.5rem;
+}
+
+#recipe-filter fieldset label {
+  display: block;
+}
