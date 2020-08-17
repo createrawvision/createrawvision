@@ -246,7 +246,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 
 				$pay_sequence_no = $posted['pay_sequence_no'];
 
-				if ( isset( $posted['billing_type'] ) && 'installment' == $posted['billing_type'] ) {
+				if ( isset( $posted['billing_type'] ) && 'installment' === $posted['billing_type'] ) {
 					rcp_log( 'Installments not supported.' );
 					break;
 				}
@@ -256,9 +256,10 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 
 				if ( $is_single_payment || $is_initial_payment ) {
 					$this->membership->set_gateway_subscription_id( $posted['order_id'] );
+					rcp_update_membership_meta( $membership->get_id(), 'digistore_receipt_url', $posted['receipt_url'] );
 
 					if ( ! empty( $pending_payment_id ) ) {
-						// This activates the membership automatically
+						// This activates the membership automatically.
 						$rcp_payments->update( $pending_payment_id, $payment_data );
 						$payment_id = $pending_payment_id;
 					} else {
