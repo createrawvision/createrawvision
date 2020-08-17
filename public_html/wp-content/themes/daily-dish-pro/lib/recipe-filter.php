@@ -26,10 +26,11 @@ function crv_recipe_filter_form() {
 
 		<label><input type="checkbox" name="free"> Nur kostenfreie Rezepte anzeigen</label>
 
-		<button>Rezepte filtern</button>
+		<button type="submit">Rezepte filtern</button>
 		<input type="hidden" name="action" value="crv_post_filter">
 	</form>
 	<div id="filter_results" class="crv-grid" style="margin-top: 3rem;"></div>
+	<p class="recipe-filter__loading-hint">Weitere Ergebnisse werden geladen...</p>
 	<?php
 	return ob_get_clean();
 }
@@ -64,6 +65,8 @@ add_action( 'wp_ajax_nopriv_crv_post_filter', 'crv_filter_recipes' );
  * - search: search term
  * - taxnonmyfilter_{taxomomy}
  * - free: when true, only show free content
+ *
+ * @todo maybe cache results (since the same thing may get computed on multiple requests)
  */
 function crv_filter_recipes() {
 	// WP_Query args for getting recipes.
@@ -98,7 +101,7 @@ function crv_filter_recipes() {
 
 	$recipe_ids = get_posts( $args );
 
-	// Get containing posts
+	// Get containing posts.
 	$post_ids = array_map(
 		function ( $recipe_id ) {
 			return WPRM_Recipe_Manager::get_recipe( $recipe_id )->parent_post_id();
@@ -106,38 +109,38 @@ function crv_filter_recipes() {
 		$recipe_ids
 	);
 
-	// Remove all restricted posts from list
+	// Remove all restricted posts from list.
 	if ( isset( $_POST['free'] ) && $_POST['free'] ) {
 		$post_ids = crv_strip_restricted_posts( $post_ids );
 	}
 
-	// Return formatted results
-	array_map(
-		function ( $post_id ) {
-			$link  = get_permalink( $post_id );
-			$title = get_the_title( $post_id );
-			?>
-		<article class="entry">
-			<header class="entry-header">
-				<h2 class="entry-title">
-					<a class="entry-title-link" href="<?php echo esc_url( $link ); ?>">
-						<?php echo esc_html( $title ); ?>
-					</a>
-				</h2>
-			</header>
-			<div class="entry-content">
-				<?php if ( has_post_thumbnail( $post_id ) ) : ?>
-					<a class="entry-image-link" href="<?php echo esc_url( $link ); ?>">
-						<?php echo get_the_post_thumbnail( $post_id ); ?>
-					</a>
-				<?php else : ?>
-					<p>Kein Vorschaubild vorhanden...</p>
-				<?php endif; ?>
-			</div>
-		</article>
-			<?php
-		},
-		$post_ids
+	// Paginate response.
+	$posts_count        = count( $post_ids );
+	$page               = isset( $_POST['page'] ) ? absint( $_POST['page'] ) : 0;
+	$posts_per_page     = isset( $_POST['posts_per_page'] ) ? absint( $_POST['posts_per_page'] ) : 12;
+	$max_num_pages      = intdiv( $posts_count - 1, $posts_per_page ) + 1;
+	$post_ids_to_return = array_slice( $post_ids, $page * $posts_per_page, $posts_per_page );
+
+	// Get formatted results.
+	ob_start();
+	foreach ( $post_ids_to_return as $post_id ) {
+		$link     = get_permalink( $post_id );
+		$title    = get_the_title( $post_id );
+		$image_id = get_post_thumbnail_id( $post_id );
+
+		require __DIR__ . '/../templates/grid.php';
+	}
+	$html_content = ob_get_clean();
+
+	// Respond.
+	header( 'Content-type: application/json' );
+	echo wp_json_encode(
+		array(
+			'html'  => $html_content,
+			'page'  => $page,
+			'pages' => $max_num_pages,
+			'count' => $posts_count,
+		)
 	);
 
 	die();

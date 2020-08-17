@@ -2928,6 +2928,10 @@ li.comment {
   width: 100%;
 }
 
+.crv-grid .entry-title {
+  margin-top: 0;
+}
+
 .crv-grid .entry-content {
   order: -1;
 }
@@ -3513,4 +3517,18 @@ Recipe Filter
 
 #recipe-filter fieldset label {
   display: block;
+}
+
+.recipe-filter__loading-hint {
+  display: none;
+  text-align: center;
+  margin: 3rem 0;
+  font-size: 1.4em;
+  font-style: italic;
+  color: grey;
+}
+
+.recipe-filter__no-results {
+  grid-column: 1 / -1;
+  font-size: 1.2em;
 }
