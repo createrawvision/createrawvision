@@ -1,6 +1,6 @@
 <?php
 
-add_action( 'genesis_entry_content', 'crv_top_bookmarks' );
+add_action( 'genesis_after_entry_content', 'crv_top_bookmarks' );
 
 /**
  * Shows the top bookmarks from wp-bookmarks in the same style as archives.
