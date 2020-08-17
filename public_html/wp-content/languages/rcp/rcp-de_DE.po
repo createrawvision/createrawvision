@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/restrict-content-"
 "pro\n"
 "POT-Creation-Date: 2020-05-04 14:01+0100\n"
-"PO-Revision-Date: 2020-08-17 12:04+0200\n"
+"PO-Revision-Date: 2020-08-17 14:23+0200\n"
 "Last-Translator: flowdee <coder@flowdee.de>\n"
 "Language-Team: sz\n"
 "Language: de\n"
@@ -3778,25 +3778,25 @@ msgstr "Transaktions-ID"
 #: includes/admin/payments/edit-payment.php:111
 #: includes/admin/payments/new-payment.php:80 includes/misc-functions.php:1468
 msgid "Complete"
-msgstr ""
+msgstr "Abgeschlossen"
 
 #: includes/admin/memberships/edit-membership.php:398
 #: includes/admin/payments/edit-payment.php:112
 #: includes/admin/payments/new-payment.php:81 includes/misc-functions.php:1469
 msgid "Failed"
-msgstr ""
+msgstr "Fehlgeschlagen"
 
 #: includes/admin/memberships/edit-membership.php:399
 #: includes/admin/payments/edit-payment.php:113
 #: includes/admin/payments/new-payment.php:82 includes/misc-functions.php:1470
 msgid "Refunded"
-msgstr ""
+msgstr "Zurückerstattet"
 
 #: includes/admin/memberships/edit-membership.php:400
 #: includes/admin/payments/edit-payment.php:114
 #: includes/admin/payments/new-payment.php:83 includes/misc-functions.php:1467
 msgid "Abandoned"
-msgstr ""
+msgstr "Eingestellt"
 
 #: includes/admin/memberships/edit-membership.php:408
 #, fuzzy
@@ -7691,10 +7691,8 @@ msgid "Failed to create client token."
 msgstr ""
 
 #: includes/gateways/class-rcp-payment-gateway-braintree.php:691
-#, fuzzy
-#| msgid "You are already registered and have an active subscription."
 msgid "You do not have an active subscription."
-msgstr "Sie sind bereits ein registriertes Mitglied"
+msgstr "Du hast keine aktive Mitgliedschaft."
 
 #: includes/gateways/class-rcp-payment-gateway-braintree.php:702
 #, php-format
@@ -9412,7 +9410,6 @@ msgid "Re-enter Password"
 msgstr "Passwort erneut eingeben"
 
 #: templates/profile-editor.php:78
-#, fuzzy
 msgid "Save Changes"
 msgstr "Änderungen speichern"
 
@@ -9484,9 +9481,8 @@ msgid "%d total payments"
 msgstr "Alle Zahlungen ansehen"
 
 #: templates/register.php:107
-#, fuzzy
 msgid "You have not created any membership levels yet"
-msgstr "Sie Haben noch keine Mitgliedschaftsstufe erstellt."
+msgstr "Sie Haben noch keine Mitgliedschaftsstufe erstellt"
 
 #: templates/subscription.php:30
 #, fuzzy, php-format
@@ -9508,7 +9504,7 @@ msgstr "Ablauf-/Verlängerungsdatum"
 
 #: templates/subscription.php:82
 msgid "(renews automatically)"
-msgstr ""
+msgstr "(wird automatisch verlängert)"
 
 #: templates/subscription.php:109
 #, fuzzy

@@ -3301,6 +3301,17 @@ RCP
   }
 }
 
+/* Profile Editor */
+#rcp_profile_editor_form legend {
+  font-size: 1.2em;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+}
+
+#rcp_profile_editor_form fieldset {
+  margin-bottom: 2rem;
+}
+
 /*
 Cookie notice
 */
