@@ -114,12 +114,12 @@ function crv_filter_recipes() {
 		$post_ids = crv_strip_restricted_posts( $post_ids );
 	}
 
-	// Paginate response.
+	// Paginate response (from page 1).
 	$posts_count        = count( $post_ids );
-	$page               = isset( $_POST['page'] ) ? absint( $_POST['page'] ) : 0;
+	$page               = isset( $_POST['page'] ) ? absint( $_POST['page'] ) : 1;
 	$posts_per_page     = isset( $_POST['posts_per_page'] ) ? absint( $_POST['posts_per_page'] ) : 12;
-	$max_num_pages      = intdiv( $posts_count - 1, $posts_per_page ) + 1;
-	$post_ids_to_return = array_slice( $post_ids, $page * $posts_per_page, $posts_per_page );
+	$num_pages          = intdiv( $posts_count - 1, $posts_per_page ) + 1;
+	$post_ids_to_return = array_slice( $post_ids, ( $page - 1 ) * $posts_per_page, $posts_per_page );
 
 	// Get formatted results.
 	ob_start();
@@ -138,7 +138,7 @@ function crv_filter_recipes() {
 		array(
 			'html'  => $html_content,
 			'page'  => $page,
-			'pages' => $max_num_pages,
+			'pages' => $num_pages,
 			'count' => $posts_count,
 		)
 	);
