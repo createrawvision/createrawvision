@@ -923,6 +923,73 @@ add_action(
 
 
 /**
+ * Make an internal REST request for recipe wishes.
+ */
+add_action(
+	'wp_ajax_crv_recipe_request',
+	function() {
+		if ( ! crv_user_is_unrestricted() ) {
+			http_response_code( 403 );
+			die();
+		}
+
+		/**
+		 * Add meta to tickets created through wish box.
+		 */
+		add_action(
+			'wpsc_ticket_created',
+			function( $ticket_id ) {
+				global $wpscfunction;
+				$wpscfunction->add_ticket_meta( $ticket_id, 'crv_suppress_customer_notification', true );
+			}
+		);
+
+		$request = new WP_REST_Request( 'POST', '/supportcandy/v1/tickets/addRegisteredUserTicket' );
+		$request->set_query_params( array( 'fields_data' => sanitize_text_field( wp_unslash( $_POST['fields_data'] ?? '' ) ) ) );
+		$response = rest_do_request( $request );
+
+		if ( $response->is_error() ) {
+			$error      = $response->as_error();
+			$error_data = $error->get_error_data();
+			$status     = isset( $error_data['status'] ) ? $error_data['status'] : 500;
+			http_response_code( $status );
+			die();
+		}
+
+		$data    = $response->get_data();
+		$json    = wp_json_encode( $data );
+		$headers = $response->get_headers();
+
+		header( $headers, true, 200 );
+		echo $json;
+		die();
+	}
+);
+
+/**
+ * Don't send customer e-mail notifications for recipe wishes through dashboard.
+ */
+add_filter(
+	'wpsc_en_create_ticket_email_addresses',
+	function( $email_addresses, $email_template, $ticket_id ) {
+		global $wpscfunction;
+
+		// If ticket meta is not set, don't do anything.
+		if ( ! $wpscfunction->get_ticket_meta( $ticket_id, 'crv_suppress_customer_notification', true ) ) {
+			return $email_addresses;
+		}
+
+		// Remove the customer e-mail-address.
+		$customer_email_address = $wpscfunction->get_ticket_fields( $ticket_id, 'customer_email' );
+		$email_addresses        = array_diff( $email_addresses, array( $customer_email_address ) );
+		return $email_addresses;
+	},
+	10,
+	3
+);
+
+
+/**
  * Show help button with popup on the bottom right.
  */
 require_once CHILD_DIR . '/lib/help-popup.php';

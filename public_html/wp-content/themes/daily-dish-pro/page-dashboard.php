@@ -162,11 +162,10 @@ function show_reciperequest() {
 		Dann kannst du hier deinen Wunsch abschicken. 
 		Wir bemühen uns, dein Rezept in eine roh-vegane Variante umzuwandeln.
 	</p>
-	<form class="reciperequest__box" method="POST" action="<?php echo esc_url( rest_url( 'supportcandy/v1/tickets/addRegisteredUserTicket' ) ); ?>">
+	<form class="reciperequest__box" method="POST" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>">
 		<input name="ticket_subject" class="reciperequest__name" type="text" placeholder="Rezepttitel" aria-label="Der Titel des gewünschten Rezepts">
 		<textarea name="ticket_description" class="reciperequest__textarea"  cols="30" rows="5" placeholder="Kommentar" aria-label="Ein Kommentar zu deinem Rezeptwunschs"></textarea>
 		<button class="reciperequest_button" type="submit">Wunsch abschicken</button>
-		<input type="hidden" name="ticket_category" value="6192">
 		<?php wp_nonce_field( 'wp_rest' ); ?>
 		<div class="reciperequest__waiting reciperequest__modal">
 			Dein Wunsch wird versendet...

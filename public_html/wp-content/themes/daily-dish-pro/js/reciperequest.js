@@ -6,7 +6,6 @@
     const form = $('.reciperequest__box');
     const subjectInput = form.find('[name=ticket_subject]');
     const descriptionInput = form.find('[name=ticket_description]');
-    const categoryInput = form.find('[name=ticket_category]');
 
     const modals = $('.reciperequest__modal');
     const waitingModal = $('.reciperequest__waiting');
@@ -27,10 +26,11 @@
                 waitingModal.addClass('reciperequest__modal--visible');
             },
             data: {
-                'fields_data': JSON.stringify({
-                    'ticket_subject': subjectInput.val(),
-                    'ticket_description': descriptionInput.val(),
-                    'ticket_category': categoryInput.val()
+                action: 'crv_recipe_request',
+                fields_data: JSON.stringify({
+                    ticket_subject: subjectInput.val(),
+                    ticket_description: descriptionInput.val(),
+                    ticket_category: 6192
                 })
             },
             error: () => {
