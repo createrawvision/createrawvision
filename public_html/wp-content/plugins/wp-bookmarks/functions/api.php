@@ -951,12 +951,7 @@ class wpb_api {
 		switch ( $name ) {
 			case '_wpb_bookmark_count':
 				$bookmark_count = get_post_meta( $post->ID, '_wpb_post_bookmark_count', true );
-				if ( ! empty( $bookmark_count ) ) {
-					 echo intval( $bookmark_count );
-				} else {
-					add_post_meta( $post->ID, '_wpb_post_bookmark_count', 0 );
-					echo intval( 0 );
-				}
+				echo $bookmark_count ? intval( $bookmark_count ) : 0;
 		}
 	}
 
