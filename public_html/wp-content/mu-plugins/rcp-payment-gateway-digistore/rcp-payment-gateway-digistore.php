@@ -59,6 +59,23 @@ add_filter( 'rcp_membership_payment_profile_cancelled', 'crv_cancel_digistore_su
 
 
 /**
+ * Add a link to the DigiStore receipt_url to the subscription_details shortcode
+ */
+add_action(
+	'rcp_subscription_details_action_links',
+	function( $links, $membership ) {
+		$digistore_receipt_url = rcp_get_membership_meta( $membership->get_id(), 'digistore_receipt_url', true );
+
+		if ( $digistore_receipt_url ) {
+			echo '<br><a href="' . esc_url( $digistore_receipt_url ) . '">Zu DigiStore24</a>';
+		}
+	},
+	10,
+	2
+);
+
+
+/**
  * Redirect invoices to digistore by checking payment meta to include invoice url
  */
 function crv_trigger_digistore_invoice_download() {
