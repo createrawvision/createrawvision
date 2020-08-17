@@ -2898,9 +2898,16 @@ li.comment {
 .crv-grid .breadcrumb,
 .crv-grid .archive-description,
 .crv-grid > .entry-header,
-.crv-grid .pagination {
+.crv-grid .pagination,
+.crv-grid .unrestricted-first {
   grid-column: 1 / -1;
   width: 100%;
+}
+
+.crv-grid .unrestricted-first button {
+  margin: 0 auto 4rem;
+  width: auto;
+  display: block;
 }
 
 .crv-grid .entry-content img {
@@ -2918,6 +2925,11 @@ li.comment {
 .crv-grid .entry .entry-header {
   margin-bottom: 0;
   text-align: center;
+  width: 100%;
+}
+
+.crv-grid .entry-title {
+  margin-top: 0;
 }
 
 .crv-grid .entry-content {
@@ -3488,4 +3500,35 @@ Bubble
     background-image: linear-gradient(to bottom, #0000, #0006),
       url(images/unsere-vision-hero-mobile.jpg);
   }
+}
+
+/*
+Recipe Filter
+*/
+#recipe-filter > * {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+#recipe-filter input[type="checkbox"],
+#recipe-filter input[type="radio"] {
+  margin-right: 0.5rem;
+}
+
+#recipe-filter fieldset label {
+  display: block;
+}
+
+.recipe-filter__loading-hint {
+  display: none;
+  text-align: center;
+  margin: 3rem 0;
+  font-size: 1.4em;
+  font-style: italic;
+  color: grey;
+}
+
+.recipe-filter__no-results {
+  grid-column: 1 / -1;
+  font-size: 1.2em;
 }

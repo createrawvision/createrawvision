@@ -7,6 +7,10 @@
   margin: 0 1rem;
 }
 
+.faq__heading {
+  text-align: center;
+}
+
 .faq__item {
   margin-bottom: 1rem;
 }

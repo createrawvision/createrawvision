@@ -1,4 +1,7 @@
 <?php
+/**
+ * Functions for the advanced recipe filter (for displaying and request handling).
+ */
 
 /**
  * Return the form for filtering recipe posts
@@ -6,13 +9,14 @@
 function crv_recipe_filter_form() {
 	ob_start(); ?>
 	<form action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>" method="POST" id="recipe-filter">
-	<input type="text" name="search" id="search" placeholder="Suchbegriff eingeben...">
-	<?php
-	crv_show_taxonomy_dropdown( 'wprm_difficulty', 'Schwierigkeitsgrad auswählen...' );
-	crv_show_taxonomy_dropdown( 'wprm_course', 'Gang/Typ auswählen...' );
-	crv_show_taxonomy_dropdown( 'wprm_cuisine', 'Küche auswählen...' );
-	crv_show_taxonomy_dropdown( 'wprm_equipment', 'Ausstattung auswählen...' );
-	?>
+		<label for="search">Suchbegriff eingeben...
+			<input type="text" name="search" id="search" placeholder="z. B. Zutat, Ausstattung oder Zubereitungsschritt">
+		</label>
+		<?php
+		crv_show_taxonomy_dropdown( 'wprm_difficulty', 'Schwierigkeitsgrad auswählen...', 'Alle Schwierigkeitsgrade' );
+		crv_show_taxonomy_dropdown( 'wprm_course', 'Gang/Typ auswählen...', 'Alle Gänge/Typen' );
+		crv_show_taxonomy_dropdown( 'wprm_cuisine', 'Küche auswählen...', 'Alle Küchen' );
+		?>
 
 		<fieldset>
 			<legend>Nach Datum sortieren</legend>
@@ -20,12 +24,13 @@ function crv_recipe_filter_form() {
 			<label><input type="radio" name="date" value="ASC" /> Älteste zuerst</label>
 		</fieldset>
 
-		<label><input type="checkbox" name="free" /> Nur kostenfreie Rezepte anezeigen</label>
+		<label><input type="checkbox" name="free"> Nur kostenfreie Rezepte anzeigen</label>
 
-		<button>Rezepte filtern</button>
+		<button type="submit">Rezepte filtern</button>
 		<input type="hidden" name="action" value="crv_post_filter">
 	</form>
 	<div id="filter_results" class="crv-grid" style="margin-top: 3rem;"></div>
+	<p class="recipe-filter__loading-hint">Weitere Ergebnisse werden geladen...</p>
 	<?php
 	return ob_get_clean();
 }
@@ -34,16 +39,21 @@ function crv_recipe_filter_form() {
  * Show select element for taxonomy
  * name: `taxonomyfilter_{$taxonomy_name}`
  */
-function crv_show_taxonomy_dropdown( $taxonomy_name, $message ) {
+function crv_show_taxonomy_dropdown( $taxonomy_name, $message_label, $message_option ) {
+	$name = 'taxonomyfilter_' . $taxonomy_name;
+	echo '<label for="' . esc_attr( $name ) . '">' . esc_html( $message_label );
+
 	wp_dropdown_categories(
 		array(
 			'hierarchical'    => true,
 			'orderby'         => 'name',
 			'taxonomy'        => $taxonomy_name,
-			'name'            => 'taxonomyfilter_' . $taxonomy_name,
-			'show_option_all' => $message,
+			'name'            => $name,
+			'show_option_all' => $message_option,
 		)
 	);
+
+	echo '</label>';
 }
 
 add_action( 'wp_ajax_crv_post_filter', 'crv_filter_recipes' );
@@ -55,6 +65,8 @@ add_action( 'wp_ajax_nopriv_crv_post_filter', 'crv_filter_recipes' );
  * - search: search term
  * - taxnonmyfilter_{taxomomy}
  * - free: when true, only show free content
+ *
+ * @todo maybe cache results (since the same thing may get computed on multiple requests)
  */
 function crv_filter_recipes() {
 	// WP_Query args for getting recipes.
@@ -89,7 +101,7 @@ function crv_filter_recipes() {
 
 	$recipe_ids = get_posts( $args );
 
-	// Get containing posts
+	// Get containing posts.
 	$post_ids = array_map(
 		function ( $recipe_id ) {
 			return WPRM_Recipe_Manager::get_recipe( $recipe_id )->parent_post_id();
@@ -97,38 +109,38 @@ function crv_filter_recipes() {
 		$recipe_ids
 	);
 
-	// Remove all restricted posts from list
+	// Remove all restricted posts from list.
 	if ( isset( $_POST['free'] ) && $_POST['free'] ) {
 		$post_ids = crv_strip_restricted_posts( $post_ids );
 	}
 
-	// Return formatted results
-	array_map(
-		function ( $post_id ) {
-			$link  = get_permalink( $post_id );
-			$title = get_the_title( $post_id );
-			?>
-	<article class="entry">
-		<header class="entry-header">
-			<h2 class="entry-title">
-			<a class="entry-title-link" href="<?php echo esc_url( $link ); ?>">
-				<?php echo esc_html( $title ); ?>
-			</a>
-			</h2>
-		</header>
-		<div class="entry-content">
-				<?php if ( has_post_thumbnail( $post_id ) ) : ?>
-			<a class="entry-image-link" href="<?php echo esc_url( $link ); ?>">
-					<?php echo get_the_post_thumbnail( $post_id ); ?>
-			</a>
-			<?php else : ?>
-			<p>Kein Vorschaubild vorhanden...</p>
-			<?php endif; ?>
-		</div>
-	</article>
-			<?php
-		},
-		$post_ids
+	// Paginate response (from page 1).
+	$posts_count        = count( $post_ids );
+	$page               = isset( $_POST['page'] ) ? absint( $_POST['page'] ) : 1;
+	$posts_per_page     = isset( $_POST['posts_per_page'] ) ? absint( $_POST['posts_per_page'] ) : 12;
+	$num_pages          = intdiv( $posts_count - 1, $posts_per_page ) + 1;
+	$post_ids_to_return = array_slice( $post_ids, ( $page - 1 ) * $posts_per_page, $posts_per_page );
+
+	// Get formatted results.
+	ob_start();
+	foreach ( $post_ids_to_return as $post_id ) {
+		$link     = get_permalink( $post_id );
+		$title    = get_the_title( $post_id );
+		$image_id = get_post_thumbnail_id( $post_id );
+
+		require __DIR__ . '/../templates/grid.php';
+	}
+	$html_content = ob_get_clean();
+
+	// Respond.
+	header( 'Content-type: application/json' );
+	echo wp_json_encode(
+		array(
+			'html'  => $html_content,
+			'page'  => $page,
+			'pages' => $num_pages,
+			'count' => $posts_count,
+		)
 	);
 
 	die();

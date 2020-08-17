@@ -23,7 +23,7 @@ function jw_enqueue_faq_scripts_styles() {
  */
 function jw_display_faq_search() {
 	?>
-  <h2>Wie lautet deine Frage?</h2>
+  <h2 class="faq__heading">Wie lautet deine Frage?</h2>
   <form class="search-form" method="get" action="<?php the_permalink(); ?>" role="search">
 	<label class="search-form-label screen-reader-text" for="faq-searchform"><?php esc_html_e( __( 'Häufig gestellte Fragen durchsuchen' ) ); ?></label>
 	<input class="search-form-input" type="search" name="faq_search" id="faq-searchform" placeholder="<?php esc_attr_e( __( 'Häufig gestellte Fragen durchsuchen' ) ); ?>">
@@ -85,7 +85,7 @@ function jw_display_faqs( $heading_level = 2, $meta_query = null ) {
 
 		// The FAQ loop.
 		if ( $query->have_posts() ) :
-			echo "<h{$heading_level}>" . esc_html( $term->name ) . "</h{$heading_level}>";
+			echo "<h{$heading_level} class=\"faq__heading\">" . esc_html( $term->name ) . "</h{$heading_level}>";
 			?>
 		<ul class="faq">
 			<?php
@@ -120,7 +120,7 @@ function jw_display_faqs( $heading_level = 2, $meta_query = null ) {
 function jw_display_contact_form_link() {
 	?>
   <hr>
-  <h2>Keine Antworten gefunden?</h2>
+  <h2 class="faq__heading">Keine Antworten gefunden?</h2>
   <p>Stell uns deine Frage einfach durch unser <a href="<?php the_permalink( get_page_by_path( 'kontaktformular' ) ); ?>">Kontaktformular</a>.</p>
 	<?php
 }
