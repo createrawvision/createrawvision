@@ -26,7 +26,7 @@
                 waitingModal.addClass('reciperequest__modal--visible');
             },
             data: {
-                action: 'crv_recipe_request',
+                notify_owner: true, // This means: do NOT notify customer.
                 fields_data: JSON.stringify({
                     ticket_subject: subjectInput.val(),
                     ticket_description: descriptionInput.val(),

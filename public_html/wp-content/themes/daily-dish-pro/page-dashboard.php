@@ -162,7 +162,7 @@ function show_reciperequest() {
 		Dann kannst du hier deinen Wunsch abschicken. 
 		Wir bemühen uns, dein Rezept in eine roh-vegane Variante umzuwandeln.
 	</p>
-	<form class="reciperequest__box" method="POST" action="<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>">
+	<form class="reciperequest__box" method="POST" action="<?php echo esc_url( rest_url( 'supportcandy/v1/tickets/addRegisteredUserTicket' ) ); ?>">
 		<input name="ticket_subject" class="reciperequest__name" type="text" placeholder="Rezepttitel" aria-label="Der Titel des gewünschten Rezepts">
 		<textarea name="ticket_description" class="reciperequest__textarea"  cols="30" rows="5" placeholder="Kommentar" aria-label="Ein Kommentar zu deinem Rezeptwunschs"></textarea>
 		<button class="reciperequest_button" type="submit">Wunsch abschicken</button>
@@ -190,14 +190,14 @@ function show_reciperequest() {
 			<span class="reciperequest__back">Zurück</span>
 		</div>
 	</form>
-					<?php
+	<?php
 }
 
-				/**
-				 * Show things, that don't fit somewhere else.
-				 *
-				 * @todo Q&As and events
-				 */
+/**
+ * Show things, that don't fit somewhere else.
+ *
+ * @todo Q&As and events
+ */
 function show_further() {
 	?>
 	<ul class="dashboard-cards">
@@ -212,12 +212,12 @@ function show_further() {
 			<a href="<?php the_permalink( get_page_by_path( 'unsere-vision' ) ); ?>" class="dashboard-cards__link">Zu unserer Vision</a>
 		</li>
 	</ul>
-					<?php
+	<?php
 }
 
-				/**
-				 * Show support related items.
-				 */
+/**
+ * Show support related items.
+ */
 function show_support() {
 	?>
 	<h2 class="support__heading">Hilfe & Support</h2>
@@ -225,12 +225,12 @@ function show_support() {
 		<li class="support__item"><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'faqs' ) ) ); ?>">Zu den häufigen Fragen</a></li>
 		<li class="support__item"><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'kontaktformular' ) ) ); ?>">Uns jetzt kontaktieren</a></li>
 	</ul>
-					<?php
+	<?php
 }
 
-				/**
-				 * Show all settings for the user.
-				 */
+/**
+ * Show all settings for the user.
+ */
 function show_settings() {
 	global $rcp_options;
 	?>
@@ -247,8 +247,8 @@ function show_settings() {
 			<a href="<?php the_permalink( $rcp_options['account_page'] ); ?>" class="dashboard-cards__link">Mitgliedschaft verwalten</a>
 		</li>
 	</ul>
-					<?php
+	<?php
 }
 
-				// Start the engine.
-				genesis();
+// Start the engine.
+genesis();
