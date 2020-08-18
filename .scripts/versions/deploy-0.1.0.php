@@ -33,6 +33,7 @@ function deploy_private_pages_and_member_posts() {
 
 	$private_page_ids = get_posts(
 		array(
+			'post_type'   => 'page',
 			'numberposts' => -1,
 			'post_status' => 'private',
 			'fields'      => 'ids',
