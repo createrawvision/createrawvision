@@ -2830,6 +2830,15 @@ li.comment {
   .genesis-responsive-menu .genesis-nav-menu .sub-menu .sub-menu {
     margin: 0;
   }
+
+  /* Center floated images in post content on small screens */
+  .single .entry-content img.alignleft,
+  .single .entry-content img.alignright {
+    float: none;
+    text-align: center;
+    display: block;
+    margin: 0 auto 24px;
+  }
 }
 
 @media only screen and (max-width: 480px) {
