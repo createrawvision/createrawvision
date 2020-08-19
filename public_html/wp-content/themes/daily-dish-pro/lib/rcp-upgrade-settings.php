@@ -4,15 +4,23 @@
  */
 
 /**
- * Upgrading Memberships only works from monthly to yearly.
+ * Upgrading Memberships only works from monthly to yearly for active memberships.
  */
 add_filter(
 	'rcp_get_membership_upgrade_paths',
 	function( $upgrade_paths, $membership_id, $membership ) {
-		$level = ( new RCP_Levels() )->get_level( $membership->get_object_id() );
+
+		// Inactive memberships can upgrade however they want.
+		if ( ! $membership->is_active() ) {
+			return $upgrade_paths;
+		}
+
+		// Yearly memberships can't upgrade anymore.
+		$level = ( new RCP_Levels() )->get_level( $membership_id );
 		if ( 'year' === $level->duration_unit ) {
 			return array();
 		}
+
 		return $upgrade_paths;
 	},
 	10,
