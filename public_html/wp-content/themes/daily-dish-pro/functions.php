@@ -1121,3 +1121,25 @@ function crv_unrestricted_posts_first( $posts ) {
 
 	return array_merge( $unrestricted_posts, $restricted_posts );
 }
+
+
+/**
+ * Show a linktree on the page '/links'.
+ */
+add_action(
+	'wp',
+	function() {
+		// Enqueue styles.
+		add_action(
+			'wp_enqueue_scripts',
+			function () {
+				if ( is_page( 'links' ) ) {
+					wp_enqueue_style( 'crv-linktree', CHILD_URL . '/css/linktree.css', array(), CHILD_THEME_VERSION );
+				}
+			}
+		);
+
+		// Disable wpautop.
+		remove_filter( 'the_content', 'wpautop' );
+	}
+);
