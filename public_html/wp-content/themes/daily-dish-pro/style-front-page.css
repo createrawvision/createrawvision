@@ -240,8 +240,8 @@ section.testimonials {
 /* In case it gets replaced in content editor */
 .testimonials__entry img {
   border-radius: 50%;
-  width: 120px;
-  height: 120px;
+  width: 200px !important;
+  height: 200px !important;
   object-fit: cover;
   margin-bottom: 1.5rem;
 }
