@@ -1,0 +1,80 @@
+.site-container {
+  background-color: #ede0c5;
+}
+
+.linktree {
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.5rem;
+}
+
+.linktree header img {
+  border-radius: 50%;
+  width: 100px;
+}
+
+.linktree__title {
+  font-weight: bold;
+  margin: 1rem auto;
+}
+
+.linktree button {
+  font-size: 1.8rem;
+  font-weight: bold;
+  border: 0.2rem solid #94006c;
+  border-radius: 1rem;
+  text-transform: none;
+  box-shadow: 0 0.3rem 0.5rem #0004;
+  transition: box-shadow 0.5s;
+}
+
+.linktree button:hover {
+  box-shadow: 0 0.5rem 1rem #0004;
+  background-color: #fdfbfd;
+  color: #94006c;
+}
+
+.linktree__cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.linktree__card {
+  border: 2px solid #94006c;
+  border-radius: 0.3rem;
+  overflow: hidden;
+  background-color: #fdfbfd;
+}
+
+.linktree__card a {
+  text-decoration: none;
+}
+
+.linktree__card img {
+}
+
+.linktree__card p {
+  margin: 0.2rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.jetpack_widget_social_icons {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.jetpack_widget_social_icons .widgettitle {
+  display: none;
+}
+
+.jetpack_widget_social_icons .jetpack-social-widget-item {
+  margin: 0 0.5rem;
+}

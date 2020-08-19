@@ -2371,12 +2371,17 @@ li.comment {
 .comment-respond input[type="email"],
 .comment-respond input[type="text"],
 .comment-respond input[type="url"] {
-  width: 50%;
+  max-width: 50rem;
 }
 
 .comment-respond label {
   display: block;
   margin-right: 12px;
+}
+
+.wpgdprc-checkbox label {
+  display: inline;
+  margin-left: 0.5rem;
 }
 
 .entry-comments .comment-author {
