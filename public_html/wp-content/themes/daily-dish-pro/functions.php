@@ -1129,23 +1129,4 @@ function crv_unrestricted_posts_first( $posts ) {
 /**
  * Show a linktree on the page '/links'.
  */
-add_action(
-	'wp',
-	function() {
-		// Bail, when on the wrong page.
-		if ( ! is_page( 'links' ) ) {
-			return;
-		}
-
-		// Enqueue styles.
-		add_action(
-			'wp_enqueue_scripts',
-			function () {
-				wp_enqueue_style( 'crv-linktree', CHILD_URL . '/css/linktree.css', array(), CHILD_THEME_VERSION );
-			}
-		);
-
-		// Disable wpautop.
-		remove_filter( 'the_content', 'wpautop' );
-	}
-);
+require_once CHILD_DIR . '/lib/linktree.php';
