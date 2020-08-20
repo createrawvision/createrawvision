@@ -1129,13 +1129,16 @@ function crv_unrestricted_posts_first( $posts ) {
 add_action(
 	'wp',
 	function() {
+		// Bail, when on the wrong page.
+		if ( ! is_page( 'links' ) ) {
+			return;
+		}
+
 		// Enqueue styles.
 		add_action(
 			'wp_enqueue_scripts',
 			function () {
-				if ( is_page( 'links' ) ) {
-					wp_enqueue_style( 'crv-linktree', CHILD_URL . '/css/linktree.css', array(), CHILD_THEME_VERSION );
-				}
+				wp_enqueue_style( 'crv-linktree', CHILD_URL . '/css/linktree.css', array(), CHILD_THEME_VERSION );
 			}
 		);
 
