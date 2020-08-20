@@ -19,6 +19,10 @@
   margin-bottom: 0;
 }
 
+.linktree__logo {
+  max-width: 300px;
+}
+
 .linktree button {
   font-size: 1.8rem;
   font-weight: bold;
