@@ -4,27 +4,6 @@
  * This script adds functionality for the static front page
  */
 (function ($) {
-  $(".show-more-button").on("click", () =>
-    $(".show-more-container").slideToggle()
-  );
-
-  /**
-   * Add 'sticky-wrapper--visible' class to sticky element and animate it when is scrolls out of the viewport.
-   */
-  const countdown = $(".countdown:not(.countdown--inline)");
-  const stickyWrapper = $(".sticky-wrapper");
-  $(window).on("scroll", () => {
-    const elBottom = countdown.offset().top + countdown.outerHeight();
-    const windowTop = $(window).scrollTop();
-    const gap = 500;
-    const isScrolledPastGap = elBottom + gap < windowTop;
-    if (isScrolledPastGap && !stickyWrapper.hasClass("sticky-wrapper--visible")) {
-      stickyWrapper.stop().fadeIn(800).addClass("sticky-wrapper--visible");
-    } else if (!isScrolledPastGap && stickyWrapper.hasClass("sticky-wrapper--visible")) {
-      stickyWrapper.stop().fadeOut(800).removeClass("sticky-wrapper--visible");
-    }
-  });
-
   /**
    * Make collapsible FAQ Container
    */

@@ -4,29 +4,6 @@ $registration_page_url_raw = add_query_arg( 'level', 2, get_permalink( $rcp_opti
 $recipes_category_id       = 5869;
 ?>
 
-<div class="countdown full-width">
-	<div class="countdown__timer"></div>
-	<p class="countdown__description">
-		bis zur Veröffentlichung des Mitgliederbereichs
-	</p>
-	<a href="<?php echo esc_url( $registration_page_url_raw ); ?>">
-		<button class="countdown__button cta-button">
-			Jetzt anmelden
-		</button>
-	</a>
-</div>
-
-<div class="sticky-wrapper">
-	<div class="countdown countdown--inline full-width">
-		<div class="countdown__timer"></div>
-		<a href="<?php echo esc_url( $registration_page_url_raw ); ?>">
-			<button class="countdown__button cta-button">
-				Jetzt anmelden
-			</button>
-		</a>
-	</div>
-</div>
-
 <header class="hero full-width">
 	<h1 class="hero__title">Willkommen bei CreateRawVision</h1>
 	<p class="hero__subtitle">Deine Anlaufstelle für Rohkost</p>

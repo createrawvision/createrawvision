@@ -74,11 +74,8 @@ function daily_dish_enqueue_scripts_styles() {
 		daily_dish_get_responsive_menu_settings()
 	);
 
-	// Register countdown scripts for later use.
-	wp_register_script( 'flipclock', CHILD_URL . "/js/flipclock{$suffix}.js", array( 'jquery' ), '1.1', true );
-	wp_register_style( 'flipclock', CHILD_URL . '/css/flipclock.css', array(), '1.1' );
-	wp_register_script( 'crv-countdown', CHILD_URL . '/js/countdown.js', array( 'jquery', 'flipclock' ), CHILD_THEME_VERSION, true );
-	wp_register_style( 'crv-countdown', CHILD_URL . '/css/countdown.css', array( 'flipclock' ), CHILD_THEME_VERSION );
+	// Register countdown styles for later use.
+	wp_register_style( 'crv-countdown', CHILD_URL . '/css/countdown.css', array(), CHILD_THEME_VERSION );
 }
 
 /**
@@ -1065,7 +1062,6 @@ add_action(
 			return;
 		}
 
-		wp_enqueue_script( 'crv-countdown' );
 		wp_enqueue_style( 'crv-countdown' );
 	}
 );
