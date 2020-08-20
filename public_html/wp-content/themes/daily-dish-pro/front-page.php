@@ -94,10 +94,8 @@ if ( is_front_page() && ! is_home() ) {
 	add_action(
 		'wp_enqueue_scripts',
 		function() {
-			wp_enqueue_script( 'crv-countdown' );
-			wp_enqueue_style( 'crv-countdown' );
 			wp_enqueue_style( 'daily-dish-front-style', CHILD_URL . '/style-front-page.css', array(), CHILD_THEME_VERSION );
-			wp_enqueue_script( 'daily-dish-front-script', CHILD_URL . '/js/front-page.js', array( 'jquery', 'crv-countdown' ), CHILD_THEME_VERSION, true );
+			wp_enqueue_script( 'daily-dish-front-script', CHILD_URL . '/js/front-page.js', array( 'jquery' ), CHILD_THEME_VERSION, true );
 		}
 	);
 
