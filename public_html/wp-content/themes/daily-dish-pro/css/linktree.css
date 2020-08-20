@@ -6,7 +6,11 @@
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
-  gap: 1.5rem;
+}
+
+.linktree > * {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 .linktree,
@@ -74,7 +78,7 @@
 
 .linktree__title {
   font-weight: bold;
-  margin: 2rem auto 0;
+  margin: 3rem auto 0.5rem;
 }
 
 .jetpack_widget_social_icons {
