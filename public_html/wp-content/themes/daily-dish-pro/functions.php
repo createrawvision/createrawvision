@@ -126,9 +126,16 @@ add_theme_support(
 	)
 );
 
-// Add image sizes.
-add_image_size( 'daily-dish-archive', 500, 262, true );
-add_image_size( 'thumbnail-portrait', 400, 600, true );
+// Set up image sizes.
+add_action(
+	'after_setup_theme',
+	function() {
+		add_image_size( 'daily-dish-archive', 500, 262, true );
+		add_image_size( 'thumbnail-portrait', 400, 600, true );
+		add_image_size( 'small', 300, 9999 );
+		add_image_size( 'tiny', 180, 9999 );
+	}
+);
 
 // Add support for custom header.
 add_theme_support(
