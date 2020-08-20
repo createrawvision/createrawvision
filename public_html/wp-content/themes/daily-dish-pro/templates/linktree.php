@@ -24,8 +24,7 @@
 			$query->the_post();
 
 			echo '<div class="linktree__card">';
-			// Get the first line of content. @todo improve with ACF maybe.
-			echo '<a href="' . esc_url( trim( get_the_content() ) ) . '">';
+			echo '<a href="' . esc_url( get_field( 'linktree_link' ) ) . '">';
 			echo get_the_post_thumbnail( get_the_ID(), array( 300, 300 ) );
 			echo '<p class="linktree__card__title">' . esc_html( get_the_title() ) . '</p>';
 			echo '</a></div>';

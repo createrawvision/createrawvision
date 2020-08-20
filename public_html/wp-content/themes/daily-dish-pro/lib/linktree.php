@@ -29,13 +29,16 @@ function crv_init_linktree() {
 	);
 }
 
-// Register Custom Post Type for Linktree Cards.
+/**
+ * Register Custom Post Type for Linktree Cards with URL field.
+ */
 function crv_register_linktree_card_cpt() {
 
+	// Register post type.
 	$args = array(
 		'label'               => __( 'Linktree Card', 'crv_linktree' ),
 		'description'         => __( 'A single card in the linktree', 'crv_linktree' ),
-		'supports'            => array( 'title', 'editor', 'thumbnail', 'page-attributes' ),
+		'supports'            => array( 'title', 'thumbnail', 'page-attributes', 'custom-fields' ),
 		'hierarchical'        => false,
 		'public'              => false,
 		'show_ui'             => true,
@@ -55,4 +58,49 @@ function crv_register_linktree_card_cpt() {
 	);
 	register_post_type( 'crv_linktree_card', $args );
 
+	// Register URL custom field.
+	if ( function_exists( 'acf_add_local_field_group' ) ) :
+
+		acf_add_local_field_group(
+			array(
+				'key'                   => 'group_5f3e96fbaca39',
+				'title'                 => 'Linktree Link',
+				'fields'                => array(
+					array(
+						'key'               => 'field_5f3e96fe74e47',
+						'label'             => 'Linktree Link',
+						'name'              => 'linktree_link',
+						'type'              => 'link',
+						'instructions'      => '',
+						'required'          => 1,
+						'conditional_logic' => 0,
+						'wrapper'           => array(
+							'width' => '',
+							'class' => '',
+							'id'    => '',
+						),
+						'return_format'     => 'url',
+					),
+				),
+				'location'              => array(
+					array(
+						array(
+							'param'    => 'post_type',
+							'operator' => '==',
+							'value'    => 'crv_linktree_card',
+						),
+					),
+				),
+				'menu_order'            => 0,
+				'position'              => 'normal',
+				'style'                 => 'default',
+				'label_placement'       => 'top',
+				'instruction_placement' => 'label',
+				'hide_on_screen'        => '',
+				'active'                => true,
+				'description'           => '',
+			)
+		);
+
+		endif;
 }
