@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.16' );
+define( 'CHILD_THEME_VERSION', '0.1.17' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -131,6 +131,20 @@ add_action(
 		add_image_size( 'thumbnail-portrait', 400, 600, true );
 		add_image_size( 'small', 300, 9999 );
 		add_image_size( 'tiny', 180, 9999 );
+
+		// Add old image sizes, since some are referenced by URL in post_content.
+		add_image_size( 'old-large', 1024, 1024 );
+		add_image_size( 'old-medium', 300, 300 );
+	}
+);
+
+add_filter(
+	'image_size_names_choose',
+	function( $sizes ) {
+		$sizes['small'] = 'Klein';
+		$sizes['tiny']  = 'Winzig';
+
+		return $sizes;
 	}
 );
 
@@ -857,9 +871,9 @@ function crv_show_bookmark_heart() {
 	<div><a href="#TB_inline?width=300&height=300&inlineId=popup-view-<?php echo $post->ID; ?>" class="wppopup thickbox wppopup-<?php echo $post->ID; ?>
 	<?php
 	if ( $wpb->bookmarked( $post->ID ) ) {
-		echo ' addedbookmark"><i class="fa fa-heart"></i><span class="wppopup__tooltip">Lesezeichen entfernen</span>';
+		echo ' addedbookmark"><i class="fa fa-heart"></i><span class="wppopup__tooltip">Lieblingsrezept entfernen</span>';
 	} else {
-		echo ' unbookmark"><i class="fa fa-heart-o"></i><span class="wppopup__tooltip">Lesezeichen hinzufügen</span>';
+		echo ' unbookmark"><i class="fa fa-heart-o"></i><span class="wppopup__tooltip">Lieblingsrezept hinzufügen</span>';
 	}
 	echo '</a></div>';
 }

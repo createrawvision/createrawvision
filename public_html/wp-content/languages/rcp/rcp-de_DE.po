@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/restrict-content-"
 "pro\n"
 "POT-Creation-Date: 2020-05-04 14:01+0100\n"
-"PO-Revision-Date: 2020-08-21 08:15+0200\n"
+"PO-Revision-Date: 2020-08-21 16:09+0200\n"
 "Last-Translator: flowdee <coder@flowdee.de>\n"
 "Language-Team: sz\n"
 "Language: de\n"
@@ -8804,6 +8804,8 @@ msgid ""
 "This username is already in use. If this is your username, please <a href=\"%s"
 "\">log in</a> and try again."
 msgstr ""
+"Dieser Benutzername ist bereits vergeben. Falls das dein Benutzername ist, <a "
+"href=\"%s\">melde dich bitte an</a> und versuche es erneut."
 
 #: includes/registration-functions.php:730
 msgid "Invalid username"
@@ -8823,6 +8825,8 @@ msgid ""
 "This email address is already in use. If this is your email address, please <a "
 "href=\"%s\">log in</a> and try again."
 msgstr ""
+"Diese E-Mail-Adresse ist bereits vergeben. Falls das deine E-Mail-Adresse ist, "
+"<a href=\"%s\">melde dich bitte an</a> und versuche es erneut."
 
 #: includes/registration-functions.php:994
 #: includes/registration-functions.php:1057
