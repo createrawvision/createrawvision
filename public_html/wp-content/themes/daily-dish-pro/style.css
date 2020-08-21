@@ -3557,3 +3557,34 @@ Recipe Filter
   grid-column: 1 / -1;
   font-size: 1.2em;
 }
+
+/*
+wp-bookmark styles
+*/
+.wppopup {
+  position: relative;
+}
+
+.wppopup .fa {
+  font-size: 2em;
+}
+
+.wppopup__tooltip {
+  opacity: 0;
+  visibility: hidden;
+  background-color: #6d0050;
+  padding: 0.5rem 1rem;
+  font-size: 1.4rem;
+  border-radius: 1rem;
+  color: white;
+  position: absolute;
+  margin-left: 1rem;
+  top: -100%;
+  left: 100%;
+  transition: visibility 0s, opacity 0.3s ease-out;
+}
+
+.wppopup:hover .wppopup__tooltip {
+  opacity: 1;
+  visibility: visible;
+}

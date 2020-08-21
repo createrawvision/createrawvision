@@ -833,16 +833,14 @@ require_once CHILD_DIR . '/lib/rcp-mailchimp.php';
 function crv_show_bookmark_heart() {
 	global $post, $wpb;
 
-	add_thickbox();
-
-	// hard excluded by post type
+	// hard excluded by post type.
 	if ( wpb_get_option( 'include_post_types' ) ) {
 		if ( is_array( wpb_get_option( 'include_post_types' ) ) && ! in_array( get_post_type(), wpb_get_option( 'include_post_types' ) ) ) {
 			return;
 		}
 	}
 
-	// soft excluded by post id
+	// soft excluded by post id.
 	if ( wpb_get_option( 'exclude_ids' ) ) {
 		$array = explode( ',', wpb_get_option( 'exclude_ids' ) );
 		if ( in_array( $post->ID, $array ) ) {
@@ -850,19 +848,20 @@ function crv_show_bookmark_heart() {
 		}
 	}
 
-	?>
-<div id="popup-view-<?php echo $post->ID; ?>" class="bookmarpopup" style="display:none;text-align:center;">
-	<?php echo $wpb->bookmarkpopup( $post->ID ); ?>
-</div> 
-	<?php
+	add_thickbox();
 
-	echo '<a href="#TB_inline?width=300&height=250&inlineId=popup-view-' . $post->ID . ' " id=' . $post->ID . ' style="display: block; margin: 0 1rem 1rem;" class="wppopup thickbox ';
+	?>
+	<div id="popup-view-<?php echo $post->ID; ?>" class="bookmarpopup" style="display:none;text-align:center;">
+		<?php echo $wpb->bookmarkpopup( $post->ID ); ?>
+	</div> 
+	<div><a href="#TB_inline?width=300&height=300&inlineId=popup-view-<?php echo $post->ID; ?>" class="wppopup thickbox wppopup-<?php echo $post->ID; ?>
+	<?php
 	if ( $wpb->bookmarked( $post->ID ) ) {
-		echo 'addedbookmark"><i class="fa fa-heart"';
+		echo ' addedbookmark"><i class="fa fa-heart"></i><span class="wppopup__tooltip">Lesezeichen entfernen</span>';
 	} else {
-		echo 'unbookmark"><i class="fa fa-heart-o"';
+		echo ' unbookmark"><i class="fa fa-heart-o"></i><span class="wppopup__tooltip">Lesezeichen hinzufügen</span>';
 	}
-	echo ' style="font-size: 2em;"></i></a>';
+	echo '</a></div>';
 }
 
 add_action(
