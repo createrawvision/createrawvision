@@ -857,9 +857,9 @@ function crv_show_bookmark_heart() {
 	<div><a href="#TB_inline?width=300&height=300&inlineId=popup-view-<?php echo $post->ID; ?>" class="wppopup thickbox wppopup-<?php echo $post->ID; ?>
 	<?php
 	if ( $wpb->bookmarked( $post->ID ) ) {
-		echo ' addedbookmark"><i class="fa fa-heart"></i><span class="wppopup__tooltip">Lesezeichen entfernen</span>';
+		echo ' addedbookmark"><i class="fa fa-heart"></i><span class="wppopup__tooltip">Lieblingsrezept entfernen</span>';
 	} else {
-		echo ' unbookmark"><i class="fa fa-heart-o"></i><span class="wppopup__tooltip">Lesezeichen hinzufügen</span>';
+		echo ' unbookmark"><i class="fa fa-heart-o"></i><span class="wppopup__tooltip">Lieblingsrezept hinzufügen</span>';
 	}
 	echo '</a></div>';
 }
