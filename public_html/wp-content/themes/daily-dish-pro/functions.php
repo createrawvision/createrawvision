@@ -1130,3 +1130,9 @@ function crv_unrestricted_posts_first( $posts ) {
  * Show a linktree on the page '/links'.
  */
 require_once CHILD_DIR . '/lib/linktree.php';
+
+
+/**
+ * Don't show the edit post link, since it's in the admin bar.
+ */
+add_filter( 'genesis_edit_post_link', '__return_false' );
