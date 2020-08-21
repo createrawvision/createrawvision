@@ -924,6 +924,16 @@ add_action(
 	}
 );
 
+/**
+ * Add a custom body class for customers (to hide some settings).
+ */
+add_filter( 'body_class', function ( $classes ) {
+	if ( ! current_user_can( 'wpsc_agent' ) ) {
+		$classes[] = 'wpsc_customer';
+	}
+	return $classes;
+});
+
 
 /**
  * Show help button with popup on the bottom right.
