@@ -131,6 +131,20 @@ add_action(
 		add_image_size( 'thumbnail-portrait', 400, 600, true );
 		add_image_size( 'small', 300, 9999 );
 		add_image_size( 'tiny', 180, 9999 );
+
+		// Add old image sizes, since some are referenced by URL in post_content.
+		add_image_size( 'old-large', 1024, 1024 );
+		add_image_size( 'old-medium', 300, 300 );
+	}
+);
+
+add_filter(
+	'image_size_names_choose',
+	function( $sizes ) {
+		$sizes['small'] = 'Klein';
+		$sizes['tiny']  = 'Winzig';
+
+		return $sizes;
 	}
 );
 
