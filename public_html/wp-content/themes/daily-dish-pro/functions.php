@@ -1130,3 +1130,9 @@ function crv_unrestricted_posts_first( $posts ) {
  * Show a linktree on the page '/links'.
  */
 require_once CHILD_DIR . '/lib/linktree.php';
+
+
+/**
+ * Initialize a shop with just links to products.
+ */
+require_once CHILD_DIR . '/lib/shop.php';
