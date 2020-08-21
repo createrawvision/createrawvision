@@ -36,25 +36,17 @@ function crv_register_linktree_card_cpt() {
 
 	// Register post type.
 	$args = array(
-		'label'               => __( 'Linktree Card', 'crv_linktree' ),
-		'description'         => __( 'A single card in the linktree', 'crv_linktree' ),
-		'supports'            => array( 'title', 'thumbnail', 'page-attributes', 'custom-fields' ),
-		'hierarchical'        => false,
-		'public'              => false,
-		'show_ui'             => true,
-		'show_in_menu'        => true,
-		'menu_position'       => 10,
-		'menu_icon'           => 'dashicons-images-alt',
-		'show_in_admin_bar'   => false,
-		'show_in_nav_menus'   => false,
-		'can_export'          => true,
-		'has_archive'         => false,
-		'exclude_from_search' => true,
-		'publicly_queryable'  => false,
-		'rewrite'             => false,
-		'capability_type'     => 'linktree_card',
-		'map_meta_cap'        => true,
-		'show_in_rest'        => false,
+		'label'             => __( 'Linktree Card', 'crv_linktree' ),
+		'description'       => __( 'A single card in the linktree', 'crv_linktree' ),
+		'supports'          => array( 'title', 'thumbnail', 'page-attributes', 'custom-fields' ),
+		'hierarchical'      => false,
+		'public'            => false,
+		'show_ui'           => true,
+		'menu_icon'         => 'dashicons-images-alt',
+		'show_in_admin_bar' => false,
+		'rewrite'           => false,
+		'capability_type'   => 'linktree_card',
+		'map_meta_cap'      => true,
 	);
 	register_post_type( 'crv_linktree_card', $args );
 
