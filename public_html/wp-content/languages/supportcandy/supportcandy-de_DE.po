@@ -2,12 +2,12 @@ msgid ""
 msgstr ""
 "Project-Id-Version: supportcandy\n"
 "POT-Creation-Date: 2020-04-04 09:49+0530\n"
-"PO-Revision-Date: 2020-07-15 18:08+0200\n"
+"PO-Revision-Date: 2020-08-21 07:53+0200\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4.1\n"
 "X-Poedit-Basepath: www/new/plugins/supportcandy\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -3068,7 +3068,7 @@ msgstr ""
 
 #: includes/admin/tickets/individual_ticket/get_close_ticket.php:17
 msgid "Are you sure to close this ticket?"
-msgstr ""
+msgstr "Willst du diese Anfrage wirklich als abgeschlossen markieren?"
 
 #: includes/admin/tickets/individual_ticket/get_create_ticket_thread.php:45
 msgid "Create New Ticket"

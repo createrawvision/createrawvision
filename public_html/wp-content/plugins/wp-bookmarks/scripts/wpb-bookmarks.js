@@ -439,7 +439,7 @@ jQuery(document).ready(function() {
 					wpb_bm_update_active_collection( parent, data.collection_id );
 					wpb_bm_donebookmark( elem, parent.data('remove_bookmark') );
 					wpb_bm_dialog( elem.parent(), parent.data('dialog_bookmarked') );
-					jQuery("#"+post_id).removeClass('unbookmark').addClass('addedbookmark');
+					jQuery(".wppopup-" + post_id).removeClass('unbookmark').addClass('addedbookmark');
 					// jQuery('.wppopup').html('bookmarked');
 					jQuery('.wppopup > .fa-heart-o').removeClass('fa-heart-o').addClass('fa-heart');
 				}else{
