@@ -78,7 +78,10 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 			if ( isset( $crv_launch_date ) ) {
 				$now        = new DateTime();
 				$launch_day = ( clone $crv_launch_date )->setTime( 0, 0, 0 );
-				$full_days  = date_diff( $now, $launch_day )->days;
+				$date_diff  = date_diff( $now, $launch_day );
+				// date_diff is always positive, but sets a flag 'invert' === 1 for negative intervals.
+				// So make the number of days negative for inverted intervals.
+				$full_days = ( $date_diff->invert ? -1 : 1 ) * $date_diff->days;
 
 				if ( 0 < $full_days ) {
 					$payment_plan['test_interval'] = $full_days . '_day';
