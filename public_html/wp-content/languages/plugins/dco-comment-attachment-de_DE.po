@@ -1,0 +1,335 @@
+# Translation of Plugins - DCO Comment Attachment - Development (trunk) in German
+# This file is distributed under the same license as the Plugins - DCO Comment Attachment - Development (trunk) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2020-08-25 08:54+0200\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 2.4.1\n"
+"Language: de\n"
+"Project-Id-Version: Plugins - DCO Comment Attachment - Development (trunk)\n"
+"POT-Creation-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+
+#: includes/class-dco-ca-settings.php:223
+msgid "Only logged users"
+msgstr ""
+
+#: includes/class-dco-ca-settings.php:222
+msgid "All users"
+msgstr ""
+
+#: includes/class-dco-ca-settings.php:216
+msgid "Who can upload attachment?"
+msgstr ""
+
+#: includes/class-dco-ca-settings.php:210
+msgid "allowed only for Administrators and Editors."
+msgstr ""
+
+#: includes/class-dco-ca-settings.php:210
+msgid "available for embedding."
+msgstr ""
+
+#: includes/class-dco-ca-settings.php:195
+msgid "Autoembed links in comment text?"
+msgstr ""
+
+#: includes/class-dco-ca-settings.php:167
+msgid "If checked, clicking on the thumbnail will open a full-size image."
+msgstr ""
+
+#: includes/class-dco-ca-settings.php:166
+msgid "Link thumbnail to full-size image?"
+msgstr ""
+
+#: includes/class-dco-ca.php:196
+msgid "Links to YouTube, Facebook, Twitter and other services inserted in the comment text will be automatically embedded."
+msgstr ""
+
+#: includes/class-dco-ca-settings.php:196
+msgid "If checked, links (like YouTube, Facebook, Twitter, etc.) in the comment text will be automatically turned into embedded content."
+msgstr "Wenn ausgewählt, werden Links (z.B. YouTube, Facebook, Twitter, etc.) im Kommentartext automatisch in eingebettete Inhalte umgewandelt."
+
+#: includes/class-dco-ca-settings.php:203
+msgid "If checked, the attachment will be attach to the commented post and can be filtered with the \"Uploaded to this post\" option."
+msgstr "Wenn ausgewählt, wird der Anhang auch mit dem Beitrag verknüpft, zu dem der Kommentar veröffentlicht wurde, und kann über die „Hochgeladen zu“ Option gefiltert werden."
+
+#: includes/class-dco-ca-settings.php:202
+msgid "Attach to commented post?"
+msgstr "Mit dem zugehörigen Beitrag verknüpfen?"
+
+#: includes/class-dco-ca-admin.php:239
+msgid "Settings"
+msgstr "Einstellungen"
+
+#: includes/class-dco-ca-admin.php:218
+msgid "Remove Attachment"
+msgstr "Anhang entfernen"
+
+#: includes/class-dco-ca-admin.php:215
+msgid "Update the comment to see a preview of <a href=\"#\" target=\"_blank\">the selected attachment</a>."
+msgstr "Aktualisiere den Kommentar, um eine Vorschau des<a href=\"#\" target=\"_blank\">ausgewählten Anhangs</a> zu sehen."
+
+#. translators: %d: The comment ID
+#: includes/class-dco-ca-admin.php:167
+msgid "Comment %d does not exist"
+msgstr "Kommentar %d existiert nicht"
+
+#: includes/class-dco-ca-admin.php:144
+msgid "Show less"
+msgstr "Zeige weniger"
+
+#: includes/class-dco-ca-admin.php:142
+msgid "This action will delete the attachment from the Media Library and cannot be undone. Continue?"
+msgstr "Diese Aktion löscht den Anhang endgültig aus der Mediathek. Dies kann nicht rückgängig gemacht werden. Fortfahren?"
+
+#: includes/class-dco-ca-admin.php:140 includes/class-dco-ca-admin.php:208
+msgid "Replace Attachment"
+msgstr "Anhang ersetzen"
+
+#: includes/class-dco-ca-admin.php:139 includes/class-dco-ca-admin.php:204
+msgid "Add Attachment"
+msgstr "Anhang hinzufügen"
+
+#: includes/class-dco-ca-admin.php:138
+msgid "Set Comment Attachment"
+msgstr "Kommentaranhang festlegen"
+
+#: includes/class-dco-ca-admin.php:110 includes/class-dco-ca-admin.php:180
+msgid "An error occurred while deleting the attachment."
+msgstr "Beim Löschen des Anhangs ist ein Fehler aufgetreten!"
+
+#: includes/class-dco-ca-admin.php:105 includes/class-dco-ca-admin.php:175
+msgid "The comment has no attachment."
+msgstr "Der Kommentar hat keinen Anhang."
+
+#: includes/class-dco-ca-admin.php:101 includes/class-dco-ca-admin.php:171
+msgid "Sorry, you are not allowed to edit comments on this post."
+msgstr "Du bist leider nicht berechtigt, Kommentare zu diesem Beitrag zu bearbeiten."
+
+#: includes/class-dco-ca-admin.php:97 includes/class-dco-ca-admin.php:105
+msgid "Go back"
+msgstr "Zurück"
+
+#: includes/class-dco-ca-admin.php:97
+msgid "Invalid comment ID."
+msgstr "Ungültige Kommentar-ID."
+
+#: includes/class-dco-ca-admin.php:72
+msgid "Delete Attachment"
+msgstr "Anhang löschen"
+
+#: includes/class-dco-ca-settings.php:431 includes/class-dco-ca-admin.php:143
+msgid "Show all"
+msgstr "Alle anzeigen"
+
+#: includes/class-dco-ca-settings.php:405
+msgctxt "Allowed File Types Setting: column width in px"
+msgid "100"
+msgstr "100"
+
+#: includes/class-dco-ca-settings.php:383
+msgid "Full (original image)"
+msgstr "Originalgröße"
+
+#: includes/class-dco-ca-settings.php:375
+msgid "Crop"
+msgstr "Zuschneiden"
+
+#: includes/class-dco-ca-settings.php:373
+msgid "Yes"
+msgstr "Ja"
+
+#: includes/class-dco-ca-settings.php:371
+msgid "No"
+msgstr "Nein"
+
+#: includes/class-dco-ca-settings.php:369
+msgid "Size"
+msgstr "Größe"
+
+#: includes/class-dco-ca-settings.php:242
+msgid "Unattach attachment from comment"
+msgstr "Anhang vom Kommentar lösen"
+
+#: includes/class-dco-ca-settings.php:241
+msgid "Delete attachment from Media Library"
+msgstr "Anhang aus der Medienbibliothek löschen"
+
+#: includes/class-dco-ca-settings.php:235
+msgid "Delete Attachment action on Edit Comments page"
+msgstr "Verhalten beim Löschen eines Kommentars über die Kommentarseite"
+
+#: includes/class-dco-ca-settings.php:229
+msgid "If unchecked, the attachment will be available in Media Library after the comment has been deleted."
+msgstr "Wenn nicht ausgewählt, ist der Anhang nach dem Löschen des Kommentars weiterhin in der Mediathek verfügbar"
+
+#: includes/class-dco-ca-settings.php:228
+msgid "Delete attachment when comment is deleted?"
+msgstr "Den Anhang löschen, wenn der Kommentar gelöscht wird?"
+
+#: includes/class-dco-ca-settings.php:209
+msgid "Allowed File Types"
+msgstr "Erlaubte Dateitypen"
+
+#: includes/class-dco-ca-settings.php:189
+msgid "If checked, the attachment is displayed as an image, video, audio, or file link. Otherwise, all attachments will be displayed as links to files."
+msgstr "Wenn ausgewählt, wird der Anhang als Bild, Video, Audio oder Dokument eingebettet. Andernfalls werden alle Anhänge als Links zu den Dateien angezeigt."
+
+#: includes/class-dco-ca-settings.php:188
+msgid "Embed attachment?"
+msgstr "Anhang einbetten?"
+
+#: includes/class-dco-ca-settings.php:182
+msgid "If checked, the user will not be able to post a comment without attaching an attachment."
+msgstr "Wenn ausgewählt, können Nutzer keine Kommentare ohne Anhang veröffentlichen."
+
+#: includes/class-dco-ca-settings.php:181
+msgid "Is attachment required?"
+msgstr "Anhang zur Pflicht erklären?"
+
+#. translators: %s: the maximum allowed upload file size
+#: includes/class-dco-ca-settings.php:175
+msgid "Set the value in megabytes. Currently your server allows you to upload files up to %s."
+msgstr "Gib den Wert in MB an. Derzeit erlaubt das System Uploads mit einer Größe bis %s."
+
+#: includes/class-dco-ca-settings.php:173
+msgid "Maximum upload file size"
+msgstr "Maximale Dateigröße eines Uploads"
+
+#: includes/class-dco-ca-settings.php:160
+msgid "The size of the thumbnail for attached images."
+msgstr "Vorschaugröße für angehängte Bilder."
+
+#: includes/class-dco-ca-settings.php:159
+msgid "Attachment image size"
+msgstr "Größe angehängter Bilder"
+
+#: includes/class-dco-ca-settings.php:143
+msgid "Attachments in Admin Panel"
+msgstr "Anhänge im Adminbereich"
+
+#: includes/class-dco-ca-settings.php:142
+msgid "Attachments on Site"
+msgstr "Anhäge auf der Website"
+
+#: includes/class-dco-ca-settings.php:110
+#: includes/class-dco-ca-settings.php:121
+msgid "DCO Comment Attachment Settings"
+msgstr "DCO Comment Attachment Einstellungen"
+
+#: includes/class-dco-ca-base.php:288
+msgid "other"
+msgstr "andere"
+
+#: includes/class-dco-ca-base.php:284
+msgid "code"
+msgstr "Code"
+
+#: includes/class-dco-ca-base.php:280
+msgid "archive"
+msgstr "Archiv"
+
+#: includes/class-dco-ca-base.php:276
+msgid "text"
+msgstr "Text"
+
+#: includes/class-dco-ca-base.php:272
+msgid "interactive"
+msgstr "Interaktiv"
+
+#: includes/class-dco-ca-base.php:268
+msgid "spreadsheet"
+msgstr "Tabelle"
+
+#: includes/class-dco-ca-base.php:264
+msgid "document"
+msgstr "Dokument"
+
+#: includes/class-dco-ca-base.php:260
+msgid "video"
+msgstr "Video"
+
+#: includes/class-dco-ca-base.php:256
+msgid "audio"
+msgstr "Audio"
+
+#: includes/class-dco-ca-base.php:252
+msgid "image"
+msgstr "Bild"
+
+#: includes/class-dco-ca.php:307
+msgid "A PHP extension stopped the file upload."
+msgstr "Eine PHP Extension hat den Dateiupload gestoppt."
+
+#: includes/class-dco-ca.php:306
+msgid "Failed to write file to disk."
+msgstr "Fehler beim Schreiben der Datei."
+
+#: includes/class-dco-ca.php:305
+msgid "Missing a temporary folder."
+msgstr "Es fehlt ein temporärer Ordner."
+
+#: includes/class-dco-ca.php:304
+msgid "The uploaded file was only partially uploaded."
+msgstr "Die hochgeladene Datei ist nur zum Teil angekommen."
+
+#: includes/class-dco-ca.php:303
+msgid "The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form."
+msgstr "Die hochgeladene Datei überschreitet die maximale Größe von MAX_FILE_SIZE, die im HTML-Formular angegeben ist."
+
+#. translators: %s: the maximum allowed upload file size
+#: includes/class-dco-ca.php:302
+msgid "The file is too large. Allowed attachments up to %s."
+msgstr "Die Datei ist zu groß. Dateigrößen bis %s erlaubt."
+
+#: includes/class-dco-ca.php:286
+msgid "Comment Submission Failure"
+msgstr "Fehler beim Senden des Kommentars"
+
+#: includes/class-dco-ca.php:285
+msgid "ERROR"
+msgstr "FEHLER"
+
+#: includes/class-dco-ca.php:270
+msgid "WordPress doesn't allow this type of uploads."
+msgstr "Dieser Dateityp darf nicht hochgeladen werden."
+
+#: includes/class-dco-ca.php:252
+msgid "Attachment is required."
+msgstr "Ein Anhang ist Pflicht"
+
+#. translators: %s: the allowed file types list
+#: includes/class-dco-ca.php:179
+msgid "You can upload: %s."
+msgstr "Erlaubte Formate: %s."
+
+#. translators: %s: the maximum allowed upload file size
+#: includes/class-dco-ca.php:160
+msgid "The maximum upload file size: %s."
+msgstr "Maximale Dateigröße für Uploads: %s."
+
+#: includes/class-dco-ca.php:123 includes/class-dco-ca-admin.php:192
+msgid "Attachment"
+msgstr "Anhang"
+
+#. Author URI of the plugin
+msgid "https://denisco.pro"
+msgstr "https://denisco.pro"
+
+#. Author of the plugin
+msgid "Denis Yanchevskiy"
+msgstr "Denis Yanchevskiy"
+
+#. Description of the plugin
+msgid "Allows your visitors to attach files with their comments"
+msgstr "Kommentare können mit einem Anhang versehen werden."
+
+#. Plugin Name of the plugin
+#: includes/class-dco-ca-settings.php:110
+msgid "DCO Comment Attachment"
+msgstr "DCO Comment Attachment"
