@@ -80,7 +80,7 @@
 /* Color scheme
     - Sand		 #e1cc9f
     - Aubergine	 #94006c
-    - Green		 #006e00 
+    - Green		 #006e00
 */
 
 /* HTML5 Reset
@@ -569,7 +569,7 @@ img {
   vertical-align: top;
 }
 
-.single .content img {
+.single .entry-content img {
   max-height: 110vh;
   width: auto;
 }
@@ -1633,7 +1633,7 @@ span.ERComment {
   opacity: 1 !important;
 }
 
-/* Shared Counts 
+/* Shared Counts
 --------------------------------------------- */
 
 .shared-counts-wrap.before_content {
@@ -2344,10 +2344,19 @@ p.entry-meta a:hover {
   font-size: 1.6rem;
 }
 
+.comment-author-name {
+  font-weight: bold;
+}
+
+.comment-author-member {
+  font-weight: normal;
+  font-size: 0.8em;
+}
+
 li.comment {
-  background-color: #f5f5f5;
-  border: 2px solid #fff;
+  border: 2px solid #bbb;
   border-right: none;
+  border-bottom: none;
 }
 
 .comment-content {
@@ -2357,6 +2366,7 @@ li.comment {
 .comment-list li {
   margin-top: 24px;
   padding: 32px;
+  padding-bottom: 0;
 }
 
 .comment-list li li {
@@ -3101,7 +3111,7 @@ li.comment {
   }
 }
 
-/* 
+/*
 RCP
 */
 /* Login Form */
@@ -3372,7 +3382,7 @@ Reuseable components
 --------------------------------------------------------
 */
 
-/* 
+/*
 CTA Button
 */
 .cta-button {

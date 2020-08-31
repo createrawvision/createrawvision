@@ -867,7 +867,7 @@ function crv_show_bookmark_heart() {
 	?>
 	<div id="popup-view-<?php echo $post->ID; ?>" class="bookmarpopup" style="display:none;text-align:center;">
 		<?php echo $wpb->bookmarkpopup( $post->ID ); ?>
-	</div> 
+	</div>
 	<div><a href="#TB_inline?width=300&height=300&inlineId=popup-view-<?php echo $post->ID; ?>" class="wppopup thickbox wppopup-<?php echo $post->ID; ?>
 	<?php
 	if ( $wpb->bookmarked( $post->ID ) ) {
@@ -1162,3 +1162,49 @@ require_once CHILD_DIR . '/lib/linktree.php';
  * Don't show the edit post link, since it's in the admin bar.
  */
 add_filter( 'genesis_edit_post_link', '__return_false' );
+
+
+/**
+ * Add comments count and post title to comments title.
+ */
+add_filter(
+	'genesis_title_comments',
+	function() {
+		$comment_count     = get_comment_count( get_the_ID() )['approved'];
+		$post_title_quoted = '"' . get_the_title() . '"';
+
+		if ( 1 === $comment_count ) {
+			$comments_title = 'Ein Kommentar zu ' . $post_title_quoted;
+		} else {
+			$comments_title = $comment_count . ' Kommentare zu ' . $post_title_quoted;
+		}
+
+		return sprintf( '<h2>%s</h2>', $comments_title );
+	}
+);
+
+/**
+ * Mark members (with active membership) in comments.
+ */
+add_filter(
+	'get_comment_author',
+	function( $author, $comment_id, $comment ) {
+		$user_id = $comment->user_id;
+		if ( $user_id && rcp_user_has_active_membership( $user_id ) ) {
+			return $author . '<span class="comment-author-member"> (Mitglied)</span>';
+		}
+		return $author;
+	},
+	10,
+	3
+);
+
+/**
+ * Enable image upload only for unrestricted users.
+ */
+add_filter(
+	'dco_ca_disable_attachment_field',
+	function() {
+		return ! crv_user_is_unrestricted();
+	}
+);
