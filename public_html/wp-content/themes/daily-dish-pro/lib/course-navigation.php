@@ -48,12 +48,12 @@ add_action(
 	function() {
 		$previous = get_previous_post_link(
 			'<div class="nav-previous">%link</div>',
-			'Zurück zu "%title"',
+			'%title',
 			true
 		);
 		$next     = get_next_post_link(
 			'<div class="nav-next">%link</div>',
-			'Weiter zu "%title"',
+			'%title',
 			true
 		);
 		$up       = crv_get_navigation_up();
