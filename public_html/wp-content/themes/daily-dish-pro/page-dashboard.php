@@ -109,7 +109,7 @@ function show_overview() {
 
 	echo '<ul class="overview__list">';
 	foreach ( $categories as $category ) {
-		?> 
+		?>
 		<li class="overview__item">
 			<a href="<?php echo esc_url( get_category_link( $category['id'] ) ); ?>">
 				<?php echo wp_get_attachment_image( $category['image_id'], 'thumbnail-portrait', false, array( 'class' => 'overview__image' ) ); ?>
@@ -158,8 +158,8 @@ function show_reciperequest() {
 	?>
 	<h2 class="reciperequest__heading">Rezept&shy;wunschbox</h2>
 	<p>
-		Vermisst du eines deiner Lieblingsrezepte in Rohkost-Variante in unserem Mitgliederbereich? 
-		Dann kannst du hier deinen Wunsch abschicken. 
+		Vermisst du eines deiner Lieblingsrezepte in Rohkost-Variante in unserem Mitgliederbereich?<br>
+		Dann kannst du hier deinen Wunsch abschicken.
 		Wir bemühen uns, dein Rezept in eine roh-vegane Variante umzuwandeln.
 	</p>
 	<form class="reciperequest__box" method="POST" action="<?php echo esc_url( rest_url( 'supportcandy/v1/tickets/addRegisteredUserTicket' ) ); ?>">
@@ -183,7 +183,7 @@ function show_reciperequest() {
 					echo 'Lieber ' . esc_html( get_userdata( get_current_user_id() )->first_name ) . ',<br>';
 				}
 				?>
-				Wir haben deinen Wunsch erhalten und werden dir so schnell wie möglich Bescheid geben, 
+				Wir haben deinen Wunsch erhalten und werden dir so schnell wie möglich Bescheid geben,
 				ob es für uns möglich ist, dein Wunschrezept in Rohkostqualität nachzumachen.
 				Je nach Wunschaufkommen, kann das aber einige Zeit dauern.
 			</p>
