@@ -6,20 +6,20 @@ $recipes_category_id       = 5869;
 
 <header class="hero full-width">
 	<h1 class="hero__title">Willkommen bei CreateRawVision</h1>
-	<p class="hero__subtitle">Deine Anlaufstelle für Rohkost</p>
+	<p class="hero__subtitle">Deine Anlaufstelle für Rohkost Rezepte</p>
 </header>
 
 <section class="overview full-width" aria-label="Übersicht">
 	<img class="bubble bubble--right" src="<?php echo esc_url( CHILD_URL . '/images/home-himbeerbisquittorte.jpg' ); ?>" alt="Himbeerbisquittorte">
 	<p class="overview__item full-width-reset">
 		Hier bei CreateRawVision zeigen wir dir, wie du köstliche und
-		unvergleichlich gesunde Rohkost zubereitest, die andere in Erstaunen
+		unvergleichlich gesunde Rohkost Rezepte zubereitest, die andere in Erstaunen
 		versetzen wird.
 	</p>
 	<img class="bubble bubble--left" src="<?php echo esc_url( CHILD_URL . '/images/home-pasta-pomodoro.jpg' ); ?>" alt="Pasta Pomodoro">
 	<p class="overview__item full-width-reset">
-		Bereits seit 2013 zeige ich Interessierten wie köstliche und gesunde Rohkost
-		zubereitet wird. Gesundes, vitalstoffreiches und köstliches Essen muss nicht
+		Bereits seit 2013 zeige ich Interessierten wie köstliche und gesunde Rohkost Rezepte
+		zubereitet werden. Gesundes, vitalstoffreiches und köstliches Essen muss nicht
 		schwer sein und ich zeige dir wie!
 	</p>
 	<p class="overview__item full-width-reset">
@@ -90,7 +90,7 @@ $recipes_category_id       = 5869;
 			<h3 class="checkmarks__heading">50+ Tutorials</h3>
 			<p class="checkmarks__text">
 				Mit diesen Tutorials gebe ich dir mein Expertenwissen aus 8 Jahren
-				Rohkosterfahrung weiter.
+				Rohkost Erfahrung weiter.
 			</p>
 		</li>
 		<li class="checkmarks__item">
@@ -108,14 +108,14 @@ $recipes_category_id       = 5869;
 	<h2 class="about-us__heading">Hey, ich bin Angie!</h2>
 	<p class="about-us__text">Vor etwa sieben Jahren habe ich die Rohkost entdeckt. Dadurch veränderte sich mein Leben in jeder Hinsicht grundlegend. Dank der Rohkost habe ich mich auf eine aufregende, spirituelle und erfüllende Reise begeben, durch die ich mittlerweile über unglaublich viel Energie, wesentlich mehr Gelassenheit und Ruhe verfüge.</p>
 	<p class="about-us__text">Doch auch in der Rohkost stellten sich mir viele Hindernisse in den Weg. Vor allem zum Beginn meiner Reise vermisste ich den Geschmack von gekochten Gerichten. Daher war es mir sehr wichtig einen Ersatz für all die Rezepte zu finden, deren Geschmack mir vor der Rohkost so viel Freude bereitet haben. </p>
-	<p class="about-us__text">Trotz der vielen Rohkostrezeptbücher war ich mit der Auswahl an Rezepten und deren Qualität nicht zufrieden. Oft gefielen mir nur ein paar wenige Rezepte pro Buch. Daher fing ich schnell an selbst kreativ zu werden. Mittlerweile habe ich mir in diesem Bereich so viel Wissen und Erfahrung angeeignet, dass ich spezielle Techniken gefunden habe, um die leckersten Rezepte der Kochkost rohkosttauglich zu machen.</p>
+	<p class="about-us__text">Trotz der vielen Rohkost Rezeptbücher war ich mit der Auswahl an Rezepten und deren Qualität nicht zufrieden. Oft gefielen mir nur ein paar wenige Rezepte pro Buch. Daher fing ich schnell an selbst kreativ zu werden. Mittlerweile habe ich mir in diesem Bereich so viel Wissen und Erfahrung angeeignet, dass ich spezielle Techniken gefunden habe, um die leckersten Rezepte der Kochkost rohkost-tauglich zu machen.</p>
 	<h2 class="about-us__heading">Hallo, ich bin Josef!</h2>
 	<p class="about-us__text">Vor vier Jahren habe ich die Rohkost entdeckt. Obwohl ich erst 18 Jahre alt war, hatte ich schon viele kleine Beschwerden wie Tinnitus, schmerzende Gelenke und Bauchschmerzen. Diese sind innerhalb von wenigen Monaten verschwunden, nachdem ich immer mehr gesunde, rohe Nahrung zu mir nahm.</p>
 	<p class="about-us__text">Die Umstellung war keinesfalls leicht, vor allem, weil ich von allen Seiten verschiedene Informationen erhalten habe. Meine Mahlzeiten waren oft sehr langweilig und andere hatten auch kaum Verständnis. Aber jetzt kann ich mir ein Leben ohne Rohkost nicht mehr vorstellen.</p>
 </section>
 
 <section class="recipe-slider full-width">
-	<h2 class="recipe-slider__heading">Schau dir hier einige meiner Rezepte an</h2>
+	<h2 class="recipe-slider__heading">Schau dir hier einige meiner Rohkost Rezepte an</h2>
 	<?php echo do_shortcode( '[slide-anything id="22150"]' ); ?>
 </section>
 
@@ -133,12 +133,12 @@ $recipes_category_id       = 5869;
 			<li class="offer__item">500+ vegane Rohkost Rezepte</li>
 			<li class="offer__item">50 + Tipps, Tutorials und Schritten Rohkost Leicht Gemacht mit 60+ Lektionen</li>
 			<li class="offer__item">Mitgliederbereich mit einfacher Bedienung und kurzen Ladezeiten</li>
-			<li class="offer__item">Regelmäßig neue Rezepte, Tipps, Schritt-für-Schritt-Anleitungen</li>
+			<li class="offer__item">Regelmäßig neue Rohkost Rezepte, Tipps, Schritt-für-Schritt-Anleitungen</li>
 			<li class="offer__item">Aktive Mitgestaltung durch Wunschrezepte</li>
 			<li class="offer__item">Erstellen von eigenen Rezeptsammlungen </li>
 			<li class="offer__item">Monatliche Live-Calls</li>
 			<li class="offer__item">Ständige Pflege, Aktualisierung und Verbesserung des Mitgliederbereiches, der Inhalte und Rezepte</li>
-			<li class="offer__item">Rückfrage-Möglichkeiten zu den Rezepten – mit schnellen Antworten</li>
+			<li class="offer__item">Rückfrage-Möglichkeiten zu den Rohkost Rezepten – mit schnellen Antworten</li>
 			<li class="offer__item">Mitgliedschaft in einer wachsenden, sich gegenseitig unterstützenden Community</li>
 			<li class="offer__item">Gut sortierte Rezepte in verschiedenen Kategorien</li>
 			<li class="offer__item">Alle Rohkost-Zubereitungstechniken</li>
@@ -187,7 +187,7 @@ $recipes_category_id       = 5869;
 	</p>
 	<img class="bubble bubble--left" src="<?php echo esc_url( CHILD_URL . '/images/home-kirsch-topfenstrudel.jpg' ); ?>" alt="Kirsch-Topfenstrudel">
 	<p class="overview__item full-width-reset">
-		Alle meine Rezepte sind mehrfach getestet und sehr beliebt. Und das nicht
+		Alle meine Rohkost Rezepte sind mehrfach getestet und sehr beliebt. Und das nicht
 		nur bei Rohköstlern, sondern auch bei ganz normalen Essern und ganz
 		besonders wichtig - bei Kindern.
 	</p>
@@ -217,7 +217,7 @@ $recipes_category_id       = 5869;
 			<tr>
 				<th scope="row">Menge an Rezepten</th>
 				<td>Geringe und begrenzte Anzahl</td>
-				<td>500+ Rezepte und ständig wachsende Anzahl; aktuelle und neue Rezepte passend zur Saison</td>
+				<td>500+ Rezepte und ständig wachsende Anzahl; aktuelle und neue Rohkost Rezepte passend zur Saison</td>
 			</tr>
 			<tr>
 				<th scope="row">Tipps, Anleitungen</th>
@@ -277,7 +277,7 @@ $recipes_category_id       = 5869;
 			<li class="reason__item">Du Fragen zum Thema Rohkost stellen und Antworten bekommen möchtest</li>
 			<li class="reason__item">Du alles Wissen zum Thema Rohkost aus einer Hand bekommen und die Rohkostbewegung aktiv mitgestalten möchtest</li>
 			<li class="reason__item">Du ein Profi in der Zubereitung von einzigartigen Rohkost Rezepten werden möchtest</li>
-			<li class="reason__item">Du all deine Lieblings-Rezepte an einem Ort haben möchtest</li>
+			<li class="reason__item">Du all deine Lieblings-Rohkost-Rezepte an einem Ort haben möchtest</li>
 		</ul>
 	</div>
 </section>
@@ -307,7 +307,7 @@ $recipes_category_id       = 5869;
 		<ul class="offer2__list">
 			<li class="offer2__item">
 				Über 500 exklusive, gesunde, vitalstoffreiche, köstliche und getestete
-				rohe und vegane Rezepte (Link zu Membershiprezepten) Diese Rezepte passen
+				rohe und vegane Rohkost Rezepte (Link zu Membershiprezepten) Diese Rezepte passen
 				hervorragend zu vielen gesunden Ernährungsrichtungen. Das beinhaltet
 				Rohkost, vegan, vegetarisch, milchfrei, eifrei, sojafrei, glutenfrei und
 				noch vieles darüber hinaus.
@@ -326,7 +326,7 @@ $recipes_category_id       = 5869;
 				beantworten.
 			</li>
 			<li class="offer2__item">
-				Monatlich neue großartige Rezepte und Tutorials die wir regelmäßig auf
+				Monatlich neue großartige Rohkost Rezepte und Tutorials die wir regelmäßig auf
 				unserer und deiner Reise kreieren.
 			</li>
 			<li class="offer2__item">

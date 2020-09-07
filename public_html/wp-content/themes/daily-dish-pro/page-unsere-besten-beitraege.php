@@ -9,8 +9,9 @@ add_action(
 		echo '<div class="crv-grid crv-grid--large">';
 
 		foreach ( $best_posts as list('post_id' => $post_id, 'image_id' => $image_id) ) {
-			$title = get_the_title( $post_id );
-			$link  = get_permalink( $post_id );
+			$title      = get_the_title( $post_id );
+			$link       = get_permalink( $post_id );
+			$image_size = 'daily-dish-archive';
 
 			require __DIR__ . '/templates/grid.php';
 		}

@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.17' );
+define( 'CHILD_THEME_VERSION', '0.1.18' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -867,7 +867,7 @@ function crv_show_bookmark_heart() {
 	?>
 	<div id="popup-view-<?php echo $post->ID; ?>" class="bookmarpopup" style="display:none;text-align:center;">
 		<?php echo $wpb->bookmarkpopup( $post->ID ); ?>
-	</div> 
+	</div>
 	<div><a href="#TB_inline?width=300&height=300&inlineId=popup-view-<?php echo $post->ID; ?>" class="wppopup thickbox wppopup-<?php echo $post->ID; ?>
 	<?php
 	if ( $wpb->bookmarked( $post->ID ) ) {
@@ -1168,3 +1168,100 @@ require_once CHILD_DIR . '/lib/shop.php';
  * Don't show the edit post link, since it's in the admin bar.
  */
 add_filter( 'genesis_edit_post_link', '__return_false' );
+
+
+/**
+ * Add comments count and post title to comments title.
+ */
+add_filter(
+	'genesis_title_comments',
+	function() {
+		$comment_count     = get_comment_count( get_the_ID() )['approved'];
+		$post_title_quoted = '"' . get_the_title() . '"';
+
+		if ( 1 === $comment_count ) {
+			$comments_title = 'Ein Kommentar zu ' . $post_title_quoted;
+		} else {
+			$comments_title = $comment_count . ' Kommentare zu ' . $post_title_quoted;
+		}
+
+		return sprintf( '<h2>%s</h2>', $comments_title );
+	}
+);
+
+/**
+ * Mark members (with active membership) in comments.
+ */
+add_filter(
+	'get_comment_author',
+	function( $author, $comment_id, $comment ) {
+		$user_id = $comment->user_id;
+		if ( $user_id && rcp_user_has_active_membership( $user_id ) ) {
+			return $author . '<span class="comment-author-member"> (Mitglied)</span>';
+		}
+		return $author;
+	},
+	10,
+	3
+);
+
+/**
+ * Enable image upload only for unrestricted users.
+ */
+add_filter(
+	'dco_ca_disable_attachment_field',
+	function() {
+		return ! crv_user_is_unrestricted();
+	}
+);
+
+/**
+ * Add post navigation for posts in courses.
+ */
+add_action(
+	'wp',
+	function() {
+		if ( is_admin() || ! is_main_query() || ! is_single() ) {
+			return;
+		}
+
+		$not_in_course = 0 === count(
+			get_posts(
+				array(
+					'include'  => get_the_ID(),
+					'category' => 5792, // "DWZRLG" course.
+					'fields'   => 'ids',
+				)
+			)
+		);
+		if ( $not_in_course ) {
+			return;
+		}
+
+		require_once CHILD_DIR . '/lib/course-navigation.php';
+	}
+);
+
+
+/**
+ * Customize reorder-post-within-categories plugin.
+ * Initial sort order by title for categories in member category.
+ */
+add_filter(
+	'reorder_posts_within_category_initial_order',
+	function ( $reverse, $post_type, $term_id ) {
+		// Returns false, if term_id is not a valid category.
+		return cat_is_ancestor_of( 4269, $term_id );
+	},
+	10,
+	3
+);
+add_filter(
+	'reorder_posts_within_category_initial_orderby',
+	function ( $is_alphabetical, $post_type, $term_id ) {
+		// Returns false, if term_id is not a valid category.
+		return cat_is_ancestor_of( 4269, $term_id );
+	},
+	10,
+	3
+);
