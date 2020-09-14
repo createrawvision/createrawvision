@@ -2129,6 +2129,62 @@ span.ERComment {
   visibility: hidden;
 }
 
+/* Post Navigation (next/prev)
+--------------------------------------------- */
+.nav-links {
+  margin: 5rem 0;
+  display: flex;
+  justify-content: space-evenly;
+  text-align: center;
+}
+
+.nav-links > * {
+  flex: 1 1 30%;
+  margin: 1rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 1.5rem 2rem;
+  background-color: #eee;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.5rem 0.5rem #aaa;
+}
+
+.nav-links > *:hover {
+  transition: all 0.5s;
+  box-shadow: 0 0.7rem 0.7rem #aaa;
+  background-color: #f4f4f4;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-previous::before,
+.nav-next::after {
+  font-size: 3rem;
+  color: #333;
+}
+
+.nav-previous::before {
+  content: "❮";
+  margin-right: 2rem;
+}
+
+.nav-next::after {
+  content: "❯";
+  margin-left: 2rem;
+}
+
+@media only screen and (max-width: 959px) {
+  .nav-links {
+    flex-direction: column;
+  }
+}
+
 /* Content Area
 ---------------------------------------------------------------------------------------------------- */
 

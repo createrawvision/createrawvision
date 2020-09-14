@@ -1,0 +1,79 @@
+h1.entry-title {
+  font-size: 4rem;
+}
+
+.crv-shop__item-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+  gap: 4rem;
+  margin: 3rem auto 6rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .crv-shop__item-list {
+    justify-content: center;
+    grid-template-columns: min(350px, 100%);
+  }
+}
+
+.crv-shop__term-name {
+  font-weight: bold;
+  font-size: 3.3rem;
+}
+
+.crv-shop__item {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  padding: 4rem 3rem;
+  text-align: center;
+  background: linear-gradient(
+    190deg,
+    rgb(225 204 159 / 0.1),
+    rgb(225 204 159 / 0.4)
+  );
+  border-radius: 0.2rem;
+  box-shadow: 0 0.3rem 1rem #0008;
+  transition: transform 0.1s ease-out;
+}
+
+.crv-shop__item:hover {
+  transform: scale(1.01);
+}
+
+.crv-shop__item-image {
+  max-width: 70%;
+}
+
+.crv-shop__item-content {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 3rem 0;
+}
+
+.crv-shop__item-title {
+  margin: 0 0 1.5rem !important;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.crv-shop__item-description > :last-child {
+  margin-bottom: 0;
+}
+
+.crv-shop__item-button {
+  border-radius: 0.8rem;
+  box-shadow: 0 0.3rem 1rem #0008;
+  transition: background-color 0.4s, box-shadow 0.4s;
+}
+
+.crv-shop__item-button::after {
+  content: " →";
+}
+
+.crv-shop__item-button:hover {
+  background-color: #66004b;
+  box-shadow: 0 0.5rem 1.5rem #0008;
+}

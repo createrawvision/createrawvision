@@ -1,4 +1,4 @@
-/* 
+/*
 Styles for the dashboard page
 */
 
@@ -29,8 +29,8 @@ Styles for the dashboard page
   margin-left: 0;
 }
 
-/* 
-Set up sections 
+/*
+Set up sections
 */
 .dashboard-container .section-wrapper:nth-of-type(even) {
   background-color: #e1cc9f;
@@ -99,8 +99,8 @@ Cards
   }
 }
 
-/* 
-Site header 
+/*
+Site header
 */
 #genesis-content .entry-title {
   font-size: 8rem;
@@ -202,6 +202,7 @@ Recipe request
   width: auto;
   border-radius: 0.3rem;
   padding: 1.4rem 2.4rem;
+  margin-top: 1rem;
   box-shadow: var(--box-shadow--light);
   transition: box-shadow 0.5s, background-color 0.5s;
 }

@@ -1159,6 +1159,12 @@ require_once CHILD_DIR . '/lib/linktree.php';
 
 
 /**
+ * Initialize a shop with just links to products.
+ */
+require_once CHILD_DIR . '/lib/shop.php';
+
+
+/**
  * Don't show the edit post link, since it's in the admin bar.
  */
 add_filter( 'genesis_edit_post_link', '__return_false' );
@@ -1207,4 +1213,55 @@ add_filter(
 	function() {
 		return ! crv_user_is_unrestricted();
 	}
+);
+
+/**
+ * Add post navigation for posts in courses.
+ */
+add_action(
+	'wp',
+	function() {
+		if ( is_admin() || ! is_main_query() || ! is_single() ) {
+			return;
+		}
+
+		$not_in_course = 0 === count(
+			get_posts(
+				array(
+					'include'  => get_the_ID(),
+					'category' => 5792, // "DWZRLG" course.
+					'fields'   => 'ids',
+				)
+			)
+		);
+		if ( $not_in_course ) {
+			return;
+		}
+
+		require_once CHILD_DIR . '/lib/course-navigation.php';
+	}
+);
+
+
+/**
+ * Customize reorder-post-within-categories plugin.
+ * Initial sort order by title for categories in member category.
+ */
+add_filter(
+	'reorder_posts_within_category_initial_order',
+	function ( $reverse, $post_type, $term_id ) {
+		// Returns false, if term_id is not a valid category.
+		return cat_is_ancestor_of( 4269, $term_id );
+	},
+	10,
+	3
+);
+add_filter(
+	'reorder_posts_within_category_initial_orderby',
+	function ( $is_alphabetical, $post_type, $term_id ) {
+		// Returns false, if term_id is not a valid category.
+		return cat_is_ancestor_of( 4269, $term_id );
+	},
+	10,
+	3
 );
