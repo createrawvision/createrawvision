@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.19' );
+define( 'CHILD_THEME_VERSION', '0.1.20' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -1218,30 +1218,7 @@ add_filter(
 /**
  * Add post navigation for posts in courses.
  */
-add_action(
-	'wp',
-	function() {
-		if ( is_admin() || ! is_main_query() || ! is_single() ) {
-			return;
-		}
-
-		$not_in_course = 0 === count(
-			get_posts(
-				array(
-					'include'  => get_the_ID(),
-					'category' => 5792, // "DWZRLG" course.
-					'fields'   => 'ids',
-				)
-			)
-		);
-		if ( $not_in_course ) {
-			return;
-		}
-
-		require_once CHILD_DIR . '/lib/course-navigation.php';
-	}
-);
-
+require_once CHILD_DIR . '/lib/course-navigation/course-navigation.php';
 
 /**
  * Customize reorder-post-within-categories plugin.
