@@ -25,10 +25,13 @@ foreach ( $shop_terms as $shop_term ) :
 
 	while ( $query->have_posts() ) :
 		$query->the_post();
-		?> 
+		?>
 		<div class="crv-shop__item">
 			<?php the_post_thumbnail( array( 300, 300 ), array( 'class' => 'crv-shop__item-image' ) ); ?>
-			<h3 class="crv-shop__item-title"><?php the_title(); ?></h3>
+			<div class="crv-shop__item-content">
+				<h3 class="crv-shop__item-title"><?php the_title(); ?></h3>
+				<div class="crv-shop__item-description"><?php the_content(); ?></div>
+			</div>
 			<a href="<?php the_field( 'product_url' ); ?>">
 				<button class="crv-shop__item-button"><?php the_field( 'button_text' ); ?></button>
 			</a>

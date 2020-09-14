@@ -34,24 +34,33 @@ h1.entry-title {
   );
   border-radius: 0.2rem;
   box-shadow: 0 0.3rem 1rem #0008;
-  transition: transform 0.2s ease-out;
+  transition: transform 0.1s ease-out;
 }
 
 .crv-shop__item:hover {
-  transform: scale(1.02);
+  transform: scale(1.01);
 }
 
 .crv-shop__item-image {
   max-width: 70%;
 }
 
-.crv-shop__item-title {
-  margin: 3rem 0 !important;
-  font-weight: bold;
-  line-height: 1.4;
+.crv-shop__item-content {
   flex-grow: 1;
   display: flex;
   align-items: center;
+  flex-direction: column;
+  margin: 3rem 0;
+}
+
+.crv-shop__item-title {
+  margin: 0 0 1.5rem !important;
+  font-weight: bold;
+  line-height: 1.4;
+}
+
+.crv-shop__item-description > :last-child {
+  margin-bottom: 0;
 }
 
 .crv-shop__item-button {

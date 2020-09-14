@@ -46,7 +46,7 @@ function crv_register_shop_item_cpt() {
 	// Register the post type.
 	$args = array(
 		'label'             => __( 'Shop Item', 'crv_shop' ),
-		'supports'          => array( 'title', 'thumbnail', 'custom-fields', 'page-attributes' ),
+		'supports'          => array( 'title', 'editor', 'thumbnail', 'custom-fields', 'page-attributes' ),
 		'taxonomies'        => array( 'crv_shop_category' ),
 		'public'            => false,
 		'show_ui'           => true,
