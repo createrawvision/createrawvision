@@ -37,7 +37,35 @@ function crv_get_navigation_up() {
 	$category      = get_category( $category_id );
 	$category_link = get_category_link( $category_id );
 
-	return sprintf( '<div class="nav-up"><a href="%s">%s</a></div>', esc_url( $category_link ), esc_html( $category->name ) );
+	return sprintf( '<a href="%s"><span class="nav-up-hint">Zurück zur Übersicht</span>%s</a>', esc_url( $category_link ), esc_html( $category->name ) );
+}
+
+/**
+ * Get navigation link to previous post. Allow overwrite by custom field.
+ */
+function crv_get_navigation_previous() {
+	return crv_get_navigation_adjacent( 'previous' );
+}
+
+/**
+ * Get navigation link to next post. Allow overwrite by custom field.
+ */
+function crv_get_navigation_next() {
+	return crv_get_navigation_adjacent( 'next' );
+}
+
+/**
+ * Get the navigation link for previous or next post.
+ *
+ * @param "previous"|"next" $direction Select previous or next post.
+ */
+function crv_get_navigation_adjacent( $direction ) {
+	$custom_link = get_field( "${direction}_post" );
+	if ( $custom_link ) {
+		return sprintf( '<a href="%s" rel="prev">%s</a>', $custom_link['url'], $custom_link['title'] );
+	}
+	$get_post_function = "get_${direction}_post_link";
+	return $get_post_function( '%link', '%title', true );
 }
 
 /**
@@ -46,17 +74,9 @@ function crv_get_navigation_up() {
 add_action(
 	'genesis_after_entry_content',
 	function() {
-		$previous = get_previous_post_link(
-			'<div class="nav-previous">%link</div>',
-			'%title',
-			true
-		);
-		$next     = get_next_post_link(
-			'<div class="nav-next">%link</div>',
-			'%title',
-			true
-		);
+		$previous = crv_get_navigation_previous();
 		$up       = crv_get_navigation_up();
+		$next     = crv_get_navigation_next();
 
 		$navigation = _navigation_markup( $previous . $up . $next, 'post-navigation', __( 'Post navigation' ), __( 'Posts' ) );
 		echo wp_kses_post( $navigation );

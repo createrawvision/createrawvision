@@ -2141,10 +2141,13 @@ span.ERComment {
 .nav-links > * {
   flex: 1 1 30%;
   margin: 1rem;
+  padding: 2rem;
 
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
 
   background-color: #eee;
   border-radius: 0.5rem;
@@ -2160,25 +2163,38 @@ span.ERComment {
 .nav-links a {
   text-decoration: none;
   color: black;
-  display: inline-block;
-  padding: 2rem 0.5rem;
-  width: 80%;
 }
 
-.nav-previous::before,
-.nav-next::after {
+.nav-links a[rel~="prev"] {
+  padding-left: 5rem;
+}
+
+.nav-links a[rel~="next"] {
+  padding-right: 5rem;
+}
+
+.nav-links a[rel~="prev"]::before,
+.nav-links a[rel~="next"]::after {
   font-size: 3rem;
   color: #333;
+  position: absolute;
 }
 
-.nav-previous::before {
+.nav-links a[rel~="prev"]::before {
   content: "❮";
-  margin-right: 1rem;
+  left: 2rem;
 }
 
-.nav-next::after {
+.nav-links a[rel~="next"]::after {
   content: "❯";
-  margin-left: 1rem;
+  right: 2rem;
+}
+
+.nav-links .nav-up-hint {
+  font-size: 0.8em;
+  margin-bottom: 0.8rem;
+  opacity: 0.8;
+  font-style: italic;
 }
 
 @media only screen and (max-width: 959px) {
