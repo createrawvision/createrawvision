@@ -2146,7 +2146,6 @@ span.ERComment {
   align-items: center;
   justify-content: center;
 
-  padding: 1.5rem 2rem;
   background-color: #eee;
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 0.5rem #aaa;
@@ -2161,6 +2160,9 @@ span.ERComment {
 .nav-links a {
   text-decoration: none;
   color: black;
+  display: inline-block;
+  padding: 2rem 0.5rem;
+  width: 80%;
 }
 
 .nav-previous::before,
@@ -2171,12 +2173,12 @@ span.ERComment {
 
 .nav-previous::before {
   content: "❮";
-  margin-right: 2rem;
+  margin-right: 1rem;
 }
 
 .nav-next::after {
   content: "❯";
-  margin-left: 2rem;
+  margin-left: 1rem;
 }
 
 @media only screen and (max-width: 959px) {
