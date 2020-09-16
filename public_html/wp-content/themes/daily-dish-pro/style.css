@@ -1480,12 +1480,12 @@ span.ERComment {
 }
 
 .enews-widget .enews-checkbox {
-  font-size: 1.2rem;
-  margin-bottom: 5px;
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
 }
 
 .enews-widget .enews-checkbox > input {
-  margin: 0 3px 0 0;
+  margin: -2.5px 5px 0 0;
   vertical-align: middle;
 }
 
