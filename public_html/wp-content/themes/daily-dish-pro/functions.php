@@ -1242,3 +1242,15 @@ add_filter(
 	10,
 	3
 );
+
+/**
+ * Register shortcode to load parfait 3d cover template.
+ */
+add_shortcode(
+	'crv-parfait-3d-cover',
+	function() {
+		ob_start();
+		require CHILD_DIR . '/templates/parfait-3d-cover.php';
+		return ob_get_clean();
+	}
+);
