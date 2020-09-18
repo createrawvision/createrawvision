@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.21' );
+define( 'CHILD_THEME_VERSION', '0.1.22' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -847,14 +847,53 @@ require_once CHILD_DIR . '/lib/rcp-mailchimp.php';
 function crv_show_bookmark_heart() {
 	global $post, $wpb;
 
-	// hard excluded by post type.
+	$recipes     = class_exists( 'WPRM_Recipe_Manager' ) ? WPRM_Recipe_Manager::get_recipe_ids_from_post() : array();
+	$object_name = $recipes ? 'Lieblingsrezept' : 'Lieblingsbeitrag';
+
+	echo '<div class="wppopup__container">';
+	echo '<a href="#TB_inline?width=300&height=300&inlineId=popup-view-' . $post->ID . '" class="wppopup thickbox wppopup-' . $post->ID;
+
+	if ( $wpb->bookmarked( $post->ID ) ) {
+		echo ' addedbookmark"><i class="fa fa-heart"></i><span class="wppopup__tooltip">' . esc_html( $object_name ) . ' entfernen</span>';
+	} else {
+		echo ' unbookmark"><i class="fa fa-heart-o"></i><span class="wppopup__tooltip">' . esc_html( $object_name ) . ' hinzufügen</span>';
+	}
+
+	echo '</a></div>';
+}
+
+/**
+ * Enqueue the popup for bookmarking.
+ */
+function crv_enqueue_bookmark_popup() {
+	global $post, $wpb;
+
+	add_thickbox();
+
+	echo '<div id="popup-view-' . $post->ID . '" class="bookmarpopup" style="display:none; text-align:center;">';
+	echo $wpb->bookmarkpopup( $post->ID );
+	echo '</div>';
+}
+
+/**
+ * Sets up the bookmark popups and triggers.
+ */
+function crv_init_bookmarks() {
+	global $post;
+
+	// Bail in admin and outside singular content.
+	if ( is_admin() || ! is_singular() ) {
+		return;
+	}
+
+	// Hard excluded by post type.
 	if ( wpb_get_option( 'include_post_types' ) ) {
 		if ( is_array( wpb_get_option( 'include_post_types' ) ) && ! in_array( get_post_type(), wpb_get_option( 'include_post_types' ) ) ) {
 			return;
 		}
 	}
 
-	// soft excluded by post id.
+	// Soft excluded by post id.
 	if ( wpb_get_option( 'exclude_ids' ) ) {
 		$array = explode( ',', wpb_get_option( 'exclude_ids' ) );
 		if ( in_array( $post->ID, $array ) ) {
@@ -862,34 +901,12 @@ function crv_show_bookmark_heart() {
 		}
 	}
 
-	add_thickbox();
-
-	?>
-	<div id="popup-view-<?php echo $post->ID; ?>" class="bookmarpopup" style="display:none;text-align:center;">
-		<?php echo $wpb->bookmarkpopup( $post->ID ); ?>
-	</div>
-	<div><a href="#TB_inline?width=300&height=300&inlineId=popup-view-<?php echo $post->ID; ?>" class="wppopup thickbox wppopup-<?php echo $post->ID; ?>
-	<?php
-	if ( $wpb->bookmarked( $post->ID ) ) {
-		echo ' addedbookmark"><i class="fa fa-heart"></i><span class="wppopup__tooltip">Lieblingsrezept entfernen</span>';
-	} else {
-		echo ' unbookmark"><i class="fa fa-heart-o"></i><span class="wppopup__tooltip">Lieblingsrezept hinzufügen</span>';
-	}
-	echo '</a></div>';
+	add_action( 'wp_footer', 'crv_enqueue_bookmark_popup' );
+	add_action( 'genesis_entry_header', 'crv_show_bookmark_heart', 14 );
+	add_action( 'genesis_after_entry_content', 'crv_show_bookmark_heart', 11 );
 }
 
-add_action(
-	'genesis_entry_header',
-	function() {
-		if ( is_admin() || ! is_main_query() || ! in_the_loop() || ! ( is_single() || is_page() ) ) {
-			return;
-		}
-		crv_show_bookmark_heart();
-	},
-	14
-);
-
-
+add_action( 'wp', 'crv_init_bookmarks' );
 
 /**
  * Support tickets for members get high priority by default

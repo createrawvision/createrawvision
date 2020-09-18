@@ -103,7 +103,17 @@
 		if(event.target === event.currentTarget){
 			$( this ).removeClass('crv-help-popup--visible')
 		}
-	});
+  });
+  
+  // Hide help button when scrolle to the bottom of the page.
+  $(window).on( 'scroll', function() {
+    const margin = 50;
+    if( $(window).scrollTop() + $(window).height() > $(document).height() - margin ) {
+      $( '.crv-help-popup__button' ).fadeOut();
+    } else {
+      $( '.crv-help-popup__button' ).fadeIn();
+    }
+  });
 
 	// Make rcp form receive focus.
 	$( document ).ready(function() {

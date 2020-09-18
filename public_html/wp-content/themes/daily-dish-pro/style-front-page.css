@@ -26,16 +26,16 @@ Resets / Overrides
   position: relative;
 }
 
-/* 
-Global styles 
+/*
+Global styles
 */
 .content section {
   margin: 7rem auto;
   max-width: var(--content-width);
 }
 
-/* 
-Hero 
+/*
+Hero
 */
 .hero {
   padding: 0 5rem;
@@ -80,8 +80,8 @@ Hero
   }
 }
 
-/* 
-Overview 
+/*
+Overview
 */
 .overview {
   overflow-x: hidden;
@@ -125,8 +125,8 @@ Overview
   }
 }
 
-/* 
-Introduction 
+/*
+Introduction
 */
 .introduction {
   margin: 10rem auto;
@@ -164,19 +164,22 @@ Checkmarks
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
-  gap: 5rem;
-  margin: 0 auto !important;
-  max-width: 1360px;
+  --gap: 5rem;
+  margin: calc(-1 * var(--gap)) calc(-1 * var(--gap)) 0 0 !important;
+}
+
+.checkmarks__list > * {
+  margin: var(--gap) var(--gap) 0 0 !important;
 }
 
 .checkmarks__item {
   list-style-type: none !important;
   /* set flex-basis because of safari, see https://github.com/philipwalton/flexbugs#flexbug-11 */
-  flex: 1 1 30rem;
+  flex: 1 1 10rem;
+  max-width: 42rem;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  gap: 3rem;
 }
 
 .checkmarks__item::before {
@@ -188,10 +191,10 @@ Checkmarks
     brightness(96%) contrast(104%);
   width: 8rem;
   height: 8rem;
+  margin-bottom: 2rem;
 }
 
 .checkmarks__heading {
-  margin: 0 !important;
   font-weight: bold;
   text-align: center;
 }
@@ -219,6 +222,14 @@ section.testimonials {
   margin-bottom: 3rem;
 }
 
+.testimonials .owl-stage {
+  display: flex;
+}
+
+.testimonials .sa_hover_container {
+  height: 100%;
+}
+
 .testimonials__entry {
   border-radius: 1rem;
   background: var(--section-bg);
@@ -228,6 +239,8 @@ section.testimonials {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  justify-content: center;
+  height: 100%;
   text-align: center;
   transition: box-shadow 0.25s;
 }
@@ -264,8 +277,8 @@ section.testimonials {
   margin: 1rem 0 0;
 }
 
-/* 
-Offer 
+/*
+Offer
 */
 .offer .fading-bg__image {
   background-image: url(images/home-feigenkuchen.jpg);
@@ -385,7 +398,6 @@ Comparison table
   .comparison td,
   .comparison th {
     display: flex;
-    gap: 2rem;
   }
 
   .comparison thead td {
@@ -402,6 +414,7 @@ Comparison table
     width: 10rem;
     flex-shrink: 0;
     line-break: strict;
+    margin-right: 2rem;
   }
 
   .comparison tbody td:first-of-type::before {
@@ -414,8 +427,8 @@ Comparison table
 }
 
 @media only screen and (max-width: 480px) {
-  .comparison td {
-    gap: 1rem;
+  .comparison tbody td::before {
+    margin-right: 1rem;
   }
 
   .comparison tbody td {
@@ -428,7 +441,7 @@ Comparison table
 }
 
 /*
-Offer again 
+Offer again
 */
 .offer2 .fading-bg__image {
   background-image: url(images/home-paprikapasta.jpg);
@@ -459,7 +472,7 @@ Choice
   font-size: 2.2rem;
 }
 
-/* 
+/*
 Mission
  */
 .mission {
@@ -499,7 +512,7 @@ Mission
   }
 }
 
-/* 
+/*
 FAQs
  */
 .homepage-faqs {

@@ -253,8 +253,14 @@ Support
 .support__list {
   display: flex;
   flex-flow: row wrap;
-  gap: 3rem 5rem;
   justify-content: center;
+  --gap-vertical: 3rem;
+  --gap-horizontal: 5rem;
+  margin: calc(-1 * var(--gap-vertical)) calc(-1 * var(--gap-horizontal)) 0 0 !important;
+}
+
+.support__list > * {
+  margin: var(--gap-vertical) var(--gap-horizontal) 0 0 !important;
 }
 
 .support__item {
