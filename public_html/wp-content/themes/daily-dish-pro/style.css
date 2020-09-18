@@ -3663,6 +3663,10 @@ wp-bookmark styles
   position: relative;
 }
 
+.wppopup__container {
+  text-align: center;
+}
+
 .wppopup .fa {
   font-size: 2em;
 }
