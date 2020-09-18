@@ -3436,7 +3436,7 @@ Cookie notice
   --bg: hsl(316 100% 10% / 1);
   box-shadow: 0 0 1rem 0.3rem var(--bg);
   background-color: var(--bg);
-  padding: 10rem 6rem 5rem;
+  padding: 10rem 0 4rem;
 }
 
 #cookie-notice #cn-notice-text {
@@ -3445,7 +3445,8 @@ Cookie notice
   font-size: 1.6rem;
   font-family: Montserrat, -apple-system, BlinkMacSystemFont, Arial, Roboto,
     "Helvetica Neue", sans-serif;
-  margin-bottom: 5rem;
+  margin-bottom: 4rem;
+  padding: 0 5rem;
 }
 
 #cookie-notice .cn-button.button {
@@ -3455,7 +3456,7 @@ Cookie notice
     "Helvetica Neue", sans-serif;
   padding: 1.5rem 2rem;
   text-decoration: none;
-  margin: 0 1rem;
+  margin: 1rem;
   display: inline-block;
 }
 
