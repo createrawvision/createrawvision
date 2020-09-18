@@ -2552,7 +2552,13 @@ li.comment {
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 3rem;
+  --gap: 3rem;
+  margin-right: calc(-1 * var(--gap));
+}
+
+.footer-widgets .wrap > * {
+  margin-right: var(--gap);
+  max-width: calc(100% - var(--gap));
 }
 
 /* Site Footer
@@ -2672,7 +2678,6 @@ li.comment {
 
   .footer-widgets .wrap {
     flex-direction: column;
-    gap: 0;
   }
 
   .widget:last-child {
@@ -3063,15 +3068,10 @@ li.comment {
  * Restricted content message
  */
 .restriction-wrapper {
-  display: flex;
-  flex-flow: row nowrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 4rem;
   align-items: flex-start;
-}
-
-.restriction-wrapper > * {
-  flex: 1 1 50%;
-  width: 50% !important;
 }
 
 .restriciton-message {
@@ -3080,11 +3080,18 @@ li.comment {
   padding: 3rem;
   display: flex;
   flex-flow: column nowrap;
-  gap: 3rem;
   font-size: 1.2em;
 }
 
-.restriciton-message * {
+.restriciton-message > * {
+  margin-bottom: 3rem !important;
+}
+
+.restriciton-message > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.restriciton-message button {
   margin: 0 !important;
 }
 
@@ -3331,7 +3338,12 @@ RCP
 #rcp_subscription_levels {
   display: flex;
   flex-flow: row nowrap;
-  gap: 2rem;
+  --gap: 2rem;
+  margin: calc(-1 * var(--gap)) calc(-1 * var(--gap)) 0 0 !important;
+}
+
+#rcp_subscription_levels > * {
+  margin: var(--gap) var(--gap) 15px 0 !important;
 }
 
 .rcp_subscription_level {

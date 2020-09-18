@@ -164,19 +164,22 @@ Checkmarks
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
-  gap: 5rem;
-  margin: 0 auto !important;
-  max-width: 1360px;
+  --gap: 5rem;
+  margin: calc(-1 * var(--gap)) calc(-1 * var(--gap)) 0 0 !important;
+}
+
+.checkmarks__list > * {
+  margin: var(--gap) var(--gap) 0 0 !important;
 }
 
 .checkmarks__item {
   list-style-type: none !important;
   /* set flex-basis because of safari, see https://github.com/philipwalton/flexbugs#flexbug-11 */
-  flex: 1 1 30rem;
+  flex: 1 1 10rem;
+  max-width: 42rem;
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
-  gap: 3rem;
 }
 
 .checkmarks__item::before {
@@ -188,10 +191,10 @@ Checkmarks
     brightness(96%) contrast(104%);
   width: 8rem;
   height: 8rem;
+  margin-bottom: 2rem;
 }
 
 .checkmarks__heading {
-  margin: 0 !important;
   font-weight: bold;
   text-align: center;
 }
@@ -395,7 +398,6 @@ Comparison table
   .comparison td,
   .comparison th {
     display: flex;
-    gap: 2rem;
   }
 
   .comparison thead td {
@@ -412,6 +414,7 @@ Comparison table
     width: 10rem;
     flex-shrink: 0;
     line-break: strict;
+    margin-right: 2rem;
   }
 
   .comparison tbody td:first-of-type::before {
@@ -424,8 +427,8 @@ Comparison table
 }
 
 @media only screen and (max-width: 480px) {
-  .comparison td {
-    gap: 1rem;
+  .comparison tbody td::before {
+    margin-right: 1rem;
   }
 
   .comparison tbody td {
