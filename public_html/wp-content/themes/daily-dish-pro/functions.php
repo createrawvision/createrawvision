@@ -551,7 +551,7 @@ add_action(
 			'genesis_attr_content',
 			function( $attributes ) {
 				// Class is always set, at least to context.
-					$attributes['class'] .= ' crv-grid';
+				$attributes['class'] .= ' crv-grid';
 				return $attributes;
 			}
 		);
