@@ -26,16 +26,16 @@ Resets / Overrides
   position: relative;
 }
 
-/* 
-Global styles 
+/*
+Global styles
 */
 .content section {
   margin: 7rem auto;
   max-width: var(--content-width);
 }
 
-/* 
-Hero 
+/*
+Hero
 */
 .hero {
   padding: 0 5rem;
@@ -80,8 +80,8 @@ Hero
   }
 }
 
-/* 
-Overview 
+/*
+Overview
 */
 .overview {
   overflow-x: hidden;
@@ -125,8 +125,8 @@ Overview
   }
 }
 
-/* 
-Introduction 
+/*
+Introduction
 */
 .introduction {
   margin: 10rem auto;
@@ -219,6 +219,14 @@ section.testimonials {
   margin-bottom: 3rem;
 }
 
+.testimonials .owl-stage {
+  display: flex;
+}
+
+.testimonials .sa_hover_container {
+  height: 100%;
+}
+
 .testimonials__entry {
   border-radius: 1rem;
   background: var(--section-bg);
@@ -228,6 +236,8 @@ section.testimonials {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
+  justify-content: center;
+  height: 100%;
   text-align: center;
   transition: box-shadow 0.25s;
 }
@@ -264,8 +274,8 @@ section.testimonials {
   margin: 1rem 0 0;
 }
 
-/* 
-Offer 
+/*
+Offer
 */
 .offer .fading-bg__image {
   background-image: url(images/home-feigenkuchen.jpg);
@@ -428,7 +438,7 @@ Comparison table
 }
 
 /*
-Offer again 
+Offer again
 */
 .offer2 .fading-bg__image {
   background-image: url(images/home-paprikapasta.jpg);
@@ -459,7 +469,7 @@ Choice
   font-size: 2.2rem;
 }
 
-/* 
+/*
 Mission
  */
 .mission {
@@ -499,7 +509,7 @@ Mission
   }
 }
 
-/* 
+/*
 FAQs
  */
 .homepage-faqs {
