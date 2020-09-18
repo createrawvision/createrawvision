@@ -22,8 +22,17 @@ function crv_top_bookmarks() {
 
 	echo '<div class="crv-grid">';
 
+	// Get different title for admins.
+	if ( current_user_can( 'manage_options' ) ) {
+		$get_title = function( $post_id ) {
+			return get_the_title( $post_id ) . ' (' . get_post_meta( $post_id, '_wpb_post_bookmark_count', true ) . ')';
+		};
+	} else {
+		$get_title = 'get_the_title';
+	}
+
 	foreach ( $post_ids as $post_id ) {
-		$title    = get_the_title( $post_id );
+		$title    = $get_title( $post_id );
 		$link     = get_permalink( $post_id );
 		$image_id = get_post_thumbnail_id( $post_id );
 

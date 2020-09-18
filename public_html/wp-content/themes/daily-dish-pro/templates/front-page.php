@@ -173,7 +173,7 @@ $recipes_category_id       = 5869;
 	</div>
 </section>
 
-<section class="testimonials">
+<section class="testimonials full-width">
 	<h2 class="testimonials__title">
 		Das sagen unsere Nutzer
 	</h2>
@@ -283,7 +283,7 @@ $recipes_category_id       = 5869;
 	</div>
 </section>
 
-<section class="testimonials">
+<section class="testimonials full-width">
 	<h2 class="testimonials__title">
 		Das sagen unsere Nutzer
 	</h2>

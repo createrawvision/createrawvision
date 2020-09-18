@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.22' );
+define( 'CHILD_THEME_VERSION', '0.1.23' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -61,10 +61,10 @@ function daily_dish_enqueue_scripts_styles() {
 	wp_enqueue_style( 'daily-dish-google-fonts', '//fonts.googleapis.com/css?family=Montserrat:400,600|Raleway:400,600&display=swap', array(), CHILD_THEME_VERSION );
 	wp_enqueue_style( 'daily-dish-ionicons', '/wp-content/themes/daily-dish-pro/fonts/ionicons.css', array(), CHILD_THEME_VERSION );
 	if ( is_page( 'dein-weg-zur-rohkost-leicht-gemacht-3' ) ) {
-		wp_enqueue_style( 'daily-dish-landing-style', '/wp-content/themes/daily-dish-pro/style-landing.css' );
+		wp_enqueue_style( 'daily-dish-landing-style', '/wp-content/themes/daily-dish-pro/style-landing.css', array(), CHILD_THEME_VERSION );
 	}
 
-	wp_enqueue_script( 'daily-dish-global-script', CHILD_URL . '/js/global.js', array( 'jquery' ), '1.0.0', true );
+	wp_enqueue_script( 'daily-dish-global-script', CHILD_URL . '/js/global.js', array( 'jquery' ), CHILD_THEME_VERSION, true );
 
 	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 	wp_enqueue_script( 'daily-dish-responsive-menu', CHILD_URL . "/js/responsive-menus{$suffix}.js", array( 'jquery' ), CHILD_THEME_VERSION, true );
