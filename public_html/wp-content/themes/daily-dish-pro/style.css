@@ -2983,6 +2983,7 @@ li.comment {
   justify-items: center;
 }
 
+.search .crv-grid,
 .blog .crv-grid,
 .page .crv-grid,
 .category-member .crv-grid {
