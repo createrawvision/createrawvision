@@ -1,6 +1,8 @@
 <?php
 /**
  * Adds navigation to courses.
+ *
+ * Select which categories should count as course by setting the `crv_course_category_ids` option.
  */
 
 /**
@@ -21,26 +23,37 @@ function crv_is_course_navigation_hidden() {
 		return true;
 	}
 
-	// Bail, if post is not in course.
+	$course_category_ids = get_option( 'crv_course_category_ids', array() );
+
+	// Bail, if post is not child of course categories.
 	if ( is_single() ) {
-		$not_in_course = 0 === count(
+		$in_course = 0 < count(
 			get_posts(
 				array(
 					'include'  => get_the_ID(),
-					'category' => 5792, // "DWZRLG" course.
+					'category' => $course_category_ids,
 					'fields'   => 'ids',
 				)
 			)
 		);
-		if ( $not_in_course ) {
+		if ( ! $in_course ) {
 			return true;
 		}
 	}
 
-	// Bail, if category is not in course.
+	// Bail, if category is not child of course categories.
 	if ( is_category() ) {
 		$current_category_id = get_query_var( 'cat' );
-		if ( ! cat_is_ancestor_of( 5792, $current_category_id ) ) {
+
+		$in_course = array_reduce(
+			$course_category_ids,
+			function( $in_course, $category_id ) use ( $current_category_id ) {
+				return $in_course || cat_is_ancestor_of( $category_id, $current_category_id );
+			},
+			false
+		);
+
+		if ( ! $in_course ) {
 			return true;
 		}
 	}
