@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: WP Bookmarks\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-13 12:52+0200\n"
-"PO-Revision-Date: 2020-08-10 12:55+0200\n"
+"PO-Revision-Date: 2020-09-18 14:34+0200\n"
 "Last-Translator: Vincent <support@wp-member.com>\n"
 "Language-Team: CreateRawVision\n"
 "Language: de_DE\n"
@@ -13,7 +13,7 @@ msgstr ""
 "X-Poedit-KeywordsList: __ngettext:1,2;__;_e\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
-"X-Generator: Poedit 2.4\n"
+"X-Generator: Poedit 2.4.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -63,8 +63,8 @@ msgstr ""
 
 #: admin/panels/settings.php:27
 msgid ""
-"Select here the post types that can be bookmarked (If you enable auto "
-"insertion of bookmark widget)"
+"Select here the post types that can be bookmarked (If you enable auto insertion "
+"of bookmark widget)"
 msgstr ""
 
 #: admin/panels/settings.php:32
@@ -73,8 +73,8 @@ msgstr ""
 
 #: admin/panels/settings.php:35
 msgid ""
-"For automatic widget insertion, this can exclude the post IDs you specify "
-"here (seperated by comma) regardless of any other settings."
+"For automatic widget insertion, this can exclude the post IDs you specify here "
+"(seperated by comma) regardless of any other settings."
 msgstr ""
 
 #: admin/panels/settings.php:42 admin/panels/settings.php:183
@@ -92,8 +92,8 @@ msgstr ""
 #: admin/panels/settings.php:47
 msgid ""
 "These settings can be overridden by shortcode options. They are for general "
-"bookmark template that appears on your content. The bookmark sidebar widget "
-"may override some settings to make it look perfect in sidebar."
+"bookmark template that appears on your content. The bookmark sidebar widget may "
+"override some settings to make it look perfect in sidebar."
 msgstr ""
 
 #: admin/panels/settings.php:51
@@ -195,11 +195,10 @@ msgstr "Kategorie löschen"
 
 #: functions/api.php:142
 msgid ""
-"Choose how do you want to remove this collection. This action cannot be "
-"undone!"
+"Choose how do you want to remove this collection. This action cannot be undone!"
 msgstr ""
-"Wähle aus, wie du die Kategorie löschen willst. Die Löschung lässt sich "
-"nicht rückgängig machen!"
+"Wähle aus, wie du die Kategorie löschen willst. Die Löschung lässt sich nicht "
+"rückgängig machen!"
 
 #: functions/api.php:145
 msgid "Remove collection and all bookmarks in it"
@@ -228,19 +227,19 @@ msgstr "Du hast noch keine Lesezeichen zu dieser Kategorie hinzugefügt."
 #: functions/api.php:341
 #, php-format
 msgid ""
-"You need to <a href=\"%s\">login</a> or <a href=\"%s\">register</a> to view "
+"You need to <a href=\"%1$s\">login</a> or <a href=\"%2$s\">register</a> to view "
 "and manage your bookmarks."
 msgstr ""
-"Du musst dich <a href=\"%s\">anmelden</a> oder <a href=\"%s\">registrieren</"
+"Du musst dich <a href=\"%1$s\">anmelden</a> oder <a href=\"%2$s\">registrieren</"
 "a>, um deine Lesezeichen zu sehen."
 
 #: functions/api.php:432
 #, php-format
 msgid ""
-"You need to <a href=\"%s\">login</a> or <a href=\"%s\">register</a> to "
+"You need to <a href=\"%1$s\">login</a> or <a href=\"%2$s\">register</a> to "
 "bookmark/favorite this content."
 msgstr ""
-"Du musst dich <a href=\"%s\">anmelden</a> oder <a href=\"%s\">registrieren</"
+"Du musst dich <a href=\"%1$s\">anmelden</a> oder <a href=\"%2$s\">registrieren</"
 "a>, um diesen Beitrag speichern zu können."
 
 #: functions/defaults.php:39
