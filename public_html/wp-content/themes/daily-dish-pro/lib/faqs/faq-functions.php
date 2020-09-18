@@ -6,6 +6,7 @@
 function crv_faqs_loop() {
 	jw_enqueue_faq_scripts_styles();
 	jw_display_faq_search();
+	jw_display_faq_toggle();
 	jw_display_faqs();
 	jw_display_contact_form_link();
 }
@@ -21,20 +22,26 @@ function jw_enqueue_faq_scripts_styles() {
 /**
  * Display a search input to search FAQs
  */
-function jw_display_faq_search() {
-	?>
-  <h2 class="faq__heading">Wie lautet deine Frage?</h2>
-  <form class="search-form" method="get" action="<?php the_permalink(); ?>" role="search">
-	<label class="search-form-label screen-reader-text" for="faq-searchform"><?php esc_html_e( __( 'Häufig gestellte Fragen durchsuchen' ) ); ?></label>
-	<input class="search-form-input" type="search" name="faq_search" id="faq-searchform" placeholder="<?php esc_attr_e( __( 'Häufig gestellte Fragen durchsuchen' ) ); ?>">
-  </form>
+function jw_display_faq_search() {  ?>
+	<h2 class="faq__heading">Wie lautet deine Frage?</h2>
+	<form class="search-form" method="get" action="<?php the_permalink(); ?>" role="search">
+		<label class="search-form-label screen-reader-text" for="faq-searchform"><?php esc_html_e( __( 'Häufig gestellte Fragen durchsuchen' ) ); ?></label>
+		<input class="search-form-input" type="search" name="faq_search" id="faq-searchform" placeholder="<?php esc_attr_e( __( 'Häufig gestellte Fragen durchsuchen' ) ); ?>">
+	</form>
 	<?php
 	if ( ! empty( get_query_var( 'faq_search' ) ) ) {
 		?>
-   <a href="<?php the_permalink(); ?>">Suche zurücksetzen</a>
+		<a href="<?php the_permalink(); ?>">Suche zurücksetzen</a>
 	<?php } ?>
-  <hr>
+	<hr>
 	<?php
+}
+
+/**
+ * Display a button to toggle all FAQs at once.
+ */
+function jw_display_faq_toggle() {
+	echo '<button class="faq__toggle">Alle Antworten aufklappen</button>';
 }
 
 /**
@@ -87,20 +94,20 @@ function jw_display_faqs( $heading_level = 2, $meta_query = null ) {
 		if ( $query->have_posts() ) :
 			echo "<h{$heading_level} class=\"faq__heading\">" . esc_html( $term->name ) . "</h{$heading_level}>";
 			?>
-		<ul class="faq">
-			<?php
-			while ( $query->have_posts() ) :
-				$query->the_post();
-				$faq_count++;
-				?>
-			<li class="faq__item">
-				<h<?php echo $heading_level + 1; ?> class="faq__title"><?php the_title(); ?></h<?php echo $heading_level + 1; ?>>
-				<div class="faq__body"><?php the_content(); ?></div>
-			</li>
+			<ul class="faq">
 				<?php
-			endwhile;
-			?>
-		</ul>
+				while ( $query->have_posts() ) :
+					$query->the_post();
+					$faq_count++;
+					?>
+					<li class="faq__item">
+						<h<?php echo $heading_level + 1; ?> class="faq__title"><?php the_title(); ?></h<?php echo $heading_level + 1; ?>>
+						<div class="faq__body"><?php the_content(); ?></div>
+					</li>
+					<?php
+				endwhile;
+				?>
+			</ul>
 			<?php
 			wp_reset_postdata();
 		else :
@@ -119,8 +126,8 @@ function jw_display_faqs( $heading_level = 2, $meta_query = null ) {
  */
 function jw_display_contact_form_link() {
 	?>
-  <hr>
-  <h2 class="faq__heading">Keine Antworten gefunden?</h2>
-  <p>Stell uns deine Frage einfach durch unser <a href="<?php the_permalink( get_page_by_path( 'kontaktformular' ) ); ?>">Kontaktformular</a>.</p>
+	<hr>
+	<h2 class="faq__heading">Keine Antworten gefunden?</h2>
+	<p>Stell uns deine Frage einfach durch unser <a href="<?php the_permalink( get_page_by_path( 'kontaktformular' ) ); ?>">Kontaktformular</a>.</p>
 	<?php
 }

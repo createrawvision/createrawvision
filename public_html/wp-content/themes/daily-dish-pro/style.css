@@ -2991,16 +2991,10 @@ li.comment {
   column-gap: 40px;
   align-items: flex-start;
   justify-items: center;
-}
-
-.search .crv-grid,
-.blog .crv-grid,
-.page .crv-grid,
-.category-member .crv-grid {
   grid-template-columns: repeat(auto-fill, minmax(min(250px, 100%), 1fr));
 }
 
-.crv-grid,
+.category:not(.category-member) .crv-grid,
 .crv-grid.crv-grid--large {
   grid-template-columns: repeat(auto-fill, minmax(min(350px, 100%), 1fr));
 }

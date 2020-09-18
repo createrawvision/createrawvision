@@ -1,49 +1,64 @@
-const handleFaqClick = event => {
+const handleFaqClick = (event) => {
   const faqTitle = event.target;
-  const faqBody = faqTitle.nextElementSibling;
+  const faqItem = faqTitle.parentNode;
 
-  faqTitle.classList.toggle('faq__title--open');
-  faqBody.classList.toggle('faq__body--open');
-}
+  faqItem.classList.toggle("faq__item--open");
+};
 
 const faqTitles = document.querySelectorAll(".faq__title");
-faqTitles.forEach(faqTitle => faqTitle.addEventListener("click", handleFaqClick));
+faqTitles.forEach((faqTitle) =>
+  faqTitle.addEventListener("click", handleFaqClick)
+);
 
-const filterFaqs = value => {
-  const faqItems = document.querySelectorAll('.faq__item');
-  faqItems.forEach(faqItem => {
-    if(matches(faqItem.textContent, value)) {
-      faqItem.classList.remove('faq__item--hidden');
+const filterFaqs = (value) => {
+  const faqItems = document.querySelectorAll(".faq__item");
+  faqItems.forEach((faqItem) => {
+    if (matches(faqItem.textContent, value)) {
+      faqItem.classList.remove("faq__item--hidden");
     } else {
-      faqItem.classList.add('faq__item--hidden');
+      faqItem.classList.add("faq__item--hidden");
     }
   });
-}
+};
 
 const matches = (text, search) => {
   // Ignore words with less than 3 charaters
-  const searchWords = search.toLowerCase().split(' ').filter(word => word.length > 3);
-  
+  const searchWords = search
+    .toLowerCase()
+    .split(" ")
+    .filter((word) => word.length > 3);
+
   // When no search, don't filter
-  if(searchWords.length === 0) return true;
-  
+  if (searchWords.length === 0) return true;
+
   // Return when at least 60% of words match (ignoring case)
   text = text.toLowerCase();
-  const searchHits = searchWords.filter(searchWord => text.includes(searchWord)).length;
+  const searchHits = searchWords.filter((searchWord) =>
+    text.includes(searchWord)
+  ).length;
   const matchRatio = searchHits / searchWords.length;
   return matchRatio > 0.599;
-}
+};
 
-const searchInput = document.querySelector('#faq-searchform');
-if( searchInput ) {
+const searchInput = document.querySelector("#faq-searchform");
+if (searchInput) {
   const searchForm = searchInput.parentElement;
 
   // filter faqs once, when input is prefilled
-  filterFaqs(searchInput.value); 
+  filterFaqs(searchInput.value);
 
   // ... and filter on each input
   searchInput.addEventListener("input", () => filterFaqs(searchInput.value));
 
   // prevent search submission when JS is active
-  searchForm.addEventListener("submit", event => event.preventDefault());
+  searchForm.addEventListener("submit", (event) => event.preventDefault());
 }
+
+const toggleAllFaqs = () => {
+  document
+    .querySelectorAll(".faq__item")
+    .forEach((faqItem) => faqItem.classList.add("faq__item--open"));
+};
+
+const faqToggles = document.querySelectorAll(".faq__toggle");
+faqToggles.forEach((toggle) => toggle.addEventListener("click", toggleAllFaqs));
