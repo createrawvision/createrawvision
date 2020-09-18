@@ -2246,6 +2246,11 @@ span.ERComment {
   text-align: center;
 }
 
+.entry-content > *:first-child,
+.entry-content > .jpibfi + * {
+  margin-top: 0;
+}
+
 /* Entry Meta
 --------------------------------------------- */
 
