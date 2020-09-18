@@ -2558,11 +2558,11 @@ li.comment {
   justify-content: space-between;
   align-items: flex-start;
   --gap: 3rem;
-  margin-right: calc(-1 * var(--gap));
+  margin-left: calc(-1 * var(--gap));
 }
 
 .footer-widgets .wrap > * {
-  margin-right: var(--gap);
+  margin-left: var(--gap);
   max-width: calc(100% - var(--gap));
 }
 
@@ -3344,11 +3344,11 @@ RCP
   display: flex;
   flex-flow: row nowrap;
   --gap: 2rem;
-  margin: calc(-1 * var(--gap)) calc(-1 * var(--gap)) 0 0 !important;
+  margin: calc(-1 * var(--gap)) 0 0 calc(-1 * var(--gap)) !important;
 }
 
 #rcp_subscription_levels > * {
-  margin: var(--gap) var(--gap) 15px 0 !important;
+  margin: var(--gap) 0 15px var(--gap) !important;
 }
 
 .rcp_subscription_level {

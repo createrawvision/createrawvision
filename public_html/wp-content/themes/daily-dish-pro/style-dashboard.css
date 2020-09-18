@@ -256,11 +256,11 @@ Support
   justify-content: center;
   --gap-vertical: 3rem;
   --gap-horizontal: 5rem;
-  margin: calc(-1 * var(--gap-vertical)) calc(-1 * var(--gap-horizontal)) 0 0 !important;
+  margin: calc(-1 * var(--gap-vertical)) 0 0 calc(-1 * var(--gap-horizontal)) !important;
 }
 
 .support__list > * {
-  margin: var(--gap-vertical) var(--gap-horizontal) 0 0 !important;
+  margin: var(--gap-vertical) 0 0 var(--gap-horizontal) !important;
 }
 
 .support__item {
