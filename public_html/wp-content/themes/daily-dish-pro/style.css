@@ -3699,3 +3699,15 @@ Supportcandy styles
 .wpsc_customer .wpsc_search_btn_filter {
   display: none !important;
 }
+
+/*
+List with checkmarks
+*/
+.crv-check-list {
+  list-style-image: url(images/check.svg);
+}
+
+.crv-check-list > li {
+  margin-bottom: 1.5rem;
+  padding-left: 0.5rem;
+}

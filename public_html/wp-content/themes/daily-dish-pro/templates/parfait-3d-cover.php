@@ -1,6 +1,6 @@
 <style>
 	.crv-3d-book.book-container {
-		margin: 6rem 0;
+		margin: 3rem 0;
 		display: flex;
 		align-items: center;
 		justify-content: center;
