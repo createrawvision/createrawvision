@@ -3596,30 +3596,49 @@ Bubble
 }
 
 /*
-'unsere-vision' hero
+Hero image for post header
 */
-.page-id-19655 .entry-header {
+.header-hero {
   background: 50% 80% / cover no-repeat;
-  background-image: linear-gradient(to bottom, #0000, #0006),
-    url(images/unsere-vision-hero.jpg);
+  background-color: #e1cc9f;
   min-height: 50rem;
   padding: 0 5rem;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   flex-flow: column nowrap;
 }
 
-.page-id-19655 .entry-title {
+.header-hero .entry-title {
   font-weight: bold;
   font-size: 6rem;
   color: white;
+  margin: 0;
+}
+
+.page-id-19655 .header-hero {
+  background-image: linear-gradient(to bottom, #0000, #0006),
+    url(images/unsere-vision-hero.jpg);
+  justify-content: flex-end;
+}
+
+.page-id-19655 .header-hero .entry-title {
   margin-bottom: 5rem;
 }
 
+.page-id-19838 .header-hero {
+  background-image: linear-gradient(to bottom, #0003, #0003),
+    url(images/unsere-vision-hero.jpg);
+}
+
 @media only screen and (max-width: 480px) {
-  .page-id-19655 .entry-header {
+  .page-id-19655 .header-hero {
     background-image: linear-gradient(to bottom, #0000, #0006),
+      url(images/unsere-vision-hero-mobile.jpg);
+  }
+
+  .page-id-19838 .header-hero {
+    background-image: linear-gradient(to bottom, #0003, #0003),
       url(images/unsere-vision-hero-mobile.jpg);
   }
 }

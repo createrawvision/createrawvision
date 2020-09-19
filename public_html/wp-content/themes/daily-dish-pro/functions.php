@@ -1130,12 +1130,12 @@ add_action(
 add_action(
 	'genesis_attr_entry-header',
 	function( $attributes ) {
-		if ( ! is_page( 'unsere-vision' ) ) {
+		if ( ! is_page( array( 'unsere-vision', 'neu-hier' ) ) ) {
 			return $attributes;
 		}
 
 		// Class is always set (at least context).
-		$attributes['class'] .= ' full-width';
+		$attributes['class'] .= ' full-width header-hero';
 		return $attributes;
 	}
 );
