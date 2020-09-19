@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.24' );
+define( 'CHILD_THEME_VERSION', '0.1.25' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -550,8 +550,14 @@ add_action(
 		add_filter(
 			'genesis_attr_content',
 			function( $attributes ) {
+				// Make grid large for category archives in "blog".
+				$class = ' crv-grid';
+				if ( is_archive() && cat_is_ancestor_of( get_category_by_slug( 'blog' ), get_queried_object() ) ) {
+					$class .= ' crv-grid--large';
+				}
+
 				// Class is always set, at least to context.
-				$attributes['class'] .= ' crv-grid';
+				$attributes['class'] .= $class;
 				return $attributes;
 			}
 		);

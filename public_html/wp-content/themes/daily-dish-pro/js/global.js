@@ -118,5 +118,13 @@
 	// Make rcp form receive focus.
 	$( document ).ready(function() {
 		$('#rcp_login_form #rcp_user_login').focus();
-	});
+  });
+  
+  // Make images in post content top level 90vw wide.
+  const imageMargin = 'calc(-45vw + 50%)';
+  $( '.single .entry-content > p > img:only-child' )
+    .parent()
+    .css( 'margin-left', imageMargin )
+    .css( 'margin-right', imageMargin );
+
 })( jQuery );
