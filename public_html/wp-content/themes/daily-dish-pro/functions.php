@@ -788,21 +788,28 @@ require_once CHILD_DIR . '/lib/member-restriction.php';
 
 
 /**
- * Show notice, when url is **not** 'https://createrawvision.de'
+ * Show notice, when not on the production environment.
  */
 add_action(
 	'admin_notices',
 	function () {
-		if ( get_bloginfo( 'url' ) === 'https://createrawvision.de' ) {
+		if ( crv_is_production_env() ) {
 			return;
 		}
 		?>
-	<div class="notice notice-warning" style="background: linear-gradient(177deg ,hsla(60, 100%, 90%, 1) 40%, hsla(60, 100%, 70%, 1));">
-		<p style="font-size: 1.5em;">Du befindest dich auf der Test-Website. Die meisten Änderungen werden <strong>nicht gespeichert</strong>.</p>
-	</div>
+		<div class="notice notice-warning" style="background: linear-gradient(177deg ,hsla(60, 100%, 90%, 1) 40%, hsla(60, 100%, 70%, 1));">
+			<p style="font-size: 1.5em;">Du befindest dich auf der Test-Website. Die meisten Änderungen werden <strong>nicht gespeichert</strong>.</p>
+		</div>
 		<?php
 	}
 );
+
+/**
+ * Return true, if the current environment is the production environment.
+ */
+function crv_is_production_env() {
+	return 'https://createrawvision.de' === get_bloginfo( 'url' );
+}
 
 
 /**
@@ -842,9 +849,11 @@ require_once CHILD_DIR . '/lib/recipe-filter.php';
 
 
 /**
- * Connects Restrict Content Pro with MailChimp
+ * Connects Restrict Content Pro with MailChimp. Only on production!
  */
-require_once CHILD_DIR . '/lib/rcp-mailchimp.php';
+if ( crv_is_production_env() ) {
+	require_once CHILD_DIR . '/lib/rcp-mailchimp.php';
+}
 
 
 /**
