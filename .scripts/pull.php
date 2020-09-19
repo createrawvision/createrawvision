@@ -26,12 +26,7 @@ $old_url = 'https://createrawvision.de';
 // Folders inside wp-content, without trailing slash!
 $folders = array( 'languages', 'mu-plugins', 'plugins', 'uploads/2020' );
 
-$plugins_to_deactivate = array(
-	'antispam-bee/antispam_bee.php',
-	'google-analytics-for-wordpress/googleanalytics.php',
-	'sg-cachepress/sg-cachepress.php',
-	'wordfence/wordfence.php',
-);
+$plugins_to_deactivate = array( 'antispam-bee', 'google-analytics-for-wordpress', 'sg-cachepress', 'wordfence' );
 
 /*
  * OPTIONS
@@ -111,7 +106,12 @@ if ( $skip_files ) {
 if ( $deactivate_plugins ) {
 	WP_CLI::log( 'Deactivating plugins: ' . join( ', ', $plugins_to_deactivate ) );
 
-	deactivate_plugins( $plugins_to_deactivate );
+	// Launch a new process, since the currently loaded WordPress instance is overwritten.
+	$command = 'wp plugin deactivate ' . join( ' ', $plugins_to_deactivate );
+	system( $command, $return_var );
+	if ( 0 !== $return_var ) {
+		WP_CLI::error( 'Deactivating plugins failed' );
+	}
 
 	WP_CLI::log( 'Deactivating plugins complete' );
 }
