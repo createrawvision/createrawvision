@@ -2,7 +2,7 @@
 	<header class="entry-header">
 		<h2 class="entry-title">
 			<a class="entry-title-link" href="<?php echo esc_url( $link ); ?>">
-				<?php echo esc_html( $title ); ?>
+				<?php echo wp_kses_post( $title ); ?>
 			</a>
 		</h2>
 	</header>
