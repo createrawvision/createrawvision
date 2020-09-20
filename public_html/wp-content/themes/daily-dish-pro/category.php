@@ -44,21 +44,6 @@ add_action(
 	9
 );
 
-
-/**
- * Show forms before loop.
- */
-add_action(
-	'genesis_before_while',
-	function() {
-		echo '<div class="crv-archive-forms">';
-		crv_show_category_filter_form();
-		crv_show_unrestricted_posts_first_form();
-		echo '</div>';
-	}
-);
-
-
 /**
  * Filter categories to match search.
  */
@@ -139,7 +124,7 @@ function crv_filter_categories( $categories, $search_input ) {
 
 	// Add a number of matches and match by name to category object.
 	$categories = array_map(
-		function( $category ) use ( $filtered_category_counts, $category_ids_matched_by_name ) {
+		function ( $category ) use ( $filtered_category_counts, $category_ids_matched_by_name ) {
 			$category->matches      = $filtered_category_counts[ $category->term_id ];
 			$category->direct_match = in_array( $category->term_id, $category_ids_matched_by_name, true );
 			return $category;
@@ -150,38 +135,34 @@ function crv_filter_categories( $categories, $search_input ) {
 	return $categories;
 }
 
-/**
- * Show a form to filter the categories.
- */
-function crv_show_category_filter_form() {
-	?>
-	<form class="archive-filter">
-		<label>
-			Elemente filtern
-			<input type="search" name="s_cat" value="<?php echo esc_attr( $_GET['s_cat'] ); ?>">
-		</label>
-		<button type="submit">Filtern</button>
-	</form>
-	<?php
-}
 
 /**
- * Show a button to show unrestricted posts first on recipe category archives.
+ * Show forms before loop.
  */
-function crv_show_unrestricted_posts_first_form() {
-	$category       = get_queried_object();
-	$recipes_cat_id = 5869;
-
-	// Bail, if not child of recipes category.
-	if ( ! cat_is_ancestor_of( $recipes_cat_id, $category ) ) {
-		return;
+add_action(
+	'genesis_before_while',
+	function () {
+		?>
+		<form class="crv-archive-forms">
+			<label>
+				Suchbegriff
+				<input type="search" name="s_cat" value="<?php echo esc_attr( $_GET['s_cat'] ); ?>" placeholder="Kekse, Hanf, Frucht, ...">
+			</label>
+			<?php
+			// Show only in leaf category when child of recipes category.
+			$recipes_category_id = 5869;
+			$category            = get_queried_object();
+			if ( $category->count && cat_is_ancestor_of( $recipes_category_id, $category ) ) :
+				?>
+				<label>
+					<input type="checkbox" name="free" <?php echo isset( $_GET['free'] ) && $_GET['free'] ? 'checked' : ''; ?>>
+					Kostenfreie Rezepte zuerst anzeigen
+				</label>
+			<?php endif; ?>
+			<button type="submit">In Kategorie suchen</button>
+		</form>
+		<?php
 	}
-
-	if ( isset( $_GET['free'] ) && $_GET['free'] ) {
-		echo '<form class="unrestricted-first"><button type="submit" name="free" value="0">Sortierung aufheben</button></form>';
-	} else {
-		echo '<form class="unrestricted-first"><button type="submit" name="free" value="1">Kostenfreie Rezepte zuerst anzeigen</button></form>';
-	}
-}
+);
 
 genesis();
