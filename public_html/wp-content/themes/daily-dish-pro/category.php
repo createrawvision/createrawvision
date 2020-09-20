@@ -142,11 +142,21 @@ function crv_filter_categories( $categories, $search_input ) {
 add_action(
 	'genesis_before_while',
 	function () {
+		global $wp;
+		$search_input                  = sanitize_text_field( wp_unslash( $_GET['s_cat'] ?? '' ) );
+		$show_unrestricted_posts_first = isset( $_GET['free'] ) && $_GET['free'];
 		?>
 		<div class="crv-archive-search">
 			<h2>Diese Kategorie Durchsuchen</h2>
+			<?php if ( $search_input ) : ?>
+				<form action="<?php echo esc_url( home_url( $wp->request ) ); ?>" class="crv-current-archive-search">
+					<span class="current-cat-search-hint">Aktueller Suchbegriff </span>
+					<span class="current-cat-search-input"><?php echo esc_html( $search_input ); ?></span>
+					<input type="submit" value="Suche löschen">
+				</form>
+			<?php endif; ?>
 			<form class="crv-archive-search-form">
-				<input type="search" name="s_cat" value="<?php echo esc_attr( $_GET['s_cat'] ); ?>" placeholder="Suchbegriff" aria-label="Suchbegriff">
+				<input type="search" name="s_cat" value="<?php echo esc_attr( $search_input ); ?>" placeholder="Suchbegriff" aria-label="Suchbegriff">
 				<?php
 				// Show only in leaf category when child of recipes category.
 				$recipes_category_id = 5869;
@@ -154,7 +164,7 @@ add_action(
 				if ( $category->count && cat_is_ancestor_of( $recipes_category_id, $category ) ) :
 					?>
 					<div class="crv-unrestricted-posts-first">
-						<input type="checkbox" id="crv-unrestricted-posts-first" name="free" <?php echo isset( $_GET['free'] ) && $_GET['free'] ? 'checked' : ''; ?>>
+						<input type="checkbox" id="crv-unrestricted-posts-first" name="free" <?php echo $show_unrestricted_posts_first ? 'checked' : ''; ?>>
 						<label for="crv-unrestricted-posts-first">Kostenfreie Rezepte zuerst anzeigen</label>
 					</div>
 				<?php endif; ?>
