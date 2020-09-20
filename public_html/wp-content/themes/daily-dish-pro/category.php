@@ -72,13 +72,18 @@ function crv_filter_categories( $categories, $search_input ) {
 	$matched_category_counts = array();
 
 	// Search for posts in categories.
-	$matched_posts = get_posts(
-		array(
-			'numberposts' => -1,
-			'category'    => join( ',', $category_ids ),
-			's'           => $search_input,
-		)
+	$query_args = array(
+		'nopaging' => true,
+		'cat'      => join( ',', $category_ids ),
+		's'        => $search_input,
 	);
+	if ( function_exists( 'relevanssi_do_query' ) ) {
+		$matched_posts_query = new WP_Query(); // Don't execute query.
+		$matched_posts_query->parse_query( $query_args );
+		$matched_posts = relevanssi_do_query( $matched_posts_query );
+	} else {
+		$matched_posts = get_posts( $query_args );
+	}
 
 	// Count how often each category got matched.
 	foreach ( $matched_posts as $matched_post ) {

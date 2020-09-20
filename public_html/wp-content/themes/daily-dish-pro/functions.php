@@ -653,7 +653,7 @@ function crv_modify_category_query( $query ) {
 		$member_category_id = get_category_by_slug( 'member' )->term_id;
 
 		if ( cat_is_ancestor_of( $member_category_id, $current_category ) ) {
-			$query->set( 'posts_per_page', -1 );
+			$query->set( 'posts_per_page', 9999 ); // Don't use `-1` for now, since relevanssi overwrites it wrong.
 			$query->set( 'order', 'ASC' );
 			$query->set( 'orderby', 'title' );
 		}
@@ -664,6 +664,19 @@ function crv_modify_category_query( $query ) {
 			$query->set( 's', $search_input );
 			$query->set( 'orderby', 'relevance' );
 			$query->set( 'order', 'DESC' );
+
+			// Activate Relevanssi without loading the search template, since `$query->is_search === false`.
+			if ( function_exists( 'relevanssi_do_query' ) ) {
+				add_filter(
+					'the_posts',
+					function( $posts, $query = false ) {
+						$query = apply_filters( 'relevanssi_modify_wp_query', $query );
+						return relevanssi_do_query( $query );
+					},
+					99,
+					2
+				);
+			}
 		}
 	}
 }
@@ -1161,7 +1174,7 @@ add_action(
 
 		// Only act, when query parameter was set.
 		if ( isset( $_GET['free'] ) && $_GET['free'] ) {
-			add_filter( 'the_posts', 'crv_unrestricted_posts_first' );
+			add_filter( 'the_posts', 'crv_unrestricted_posts_first', 100 ); // After relevanssi search.
 		}
 	}
 );
