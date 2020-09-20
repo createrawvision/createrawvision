@@ -56,7 +56,7 @@ function crv_filter_categories( $categories, $search_input ) {
 
 	$category_ids = array_column( $categories, 'term_id' );
 
-	// Search for posts in categories.
+	// Search for posts in categories. Use relevanssi, if possible.
 	$query_args = array(
 		'nopaging' => true,
 		'cat'      => join( ',', $category_ids ),
@@ -70,7 +70,7 @@ function crv_filter_categories( $categories, $search_input ) {
 		$matched_posts = get_posts( $query_args );
 	}
 
-	// Count how often each category got matched.
+	// Count how many posts got matched in each category.
 	$matched_category_counts = array();
 
 	foreach ( $matched_posts as $matched_post ) {
@@ -83,7 +83,7 @@ function crv_filter_categories( $categories, $search_input ) {
 		}
 	}
 
-	// Add the results to the parent categories.
+	// Add the results to all ancestor (parent) categories.
 	foreach ( $matched_category_counts as $category_id => $matched_category_count ) {
 		$ancestor_category_ids = get_ancestors( $category_id, 'category', 'taxonomy' );
 		foreach ( $ancestor_category_ids as $category_id ) {
@@ -92,7 +92,7 @@ function crv_filter_categories( $categories, $search_input ) {
 		}
 	}
 
-	// Filter only categories to match in the first place.
+	// Filter out all categories which should not be searched.
 	$filtered_category_counts = array();
 	foreach ( $categories as $category ) {
 		$count = $matched_category_counts[ $category->term_id ] ?? 0;
@@ -104,7 +104,7 @@ function crv_filter_categories( $categories, $search_input ) {
 	arsort( $filtered_category_counts );
 	$sorted_category_ids = array_keys( $filtered_category_counts );
 
-	// Search for categories.
+	// Search for categories by name (and slug).
 	$category_ids_matched_by_name = get_categories(
 		array(
 			'search'  => $search_input,
@@ -115,13 +115,17 @@ function crv_filter_categories( $categories, $search_input ) {
 	);
 
 	// Sort categories by category search first, then number of hits in post search.
-	$matched_category_ids = array_merge( $category_ids_matched_by_name, array_diff( $sorted_category_ids, $category_ids_matched_by_name ) );
+	$matched_category_ids = array_merge(
+		$category_ids_matched_by_name,
+		array_diff( $sorted_category_ids, $category_ids_matched_by_name )
+	);
 
-	// When we found nothing, return nothing.
+	// When we found nothing, return nothing (since empty include will be ignored).
 	if ( ! $matched_category_ids ) {
 		return array();
 	}
 
+	// Get category objects.
 	$categories = get_categories(
 		array(
 			'include' => $matched_category_ids,
@@ -129,7 +133,7 @@ function crv_filter_categories( $categories, $search_input ) {
 		)
 	);
 
-	// Add a number of matches and match by name to category object.
+	// Add number of matches and matched by name to category object.
 	$categories = array_map(
 		function ( $category ) use ( $filtered_category_counts, $category_ids_matched_by_name ) {
 			$category->matches      = $filtered_category_counts[ $category->term_id ];
@@ -171,7 +175,7 @@ add_action(
 				if ( $category->count && cat_is_ancestor_of( $recipes_category_id, $category ) ) :
 					?>
 					<div class="crv-unrestricted-posts-first">
-						<input type="checkbox" id="crv-unrestricted-posts-first" name="free" <?php echo $show_unrestricted_posts_first ? 'checked' : ''; ?>>
+						<input type="checkbox" id="crv-unrestricted-posts-first" name="free" value="1" <?php echo $show_unrestricted_posts_first ? 'checked' : ''; ?>>
 						<label for="crv-unrestricted-posts-first">Kostenfreie Rezepte zuerst anzeigen</label>
 					</div>
 				<?php endif; ?>
