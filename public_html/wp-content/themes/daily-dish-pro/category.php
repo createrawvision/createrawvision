@@ -21,11 +21,10 @@ add_action(
 			$search_input     = sanitize_text_field( wp_unslash( $_GET['s_cat'] ?? '' ) );
 			$child_categories = crv_filter_categories( $child_categories, $search_input );
 
-			if ( count( $child_categories ) > 0 ) :
+			if ( $child_categories ) :
 
 				// Don't show the "no content matches" message
 				remove_action( 'genesis_loop_else', 'genesis_do_noposts' );
-				do_action( 'genesis_before_while' );
 
 				foreach ( $child_categories as $category ) {
 					$image_id      = get_field( 'featured_image', $category );
@@ -50,13 +49,12 @@ add_action(
  * Filter categories to match search.
  */
 function crv_filter_categories( $categories, $search_input ) {
-	// No search input, nothing to do.
-	if ( ! $search_input ) {
+	// No search input or no categories, nothing to do.
+	if ( ! $search_input || ! $categories ) {
 		return $categories;
 	}
 
-	$category_ids            = array_column( $categories, 'term_id' );
-	$matched_category_counts = array();
+	$category_ids = array_column( $categories, 'term_id' );
 
 	// Search for posts in categories.
 	$query_args = array(
@@ -73,6 +71,8 @@ function crv_filter_categories( $categories, $search_input ) {
 	}
 
 	// Count how often each category got matched.
+	$matched_category_counts = array();
+
 	foreach ( $matched_posts as $matched_post ) {
 		$matched_categories = get_the_terms( $matched_post->ID, 'category' );
 		if ( is_array( $matched_categories ) ) {
@@ -117,6 +117,11 @@ function crv_filter_categories( $categories, $search_input ) {
 	// Sort categories by category search first, then number of hits in post search.
 	$matched_category_ids = array_merge( $category_ids_matched_by_name, array_diff( $sorted_category_ids, $category_ids_matched_by_name ) );
 
+	// When we found nothing, return nothing.
+	if ( ! $matched_category_ids ) {
+		return array();
+	}
+
 	$categories = get_categories(
 		array(
 			'include' => $matched_category_ids,
@@ -142,7 +147,7 @@ function crv_filter_categories( $categories, $search_input ) {
  * Show forms before loop.
  */
 add_action(
-	'genesis_before_while',
+	'genesis_before_loop',
 	function () {
 		global $wp;
 		$search_input                  = sanitize_text_field( wp_unslash( $_GET['s_cat'] ?? '' ) );
@@ -174,7 +179,8 @@ add_action(
 			</form>
 		</div>
 		<?php
-	}
+	},
+	15
 );
 
 genesis();
