@@ -3002,7 +3002,7 @@ li.comment {
 .crv-grid .archive-description,
 .crv-grid > .entry-header,
 .crv-grid .pagination,
-.crv-grid .unrestricted-first {
+.crv-grid .crv-archive-forms {
   grid-column: 1 / -1;
   width: 100%;
 }
