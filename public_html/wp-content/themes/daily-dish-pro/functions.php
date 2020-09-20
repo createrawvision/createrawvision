@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.25' );
+define( 'CHILD_THEME_VERSION', '0.1.26' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -645,17 +645,38 @@ add_filter( 'body_class', 'crv_body_class_member_category' );
  * Show all posts for member categories
  * (descendants of the 'member' category)
  * and order them by post title.
+ * Add search when query param 's_cat' is set.
  */
 function crv_modify_category_query( $query ) {
 	if ( ! is_admin() && $query->is_main_query() && $query->is_category ) {
-		$current_category    = $query->query_vars['category_name'];
-		$current_category_id = get_category_by_slug( $current_category )->term_id;
-		$member_category_id  = get_category_by_slug( 'member' )->term_id;
+		$current_category   = get_queried_object();
+		$member_category_id = get_category_by_slug( 'member' )->term_id;
 
-		if ( cat_is_ancestor_of( $member_category_id, $current_category_id ) ) {
-			$query->set( 'posts_per_page', -1 );
+		if ( cat_is_ancestor_of( $member_category_id, $current_category ) ) {
+			$query->set( 'posts_per_page', 9999 ); // Don't use `-1` for now, since relevanssi overwrites it wrong.
 			$query->set( 'order', 'ASC' );
 			$query->set( 'orderby', 'title' );
+		}
+
+		// Search posts for non-parent categories.
+		$search_input = sanitize_text_field( wp_unslash( $_GET['s_cat'] ?? '' ) );
+		if ( $current_category->count && $search_input ) {
+			$query->set( 's', $search_input );
+			$query->set( 'orderby', 'relevance' );
+			$query->set( 'order', 'DESC' );
+
+			// Activate Relevanssi without loading the search template, since `$query->is_search === false`.
+			if ( function_exists( 'relevanssi_do_query' ) ) {
+				add_filter(
+					'the_posts',
+					function( $posts, $query = false ) {
+						$query = apply_filters( 'relevanssi_modify_wp_query', $query );
+						return relevanssi_do_query( $query );
+					},
+					99,
+					2
+				);
+			}
 		}
 	}
 }
@@ -788,21 +809,28 @@ require_once CHILD_DIR . '/lib/member-restriction.php';
 
 
 /**
- * Show notice, when url is **not** 'https://createrawvision.de'
+ * Show notice, when not on the production environment.
  */
 add_action(
 	'admin_notices',
 	function () {
-		if ( get_bloginfo( 'url' ) === 'https://createrawvision.de' ) {
+		if ( crv_is_production_env() ) {
 			return;
 		}
 		?>
-	<div class="notice notice-warning" style="background: linear-gradient(177deg ,hsla(60, 100%, 90%, 1) 40%, hsla(60, 100%, 70%, 1));">
-		<p style="font-size: 1.5em;">Du befindest dich auf der Test-Website. Die meisten Änderungen werden <strong>nicht gespeichert</strong>.</p>
-	</div>
+		<div class="notice notice-warning" style="background: linear-gradient(177deg ,hsla(60, 100%, 90%, 1) 40%, hsla(60, 100%, 70%, 1));">
+			<p style="font-size: 1.5em;">Du befindest dich auf der Test-Website. Die meisten Änderungen werden <strong>nicht gespeichert</strong>.</p>
+		</div>
 		<?php
 	}
 );
+
+/**
+ * Return true, if the current environment is the production environment.
+ */
+function crv_is_production_env() {
+	return 'https://createrawvision.de' === get_bloginfo( 'url' );
+}
 
 
 /**
@@ -842,9 +870,11 @@ require_once CHILD_DIR . '/lib/recipe-filter.php';
 
 
 /**
- * Connects Restrict Content Pro with MailChimp
+ * Connects Restrict Content Pro with MailChimp. Only on production!
  */
-require_once CHILD_DIR . '/lib/rcp-mailchimp.php';
+if ( crv_is_production_env() ) {
+	require_once CHILD_DIR . '/lib/rcp-mailchimp.php';
+}
 
 
 /**
@@ -1144,7 +1174,7 @@ add_action(
 
 		// Only act, when query parameter was set.
 		if ( isset( $_GET['free'] ) && $_GET['free'] ) {
-			add_filter( 'the_posts', 'crv_unrestricted_posts_first' );
+			add_filter( 'the_posts', 'crv_unrestricted_posts_first', 100 ); // After relevanssi search.
 		}
 	}
 );

@@ -45,9 +45,10 @@ Configuration for scripts is found in the files itself.
 
 ### `.scripts/pull.php`
 
-`wp eval-file .scripts/pull.php [skip-db, skip-files, local]`
+`wp eval-file .scripts/pull.php [skip-db, skip-files, local, deactivate-plugins]`
 
-Syncs all files and database from the configured host via SSH or locally. Then pulls files from GitHub.  
+Syncs all files and database from the configured host via SSH or locally.
+Then pulls files from GitHub and deactivates some plugins.  
 See file for more details.
 
 ### `.scripts/export.php`

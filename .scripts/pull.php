@@ -10,7 +10,7 @@
  * - Git remote and valid SSH key for it
  *
  * Usage:
- * wp eval-file .scripts/pull.php [skip-db, skip-files, local]
+ * wp eval-file .scripts/pull.php [skip-db, skip-files, local, deactivate-plugins]
  */
 
 /*
@@ -26,6 +26,8 @@ $old_url = 'https://createrawvision.de';
 // Folders inside wp-content, without trailing slash!
 $folders = array( 'languages', 'mu-plugins', 'plugins', 'uploads/2020' );
 
+$plugins_to_deactivate = array( 'antispam-bee', 'google-analytics-for-wordpress', 'sg-cachepress', 'wordfence' );
+
 /*
  * OPTIONS
  */
@@ -33,9 +35,10 @@ if ( ! defined( 'WP_CLI' ) ) {
 	echo 'WP_CLI not defined';
 	exit( 1 );
 }
-$skip_db    = in_array( 'skip-db', $args, true );
-$skip_files = in_array( 'skip-files', $args, true );
-$local      = in_array( 'local', $args, true );
+$skip_db            = in_array( 'skip-db', $args, true );
+$skip_files         = in_array( 'skip-files', $args, true );
+$local              = in_array( 'local', $args, true );
+$deactivate_plugins = in_array( 'deactivate-plugins', $args, true );
 
 // Avoid the output buffer.
 ob_end_flush();
@@ -97,6 +100,21 @@ if ( $skip_files ) {
 	WP_CLI::log( 'Syncing files complete' );
 }
 
+/*
+ * DEACTIVATING PLUGINS
+ */
+if ( $deactivate_plugins ) {
+	WP_CLI::log( 'Deactivating plugins: ' . join( ', ', $plugins_to_deactivate ) );
+
+	// Launch a new process, since the currently loaded WordPress instance is overwritten.
+	$command = 'wp plugin deactivate ' . join( ' ', $plugins_to_deactivate );
+	system( $command, $return_var );
+	if ( 0 !== $return_var ) {
+		WP_CLI::error( 'Deactivating plugins failed' );
+	}
+
+	WP_CLI::log( 'Deactivating plugins complete' );
+}
 
 /**
  * Helper Class for pulling files and database

@@ -34,34 +34,30 @@
     <text
        transform="scale(0.99239537,1.0076629)"
        id="text821"
-       y="279.46234"
+       y="280.28354"
        x="13.277396"
        style="font-style:normal;font-weight:normal;font-size:3.00939083px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.22570431"
        xml:space="preserve"><tspan
          id="tspan829"
          style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:5.41690397px;line-height:1.10000002;font-family:Raleway;-inkscape-font-specification:'Raleway, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.22570431"
-         y="279.46234"
+         y="280.28354"
          x="13.277396"><tspan
    id="tspan845"
    style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:6.62066031px;font-family:Raleway;-inkscape-font-specification:'Raleway, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;stroke-width:0.22570431">100</tspan>%</tspan><tspan
          id="tspan823"
          style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.21314764px;line-height:1.10000002;font-family:Raleway;-inkscape-font-specification:'Raleway, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.22570431"
-         y="283.7756"
+         y="284.5968"
          x="13.277396" /></text>
     <text
        transform="scale(1.0243836,0.97619681)"
        id="text841"
-       y="293.85147"
-       x="12.91326"
+       y="295.62842"
+       x="12.895556"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.91642404px;line-height:1;font-family:Raleway;-inkscape-font-specification:'Raleway, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.20980841"
        xml:space="preserve"><tspan
-         id="tspan843"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.91642404px;line-height:1;font-family:Raleway;-inkscape-font-specification:'Raleway, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.20980841"
-         y="293.85147"
-         x="12.91326">KOSTEN</tspan><tspan
          id="tspan849"
-         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:3.91642404px;line-height:1;font-family:Raleway;-inkscape-font-specification:'Raleway, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.20980841"
-         y="297.76788"
-         x="12.91326">LOS</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:4.93888903px;line-height:1;font-family:Raleway;-inkscape-font-specification:'Raleway, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:center;writing-mode:lr-tb;text-anchor:middle;fill:#ffffff;fill-opacity:1;stroke-width:0.20980841"
+         y="295.62842"
+         x="12.895556">GRATIS</tspan></text>
   </g>
 </svg>

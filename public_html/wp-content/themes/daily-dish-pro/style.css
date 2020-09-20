@@ -2984,7 +2984,7 @@ li.comment {
 }
 
 /**
- * Archives Grid Layout
+ * Grid Layout (especially for archives)
  */
 .crv-grid {
   display: grid;
@@ -3002,15 +3002,9 @@ li.comment {
 .crv-grid .archive-description,
 .crv-grid > .entry-header,
 .crv-grid .pagination,
-.crv-grid .unrestricted-first {
+.crv-grid .crv-archive-search {
   grid-column: 1 / -1;
   width: 100%;
-}
-
-.crv-grid .unrestricted-first button {
-  margin: 0 auto 4rem;
-  width: auto;
-  display: block;
 }
 
 .crv-grid .entry-content img {
@@ -3041,6 +3035,121 @@ li.comment {
 
 .crv-grid .entry-footer {
   margin: 0;
+}
+
+/* Archive search */
+.crv-archive-search {
+  max-width: 80rem;
+}
+
+.crv-current-archive-search {
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: flex-start;
+}
+
+.current-cat-search-hint {
+  color: #000a;
+}
+
+.current-cat-search-input {
+  font-weight: bold;
+  font-size: 1.4em;
+  line-height: 1;
+  margin: 0 2rem 0 1rem;
+  flex-grow: 1;
+}
+
+.crv-current-archive-search input[type="submit"] {
+  width: auto;
+  padding: 0;
+  text-transform: none;
+  font-size: 1em;
+  background-color: transparent;
+  color: #94006c;
+  text-decoration: underline;
+}
+
+.crv-archive-search-form {
+  margin-bottom: 5rem;
+  display: grid;
+  grid-template-areas:
+    "search button"
+    "check button";
+  grid-template-columns: 1fr auto;
+  gap: 0 3rem;
+  align-items: center;
+}
+
+.crv-archive-search-form > input[type="search"] {
+  grid-area: search;
+}
+
+.crv-unrestricted-posts-first {
+  grid-area: check;
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.crv-unrestricted-posts-first input[type="checkbox"] {
+  flex-shrink: 0;
+  --size: 2.8rem;
+  --font-size: calc(2 / 3 * var(--size));
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: var(--size);
+  height: var(--size);
+  font-size: var(--font-size);
+  line-height: var(--font-size);
+  border-radius: 10%;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.crv-unrestricted-posts-first input[type="checkbox"]:checked {
+  background-color: #94006c;
+}
+
+.crv-unrestricted-posts-first input[type="checkbox"]:checked:after {
+  content: "✔";
+}
+
+.crv-unrestricted-posts-first label {
+  padding-left: 1rem;
+}
+
+.crv-archive-search-form button {
+  grid-area: button;
+  width: auto;
+  padding: 1.5rem 2rem;
+}
+
+@media only screen and (max-width: 768px) {
+  .crv-current-archive-search {
+    flex-direction: column;
+  }
+
+  .current-cat-search-input {
+    line-height: 1.5;
+  }
+
+  .crv-archive-search-form {
+    grid-template: "search" "check" "button";
+    gap: 1rem;
+  }
+
+  .crv-unrestricted-posts-first {
+    margin: 0 0 1rem;
+  }
+}
+
+.cat-search-info {
+  display: block;
+  color: #000a;
+  font-size: 0.8em;
 }
 
 /**

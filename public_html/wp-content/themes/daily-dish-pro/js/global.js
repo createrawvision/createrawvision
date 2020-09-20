@@ -127,4 +127,18 @@
     .css( 'margin-left', imageMargin )
     .css( 'margin-right', imageMargin );
 
+  // Toggle sub menu when clicking empty (unlinked) parent element.
+  $( '.genesis-nav-menu .menu-item' )
+    .has( '.sub-menu' )
+    .find( '> a:not([href])' )
+    .click( function() { 
+      // If superfish is enabled for the current menu, don't do anything.
+      if ( $(this).parents('.genesis-nav-menu.sf-js-enabled').length ) {
+        return;
+      }
+      // Click on the toggle.
+      $(this).siblings('.sub-menu-toggle').click() 
+    }
+  );
+
 })( jQuery );
