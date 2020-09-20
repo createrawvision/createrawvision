@@ -3616,19 +3616,20 @@ Hero image for post header
   margin: 0;
 }
 
+.page-id-19655 .header-hero,
+.page-id-19838 .header-hero {
+  justify-content: flex-end;
+  padding-bottom: 5rem;
+}
+
 .page-id-19655 .header-hero {
   background-image: linear-gradient(to bottom, #0000, #0006),
     url(images/unsere-vision-hero.jpg);
-  justify-content: flex-end;
-}
-
-.page-id-19655 .header-hero .entry-title {
-  margin-bottom: 5rem;
 }
 
 .page-id-19838 .header-hero {
-  background-image: linear-gradient(to bottom, #0003, #0003),
-    url(images/unsere-vision-hero.jpg);
+  background-image: linear-gradient(to bottom, #0000, #0006),
+    url(images/neu-hier-hero.jpg);
 }
 
 @media only screen and (max-width: 480px) {
@@ -3638,8 +3639,8 @@ Hero image for post header
   }
 
   .page-id-19838 .header-hero {
-    background-image: linear-gradient(to bottom, #0003, #0003),
-      url(images/unsere-vision-hero-mobile.jpg);
+    background-image: linear-gradient(to bottom, #0000, #0006),
+      url(images/neu-hier-hero-mobile.jpg);
   }
 }
 
