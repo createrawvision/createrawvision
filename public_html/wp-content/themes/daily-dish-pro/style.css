@@ -3146,6 +3146,12 @@ li.comment {
   }
 }
 
+.cat-search-info {
+  display: block;
+  color: #000a;
+  font-size: 0.8em;
+}
+
 /**
  * Nav menu styling
  */
