@@ -143,24 +143,24 @@ add_action(
 	'genesis_before_while',
 	function () {
 		?>
-		<form class="crv-archive-forms">
-			<label>
-				Suchbegriff
-				<input type="search" name="s_cat" value="<?php echo esc_attr( $_GET['s_cat'] ); ?>" placeholder="Kekse, Hanf, Frucht, ...">
-			</label>
-			<?php
-			// Show only in leaf category when child of recipes category.
-			$recipes_category_id = 5869;
-			$category            = get_queried_object();
-			if ( $category->count && cat_is_ancestor_of( $recipes_category_id, $category ) ) :
-				?>
-				<label>
-					<input type="checkbox" name="free" <?php echo isset( $_GET['free'] ) && $_GET['free'] ? 'checked' : ''; ?>>
-					Kostenfreie Rezepte zuerst anzeigen
-				</label>
-			<?php endif; ?>
-			<button type="submit">In Kategorie suchen</button>
-		</form>
+		<div class="crv-archive-search">
+			<h2>Diese Kategorie Durchsuchen</h2>
+			<form class="crv-archive-search-form">
+				<input type="search" name="s_cat" value="<?php echo esc_attr( $_GET['s_cat'] ); ?>" placeholder="Suchbegriff" aria-label="Suchbegriff">
+				<?php
+				// Show only in leaf category when child of recipes category.
+				$recipes_category_id = 5869;
+				$category            = get_queried_object();
+				if ( $category->count && cat_is_ancestor_of( $recipes_category_id, $category ) ) :
+					?>
+					<div class="crv-unrestricted-posts-first">
+						<input type="checkbox" id="crv-unrestricted-posts-first" name="free" <?php echo isset( $_GET['free'] ) && $_GET['free'] ? 'checked' : ''; ?>>
+						<label for="crv-unrestricted-posts-first">Kostenfreie Rezepte zuerst anzeigen</label>
+					</div>
+				<?php endif; ?>
+				<button type="submit">In dieser Kategorie suchen</button>
+			</form>
+		</div>
 		<?php
 	}
 );
