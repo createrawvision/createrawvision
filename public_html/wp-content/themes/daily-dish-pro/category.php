@@ -32,8 +32,10 @@ add_action(
 					$category_link = get_category_link( $category->term_id );
 					$raw_link      = $search_input ? add_query_arg( 's_cat', $search_input, $category_link ) : $category_link;
 					$link          = esc_url( $raw_link );
-					$title         = $category->name .
-						'<span class="cat-search-info' . ( $category->direct_match ? ' direct-match' : '' ) . '">' . $category->matches . ' Treffer</span>';
+					$match_info    = $category->matches
+						? '<span class="cat-search-info' . ( $category->direct_match ? ' direct-match' : '' ) . '">' . $category->matches . ' Treffer</span>'
+						: '';
+					$title         = $category->name . $match_info;
 
 					require __DIR__ . '/templates/grid.php';
 				}
