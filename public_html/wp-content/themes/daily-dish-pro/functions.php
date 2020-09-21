@@ -917,8 +917,8 @@ function crv_enqueue_bookmark_popup() {
 function crv_init_bookmarks() {
 	global $post;
 
-	// Bail in admin and outside singular content.
-	if ( is_admin() || ! is_singular() ) {
+	// Bail in admin and outside singular content and for guests.
+	if ( is_admin() || ! is_singular() || ! is_user_logged_in() ) {
 		return;
 	}
 
