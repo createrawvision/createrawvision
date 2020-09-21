@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.26' );
+define( 'CHILD_THEME_VERSION', '0.1.27' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -422,14 +422,14 @@ remove_action( 'genesis_footer', 'genesis_do_footer' );
 
 
 /**
- * Jetpack "related posts" thumbnail size
+ * Jetpack "related posts" thumbnail size.
  */
-function crv_relatedposts_thumbnail_size( $size ) {
-	$size = array(
-		'width'  => 350,
-		'height' => 183,
+function crv_relatedposts_thumbnail_size( $thumbnail_size ) {
+	$thumbnail_size = array(
+		'width'  => 400,
+		'height' => 600,
 	);
-	return $size;
+	return $thumbnail_size;
 }
 add_filter( 'jetpack_relatedposts_filter_thumbnail_size', 'crv_relatedposts_thumbnail_size' );
 
@@ -1151,12 +1151,12 @@ add_action(
 add_action(
 	'genesis_attr_entry-header',
 	function( $attributes ) {
-		if ( ! is_page( 'unsere-vision' ) ) {
+		if ( ! is_page( array( 'unsere-vision', 'neu-hier' ) ) ) {
 			return $attributes;
 		}
 
 		// Class is always set (at least context).
-		$attributes['class'] .= ' full-width';
+		$attributes['class'] .= ' full-width header-hero';
 		return $attributes;
 	}
 );

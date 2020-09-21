@@ -124,6 +124,7 @@
   const imageMargin = 'calc(-45vw + 50%)';
   $( '.single .entry-content > p > img:only-child' )
     .parent()
+    .filter((i, el) => ! el.innerText) // Only nodes without text content!
     .css( 'margin-left', imageMargin )
     .css( 'margin-right', imageMargin );
 
