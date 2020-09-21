@@ -422,14 +422,14 @@ remove_action( 'genesis_footer', 'genesis_do_footer' );
 
 
 /**
- * Jetpack "related posts" thumbnail size
+ * Jetpack "related posts" thumbnail size.
  */
-function crv_relatedposts_thumbnail_size( $size ) {
-	$size = array(
-		'width'  => 350,
-		'height' => 183,
+function crv_relatedposts_thumbnail_size( $thumbnail_size ) {
+	$thumbnail_size = array(
+		'width'  => 400,
+		'height' => 600,
 	);
-	return $size;
+	return $thumbnail_size;
 }
 add_filter( 'jetpack_relatedposts_filter_thumbnail_size', 'crv_relatedposts_thumbnail_size' );
 

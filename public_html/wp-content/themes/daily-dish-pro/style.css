@@ -1627,10 +1627,35 @@ span.ERComment {
   display: none;
 }
 
-/* Don't make related posts less opaque */
 #jp-relatedposts .jp-relatedposts-items-visual .jp-relatedposts-post {
   -moz-opacity: 1 !important;
   opacity: 1 !important;
+}
+
+#jp-relatedposts .jp-relatedposts-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  justify-content: center !important;
+  margin: auto !important;
+  max-width: 1000px !important;
+  gap: 5rem 3rem !important;
+}
+
+#jp-relatedposts .jp-relatedposts-post {
+  width: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#jp-relatedposts .jp-relatedposts-post-title {
+  margin: 1.5rem 0 0.6rem !important;
+  font-size: inherit !important;
+}
+
+@media only screen and (max-width: 768px) {
+  #jp-relatedposts .jp-relatedposts-grid {
+    grid-template-columns: auto !important;
+  }
 }
 
 /* Shared Counts
