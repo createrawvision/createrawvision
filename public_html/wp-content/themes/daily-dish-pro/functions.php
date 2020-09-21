@@ -1331,3 +1331,19 @@ function crv_get_primary_taxonomy_id( $post_id, $taxonomy = 'category' ) {
 	}
 	return $wpseo_primary_term->get_primary_term();
 }
+
+/**
+ * Approve member comments automatically (when they are not spam).
+ */
+add_action(
+	'pre_comment_approved',
+	function( $approved ) {
+		// $approved can be 0, 1, 'spam' or 'trash'. Alter only when 0.
+		if ( crv_user_is_unrestricted() && 0 === $approved ) {
+			$approved = 1;
+		}
+
+		return $approved;
+	},
+	99
+);
