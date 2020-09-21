@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.27' );
+define( 'CHILD_THEME_VERSION', '0.1.28' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -917,8 +917,8 @@ function crv_enqueue_bookmark_popup() {
 function crv_init_bookmarks() {
 	global $post;
 
-	// Bail in admin and outside singular content.
-	if ( is_admin() || ! is_singular() ) {
+	// Bail in admin and outside singular content and for guests.
+	if ( is_admin() || ! is_singular() || ! is_user_logged_in() ) {
 		return;
 	}
 
@@ -1307,3 +1307,27 @@ add_shortcode(
 		return ob_get_clean();
 	}
 );
+
+/**
+ * Gets the primary term in the given taxonomy set via Yoast.
+ * Falls back to first term, if there is none.
+ *
+ * @link https://wordpress.stackexchange.com/a/315577
+ * @return int|false Taxonomy id or false, when there is none.
+ */
+function crv_get_primary_taxonomy_id( $post_id, $taxonomy = 'category' ) {
+	$primary_term = false;
+	if ( class_exists( 'WPSEO_Primary_Term' ) ) {
+		$wpseo_primary_term = new WPSEO_Primary_Term( $taxonomy, $post_id );
+		$primary_term       = $wpseo_primary_term->get_primary_term();
+	}
+	if ( ! is_object( $wpseo_primary_term ) || empty( $primary_term ) ) {
+		$term = wp_get_post_terms( $post_id, $taxonomy );
+		if ( isset( $term ) && ! empty( $term ) ) {
+			return $term[0]->term_id;
+		} else {
+			return false;
+		}
+	}
+	return $wpseo_primary_term->get_primary_term();
+}

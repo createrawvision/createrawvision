@@ -1,29 +1,6 @@
 <?php
 
 /**
- * Gets the primary term in the given taxonomy set via Yoast.
- * Falls back to first term, if there is none.
- *
- * @link https://wordpress.stackexchange.com/a/315577
- */
-function crv_get_primary_taxonomy_id( $post_id, $taxonomy ) {
-	$prm_term = '';
-	if ( class_exists( 'WPSEO_Primary_Term' ) ) {
-		$wpseo_primary_term = new WPSEO_Primary_Term( $taxonomy, $post_id );
-		$prm_term           = $wpseo_primary_term->get_primary_term();
-	}
-	if ( ! is_object( $wpseo_primary_term ) || empty( $prm_term ) ) {
-		$term = wp_get_post_terms( $post_id, $taxonomy );
-		if ( isset( $term ) && ! empty( $term ) ) {
-			return $term[0]->term_id;
-		} else {
-			return '';
-		}
-	}
-	return $wpseo_primary_term->get_primary_term();
-}
-
-/**
  * Navigation for posts.
  */
 class CrvPostNavigation {
@@ -31,7 +8,7 @@ class CrvPostNavigation {
 	 * Get navigation link to post category.
 	 */
 	public function get_navigation_up() {
-		$category_id = crv_get_primary_taxonomy_id( get_the_ID(), 'category' );
+		$category_id = crv_get_primary_taxonomy_id( get_the_ID() );
 		if ( ! $category_id ) {
 			return '';
 		}
