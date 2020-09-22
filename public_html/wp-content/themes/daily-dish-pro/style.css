@@ -3221,15 +3221,20 @@ li.comment {
  */
 .restriction-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 4rem;
   align-items: flex-start;
+}
+
+.restriction-wrapper > * {
+  margin: 0 auto;
 }
 
 .restriciton-message {
   background: hsl(41 52% 95% / 1);
   text-align: center;
   padding: 3rem;
+  max-width: 60rem;
   display: flex;
   flex-flow: column nowrap;
   font-size: 1.2em;
@@ -3252,9 +3257,9 @@ li.comment {
   display: inline-block;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 959px) {
   .restriction-wrapper {
-    flex-flow: column nowrap;
+    grid-template-columns: 1fr;
   }
 
   .restriction-wrapper > * {
@@ -3884,4 +3889,12 @@ List with checkmarks
 .crv-check-list > li {
   margin-bottom: 1.5rem;
   padding-left: 0.5rem;
+}
+
+/*
+Let stuff be larger then the post content.
+*/
+.make-90vw {
+  margin-left: calc(-45vw + 50%) !important;
+  margin-right: calc(-45vw + 50%) !important;
 }
