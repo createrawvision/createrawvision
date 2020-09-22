@@ -1247,6 +1247,19 @@ add_filter(
 );
 
 /**
+ * Disable GDPR checkbox for unrestricted users.
+ */
+add_filter(
+	'wpgdprc_wordpress_field',
+	function( $field ) {
+		if ( crv_user_is_unrestricted() ) {
+			return '<input type="hidden" name="wpgdprc" value="1" />';
+		}
+		return $field;
+	}
+);
+
+/**
  * Enable image upload only for unrestricted users.
  */
 add_filter(
