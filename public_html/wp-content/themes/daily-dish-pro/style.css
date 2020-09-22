@@ -1642,7 +1642,7 @@ span.ERComment {
   grid-template-columns: repeat(3, 1fr) !important;
   justify-content: center !important;
   margin: auto !important;
-  max-width: 1000px !important;
+  max-width: 1260px !important;
   gap: 5rem 3rem !important;
 }
 
