@@ -440,18 +440,6 @@ remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
 remove_action( 'genesis_after_post_content', 'genesis_post_meta' );
 
 /**
- * Smaller Comment Area
- */
-function modify_comment_form_text_area( $arg ) {
-	$arg['comment_field'] = '<p class="comment-form-comment">' .
-		'<label for="comment">' . _x( 'Kommentar', 'noun' ) . '</label>' .
-		'<textarea id="comment" name="comment" cols="45" rows="2" tabindex="4" aria-required="true"></textarea>' .
-		'</p>';
-	return $arg;
-}
-add_filter( 'comment_form_defaults', 'modify_comment_form_text_area' );
-
-/**
  * Remove Jetpack Related Posts to add them in widget
  */
 function jetpackme_remove_rp() {
@@ -1246,16 +1234,16 @@ add_filter(
  * Mark members (with active membership) in comments.
  */
 add_filter(
-	'get_comment_author',
-	function( $author, $comment_id, $comment ) {
+	'comment_class',
+	function( $classes, $class, $comment_id, $comment, $post_id ) {
 		$user_id = $comment->user_id;
 		if ( $user_id && rcp_user_has_active_membership( $user_id ) ) {
-			return $author . '<span class="comment-author-member"> (Mitglied)</span>';
+			$classes[] = 'bymember';
 		}
-		return $author;
+		return $classes;
 	},
 	10,
-	3
+	5
 );
 
 /**

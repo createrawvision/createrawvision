@@ -2441,7 +2441,7 @@ p.entry-meta a:hover {
 .comment-respond,
 .entry-comments,
 .entry-pings {
-  margin-bottom: 40px;
+  margin-bottom: 6rem;
 }
 
 .comment-header {
@@ -2453,7 +2453,15 @@ p.entry-meta a:hover {
   font-weight: bold;
 }
 
-.comment-author-member {
+.bymember .comment-author-name::after {
+  content: " (Mitglied)";
+}
+
+.bypostauthor .comment-author-name::after {
+  content: " (Autor)";
+}
+
+.comment-author-name::after {
   font-weight: normal;
   font-size: 0.8em;
 }
@@ -2462,6 +2470,7 @@ li.comment {
   border: 2px solid #bbb;
   border-right: none;
   border-bottom: none;
+  background-color: white;
 }
 
 .comment-content {
@@ -2489,6 +2498,10 @@ li.comment {
   max-width: 50rem;
 }
 
+.comment-respond p {
+  margin-bottom: 1.6rem;
+}
+
 .comment-respond label {
   display: block;
   margin-right: 12px;
@@ -2507,11 +2520,13 @@ li.comment {
   display: none;
 }
 
-.bypostauthor {
+#comment {
+  height: calc(22px + 4 * 2.925rem);
+  resize: vertical;
 }
 
-.comment-respond .wpgdprc-checkbox {
-  margin-bottom: 1em;
+#cancel-comment-reply-link {
+  margin-left: 1rem;
 }
 
 /* Sidebar
