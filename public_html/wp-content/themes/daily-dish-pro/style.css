@@ -3257,6 +3257,20 @@ li.comment {
   display: inline-block;
 }
 
+.restriction-links {
+  margin-top: 1rem;
+}
+
+.restriction-links p {
+  margin: 1.2rem 0.8rem;
+}
+
+.restriction-links a {
+  margin-bottom: 1.2rem;
+  font-weight: bold;
+  display: block;
+}
+
 @media only screen and (max-width: 959px) {
   .restriction-wrapper {
     grid-template-columns: 1fr;
