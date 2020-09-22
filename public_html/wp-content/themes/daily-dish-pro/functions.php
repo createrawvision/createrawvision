@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.28' );
+define( 'CHILD_THEME_VERSION', '0.1.29' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -438,18 +438,6 @@ add_filter( 'jetpack_relatedposts_filter_thumbnail_size', 'crv_relatedposts_thum
  */
 remove_action( 'genesis_entry_footer', 'genesis_post_meta' );
 remove_action( 'genesis_after_post_content', 'genesis_post_meta' );
-
-/**
- * Smaller Comment Area
- */
-function modify_comment_form_text_area( $arg ) {
-	$arg['comment_field'] = '<p class="comment-form-comment">' .
-		'<label for="comment">' . _x( 'Kommentar', 'noun' ) . '</label>' .
-		'<textarea id="comment" name="comment" cols="45" rows="2" tabindex="4" aria-required="true"></textarea>' .
-		'</p>';
-	return $arg;
-}
-add_filter( 'comment_form_defaults', 'modify_comment_form_text_area' );
 
 /**
  * Remove Jetpack Related Posts to add them in widget
@@ -1246,16 +1234,29 @@ add_filter(
  * Mark members (with active membership) in comments.
  */
 add_filter(
-	'get_comment_author',
-	function( $author, $comment_id, $comment ) {
+	'comment_class',
+	function( $classes, $class, $comment_id, $comment, $post_id ) {
 		$user_id = $comment->user_id;
 		if ( $user_id && rcp_user_has_active_membership( $user_id ) ) {
-			return $author . '<span class="comment-author-member"> (Mitglied)</span>';
+			$classes[] = 'bymember';
 		}
-		return $author;
+		return $classes;
 	},
 	10,
-	3
+	5
+);
+
+/**
+ * Disable GDPR checkbox for unrestricted users.
+ */
+add_filter(
+	'wpgdprc_wordpress_field',
+	function( $field ) {
+		if ( crv_user_is_unrestricted() ) {
+			return '<input type="hidden" name="wpgdprc" value="1" />';
+		}
+		return $field;
+	}
 );
 
 /**
@@ -1330,4 +1331,37 @@ function crv_get_primary_taxonomy_id( $post_id, $taxonomy = 'category' ) {
 		}
 	}
 	return $wpseo_primary_term->get_primary_term();
+}
+
+/**
+ * Approve member comments automatically (when they are not spam).
+ */
+add_action(
+	'pre_comment_approved',
+	function( $approved ) {
+		// $approved can be 0, 1, 'spam' or 'trash'. Alter only when 0.
+		if ( crv_user_is_unrestricted() && 0 === $approved ) {
+			$approved = 1;
+		}
+
+		return $approved;
+	},
+	99
+);
+
+
+/**
+ * Checks if the post is in one of the categories or any child category.
+ *
+ * @param  int|string|array $category_ids (Single category id) or (comma separated string or array of category ids).
+ * @param  int              $post_id      Post ID to check. Default to `get_the_ID()`.
+ * @return bool `true`, iff post is in any category or child category.
+ */
+function is_post_in_category( $category_ids, $post_id = null ) {
+	$args = array(
+		'include'  => $post_id ?? get_the_ID(),
+		'category' => $category_ids,
+		'fields'   => 'ids',
+	);
+	return 0 < count( get_posts( $args ) );
 }

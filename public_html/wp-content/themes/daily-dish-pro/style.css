@@ -687,6 +687,11 @@ input[type="radio"] {
   width: auto;
 }
 
+[type="checkbox"]:focus,
+[type="radio"]:focus {
+  box-shadow: 0 0 2px 2px #94006c80;
+}
+
 ::-moz-placeholder {
   color: #757575;
   font-size: 18px;
@@ -1637,7 +1642,7 @@ span.ERComment {
   grid-template-columns: repeat(3, 1fr) !important;
   justify-content: center !important;
   margin: auto !important;
-  max-width: 1000px !important;
+  max-width: 1260px !important;
   gap: 5rem 3rem !important;
 }
 
@@ -2441,7 +2446,7 @@ p.entry-meta a:hover {
 .comment-respond,
 .entry-comments,
 .entry-pings {
-  margin-bottom: 40px;
+  margin-bottom: 6rem;
 }
 
 .comment-header {
@@ -2453,7 +2458,15 @@ p.entry-meta a:hover {
   font-weight: bold;
 }
 
-.comment-author-member {
+.bymember .comment-author-name::after {
+  content: " (Mitglied)";
+}
+
+.bypostauthor .comment-author-name::after {
+  content: " (Autor)";
+}
+
+.comment-author-name::after {
   font-weight: normal;
   font-size: 0.8em;
 }
@@ -2462,6 +2475,7 @@ li.comment {
   border: 2px solid #bbb;
   border-right: none;
   border-bottom: none;
+  background-color: white;
 }
 
 .comment-content {
@@ -2489,6 +2503,10 @@ li.comment {
   max-width: 50rem;
 }
 
+.comment-respond p {
+  margin-bottom: 1.6rem;
+}
+
 .comment-respond label {
   display: block;
   margin-right: 12px;
@@ -2507,11 +2525,13 @@ li.comment {
   display: none;
 }
 
-.bypostauthor {
+#comment {
+  height: calc(22px + 4 * 2.925rem);
+  resize: vertical;
 }
 
-.comment-respond .wpgdprc-checkbox {
-  margin-bottom: 1em;
+#cancel-comment-reply-link {
+  margin-left: 1rem;
 }
 
 /* Sidebar
@@ -3201,15 +3221,20 @@ li.comment {
  */
 .restriction-wrapper {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 4rem;
   align-items: flex-start;
+}
+
+.restriction-wrapper > * {
+  margin: 0 auto;
 }
 
 .restriciton-message {
   background: hsl(41 52% 95% / 1);
   text-align: center;
   padding: 3rem;
+  max-width: 60rem;
   display: flex;
   flex-flow: column nowrap;
   font-size: 1.2em;
@@ -3232,9 +3257,9 @@ li.comment {
   display: inline-block;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 959px) {
   .restriction-wrapper {
-    flex-flow: column nowrap;
+    grid-template-columns: 1fr;
   }
 
   .restriction-wrapper > * {
@@ -3864,4 +3889,12 @@ List with checkmarks
 .crv-check-list > li {
   margin-bottom: 1.5rem;
   padding-left: 0.5rem;
+}
+
+/*
+Let stuff be larger then the post content.
+*/
+.make-90vw {
+  margin-left: calc(-45vw + 50%) !important;
+  margin-right: calc(-45vw + 50%) !important;
 }

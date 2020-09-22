@@ -88,18 +88,27 @@ function crv_restricted_content() {
 		$primary_category_id   = crv_get_primary_taxonomy_id( get_the_ID() );
 		$primary_category_name = get_category( $primary_category_id )->name;
 		$primary_category_link = get_category_link( $primary_category_id );
+		$is_recipe             = is_post_in_category( 5869 );
 
 		$restrict_message  = '<div class="restriciton-message">';
 		$restrict_message .= '<p>Dieser Beitrag ist nur für Mitglieder verfügbar. Werde Mitglied, um Zugriff zu erhalten.</p>';
 		$restrict_message .= '<a href="' . esc_url( add_query_arg( 'level', 2, get_permalink( $rcp_options['registration_page'] ) ) ) . '"><button class="cta-button cta-button--small">Jetzt Mitglied werden</button></a>';
 		$restrict_message .= '<a href="' . esc_url( home_url() ) . '"><button class="cta-button cta-button--small">Mehr erfahren</button></a>';
-		$restrict_message .= '<p><i>Noch nicht überzeugt?</i><br>Schau dir <a href="' . esc_url( $primary_category_link ) . '" target="_blank">hier alle Rohkost Rezepte für <b>' . esc_html( $primary_category_name ) . '</b></a>';
-		$restrict_message .= ' und <a href="' . esc_url( get_category_link( 5869 ) ) . '" target="_blank">hier eine Übersicht über <b>alle Rohkost Rezepte</b></a>&nbsp;an.</p>';
+		$restrict_message .= '<p><i>Noch nicht überzeugt?</i><br>Schau dir weitere ' . ( $is_recipe ? 'Rezepte' : 'Beiträge' ) . ' aus unserem Mitgliederbereich an:<br>';
+		$restrict_message .= '<a href="' . esc_url( $primary_category_link ) . '" target="_blank"><b>' . esc_html( $primary_category_name ) . '</b></a><br>';
+		$restrict_message .= '<a href="' . esc_url( get_category_link( 5869 ) ) . '" target="_blank"><b>Alle Rohkost Rezepte</b></a></p>';
 		$restrict_message .= '<p><i>Bereits Mitglied?</i><br><a href="' . esc_url( get_permalink( get_page_by_path( 'login' ) ) ) . '">Hier geht\'s <b>zum&nbsp;Login</b></a>.</p>';
 		$restrict_message .= '</div>';
 	}
 
-	return $teaser_image . $excerpt . '<div class="restriction-wrapper">' . rcp_restricted_message_pending_verification( $restrict_message ) . $post_thumbnail . '</div>';
+	return '<div class="make-90vw">'
+		. $teaser_image
+		. '</div>'
+		. $excerpt
+		. '<div class="restriction-wrapper">'
+			. rcp_restricted_message_pending_verification( $restrict_message )
+			. $post_thumbnail
+		. '</div>';
 }
 
 /**

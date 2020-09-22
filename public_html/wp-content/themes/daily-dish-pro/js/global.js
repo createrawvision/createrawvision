@@ -121,12 +121,10 @@
   });
   
   // Make images in post content top level 90vw wide.
-  const imageMargin = 'calc(-45vw + 50%)';
   $( '.single .entry-content > p > img:only-child' )
     .parent()
     .filter((i, el) => ! el.innerText) // Only nodes without text content!
-    .css( 'margin-left', imageMargin )
-    .css( 'margin-right', imageMargin );
+    .addClass('make-90vw');
 
   // Toggle sub menu when clicking empty (unlinked) parent element.
   $( '.genesis-nav-menu .menu-item' )
