@@ -1966,6 +1966,18 @@ span.ERComment {
   bottom: 0.5rem;
 }
 
+/* Fix Layout Shift on mobile before responsive menu loads */
+@media only screen and (max-width: 768px) {
+  .nav-primary:not(.genesis-responsive-menu) {
+    height: 48px;
+    overflow: scroll;
+  }
+
+  .nav-secondary {
+    display: none;
+  }
+}
+
 /* Header Search
 --------------------------------------------- */
 
