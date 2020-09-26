@@ -85,18 +85,42 @@ function crv_restricted_content() {
 	} else {
 		global $rcp_options;
 
-		$primary_category_id   = crv_get_primary_taxonomy_id( get_the_ID() );
-		$primary_category_name = get_category( $primary_category_id )->name;
-		$primary_category_link = get_category_link( $primary_category_id );
-		$is_recipe             = is_post_in_category( 5869 );
+		$recipes_category_id   = 5869;
+		$course_category_id    = 5792;
+		$tutorials_category_id = 5287;
+
+		$root_category = is_post_in_category( $recipes_category_id ) ? 'recipe'
+			: ( is_post_in_category( $course_category_id ) ? 'course'
+			: ( is_post_in_category( $tutorials_category_id ) ? 'tutorial' : 'recipe' ) );
 
 		$restrict_message  = '<div class="restriciton-message">';
 		$restrict_message .= '<p>Dieser Beitrag ist nur für Mitglieder verfügbar. Werde Mitglied, um Zugriff zu erhalten.</p>';
 		$restrict_message .= '<a href="' . esc_url( add_query_arg( 'level', 2, get_permalink( $rcp_options['registration_page'] ) ) ) . '"><button class="cta-button cta-button--small">Jetzt Mitglied werden</button></a>';
 		$restrict_message .= '<a href="' . esc_url( home_url() ) . '"><button class="cta-button cta-button--small">Mehr erfahren</button></a>';
-		$restrict_message .= '<p><i>Noch nicht überzeugt?</i><br>Schau dir weitere ' . ( $is_recipe ? 'Rezepte' : 'Beiträge' ) . ' aus unserem Mitgliederbereich an:<br>';
-		$restrict_message .= '<a href="' . esc_url( $primary_category_link ) . '" target="_blank"><b>' . esc_html( $primary_category_name ) . '</b></a><br>';
-		$restrict_message .= '<a href="' . esc_url( get_category_link( 5869 ) ) . '" target="_blank"><b>Alle Rohkost Rezepte</b></a></p>';
+
+		$restrict_message .= '<div class="restriction-links">';
+		switch ( $root_category ) {
+			case 'recipe':
+				$primary_category_id   = crv_get_primary_taxonomy_id( get_the_ID() );
+				$primary_category_name = get_category( $primary_category_id )->name;
+				$primary_category_link = get_category_link( $primary_category_id );
+
+				$restrict_message .= '<p><i>Noch nicht überzeugt?</i><br>Schau dir weitere Rohkost Rezepte aus unserem Mitgliederbereich an:</p>';
+				$restrict_message .= '<a href="' . esc_url( $primary_category_link ) . '" target="_blank">' . esc_html( $primary_category_name ) . '</a>';
+				break;
+			case 'course':
+				$restrict_message .= '<p><i>Noch nicht überzeugt?</i><br>Schau dir die Übersicht über den gesamten Kurs an:</p>';
+				$restrict_message .= '<a href="' . esc_url( get_category_link( $course_category_id ) ) . '" target="_blank">' . esc_html( get_category( $course_category_id )->name ) . '</a>';
+				break;
+			case 'tutorial':
+				$restrict_message .= '<p><i>Noch nicht überzeugt?</i><br>Schau dir die Übersicht über alle Tipps &amp; Tutorials an:<br>';
+				$restrict_message .= '<a href="' . esc_url( get_category_link( $tutorials_category_id ) ) . '" target="_blank">' . esc_html( get_category( $tutorials_category_id )->name ) . '</a>';
+				break;
+		}
+		$restrict_message .= '<p>Oder schau dir hier die Übersicht über alle Rohkost Rezepte an:</p>';
+		$restrict_message .= '<a href="' . esc_url( get_category_link( 5869 ) ) . '" target="_blank">Alle Rohkost Rezepte</a>';
+		$restrict_message .= '</div>';
+
 		$restrict_message .= '<p><i>Bereits Mitglied?</i><br><a href="' . esc_url( get_permalink( get_page_by_path( 'login' ) ) ) . '">Hier geht\'s <b>zum&nbsp;Login</b></a>.</p>';
 		$restrict_message .= '</div>';
 	}

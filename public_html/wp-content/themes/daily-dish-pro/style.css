@@ -1966,6 +1966,18 @@ span.ERComment {
   bottom: 0.5rem;
 }
 
+/* Fix Layout Shift on mobile before responsive menu loads */
+@media only screen and (max-width: 768px) {
+  .nav-primary:not(.genesis-responsive-menu) {
+    height: 48px;
+    overflow: scroll;
+  }
+
+  .nav-secondary {
+    display: none;
+  }
+}
+
 /* Header Search
 --------------------------------------------- */
 
@@ -3255,6 +3267,20 @@ li.comment {
 .restriciton-message .cta-button {
   padding: 1.5rem 2rem;
   display: inline-block;
+}
+
+.restriction-links {
+  margin-top: 1rem;
+}
+
+.restriction-links p {
+  margin: 1.2rem 0.8rem;
+}
+
+.restriction-links a {
+  margin-bottom: 1.2rem;
+  font-weight: bold;
+  display: block;
 }
 
 @media only screen and (max-width: 959px) {
