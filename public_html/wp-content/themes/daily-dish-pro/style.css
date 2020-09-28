@@ -2623,6 +2623,14 @@ li.comment {
   max-width: calc(100% - var(--gap));
 }
 
+.footer-widgets p {
+  margin-bottom: 1.6rem;
+}
+
+.footer-widgets .widget {
+  margin-bottom: 2rem;
+}
+
 /* Site Footer
 ---------------------------------------------------------------------------------------------------- */
 
