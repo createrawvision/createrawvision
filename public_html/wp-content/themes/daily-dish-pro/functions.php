@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.32' );
+define( 'CHILD_THEME_VERSION', '0.1.33' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -1365,3 +1365,24 @@ function is_post_in_category( $category_ids, $post_id = null ) {
 	);
 	return 0 < count( get_posts( $args ) );
 }
+
+
+/**
+ * Add topfruits cooperation above register page
+ */
+add_action(
+	'genesis_entry_header',
+	function() {
+		global $rcp_options;
+		if ( ! is_page( $rcp_options['registration_page'] ) ) {
+			return;
+		}
+		?>
+		<div class="crv-cooperations">
+			<span class="description">Eine Kooperation mit</span>
+			<img src="<?php echo esc_url( CHILD_URL . '/images/topfruits-logo.jpg' ); ?>" alt="Topfruits">
+		</div>
+		<?php
+	},
+	4
+);

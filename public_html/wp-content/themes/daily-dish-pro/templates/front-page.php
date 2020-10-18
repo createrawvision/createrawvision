@@ -8,6 +8,10 @@ $recipes_category_id       = 5869;
 	<h1 class="hero__title">Willkommen bei CreateRawVision</h1>
 	<p class="hero__subtitle">Deine Anlaufstelle für Rohkost Rezepte</p>
 </header>
+<div class="crv-cooperations full-width">
+	<span class="description">Eine Kooperation mit</span>
+	<img src="<?php echo esc_url( CHILD_URL . '/images/topfruits-logo.jpg' ); ?>" alt="Topfruits">
+</div>
 
 <section class="overview full-width" aria-label="Übersicht">
 	<img class="bubble bubble--right" src="<?php echo esc_url( CHILD_URL . '/images/home-himbeerbisquittorte.jpg' ); ?>" alt="Himbeerbisquittorte">

@@ -3932,3 +3932,39 @@ Let stuff be larger then the post content.
   margin-left: calc(-45vw + 50%) !important;
   margin-right: calc(-45vw + 50%) !important;
 }
+
+/*
+Cooperations
+*/
+.crv-cooperations {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.crv-cooperations.full-width {
+  background-color: hsl(40 52% 89%);
+  justify-content: center;
+  box-shadow: 0 0.5rem 1rem #0008;
+  padding: 2rem;
+}
+
+.crv-cooperations:not(.full-width) {
+  justify-content: flex-end;
+  margin: -1rem auto 1rem;
+  max-width: 900px;
+}
+
+.crv-cooperations .description {
+  margin: 1rem 1.4rem;
+  font-style: italic;
+}
+
+.crv-cooperations > *:nth-child(2) {
+  flex-shrink: 0;
+}
+
+.crv-cooperations img {
+  max-height: 7.5rem;
+}
