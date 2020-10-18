@@ -1365,3 +1365,24 @@ function is_post_in_category( $category_ids, $post_id = null ) {
 	);
 	return 0 < count( get_posts( $args ) );
 }
+
+
+/**
+ * Add topfruits cooperation above register page
+ */
+add_action(
+	'genesis_entry_header',
+	function() {
+		global $rcp_options;
+		if ( ! is_page( $rcp_options['registration_page'] ) ) {
+			return;
+		}
+		?>
+		<div class="crv-cooperations">
+			<span class="description">Eine Kooperation mit</span>
+			<img src="<?php echo esc_url( CHILD_URL . '/images/topfruits-logo.jpg' ); ?>" alt="Topfruits">
+		</div>
+		<?php
+	},
+	4
+);
