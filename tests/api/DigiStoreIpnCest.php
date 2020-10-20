@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable
 
 function rand_str( $len = 16 ) {
 	return substr( md5( uniqid( mt_rand(), true ) ), 0, $len );
@@ -202,15 +203,15 @@ class DigiStoreIpnCest {
 		$I->sendPOST( self::API_URL, $body );
 	}
 
-	private function receive_initial_payment_ipn( ApiTester $I, $transaction_id = null ) {
-		$this->receive_ipn(
-			$I,
-			array(
-				'transaction_id'  => $transaction_id ?? rand_str(),
-				'pay_sequence_no' => 1,
-				'custom'          => $this->user_id . '|' . $this->membership_id,
-			)
+	private function receive_initial_payment_ipn( ApiTester $I, $body = array() ) {
+		$default_body = array(
+			'transaction_id'  => rand_str(),
+			'pay_sequence_no' => 1,
+			'custom'          => $this->user_id . '|' . $this->membership_id,
 		);
+		$body = array_merge( $default_body, $body );
+
+		$this->receive_ipn( $I, $body );
 	}
 
 	private function receive_renewal_payment_ipn( ApiTester $I, $pay_sequence_no, $transaction_id = null ) {
@@ -398,10 +399,10 @@ class DigiStoreIpnCest {
 		);
 	}
 
-		/**
-		 * one day after the `next_payment_at` ipn-parameter is the new expiration date
-		 * set the next_payment_at to 100 days later and check that expiration is in 100 days before midnight
-		 */
+	/**
+	 * one day after the `next_payment_at` ipn-parameter is the new expiration date
+	 * set the next_payment_at to 100 days later and check that expiration is in 100 days before midnight
+	 */
 	public function test_ipn_determines_initial_expiration( ApiTester $I ) {
 		$this->create_pending_membership( $I );
 
@@ -498,6 +499,27 @@ class DigiStoreIpnCest {
 				'id'                 => $this->membership_id,
 				'status'             => 'active',
 				'expiration_date <=' => date( 'Y-m-d H:i:s', strtotime( '+1 month +1 day' ) ),
+			)
+		);
+	}
+
+	/**
+	 * Test paying over cancelled membership doesn't expire.
+	 */
+	public function test_no_expiration_after_re_purchase( ApiTester $I ) {
+		$new_gateway_subscription_id = $this->gateway_subscription_id;
+		$this->create_active_membership( $I );
+
+		// Notification from cancel before re-purchase with old id.
+		$this->gateway_subscription_id = 'should_be_ignored';
+		$this->receive_payment_missed_ipn( $I );
+
+		$I->seeInDatabase(
+			'a2kA1_rcp_memberships',
+			array(
+				'id'     => $this->membership_id,
+				'status' => 'active',
+				'gateway_subscription_id' => $new_gateway_subscription_id
 			)
 		);
 	}

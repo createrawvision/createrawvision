@@ -159,7 +159,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 		$user_id    = 0;
 		$posted     = apply_filters( 'rcp_ipn_post', $_POST );
 		$membership = false;
-		// sent by `process_signup()`: array [user_id, membership_id]
+		// Sent on **every** IPN, set by `process_signup()`: array [user_id, membership_id]
 		$custom = ! empty( $posted['custom'] ) ? explode( '|', $posted['custom'] ) : false;
 
 		/**
@@ -173,14 +173,19 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 			$membership = rcp_get_membership_by( 'gateway_subscription_id', $posted['order_id'] );
 		}
 
-		// get membership object by membership_id in custom field (sent by `process_signup()`)
-		if ( empty( $membership ) && ! empty( $custom[1] ) ) {
+		/**
+		 * Only on payment: Get membership object by membership_id in custom field.
+		 *
+		 * When the order_id for this membership changes but the memberships stays the same
+		 * (e.g. by paying over a cancelled membership), IPNs still get sent with the given membership id.
+		 */
+		if ( 'on_payment' === $posted['event'] && empty( $membership ) && ! empty( $custom[1] ) ) {
 			$membership = rcp_get_membership( absint( $custom[1] ) );
 		}
 
 		// membership object not found
 		if ( empty( $membership ) || ! $membership->get_id() > 0 ) {
-			rcp_log( 'Exiting DigiStore IPN - membership ID not found.', true );
+			rcp_log( "Exiting DigiStore IPN - membership ID not found. Event: {$posted['event']}, Order-ID: {$posted['order_id']}", true );
 			die( 'no membership found' );
 		}
 
@@ -200,7 +205,7 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 			die( 'no membership level found' );
 		}
 
-		$membership_level = rcp_get_subscription_details( $membership_level_id );
+		$membership_level = rcp_get_membership_level( $membership_level_id );
 		if ( ! $membership_level ) {
 			rcp_log( 'Exiting DigiStore IPN - no membership level found.', true );
 			die( 'no membership level found' );

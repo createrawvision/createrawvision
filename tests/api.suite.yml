@@ -4,8 +4,6 @@ modules:
     - \Helper\Api
     - WPDb
     - WPBrowser
-    # DISABLED: Use it with api tests to access wordpress function
-    # - WPLoader
     - WPCLI
     - Asserts
     - REST
@@ -36,11 +34,3 @@ modules:
         X_WPBROWSER_REQUEST: 1
     WPCLI:
       path: "%WP_ROOT_FOLDER%"
-    # WPLoader:
-    #   loadOnly: true
-    #   wpRootFolder: "%WP_ROOT_FOLDER%"
-    #   dbName: "%TEST_SITE_DB_NAME%"
-    #   dbHost: "%TEST_SITE_DB_HOST%"
-    #   dbUser: "%TEST_SITE_DB_USER%"
-    #   dbPassword: "%TEST_SITE_DB_PASSWORD%"
-    #   domain: "%TEST_SITE_WP_URL%"
