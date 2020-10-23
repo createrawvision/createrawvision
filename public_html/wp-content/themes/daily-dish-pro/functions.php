@@ -1378,7 +1378,7 @@ add_action(
 			return;
 		}
 		?>
-		<div class="crv-cooperations">
+		<div class="crv-cooperations" style="margin: -1rem auto 1rem;">
 			<span class="description">Eine Kooperation mit</span>
 			<img src="<?php echo esc_url( CHILD_URL . '/images/topfruits-logo.jpg' ); ?>" alt="Topfruits">
 		</div>

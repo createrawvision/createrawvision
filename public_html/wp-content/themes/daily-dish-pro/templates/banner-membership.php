@@ -10,5 +10,9 @@
 				Jetzt mit Rohkost durchstarten!
 			</button>
 		</a>
+		<div class="crv-cooperations">
+			<span class="description">Eine Kooperation mit</span>
+			<img src="<?php echo esc_url( CHILD_URL . '/images/topfruits-logo.jpg' ); ?>" alt="Topfruits">
+		</div>
 	</div>
 </div>

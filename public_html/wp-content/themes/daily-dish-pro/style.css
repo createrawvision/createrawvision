@@ -3952,7 +3952,6 @@ Cooperations
 
 .crv-cooperations:not(.full-width) {
   justify-content: flex-end;
-  margin: -1rem auto 1rem;
   max-width: 900px;
 }
 
