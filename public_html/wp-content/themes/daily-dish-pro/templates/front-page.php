@@ -312,13 +312,13 @@ $recipes_category_id       = 5869;
 		<ul class="offer2__list">
 			<li class="offer2__item">
 				Über 500 exklusive, gesunde, vitalstoffreiche, köstliche und getestete
-				rohe und vegane Rohkost Rezepte (Link zu Membershiprezepten) Diese Rezepte passen
-				hervorragend zu vielen gesunden Ernährungsrichtungen. Das beinhaltet
-				Rohkost, vegan, vegetarisch, milchfrei, eifrei, sojafrei, glutenfrei und
-				noch vieles darüber hinaus.
+				<a href="<?php echo esc_url( get_category_link( $recipes_category_id ) ); ?>" target="_blank">vegane Rohkost Rezepte</a>.
+				Diese Rezepte passen hervorragend zu vielen gesunden Ernährungsrichtungen.
+				Das beinhaltet Rohkost, vegan, vegetarisch, milchfrei, eifrei, sojafrei,
+				glutenfrei und noch vieles darüber hinaus.
 			</li>
 			<li class="offer2__item">
-				Verschiedene Zubereitungstechniken mit denen du deine Rezepte so
+				Verschiedene Zubereitungstechniken, mit denen du deine Rezepte so
 				zubereiten kannst, dass sie köstlich schmecken und dennoch alle wertvollen
 				Vitalstoffe erhalten bleiben. Das beinhaltet das Zubereiten von Speisen
 				mit einer ähnlichen Textur und ähnlichem Geschmack wie gekochte Speisen.

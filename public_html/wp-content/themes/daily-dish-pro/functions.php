@@ -49,7 +49,7 @@ require_once CHILD_DIR . '/lib/woocommerce/woocommerce-notice.php';
 define( 'CHILD_THEME_NAME', __( 'Daily Dish Pro', 'daily-dish-pro' ) );
 define( 'CHILD_THEME_URL', 'https://my.studiopress.com/themes/daily-dish/' );
 // define( 'CHILD_THEME_VERSION', '2.0.0' );
-define( 'CHILD_THEME_VERSION', '0.1.33' );
+define( 'CHILD_THEME_VERSION', '0.1.34' );
 
 add_action( 'wp_enqueue_scripts', 'daily_dish_enqueue_scripts_styles' );
 /**
@@ -1378,7 +1378,7 @@ add_action(
 			return;
 		}
 		?>
-		<div class="crv-cooperations">
+		<div class="crv-cooperations" style="margin: -1rem auto 1rem;">
 			<span class="description">Eine Kooperation mit</span>
 			<img src="<?php echo esc_url( CHILD_URL . '/images/topfruits-logo.jpg' ); ?>" alt="Topfruits">
 		</div>
