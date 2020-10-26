@@ -74,6 +74,7 @@ function show_dashboard() {
 		'further',
 		'support',
 		'settings',
+		'feedback',
 	);
 
 	foreach ( $sections as $section ) {
@@ -247,6 +248,17 @@ function show_settings() {
 			<a href="<?php the_permalink( $rcp_options['account_page'] ); ?>" class="dashboard-cards__link">Mitgliedschaft verwalten</a>
 		</li>
 	</ul>
+	<?php
+}
+
+/**
+ * Section with a feedback button linking to contact form.
+ */
+function show_feedback() {
+	?>
+	<h2 class="feedback__heading">Feedback / Rückmeldung</h2>
+	<p class="feedback__text">Wir möchten dir deine Mitgliedschaft so hilfreich wie nur möglich machen.<br>Hilf uns dabei, das zu erreichen.</p>
+	<div class="feedback__button"><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'kontaktformular' ) ) ); ?>">Sag uns hier, was wir verbessern können!</a></div>
 	<?php
 }
 

@@ -248,7 +248,7 @@ Recipe request
 }
 
 /*
-Support
+Support & Feedback
 */
 .support__list {
   display: flex;
@@ -263,6 +263,7 @@ Support
   margin: var(--gap-vertical) 0 0 var(--gap-horizontal) !important;
 }
 
+.feedback__button,
 .support__item {
   display: inline-block;
   width: auto;
@@ -276,11 +277,13 @@ Support
   font-weight: bold;
 }
 
+.feedback__button:hover,
 .support__item:hover {
   box-shadow: var(--box-shadow);
   transform: scale(1.01);
 }
 
+.feedback__button > a,
 .support__item > a {
   text-decoration: none;
 }
