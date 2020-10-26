@@ -6,37 +6,11 @@ WordPress Blog about raw food and related things.
 
 ```
 /
-|-- .scripts            For managing environments (pulling from server and deploying changes)
-|-- deployment_data     Data used for deploying changes. Neccessary because we dropped most of WP
+|-- .scripts            For managing environments (pulling files and database from server)
 |-- public_html         Stripped down WordPress
     |-- wp-content
         |-- themes
 |-- tests               WPBrowser/Codeception test without generated data
-```
-
-## Procedures
-
-### Deployment
-
-```
-git pull
-wp eval-file .scripts/deploy.php --user=Josef
-```
-
-1. Test deployment on dev environment
-2. Test deployment on up-to-date staging environment (pull with `wp eval-file .scripts/pull.php local` first)
-3. Activate maintanence mode (on live environment): `wp maintenance-mode activate`
-4. Create fresh staging copy
-5. Deploy to staging
-6. Perform a quick test
-7. Deactivate maintanence mode (on staging environment): `wp maintanence-mode deactivate`
-8. Deploy staging environment to live environment
-
-When deployment can't be handled by the server in one go, put all your versions in a shell variable `versions` in order. Then run:
-
-```
-versions=(0.1.0-alpha.01 0.1.0-alpha.02 0.1.0-alpha.03 0.1.0-alpha.04 0.1.0-alpha.05 0.1.0-alpha.06 0.1.0-alpha.07 0.1.0-alpha.08 0.1.0-alpha.09 0.1.0-alpha.10 0.1.0)
-for version in ${versions[*]}; do wp eval-file .scripts/deploy.php $version --user=Josef; done
 ```
 
 ## Scripts
@@ -50,19 +24,6 @@ Configuration for scripts is found in the files itself.
 Syncs all files and database from the configured host via SSH or locally.
 Then pulls files from GitHub and deactivates some plugins.  
 See file for more details.
-
-### `.scripts/export.php`
-
-`wp eval-file .scripts/export.php`
-
-Exports changes from the current environment and writes them to a file to be used in deployment. Overwrites data.
-
-### `.scripts/deploy.php`
-
-`wp eval-file .scripts/deploy.php --user=Josef`
-
-Deployment script, which makes all database changes. Tracks the current version by the `crv_version` option.  
-Don't forget to set an admin user, to pass all `current_user_can` checks.
 
 ## Production Server Requirement
 
