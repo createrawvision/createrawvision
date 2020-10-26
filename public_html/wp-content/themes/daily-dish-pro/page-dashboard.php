@@ -258,7 +258,11 @@ function show_feedback() {
 	?>
 	<h2 class="feedback__heading">Feedback / Rückmeldung</h2>
 	<p class="feedback__text">Wir möchten dir deine Mitgliedschaft so hilfreich wie nur möglich machen.<br>Hilf uns dabei, das zu erreichen.</p>
-	<div class="feedback__button"><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'kontaktformular' ) ) ); ?>">Sag uns hier, was wir verbessern können!</a></div>
+	<div class="feedback__button">
+		<a href="<?php echo esc_url( add_query_arg( 'feedback', '', get_permalink( get_page_by_path( 'kontaktformular' ) ) ) ); ?>">
+			Sag uns hier, was wir verbessern können!
+		</a>
+	</div>
 	<?php
 }
 

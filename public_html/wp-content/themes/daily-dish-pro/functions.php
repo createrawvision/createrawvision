@@ -992,6 +992,19 @@ add_filter(
 	}
 );
 
+/**
+ * Pre-select feedback category when get parameter `feedback` is set.
+ */
+add_filter(
+	'wpsc_default_ticket_category',
+	function( $ticket_category_id ) {
+		$feedback_category_id = 6191;
+		if ( isset( $_POST['feedback'] ) ) {
+			$ticket_category_id = $feedback_category_id;
+		}
+		return $ticket_category_id;
+	}
+);
 
 /**
  * Show help button with popup on the bottom right.
