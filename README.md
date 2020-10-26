@@ -6,11 +6,14 @@ WordPress Blog about raw food and related things.
 
 ```
 /
-|-- .scripts            For managing environments (pulling files and database from server)
-|-- public_html         Stripped down WordPress
+|-- .scripts              For managing environments (pulling files and database from server)
+|-- public_html           Stripped down WordPress
     |-- wp-content
-        |-- themes
-|-- tests               WPBrowser/Codeception test without generated data
+        |-- languages     Only some custom translations
+        |-- mu-plugins
+        |-- plugins       Only wp-bookmarks plugin (it had to be customized, since it was outdated)
+        |-- themes        Most customization is done here
+|-- tests                 WPBrowser/Codeception test without generated data
 ```
 
 ## Scripts
@@ -27,88 +30,27 @@ See file for more details.
 
 ## Production Server Requirement
 
-In order to keep the repo small in size, I'm ignoring most of WordPress - everything except the **`themes`** folder (at the moment of writing).  
+In order to keep the repo small in size, I'm ignoring most of WordPress.  
 So the production has to come with **WordPress and all Plugins installed**.  
 The root WP folder has to be **`public_html`**.  
 **WP-CLI** has to be installed for scripts to run (`echo 'path: public_html' > wp-cli.yml` to allow execution from project root folder).
 
-### Plugins
+## Plugins & Themes
 
-<details>
-<summary>Plugin List</summary>
+This list is *not* comprehensive, it just shows the central dependencies to other code.
 
-- ad-inserter  
-  For inserting banner ads on top and within the content.
-- antispam-bee  
-  For filtering spam comments.
-- autoptimize  
-  Minifying everything. Works better than SiteGround Plugin for now, but eventually removing it.
-- classic-editor  
-  Opt out of block editor.
-- code-snippets  
-  Custom PHP snippets. Gets removed.
-- contact-form-7  
-  Contact forms. Gets replaced.
-- cookie-notice  
-  Cookie notice popup. Gets removed.
-- genesis-enews-extended  
-  Subscription form.
-- google-analytics-for-wordpress  
-  User tracking.
-- jetpack  
-  Currently used for lazy-loading images, image CDN, automatic social media sharing, comment subscriptions and similar post suggestions
-- jquery-pin-it-button-for-images  
-  Pinterest Pin Buttons. Gets replaced.
-- luckywp-table-of-contents  
-  Table of contents.
-- polylang  
-  Multilingual Plugin. Deactivated for now.
-- popup-maker  
-  Show newsletter popup.
-- redirection  
-  Redirects for changing urls.
-- relevanssi  
-  Better search.
-- sg-cachepress  
-  SiteGround Optimizer plugin. Maybe use all features in the future.
-- shared-counts  
-  Fast sharing plugin
-- shortcodes-ultimate  
-  Some styling shortcodes. Gets replaced.
-- slide-anything  
-  Sliders.
-- tablepress  
-  Better tables for WP.
-- tablepress-responsive-tables  
-  Make tables responsive.
-- tinymce-advanced  
-  Classic Paragraph for Block editor.
-- user-role-editor  
-  Custom user roles with custom capabilites.
-- widget-logic  
-  Show widgets only on certain pages. Gets removed.
-- widget-shortcode  
-  Use widgets as a shortcode. Gets removed.
-- wordfence  
-  Making wordpress more secure. Gets removed.
-- wp-gdpr-compliance  
-  Making WordPress GDPR compliant. Gets removed.
-- wp-recipe-maker  
-  Managing recipes in a beatiful way.
-- wp-recipe-maker-premium
-- wp-user-avatar  
-  Use custom user avatars.
-- wordpress-seo  
-  YoastSEO. Improved everything SEO.
-
-</details>
+- Parent Theme: Genesis ([Developer Docs](https://studiopress.github.io/genesis/))
+- Child Theme: Daily Dish Pro ([Setup Instructions](https://my.studiopress.com/documentation/daily-dish-pro-theme/))
+- Membership Plugin: Restrict Content Pro ([Documentation](https://docs.restrictcontentpro.com/))
+- Recipes Plugin: WP Recipe Maker ([Documentation](https://help.bootstrapped.ventures/collection/1-wp-recipe-maker))
 
 ## Setup
 
-1. Set up a local development environment with WordPress installed.
+1. Set up a local development environment ready to use WordPress.
 2. Clone this repo.
-3. For testing, run `composer init`.
-4. Now you're good to go.
+3. Run the pull script to get the current state from the server (see [`.scripts/pull.php`](#scriptspullphp)).
+4. If you want to run tests, execute `composer init` and save a database dump to `./tests/_data/dump.sql`.
+5. Now you're good to go.
 
 ## Project Organization
 
