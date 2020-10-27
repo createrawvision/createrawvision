@@ -41,11 +41,8 @@ add_filter(
 add_filter(
 	'genesis_attr_entry-header',
 	function( $attributes ) {
-		if ( isset( $attributes['class'] ) ) {
-			$attributes['class'] .= ' full-width';
-		} else {
-			$attributes['class'] = 'full-width';
-		}
+		// Class is always set (at least context).
+		$attributes['class'] .= ' full-width';
 		return $attributes;
 	}
 );
@@ -126,30 +123,34 @@ function show_overview() {
  * Show everything related to recipes.
  */
 function show_recipes() {
-	?>
-	<ul class="dashboard-cards">
-		<li class="dashboard-cards__item">
-			<h3 class="dashboard-cards__title">Deine Lieblingsrezepte</h3>
-			<p class="dashboard-cards__text">Um dir das Finden der Rezepte, die du am liebsten zubereitest zu erleichtern, kannst du hier deine Lieblingsrezepte abspeichern und einsehen.</p>
-			<a href="<?php the_permalink( get_page_by_path( 'lesezeichen' ) ); ?>" class="dashboard-cards__link">Zu deinen Lieblingsrezepten</a>
-		</li>
-		<li class="dashboard-cards__item">
-			<h3 class="dashboard-cards__title">Rezeptsuche</h3>
-			<p class="dashboard-cards__text">Du bist auf der Suche nach einem bestimmten Rezept? Dann benutz unsere besondere Suchfunktion. Du kannst nach Kategorie, Schwierigkeitsgrad und vielem mehr filtern.</p>
-			<a href="<?php the_permalink( get_page_by_path( 'suche' ) ); ?>" class="dashboard-cards__link">Zur Rezeptsuche</a>
-		</li>
-		<li class="dashboard-cards__item">
-			<h3 class="dashboard-cards__title">Neue Rezepte</h3>
-			<p class="dashboard-cards__text">Bei uns bekommst du regelmäßig neue Rezepte. Hier findest du unsere neuesten Rezepte.</p>
-			<a href="<?php the_permalink( get_page_by_path( 'neue-rezepte' ) ); ?>" class="dashboard-cards__link">Zu den neuen Rezepten</a>
-		</li>
-		<li class="dashboard-cards__item">
-			<h3 class="dashboard-cards__title">Die beliebtesten Rezepte</h3>
-			<p class="dashboard-cards__text">Welche Rezepte sind momentan die beliebtesten? Das kannst du hier herausfinden.</p>
-			<a href="<?php the_permalink( get_page_by_path( 'beliebte-rezepte' ) ); ?>" class="dashboard-cards__link">Zu den beliebten Rezepten</a>
-		</li>
-	</ul>
-	<?php
+	show_cards(
+		array(
+			array(
+				'title'     => 'Deine Lieblingsrezepte',
+				'text'      => 'Um dir das Finden der Rezepte, die du am liebsten zubereitest zu erleichtern, kannst du hier deine Lieblingsrezepte abspeichern und einsehen.',
+				'url'       => get_permalink( get_page_by_path( 'lesezeichen' ) ),
+				'link_text' => 'Zu deinen Lieblingsrezepten',
+			),
+			array(
+				'title'     => 'Rezeptsuche',
+				'text'      => 'Du bist auf der Suche nach einem bestimmten Rezept? Dann benutz unsere besondere Suchfunktion. Du kannst nach Kategorie, Schwierigkeitsgrad und vielem mehr filtern.',
+				'url'       => get_permalink( get_page_by_path( 'suche' ) ),
+				'link_text' => 'Zur Rezeptsuche',
+			),
+			array(
+				'title'     => 'Neue Rezepte',
+				'text'      => 'Bei uns bekommst du regelmäßig neue Rezepte. Hier findest du unsere neuesten Rezepte.',
+				'url'       => get_permalink( get_page_by_path( 'neue-rezepte' ) ),
+				'link_text' => 'Zu den neuen Rezepten',
+			),
+			array(
+				'title'     => 'Die beliebtesten Rezepte',
+				'text'      => 'Welche Rezepte sind momentan die beliebtesten? Das kannst du hier herausfinden.',
+				'url'       => get_permalink( get_page_by_path( 'beliebte-rezepte' ) ),
+				'link_text' => 'Zu den beliebten Rezepten',
+			),
+		)
+	);
 }
 
 /**
@@ -200,33 +201,41 @@ function show_reciperequest() {
  * @todo Q&As and events
  */
 function show_further() {
-	?>
-	<ul class="dashboard-cards">
-		<li class="dashboard-cards__item">
-			<h3 class="dashboard-cards__title">Einführung</h3>
-			<p class="dashboard-cards__text">Hier zeigen wir dir wie du dich am besten in unserem Mitgliederbereich zurechtfindest. Dadurch kannst du alle Vorteile deiner Mitgliedschaft ausschöpfen.</p>
-			<a href="<?php the_permalink( get_page_by_path( 'einfuehrung' ) ); ?>" class="dashboard-cards__link">Zur Einführung</a>
-		</li>
-		<li class="dashboard-cards__item">
-			<h3 class="dashboard-cards__title">Unsere Vision</h3>
-			<p class="dashboard-cards__text">Warum machen wir das alles? Finde heraus, was uns bewegt und warum wir den Mitgliederbereich ins Leben gerufen haben.</p>
-			<a href="<?php the_permalink( get_page_by_path( 'unsere-vision' ) ); ?>" class="dashboard-cards__link">Zu unserer Vision</a>
-		</li>
-	</ul>
-	<?php
+	show_cards(
+		array(
+			array(
+				'title'     => 'Einführung',
+				'text'      => 'Hier zeigen wir dir wie du dich am besten in unserem Mitgliederbereich zurechtfindest. Dadurch kannst du alle Vorteile deiner Mitgliedschaft ausschöpfen.',
+				'url'       => get_permalink( get_page_by_path( 'einfuehrung' ) ),
+				'link_text' => 'Zur Einführung',
+			),
+			array(
+				'title'     => 'Unsere Vision',
+				'text'      => 'Warum machen wir das alles? Finde heraus, was uns bewegt und warum wir den Mitgliederbereich ins Leben gerufen haben.',
+				'url'       => get_permalink( get_page_by_path( 'unsere-vision' ) ),
+				'link_text' => 'Zu unserer Vision',
+			),
+		)
+	);
 }
 
 /**
  * Show support related items.
  */
 function show_support() {
-	?>
-	<h2 class="support__heading">Hilfe & Support</h2>
-	<ul class="support__list">
-		<li class="support__item"><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'faqs' ) ) ); ?>">Zu den häufigen Fragen</a></li>
-		<li class="support__item"><a href="<?php echo esc_url( get_permalink( get_page_by_path( 'kontaktformular' ) ) ); ?>">Uns jetzt kontaktieren</a></li>
-	</ul>
-	<?php
+	echo '<h2 class="support__heading">Hilfe & Support</h2>';
+	show_button_list(
+		array(
+			array(
+				'text' => 'Zu den häufigen Fragen',
+				'url'  => get_permalink( get_page_by_path( 'faqs' ) ),
+			),
+			array(
+				'text' => 'Uns jetzt kontaktieren',
+				'url'  => get_permalink( get_page_by_path( 'kontaktformular' ) ),
+			),
+		)
+	);
 }
 
 /**
@@ -234,21 +243,23 @@ function show_support() {
  */
 function show_settings() {
 	global $rcp_options;
-	?>
-	<h2 class="settings__heading">Einstellungen</h2>
-	<ul class="dashboard-cards">
-		<li class="dashboard-cards__item">
-			<h3 class="dashboard-cards__title">Profil bearbeiten</h3>
-			<p class="dashboard-cards__text">In diesem Bereich kannst du deine Profildaten wie Benutzername, Passwort und E-Mail-Adresse ändern.</p>
-			<a href="<?php the_permalink( $rcp_options['edit_profile'] ); ?>" class="dashboard-cards__link">Profil bearbeiten</a>
-		</li>
-		<li class="dashboard-cards__item">
-			<h3 class="dashboard-cards__title">Mitgliedschaft / Zahlungen verwalten</h3>
-			<p class="dashboard-cards__text">Hier kannst du den Status deiner Mitgliedschaft und alle Zahlungen einsehen und deine Mitgliedschaft bearbeiten.</p>
-			<a href="<?php the_permalink( $rcp_options['account_page'] ); ?>" class="dashboard-cards__link">Mitgliedschaft verwalten</a>
-		</li>
-	</ul>
-	<?php
+	echo '<h2 class="settings__heading">Einstellungen</h2>';
+	show_cards(
+		array(
+			array(
+				'title'     => 'Profil bearbeiten',
+				'text'      => 'In diesem Bereich kannst du deine Profildaten wie Benutzername, Passwort und E-Mail-Adresse ändern.',
+				'url'       => get_permalink( $rcp_options['edit_profile'] ),
+				'link_text' => 'Profil bearbeiten',
+			),
+			array(
+				'title'     => 'Mitgliedschaft / Zahlungen verwalten',
+				'text'      => 'Hier kannst du den Status deiner Mitgliedschaft und alle Zahlungen einsehen und deine Mitgliedschaft bearbeiten.',
+				'url'       => get_permalink( $rcp_options['account_page'] ),
+				'link_text' => 'Mitgliedschaft verwalten',
+			),
+		)
+	);
 }
 
 /**
@@ -257,13 +268,57 @@ function show_settings() {
 function show_feedback() {
 	?>
 	<h2 class="feedback__heading">Feedback / Rückmeldung</h2>
-	<p class="feedback__text">Wir möchten dir deine Mitgliedschaft so hilfreich wie nur möglich machen.<br>Hilf uns dabei, das zu erreichen.</p>
-	<div class="feedback__button">
-		<a href="<?php echo esc_url( add_query_arg( 'feedback', '', get_permalink( get_page_by_path( 'kontaktformular' ) ) ) ); ?>">
-			Sag uns hier, was wir verbessern können!
-		</a>
-	</div>
+	<p class="feedback__text">
+		Wir möchten dir deine Mitgliedschaft so hilfreich wie nur möglich machen.<br>
+		Hilf uns dabei, das zu erreichen.
+	</p>
 	<?php
+	show_button_list(
+		array(
+			array(
+				'text' => 'Sag uns hier, was wir verbessern können!',
+				'url'  => add_query_arg( 'feedback', '', get_permalink( get_page_by_path( 'kontaktformular' ) ) ),
+			),
+		)
+	);
+}
+
+/**
+ * @param array $cards {
+ *     @type string $title
+ *     @type string $text
+ *     @type string $url
+ *     @type string $link_text
+ * }
+ */
+function show_cards( $cards ) {
+	echo '<ul class="dashboard-cards">';
+	foreach ( $cards as $card ) {
+		echo '<li class="dashboard-cards__item">';
+		echo '<h3 class="dashboard-cards__title">' . esc_html( $card['title'] ) . '</h3>';
+		echo '<p class="dashboard-cards__text">' . esc_html( $card['text'] ) . '</p>';
+		echo '<a href="' . esc_url( $card['url'] ) . '" class="dashboard-cards__link">' . esc_html( $card['link_text'] ) . '</a>';
+		echo '</li>';
+	}
+	echo '</ul>';
+}
+
+/**
+ * @param array $buttons {
+ *    @type string $text
+ *    @type string $url
+ * }
+ */
+function show_button_list( $buttons ) {
+	echo '<ul class="button-list">';
+	foreach ( $buttons as $button ) {
+		echo '<li class="button-list__button">';
+		echo '<a class="button-list__link" href="' . esc_url( $button['url'] ) . '">';
+		echo esc_html( $button['text'] );
+		echo '</a>';
+		echo '</li>';
+	}
+	echo '</ul>';
 }
 
 // Start the engine.

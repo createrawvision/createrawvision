@@ -78,6 +78,7 @@ Cards
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
+  align-items: center;
 }
 
 .dashboard-cards__title {
@@ -248,9 +249,9 @@ Recipe request
 }
 
 /*
-Support & Feedback
+Button list block
 */
-.support__list {
+.button-list {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
@@ -259,15 +260,13 @@ Support & Feedback
   margin: calc(-1 * var(--gap-vertical)) 0 0 calc(-1 * var(--gap-horizontal)) !important;
 }
 
-.support__list > * {
+.button-list > * {
   margin: var(--gap-vertical) 0 0 var(--gap-horizontal) !important;
 }
 
-.feedback__button,
-.support__item {
+.button-list__button {
   display: inline-block;
   width: auto;
-  padding: 1.4rem 2.2rem;
   font-size: 2rem;
   box-shadow: var(--box-shadow--light);
   transition: box-shadow 0.5s, background-color 0.5s;
@@ -277,13 +276,12 @@ Support & Feedback
   font-weight: bold;
 }
 
-.feedback__button:hover,
-.support__item:hover {
+.button-list__button:hover {
   box-shadow: var(--box-shadow);
-  transform: scale(1.01);
 }
 
-.feedback__button > a,
-.support__item > a {
+.button-list__link {
+  display: block;
+  padding: 1.4rem 2.2rem;
   text-decoration: none;
 }
