@@ -130,24 +130,28 @@ function show_recipes() {
 				'text'      => 'Um dir das Finden der Rezepte, die du am liebsten zubereitest zu erleichtern, kannst du hier deine Lieblingsrezepte abspeichern und einsehen.',
 				'url'       => get_permalink( get_page_by_path( 'lesezeichen' ) ),
 				'link_text' => 'Zu deinen Lieblingsrezepten',
+				'icon_name' => 'heart',
 			),
 			array(
 				'title'     => 'Rezeptsuche',
 				'text'      => 'Du bist auf der Suche nach einem bestimmten Rezept? Dann benutz unsere besondere Suchfunktion. Du kannst nach Kategorie, Schwierigkeitsgrad und vielem mehr filtern.',
 				'url'       => get_permalink( get_page_by_path( 'suche' ) ),
 				'link_text' => 'Zur Rezeptsuche',
+				'icon_name' => 'search',
 			),
 			array(
 				'title'     => 'Neue Rezepte',
 				'text'      => 'Bei uns bekommst du regelmäßig neue Rezepte. Hier findest du unsere neuesten Rezepte.',
 				'url'       => get_permalink( get_page_by_path( 'neue-rezepte' ) ),
 				'link_text' => 'Zu den neuen Rezepten',
+				'icon_name' => 'clock',
 			),
 			array(
 				'title'     => 'Die beliebtesten Rezepte',
 				'text'      => 'Welche Rezepte sind momentan die beliebtesten? Das kannst du hier herausfinden.',
 				'url'       => get_permalink( get_page_by_path( 'beliebte-rezepte' ) ),
 				'link_text' => 'Zu den beliebten Rezepten',
+				'icon_name' => 'star',
 			),
 		)
 	);
@@ -208,12 +212,14 @@ function show_further() {
 				'text'      => 'Hier zeigen wir dir wie du dich am besten in unserem Mitgliederbereich zurechtfindest. Dadurch kannst du alle Vorteile deiner Mitgliedschaft ausschöpfen.',
 				'url'       => get_permalink( get_page_by_path( 'einfuehrung' ) ),
 				'link_text' => 'Zur Einführung',
+				'icon_name' => 'card-text',
 			),
 			array(
 				'title'     => 'Unsere Vision',
 				'text'      => 'Warum machen wir das alles? Finde heraus, was uns bewegt und warum wir den Mitgliederbereich ins Leben gerufen haben.',
 				'url'       => get_permalink( get_page_by_path( 'unsere-vision' ) ),
 				'link_text' => 'Zu unserer Vision',
+				'icon_name' => 'signpost',
 			),
 		)
 	);
@@ -227,12 +233,14 @@ function show_support() {
 	show_button_list(
 		array(
 			array(
-				'text' => 'Zu den häufigen Fragen',
-				'url'  => get_permalink( get_page_by_path( 'faqs' ) ),
+				'text'      => 'Zu den häufigen Fragen',
+				'url'       => get_permalink( get_page_by_path( 'faqs' ) ),
+				'icon_name' => 'question',
 			),
 			array(
-				'text' => 'Uns jetzt kontaktieren',
-				'url'  => get_permalink( get_page_by_path( 'kontaktformular' ) ),
+				'text'      => 'Uns jetzt kontaktieren',
+				'url'       => get_permalink( get_page_by_path( 'kontaktformular' ) ),
+				'icon_name' => 'envelope',
 			),
 		)
 	);
@@ -251,12 +259,14 @@ function show_settings() {
 				'text'      => 'In diesem Bereich kannst du deine Profildaten wie Benutzername, Passwort und E-Mail-Adresse ändern.',
 				'url'       => get_permalink( $rcp_options['edit_profile'] ),
 				'link_text' => 'Profil bearbeiten',
+				'icon_name' => 'pencil-square',
 			),
 			array(
 				'title'     => 'Mitgliedschaft / Zahlungen verwalten',
 				'text'      => 'Hier kannst du den Status deiner Mitgliedschaft und alle Zahlungen einsehen und deine Mitgliedschaft bearbeiten.',
 				'url'       => get_permalink( $rcp_options['account_page'] ),
 				'link_text' => 'Mitgliedschaft verwalten',
+				'icon_name' => 'credit-card',
 			),
 		)
 	);
@@ -276,8 +286,9 @@ function show_feedback() {
 	show_button_list(
 		array(
 			array(
-				'text' => 'Sag uns hier, was wir verbessern können!',
-				'url'  => add_query_arg( 'feedback', '', get_permalink( get_page_by_path( 'kontaktformular' ) ) ),
+				'text'      => 'Sag uns hier, was wir verbessern können!',
+				'url'       => add_query_arg( 'feedback', '', get_permalink( get_page_by_path( 'kontaktformular' ) ) ),
+				'icon_name' => 'chat',
 			),
 		)
 	);
@@ -285,40 +296,95 @@ function show_feedback() {
 
 /**
  * @param array $cards {
- *     @type string $title
- *     @type string $text
- *     @type string $url
- *     @type string $link_text
+ *     @see show_card()
  * }
  */
 function show_cards( $cards ) {
 	echo '<ul class="dashboard-cards">';
 	foreach ( $cards as $card ) {
-		echo '<li class="dashboard-cards__item">';
-		echo '<h3 class="dashboard-cards__title">' . esc_html( $card['title'] ) . '</h3>';
-		echo '<p class="dashboard-cards__text">' . esc_html( $card['text'] ) . '</p>';
-		echo '<a href="' . esc_url( $card['url'] ) . '" class="dashboard-cards__link">' . esc_html( $card['link_text'] ) . '</a>';
-		echo '</li>';
+		show_card( $card );
 	}
 	echo '</ul>';
 }
 
 /**
+ * @param array $card {
+ *     @type string $title
+ *     @type string $text
+ *     @type string $url
+ *     @type string $link_text
+ *     @type string $icon_name @see get_icon_url
+ * }
+ */
+function show_card( $card ) {
+	?>
+	<li class="dashboard-cards__item">
+		<div class="dashboard-cards__header">
+			<?php maybe_show_icon( $card['icon_name'] ?? null ); ?>
+			<h3 class="dashboard-cards__title">
+				<?php echo esc_html( $card['title'] ); ?>
+			</h3>
+		</div>
+		<p class="dashboard-cards__text">
+			<?php echo esc_html( $card['text'] ); ?>
+		</p>
+		<a href="<?php echo esc_url( $card['url'] ); ?>" class="dashboard-cards__link">
+			<?php echo esc_html( $card['link_text'] ); ?>
+		</a>
+	</li>
+	<?php
+}
+
+/**
  * @param array $buttons {
- *    @type string $text
- *    @type string $url
+ *    @see show_button()
  * }
  */
 function show_button_list( $buttons ) {
 	echo '<ul class="button-list">';
 	foreach ( $buttons as $button ) {
-		echo '<li class="button-list__button">';
-		echo '<a class="button-list__link" href="' . esc_url( $button['url'] ) . '">';
-		echo esc_html( $button['text'] );
-		echo '</a>';
-		echo '</li>';
+		show_button( $button );
 	}
 	echo '</ul>';
+}
+
+/**
+ * @param array $button {
+ *    @type string $text
+ *    @type string $url
+ *    @type string $icon_name @see get_icon_url
+ * }
+ */
+function show_button( $button ) {
+	?>
+	<li class="button-list__button">
+		<a class="button-list__link" href="<?php echo esc_url( $button['url'] ); ?>">
+			<?php maybe_show_icon( $button['icon_name'] ?? null ); ?>
+			<?php echo esc_html( $button['text'] ); ?>
+		</a>
+	</li>
+	<?php
+}
+
+/**
+ * @param string $icon_name @see get_icon_url
+ */
+function maybe_show_icon( $icon_name ) {
+	if ( ! $icon_name ) {
+		return;
+	}
+	?>
+	<svg class="dashboard__icon">
+		<use href="<?php echo esc_url( get_icon_url( $icon_name ) ); ?>" />
+	</svg>
+	<?php
+}
+
+/**
+ * @param string $icon_name The icons identifier in the spritesheet (without `#`).
+ */
+function get_icon_url( $icon_name ) {
+	return CHILD_URL . '/images/dashboard-icons.svg#' . $icon_name;
 }
 
 // Start the engine.

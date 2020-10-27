@@ -9,6 +9,7 @@ Styles for the dashboard page
   --box-shadow: 0 0.5rem 1rem #999;
   --box-shadow--light: 0 0.3rem 0.6rem #aaa;
   --box-shadow--hard: 0 0.7rem 1.5rem #888;
+  --hover-shadow-transition: box-shadow 0.3s;
 }
 
 /* Global styles */
@@ -27,6 +28,15 @@ Styles for the dashboard page
 
 .dashboard-container ul {
   margin-left: 0;
+}
+
+.dashboard__icon {
+  display: inline-block;
+  max-width: 4rem;
+  max-height: 4rem;
+  margin-right: 2rem;
+  flex-shrink: 0;
+  overflow: visible;
 }
 
 /*
@@ -79,10 +89,22 @@ Cards
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+  transition: var(--hover-shadow-transition);
+}
+
+.dashboard-cards__item:hover {
+  box-shadow: var(--box-shadow);
+}
+
+.dashboard-cards__header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 2rem;
+  color: #94006c;
 }
 
 .dashboard-cards__title {
-  margin-top: 0 !important;
+  margin: 0 !important;
   font-weight: bold;
 }
 
@@ -269,10 +291,10 @@ Button list block
   width: auto;
   font-size: 2rem;
   box-shadow: var(--box-shadow--light);
-  transition: box-shadow 0.5s, background-color 0.5s;
+  transition: var(--hover-shadow-transition);
   text-transform: none;
   background: var(--card-bg);
-  color: black;
+  color: #94006c;
   font-weight: bold;
 }
 
@@ -281,7 +303,8 @@ Button list block
 }
 
 .button-list__link {
-  display: block;
+  display: flex;
+  align-items: center;
   padding: 1.4rem 2.2rem;
   text-decoration: none;
 }
