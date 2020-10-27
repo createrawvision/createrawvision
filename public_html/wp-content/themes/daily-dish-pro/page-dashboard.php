@@ -262,7 +262,7 @@ function show_settings() {
 				'icon_name' => 'pencil-square',
 			),
 			array(
-				'title'     => 'Mitgliedschaft / Zahlungen verwalten',
+				'title'     => 'Mitgliedschaft verwalten',
 				'text'      => 'Hier kannst du den Status deiner Mitgliedschaft und alle Zahlungen einsehen und deine Mitgliedschaft bearbeiten.',
 				'url'       => get_permalink( $rcp_options['account_page'] ),
 				'link_text' => 'Mitgliedschaft verwalten',
