@@ -109,7 +109,7 @@ function show_overview() {
 	foreach ( $categories as $category ) {
 		?>
 		<li class="overview__item">
-			<a href="<?php echo esc_url( get_category_link( $category['id'] ) ); ?>">
+			<a href="<?php echo esc_url( get_category_link( $category['id'] ) ); ?>" target="_blank">
 				<?php echo wp_get_attachment_image( $category['image_id'], 'thumbnail-portrait', false, array( 'class' => 'overview__image' ) ); ?>
 				<p class="overview__title"><?php echo esc_html( $category['title'] ); ?></p>
 			</a>
@@ -277,16 +277,16 @@ function show_settings() {
  */
 function show_feedback() {
 	?>
-	<h2 class="feedback__heading">Feedback / Rückmeldung</h2>
+	<h2 class="feedback__heading">Feedback</h2>
 	<p class="feedback__text">
-		Wir möchten dir deine Mitgliedschaft so hilfreich wie nur möglich machen.<br>
-		Hilf uns dabei, das zu erreichen.
+		Wir möchten dir deine Mitgliedschaft so angenehm wie möglich gestalten.<br>
+		Hilf uns dabei das zu erreichen!
 	</p>
 	<?php
 	show_button_list(
 		array(
 			array(
-				'text'      => 'Sag uns hier, was wir verbessern können!',
+				'text'      => 'Sag uns was wir verbessern können',
 				'url'       => add_query_arg( 'feedback', '', get_permalink( get_page_by_path( 'kontaktformular' ) ) ),
 				'icon_name' => 'chat',
 			),
@@ -328,7 +328,7 @@ function show_card( $card ) {
 		<p class="dashboard-cards__text">
 			<?php echo esc_html( $card['text'] ); ?>
 		</p>
-		<a href="<?php echo esc_url( $card['url'] ); ?>" class="dashboard-cards__link">
+		<a href="<?php echo esc_url( $card['url'] ); ?>" class="dashboard-cards__link" target="_blank">
 			<?php echo esc_html( $card['link_text'] ); ?>
 		</a>
 	</li>
@@ -358,7 +358,7 @@ function show_button_list( $buttons ) {
 function show_button( $button ) {
 	?>
 	<li class="button-list__button">
-		<a class="button-list__link" href="<?php echo esc_url( $button['url'] ); ?>">
+		<a class="button-list__link" href="<?php echo esc_url( $button['url'] ); ?>" target="_blank">
 			<?php maybe_show_icon( $button['icon_name'] ?? null ); ?>
 			<?php echo esc_html( $button['text'] ); ?>
 		</a>
