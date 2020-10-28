@@ -3909,8 +3909,14 @@ Supportcandy styles
 .wpsc_customer #wpsc_load_list_hide_filters_btn,
 .wpsc_customer #wpsc_load_list_reset_filters_btn,
 .wpsc_customer #wpsc_load_list_show_filters_btn,
-.wpsc_customer .wpsc_search_btn_filter {
+.wpsc_customer .wpsc_search_btn_filter,
+#create_ticket_body #wpsc_create_ticket_reset {
   display: none !important;
+}
+
+#create_ticket_body .create_ticket_fields_container input[type="checkbox"] {
+  margin-top: 8px;
+  margin-right: 1rem;
 }
 
 /*
