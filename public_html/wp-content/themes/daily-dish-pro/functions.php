@@ -1399,3 +1399,13 @@ add_action(
 	},
 	4
 );
+
+/**
+ * Shortcode for google-analytics-for-wordpress opt out.
+ */
+add_shortcode(
+	'google_analytics_optout',
+	function( $atts, $content ) {
+		return '<a href="javascript:__gaTrackerOptout()">' . do_shortcode( $content ) . '</a>';
+	}
+);
