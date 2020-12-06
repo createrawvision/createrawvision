@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: supportcandy\n"
 "POT-Creation-Date: 2020-04-04 09:49+0530\n"
-"PO-Revision-Date: 2020-08-21 07:53+0200\n"
+"PO-Revision-Date: 2020-10-28 05:01+0100\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2955,6 +2955,8 @@ msgstr "Ich bin kein Roboter"
 #: includes/admin/tickets/create_ticket/load_create_ticket.php:143
 msgid "Don't notify owner"
 msgstr ""
+"Keine Benachrichtigung an die E-Mail-Adresse schicken (nur für "
+"Supportmitarbeiter sichtbar)"
 
 #: includes/admin/tickets/create_ticket/load_create_ticket.php:152
 msgid "Submit Ticket"
@@ -3118,7 +3120,7 @@ msgstr ""
 
 #: includes/admin/tickets/individual_ticket/guest_reply_form.php:41
 msgid "Please insert your name"
-msgstr ""
+msgstr "Gib bitte deinen Namen ein"
 
 #: includes/admin/tickets/individual_ticket/guest_reply_form.php:45
 msgid "Your Email"
@@ -3999,15 +4001,15 @@ msgstr ""
 
 #: includes/class-wpsc-install.php:280
 msgid "Please insert your name."
-msgstr ""
+msgstr "Gib bitte deinen Namen ein."
 
 #: includes/class-wpsc-install.php:300
 msgid "Please insert your email."
-msgstr ""
+msgstr "Gib bitte deine E-Mail-Adresse ein."
 
 #: includes/class-wpsc-install.php:319
 msgid "Short description of the ticket."
-msgstr "Zusammenfassung der Nachricht."
+msgstr "Titel der Nachricht"
 
 #: includes/class-wpsc-install.php:335
 msgid "Description"
@@ -4015,11 +4017,11 @@ msgstr "Nachricht"
 
 #: includes/class-wpsc-install.php:336
 msgid "Detailed description of the ticket"
-msgstr "Ausführliche Beschreibung des Anliegens."
+msgstr "Was möchtest du uns mitteilen?"
 
 #: includes/class-wpsc-install.php:349
 msgid "Please select category."
-msgstr ""
+msgstr "Wähle bitte eine Kategorie."
 
 #: includes/class-wpsc-install.php:373
 msgid "Please select priority."
