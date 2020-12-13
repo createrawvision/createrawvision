@@ -87,8 +87,13 @@ function crv_update_rcp_status_mailchimp( $old_status, $new_status, $membership_
 
 	try {
 		$membership = rcp_get_membership( $membership_id );
-		$user_id    = $membership->get_user_id();
-		$user       = get_user_by( 'id', $user_id );
+		if ( $membership->was_upgraded() || $membership->is_disabled() ) {
+			// Fix the status in MailChimp going wild, since on upgrades
+			// the membership gets disabled and then cancelled from the payment gateway.
+			return;
+		}
+		$user_id = $membership->get_user_id();
+		$user    = get_user_by( 'id', $user_id );
 
 		if ( crv_rcp_skip_mailchimp( $user_id ) ) {
 			return;
