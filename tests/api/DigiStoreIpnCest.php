@@ -102,21 +102,19 @@ class DigiStoreIpnCest {
 	 * Create new pending membership
 	 * and new pending payment without transaction id
 	 */
-	private function create_pending_membership( ApiTester $I ) {
-		$this->create_membership(
-			$I,
-			array(
-				'status'                  => 'pending',
-				'gateway_subscription_id' => '',
-			)
+	private function create_pending_membership( ApiTester $I, $membership_args = array() ) {
+		$default_membership_args = array(
+			'status'                  => 'pending',
+			'gateway_subscription_id' => '',
 		);
+		$membership_args         = array_merge( $default_membership_args, $membership_args );
+		$this->create_membership( $I, $membership_args );
 
-		$this->create_payment(
-			$I,
-			array(
-				'status' => 'pending',
-			)
-		);
+		$payment_args = array( 'status' => 'pending' );
+		if ( isset( $membership_args['initial_amount'] ) ) {
+			$payment_args['amount'] = $membership_args['initial_amount'];
+		}
+		$this->create_payment( $I, $payment_args );
 
 		$I->haveInDatabase(
 			'a2kA1_rcp_membershipmeta',
@@ -209,7 +207,7 @@ class DigiStoreIpnCest {
 			'pay_sequence_no' => 1,
 			'custom'          => $this->user_id . '|' . $this->membership_id,
 		);
-		$body = array_merge( $default_body, $body );
+		$body         = array_merge( $default_body, $body );
 
 		$this->receive_ipn( $I, $body );
 	}
@@ -517,9 +515,28 @@ class DigiStoreIpnCest {
 		$I->seeInDatabase(
 			'a2kA1_rcp_memberships',
 			array(
-				'id'     => $this->membership_id,
-				'status' => 'active',
-				'gateway_subscription_id' => $new_gateway_subscription_id
+				'id'                      => $this->membership_id,
+				'status'                  => 'active',
+				'gateway_subscription_id' => $new_gateway_subscription_id,
+			)
+		);
+	}
+
+	/**
+	 * Test on_payment IPN for prorated membership does not alter recurring amount.
+	 */
+	public function test_prorated_payment_keeps_recurring( ApiTester $I ) {
+		$this->create_pending_membership( $I, array( 'initial_amount' => '8' ) );
+
+		$this->receive_initial_payment_ipn( $I, array( 'transaction_amount' => '8.00' ) );
+
+		$I->seeInDatabase(
+			'a2kA1_rcp_memberships',
+			array(
+				'id'               => $this->membership_id,
+				'status'           => 'active',
+				'initial_amount'   => '8',
+				'recurring_amount' => '10',
 			)
 		);
 	}

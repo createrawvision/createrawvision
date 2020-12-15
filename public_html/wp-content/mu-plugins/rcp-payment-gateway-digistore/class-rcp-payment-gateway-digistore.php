@@ -285,8 +285,6 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 				$is_recurring = $pay_sequence_no > 0;
 				if ( $is_recurring ) {
 					$this->renew_recurring_membership( $posted );
-
-					do_action( 'rcp_webhook_recurring_payment_processed', $member, $payment_id, $this );
 				}
 
 				if ( isset( $posted['invoice_url'] ) ) {
