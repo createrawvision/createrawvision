@@ -27,7 +27,7 @@ $recipes_category_id       = 5869;
 		schwer sein und ich zeige dir wie!
 	</p>
 	<p class="overview__item full-width-reset">
-		Für nur 9 Euro im Monat bekommst du uneingeschränkten Zugang zu hunderten
+		Für nur 11 Euro im Monat bekommst du uneingeschränkten Zugang zu hunderten
 		Rezepten und unzähligen Tutorials. Dadurch kann sich dein ganzes Leben
 		verändern.
 	</p>
@@ -132,7 +132,7 @@ $recipes_category_id       = 5869;
 <section class="offer full-width fading-bg fading-bg--right">
 	<div class="fading-bg__image"><div class="fading-bg__overlay"></div></div>
 	<div class="full-width-reset fading-bg__content offer__container">
-		<h2 class="offer__heading">Das bekommst du für nur 9 EUR im Monat</h2>
+		<h2 class="offer__heading">Das bekommst du für nur 11 EUR im Monat</h2>
 		<ul class="offer__list">
 			<li class="offer__item">500+ vegane Rohkost Rezepte</li>
 			<li class="offer__item">50+ Tipps, Tutorials und Schritt-für-Schritt-Anleitungen</li>
