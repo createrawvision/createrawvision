@@ -117,7 +117,7 @@ function crv_digistore_level_form_fields( $product_id = '', $affiliate_commissio
 			<label for="crv-digistore-affiliate-commission-fix"><?php _e( 'DigiStore Fixed Affiliate Commision' ); ?></label>
 		</th>
 		<td>
-			<input style="width: 100px;" id="crv-digistore-affiliate-commission-fix" type="text" name="digistore_affiliate_commission_fix" value="<?php echo esc_attr( $affiliate_commission_fix ); ?>" />
+			<input style="width: 100px;" id="crv-digistore-affiliate-commission-fix" type="text" name="digistore_affiliate_commission_fix" value="<?php echo esc_attr( $affiliate_commission_fix ); ?>"  pattern="^(\d+\.\d{1,2})|(\d+)$"/>
 			<p class="description">Overwrites the fixed affiliate commission. Leave empty to use settings from DigiStore backoffice.</p>
 		</td>
 	</tr>
