@@ -100,44 +100,55 @@ add_action( 'init', 'crv_trigger_digistore_invoice_download', 9 );
 
 
 /**
- * Add the DigiStore Product ID to the subscription level form
+ * Add DigiStore product specific settings to the subscription level form
  */
-function crv_digistore_product_id_form_field( $product_id = '' ) {  ?>
+function crv_digistore_level_form_fields( $product_id = '', $affiliate_commission_fix = '' ) {
+	?>
 	<tr class="form-field">
 		<th scope="row" valign="top">
 			<label for="crv-digistore-product-id"><?php _e( 'DigiStore Product-ID' ); ?></label>
 		</th>
 		<td>
-			<input id="crv-digistore-product-id" type="text" name="digistore_product_id" value="<?php echo $product_id; ?>" />
+			<input style="width: 100px;" id="crv-digistore-product-id" type="text" name="digistore_product_id" value="<?php echo esc_attr( $product_id ); ?>" />
+		</td>
+	</tr>
+	<tr class="form-field">
+		<th scope="row" valign="top">
+			<label for="crv-digistore-affiliate-commission-fix"><?php _e( 'DigiStore Fixed Affiliate Commision' ); ?></label>
+		</th>
+		<td>
+			<input style="width: 100px;" id="crv-digistore-affiliate-commission-fix" type="text" name="digistore_affiliate_commission_fix" value="<?php echo esc_attr( $affiliate_commission_fix ); ?>" />
+			<p class="description">Overwrites the fixed affiliate commission. Leave empty to use settings from DigiStore backoffice.</p>
 		</td>
 	</tr>
 	<?php
 }
 
-function crv_digistore_product_id_form_field_edit( $level ) {
+function crv_digistore_level_form_fields_edit( $level ) {
 	global $rcp_levels_db;
-	$product_id = $rcp_levels_db->get_meta( $level->id, 'digistore_product_id', true );
+	$product_id               = $rcp_levels_db->get_meta( $level->id, 'digistore_product_id', true );
+	$affiliate_commission_fix = $rcp_levels_db->get_meta( $level->id, 'digistore_affiliate_commission_fix', true );
 
-	crv_digistore_product_id_form_field( $product_id );
+	crv_digistore_level_form_fields( $product_id, $affiliate_commission_fix );
 }
 
-add_action( 'rcp_add_subscription_form', 'crv_digistore_product_id_form_field' );
-add_action( 'rcp_edit_subscription_form', 'crv_digistore_product_id_form_field_edit' );
+add_action( 'rcp_add_subscription_form', 'crv_digistore_level_form_fields' );
+add_action( 'rcp_edit_subscription_form', 'crv_digistore_level_form_fields_edit' );
 
 /**
  * Add the DigiStore Product ID as subscription level meta
  */
-function crv_add_digistore_product_id( $level_id, $args ) {
-	if ( empty( $args['digistore_product_id'] ) ) {
-		return;
-	}
-
+function crv_update_digistore_level_meta( $level_id, $args ) {
 	global $rcp_levels_db;
-
-	$rcp_levels_db->update_meta( $level_id, 'digistore_product_id', trim( $args['digistore_product_id'] ) );
+	if ( $args['digistore_product_id'] ) {
+		$rcp_levels_db->update_meta( $level_id, 'digistore_product_id', trim( $args['digistore_product_id'] ) );
+	}
+	if ( $args['digistore_affiliate_commission_fix'] ) {
+		$rcp_levels_db->update_meta( $level_id, 'digistore_affiliate_commission_fix', trim( $args['digistore_affiliate_commission_fix'] ) );
+	}
 }
-add_action( 'rcp_add_subscription', 'crv_add_digistore_product_id', 10, 2 );
-add_action( 'rcp_edit_subscription_level', 'crv_add_digistore_product_id', 10, 2 );
+add_action( 'rcp_add_subscription', 'crv_update_digistore_level_meta', 10, 2 );
+add_action( 'rcp_edit_subscription_level', 'crv_update_digistore_level_meta', 10, 2 );
 
 
 /**

@@ -117,6 +117,11 @@ class RCP_Payment_Gateway_Digistore extends RCP_Payment_Gateway {
 
 			$settings = array();
 
+			$affiliate_commission_fix = $rcp_levels_db->get_meta( $this->subscription_id, 'digistore_affiliate_commission_fix', true );
+			if ( false !== $affiliate_commission_fix && '' !== $affiliate_commission_fix ) {
+				$settings['affiliate_commission_fix'] = $affiliate_commission_fix;
+			}
+
 			$api_response = $api->createBuyUrl( $product_id, $buyer, $payment_plan, $tracking, $valid_until, $urls, $placeholders, $settings );
 
 			wp_redirect( $api_response->url );
