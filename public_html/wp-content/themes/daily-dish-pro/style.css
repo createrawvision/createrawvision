@@ -3973,3 +3973,17 @@ Cooperations
 .crv-cooperations img {
   max-height: 7.5rem;
 }
+
+/*
+Keimling logo to affilate links in recipes
+*/
+.wprm-recipe-ingredient-link[href*="keimling.de"]::after,
+.wprm-recipe-equipment-link[href*="keimling.de"]::after {
+  background: center / contain no-repeat
+    url(https://www.keimling.de/bundles/keimlingtheme/storefront/img/logo.svg?161899616815933);
+  display: inline-block;
+  height: 1.8em;
+  width: 2.5em;
+  content: "";
+  margin: -0.2em 0.2em -0.5em 0;
+}
