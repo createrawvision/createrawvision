@@ -3975,15 +3975,15 @@ Cooperations
 }
 
 /*
-Keimling logo to affilate links in recipes
+Add Keimling logo to affilate links in recipes
 */
 .wprm-recipe-ingredient-link[href*="keimling.de"]::after,
 .wprm-recipe-equipment-link[href*="keimling.de"]::after {
-  background: center / contain no-repeat
-    url(https://www.keimling.de/bundles/keimlingtheme/storefront/img/logo.svg?161899616815933);
-  display: inline-block;
-  height: 1.8em;
-  width: 2.5em;
+  /* @todo shrink image */
+  background: center / contain no-repeat url(images/keimling-logo.png);
   content: "";
-  margin: -0.2em 0.2em -0.5em 0;
+  display: inline-block;
+  height: 1.3em;
+  width: calc(1.3em * 444 / 281);
+  margin: 0 0.2em -0.3em 0.4em;
 }
