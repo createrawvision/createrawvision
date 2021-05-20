@@ -24,7 +24,9 @@ foreach ( $recipe_ids as $recipe_id ) {
 		foreach ( $ingredients as &$ingredient ) {
 			$ingredient['notes'] = strip_leading_star( $ingredient['notes'] );
 		}
+		unset($ingredient, $ingredients);
 	}
+	unset($ingredient_group);
 
 	update_post_meta( $recipe_id, 'wprm_ingredients', $ingredient_groups );
 
