@@ -1410,10 +1410,10 @@ add_shortcode(
 	}
 );
 
-/** Echo template for Keimling logo */
+/** Echo template for Keimling icon */
 add_action(
 	'wp_footer',
 	function() {
-		include CHILD_DIR . '/templates/keimling-recipe-link-logo.php';
+		include CHILD_DIR . '/templates/keimling-recipe-link-icon.php';
 	}
 );

@@ -134,11 +134,11 @@
     ".wprm-recipe-ingredient-link, .wprm-recipe-equipment-link"
   );
 
-  // Add a logo to all "keimling.de" links in recipes
-  const keimlingRecipeLinkLogo = $(
-    "template#crv-keimling-recipe-link-logo"
+  // Add a icon to all "keimling.de" links in recipes
+  const keimlingRecipeLinkIcon = $(
+    "template#crv-keimling-recipe-link-icon"
   ).contents();
-  recipeLinks.filter('[href*="keimling.de"]').after(keimlingRecipeLinkLogo);
+  recipeLinks.filter('[href*="keimling.de"]').after(keimlingRecipeLinkIcon);
 
   // Add a star to all affiliate links in recipes
   const affiliateIdentifiers = [
