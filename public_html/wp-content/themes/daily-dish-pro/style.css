@@ -3944,32 +3944,30 @@ Cooperations
 */
 .crv-cooperations {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   text-align: center;
   font-size: 1.8rem;
+  justify-content: flex-end;
 }
 
 .crv-cooperations.full-width {
   background-color: hsl(40 52% 89%);
-  justify-content: center;
   box-shadow: 0 0.5rem 1rem #0008;
   padding: 2rem;
-}
-
-.crv-cooperations:not(.full-width) {
-  justify-content: flex-end;
-  max-width: 900px;
+  justify-content: center;
 }
 
 .crv-cooperations .description {
-  margin: 1rem 1.4rem;
+  margin: 0.8rem 1.6rem;
   font-style: italic;
-}
-
-.crv-cooperations > *:nth-child(2) {
-  flex-shrink: 0;
 }
 
 .crv-cooperations img {
   max-height: 7.5rem;
+}
+
+.crv-cooperations img[alt="Keimling"] {
+  padding: 0.8rem 0 1.2rem;
+  margin-right: 1.4rem;
 }
