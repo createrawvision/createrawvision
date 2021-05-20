@@ -1409,3 +1409,11 @@ add_shortcode(
 		return '<a href="javascript:__gaTrackerOptout()">' . do_shortcode( $content ) . '</a>';
 	}
 );
+
+/** Echo template for Keimling logo */
+add_action(
+	'wp_footer',
+	function() {
+		include CHILD_DIR . '/templates/keimling-recipe-link-logo.php';
+	}
+);

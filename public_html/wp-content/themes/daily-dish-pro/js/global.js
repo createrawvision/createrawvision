@@ -128,4 +128,15 @@
       // Click on the toggle.
       $(this).siblings(".sub-menu-toggle").click();
     });
+
+  // Affiliate links in recipe ingredients and equipments
+  const recipeLinks = $(
+    ".wprm-recipe-ingredient-link, .wprm-recipe-equipment-link"
+  );
+
+  // Add a logo to all "keimling.de" links in recipes
+  const keimlingRecipeLinkLogo = $(
+    "template#crv-keimling-recipe-link-logo"
+  ).contents();
+  recipeLinks.filter('[href*="keimling.de"]').after(keimlingRecipeLinkLogo);
 })(jQuery);
