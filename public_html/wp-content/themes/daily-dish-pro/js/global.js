@@ -129,8 +129,8 @@
       $(this).siblings(".sub-menu-toggle").click();
     });
 
-  // Affiliate links in recipe ingredients and equipments
-  const recipeLinks = $(
+  // Affiliate links in public recipe ingredients and equipments
+  const publicRecipeLinks = $("body:not(.crv-restricted)").find(
     ".wprm-recipe-ingredient-link, .wprm-recipe-equipment-link"
   );
 
@@ -138,7 +138,9 @@
   const keimlingRecipeLinkIcon = $(
     "template#crv-keimling-recipe-link-icon"
   ).contents();
-  recipeLinks.filter('[href*="keimling.de"]').after(keimlingRecipeLinkIcon);
+  publicRecipeLinks
+    .filter('[href*="keimling.de"]')
+    .after(keimlingRecipeLinkIcon);
 
   // Add a star to all affiliate links in recipes
   const affiliateIdentifiers = [
@@ -156,7 +158,7 @@
   ];
   const isAffiliateLink = (link) =>
     affiliateIdentifiers.some((identifier) => link.href?.includes(identifier));
-  recipeLinks
+  publicRecipeLinks
     .filter((_index, link) => isAffiliateLink(link))
     .after('<abbr title="Affiliate Link" style="margin-left: 0.1em">*</abbr>');
 })(jQuery);
