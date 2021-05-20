@@ -15,9 +15,8 @@ add_action(
 			return;
 		}
 
-		global $post;
 		// Restrict member content and metadata
-		if ( $post && is_single() && crv_is_restricted_post( $post->ID ) ) {
+		if ( is_single() && crv_is_restricted_post() ) {
 			// Show excerpt and restriction message
 			add_filter( 'the_content', 'crv_restricted_content', 100 );
 
@@ -31,9 +30,26 @@ add_action(
 );
 
 /**
+ * Add `crv-restricted` body class for restricted posts
+ */
+add_filter(
+	'body_class',
+	function( $classes ) {
+		if ( crv_is_restricted_post() ) {
+			$classes[] = 'crv-restricted';
+		}
+		return $classes;
+	}
+);
+
+/**
  * All posts in category 'member' are member-content
  */
-function crv_is_restricted_post( $post_id ) {
+function crv_is_restricted_post( $post_id = null ) {
+	$post_id = $post_id ?? get_the_ID();
+	if ( ! $post_id ) {
+		return false;
+	}
 	return empty( crv_strip_restricted_posts( array( $post_id ) ) );
 }
 

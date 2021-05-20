@@ -9,8 +9,7 @@ $recipes_category_id       = 5869;
 	<p class="hero__subtitle">Deine Anlaufstelle für Rohkost Rezepte</p>
 </header>
 <div class="crv-cooperations full-width">
-	<span class="description">Eine Kooperation mit</span>
-	<img src="<?php echo esc_url( CHILD_URL . '/images/topfruits-logo.jpg' ); ?>" alt="Topfruits">
+	<?php echo_cooperations_content(); ?>
 </div>
 
 <section class="overview full-width" aria-label="Übersicht">
