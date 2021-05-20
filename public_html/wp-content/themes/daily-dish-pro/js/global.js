@@ -139,4 +139,24 @@
     "template#crv-keimling-recipe-link-logo"
   ).contents();
   recipeLinks.filter('[href*="keimling.de"]').after(keimlingRecipeLinkLogo);
+
+  // Add a star to all affiliate links in recipes
+  const affiliateIdentifiers = [
+    "ad.zanox.com",
+    "amzn.to",
+    "awin1.com",
+    "t.adcell.com",
+    "cashew-shop.de",
+    "grueneperlen.com",
+    "regenbogenkreis.de",
+    "taiga-store.de",
+    "topfruits.de",
+    "thehealthylife.de",
+    "vegaroma.de",
+  ];
+  const isAffiliateLink = (link) =>
+    affiliateIdentifiers.some((identifier) => link.href?.includes(identifier));
+  recipeLinks
+    .filter((_index, link) => isAffiliateLink(link))
+    .after('<abbr title="Affiliate Link" style="margin-left: 0.1em">*</abbr>');
 })(jQuery);
