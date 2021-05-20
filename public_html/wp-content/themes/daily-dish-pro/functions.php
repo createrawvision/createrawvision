@@ -1390,15 +1390,21 @@ add_action(
 		if ( ! is_page( $rcp_options['registration_page'] ) ) {
 			return;
 		}
-		?>
-		<div class="crv-cooperations" style="margin: -1rem auto 1rem;">
-			<span class="description">Eine Kooperation mit</span>
-			<img src="<?php echo esc_url( CHILD_URL . '/images/topfruits-logo.jpg' ); ?>" alt="Topfruits">
-		</div>
-		<?php
+		echo '<div class="crv-cooperations" style="margin: -1rem auto 1rem;">';
+		echo_cooperations_content();
+		echo '</div>';
 	},
 	4
 );
+function echo_cooperations_content() {
+	?>
+	<span class="description">Eine Kooperation mit</span>
+	<div>
+		<img src="<?php echo esc_url( CHILD_URL . '/images/keimling-logo.png' ); ?>" alt="Keimling">
+		<img src="<?php echo esc_url( CHILD_URL . '/images/topfruits-logo.jpg' ); ?>" alt="Topfruits">
+	</div>
+	<?php
+}
 
 /**
  * Shortcode for google-analytics-for-wordpress opt out.
@@ -1407,5 +1413,13 @@ add_shortcode(
 	'google_analytics_optout',
 	function( $atts, $content ) {
 		return '<a href="javascript:__gaTrackerOptout()">' . do_shortcode( $content ) . '</a>';
+	}
+);
+
+/** Echo template for Keimling icon */
+add_action(
+	'wp_footer',
+	function() {
+		include CHILD_DIR . '/templates/keimling-recipe-link-icon.php';
 	}
 );

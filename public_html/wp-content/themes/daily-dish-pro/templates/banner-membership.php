@@ -11,8 +11,7 @@
 			</button>
 		</a>
 		<div class="crv-cooperations">
-			<span class="description">Eine Kooperation mit</span>
-			<img src="<?php echo esc_url( CHILD_URL . '/images/topfruits-logo.jpg' ); ?>" alt="Topfruits">
+			<?php echo_cooperations_content(); ?>
 		</div>
 	</div>
 </div>
