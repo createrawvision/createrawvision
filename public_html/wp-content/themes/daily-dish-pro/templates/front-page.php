@@ -140,7 +140,6 @@ $recipes_category_id       = 5869;
 			<li class="offer__item">Regelmäßig neue Rohkost Rezepte, Tipps und Schritt-für-Schritt-Anleitungen</li>
 			<li class="offer__item">Aktive Mitgestaltung durch Wunschrezepte</li>
 			<li class="offer__item">Erstellen von eigenen Rezeptsammlungen </li>
-			<li class="offer__item">Monatliche Live-Calls</li>
 			<li class="offer__item">Ständige Pflege, Aktualisierung und Verbesserung des Mitgliederbereiches, der Inhalte und Rezepte</li>
 			<li class="offer__item">Rückfrage-Möglichkeiten zu den Rohkost Rezepten – mit schnellen Antworten</li>
 			<li class="offer__item">Mitgliedschaft in einer wachsenden, sich gegenseitig unterstützenden Community</li>
@@ -236,7 +235,7 @@ $recipes_category_id       = 5869;
 			<tr>
 				<th scope="row">Kontakt</th>
 				<td>Kein direkter Kontakt zum Autor möglich, keine Fragen zu Rezepten</td>
-				<td>Monatliche Live-Calls mit dem CreateRawVision Team, Kommentare unter den Rezepten mit Antworten und persönlichem Support</td>
+				<td>Kommentare unter jedem Rezept mit Antworten und persönlichem Support</td>
 			</tr>
 			<tr>
 				<th scope="row">Verbesserung von Funktionalität, Design und bestehenden Rezepten</th>
@@ -324,10 +323,6 @@ $recipes_category_id       = 5869;
 			</li>
 			<li class="offer2__item">
 				Druckbare PDF-Rezepte – Erstelle dein eigenes Rohkost Kochbuch
-			</li>
-			<li class="offer2__item">
-				Monatliche Gruppen-Lifecalls mit uns, in denen wir dir deine Fragen
-				beantworten.
 			</li>
 			<li class="offer2__item">
 				Monatlich neue großartige Rohkost Rezepte und Tutorials die wir regelmäßig auf
