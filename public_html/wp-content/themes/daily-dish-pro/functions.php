@@ -1423,3 +1423,8 @@ add_action(
 		include CHILD_DIR . '/templates/keimling-recipe-link-icon.php';
 	}
 );
+
+/** Footer configured in widgets */
+function crv_has_minimal_footer() {
+	return is_front_page() || is_page_template( 'page_landing.php' );
+}

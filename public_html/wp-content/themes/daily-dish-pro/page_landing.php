@@ -68,9 +68,6 @@ remove_action( 'genesis_before', 'daily_dish_before_header' );
 // Remove before footer widget area.
 remove_action( 'genesis_before_footer', 'daily_dish_before_footer_widgets', 5 );
 
-// Remove site footer widgets.
-remove_action( 'genesis_before_footer', 'genesis_footer_widget_areas' );
-
 // Remove site footer elements.
 remove_action( 'genesis_footer', 'genesis_footer_markup_open', 5 );
 remove_action( 'genesis_footer', 'genesis_do_footer' );

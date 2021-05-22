@@ -10,11 +10,11 @@
   margin: 0;
 }
 
-section {
+main section {
   padding: 8rem 5rem;
 }
 
-section .inner {
+main section .inner {
   max-width: 720px;
   margin: auto;
 }
@@ -23,14 +23,14 @@ body > div {
   font-size: 2rem;
 }
 
-section.odd-section {
+main section.odd-section {
   background-color: rgba(225, 204, 159, 0.75);
   background-image: linear-gradient(#fff4, #fff4),
     url("/wp-content/uploads/2019/09/Background.jpg");
   background-size: 1000px;
 }
 
-section.even-section {
+main section.even-section {
   background-color: white;
 }
 
@@ -218,7 +218,7 @@ h2 {
   margin-bottom: 0.2em;
 }
 
-section.header {
+main section.header {
   position: relative;
   font-size: 1.2em;
   padding-bottom: 320px;
@@ -236,18 +236,18 @@ section.header {
     url("/wp-content/uploads/2019/09/Background.jpg");
 }
 
-section.header + section {
+main section.header + section {
   padding-top: 100px;
 }
 
-section.header img {
+main section.header img {
   position: absolute;
   left: 0;
   right: 0;
   margin-top: 25px;
 }
 
-section.header b {
+main section.header b {
   color: rgb(148, 0, 108);
 }
 
@@ -256,7 +256,7 @@ section.header b {
     width: 100%;
   }
 
-  section {
+  main section {
     padding: 5rem 3rem;
   }
 
