@@ -4,7 +4,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/restrict-content-"
 "pro\n"
 "POT-Creation-Date: 2020-05-04 14:01+0100\n"
-"PO-Revision-Date: 2020-08-21 16:09+0200\n"
+"PO-Revision-Date: 2021-05-22 21:25+0200\n"
 "Last-Translator: flowdee <coder@flowdee.de>\n"
 "Language-Team: sz\n"
 "Language: de\n"
@@ -9477,7 +9477,7 @@ msgstr ""
 
 #: templates/register.php:83
 msgid "Choose your membership level"
-msgstr "Bitte wähle deine Mitgliedsstufe aus"
+msgstr "Bitte wähle deine Mitgliedschaft aus"
 
 #: templates/register.php:97
 #, fuzzy, php-format
