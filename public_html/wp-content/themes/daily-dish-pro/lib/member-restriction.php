@@ -35,7 +35,7 @@ add_action(
 add_filter(
 	'body_class',
 	function( $classes ) {
-		if ( crv_is_restricted_post() ) {
+		if ( is_single() && crv_is_restricted_post() ) {
 			$classes[] = 'crv-restricted';
 		}
 		return $classes;
