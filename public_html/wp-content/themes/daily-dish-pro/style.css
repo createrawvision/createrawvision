@@ -3385,9 +3385,8 @@ li.comment {
   }
 }
 
-/*
-RCP
-*/
+/* Restrict Content Pro */
+
 /* Login Form */
 #rcp_login_form {
   display: flex;
@@ -3507,6 +3506,11 @@ RCP
 }
 
 /* Registration page */
+.post-21072 {
+  max-width: 960px;
+  margin: auto;
+}
+
 .rcp_header {
   display: none;
 }
@@ -3515,7 +3519,12 @@ RCP
   display: flex;
   flex-flow: column nowrap;
   background-color: hsl(41 25% 90% / 1);
-  padding: 3rem !important;
+  padding: 2rem 3rem !important;
+  border-radius: 0.5rem;
+}
+
+#rcp_registration_form .rcp_subscription_message {
+  margin-bottom: 1em;
 }
 
 #rcp_registration_form .rcp_subscription_fieldset {
@@ -3528,13 +3537,17 @@ RCP
 
 #rcp_subscription_levels {
   display: flex;
-  flex-flow: row nowrap;
+  flex-direction: row;
+  justify-content: center;
   --gap: 2rem;
-  margin: calc(-1 * var(--gap)) 0 0 calc(-1 * var(--gap)) !important;
+  margin: calc(-1 * var(--gap)) 0 1em calc(-1 * var(--gap)) !important;
 }
 
 #rcp_subscription_levels > * {
-  margin: var(--gap) 0 15px var(--gap) !important;
+  margin: var(--gap) 0 0 var(--gap) !important;
+  justify-content: center;
+  flex-basis: 50%;
+  max-width: 500px;
 }
 
 .rcp_subscription_level {
@@ -3582,6 +3595,31 @@ RCP
 
 #rcp_subscription_levels input:checked {
   background-color: #009900;
+}
+
+#rcp_registration_form .rcp_registration_total_details {
+  margin-bottom: 2rem;
+}
+
+#rcp_agree_to_terms_wrap {
+  margin-bottom: 2rem;
+}
+
+#rcp_submit {
+  display: block;
+  margin: 1rem auto 0;
+  width: clamp(200px, 35%, 300px);
+  font-size: inherit;
+  padding: 1em;
+  border-radius: 0.5rem;
+}
+
+@media only screen and (min-width: 960px) {
+  #rcp_registration_form .rcp_user_fieldset {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0 2rem;
+  }
 }
 
 @media only screen and (max-width: 768px) {
